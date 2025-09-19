@@ -448,6 +448,74 @@ const BlogPost = () => {
                 </div>
               </div>
             </div>
+
+            {/* Comments Section */}
+            <div className="mt-12 pt-8 border-t border-white/10">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-white">Comments ({comments.length})</h3>
+                <button
+                  onClick={() => setShowComments(!showComments)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors duration-300"
+                >
+                  {showComments ? 'Hide Comments' : 'Show Comments'}
+                </button>
+              </div>
+
+              {showComments && (
+                <div className="space-y-6">
+                  {/* Add Comment Form */}
+                  <form onSubmit={handleAddComment} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <h4 className="text-lg font-medium text-white mb-4">Leave a Comment</h4>
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Share your thoughts..."
+                      className="w-full h-24 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 resize-none"
+                    />
+                    <div className="flex justify-end mt-4">
+                      <button
+                        type="submit"
+                        disabled={!newComment.trim()}
+                        className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transition-all duration-300"
+                      >
+                        Post Comment
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Comments List */}
+                  <div className="space-y-4">
+                    {comments.map((comment) => (
+                      <div key={comment.id} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
+                            {comment.avatar}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h5 className="font-medium text-white">{comment.author}</h5>
+                              <span className="text-xs text-gray-400">{comment.timestamp}</span>
+                            </div>
+                            <p className="text-gray-300 leading-relaxed mb-3">{comment.content}</p>
+                            <div className="flex items-center gap-4">
+                              <button className="flex items-center gap-1 text-gray-400 hover:text-red-400 transition-colors duration-300">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 3C16.3128 3.00364 15.6865 3.15523 15.1146 3.44361C14.5427 3.73198 14.0389 4.14704 13.64 4.66L12 6.78L10.36 4.66C9.96104 4.14704 9.45727 3.73198 8.88537 3.44361C8.31348 3.15523 7.68717 3.00364 7.05 3C6.32755 2.99817 5.61208 3.14052 4.94463 3.41708C4.27718 3.69364 3.67075 4.099 3.16 4.61C2.14821 5.6228 1.58407 7.01368 1.58407 8.465C1.58407 9.91632 2.14821 11.3072 3.16 12.32L12 21.16L20.84 12.32C21.8518 11.3072 22.4159 9.91632 22.4159 8.465C22.4159 7.01368 21.8518 5.6228 20.84 4.61Z"/>
+                                </svg>
+                                <span className="text-sm">{comment.likes}</span>
+                              </button>
+                              <button className="text-gray-400 hover:text-purple-400 text-sm transition-colors duration-300">
+                                Reply
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </article>
