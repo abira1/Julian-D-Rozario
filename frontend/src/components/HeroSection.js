@@ -155,7 +155,7 @@ const HeroSection = () => {
         <div ref={ctaRef} className="flex justify-center">
           <button
             onClick={handleCTAClick}
-            className="group relative px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
+            className="group relative px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 mobile-blur-button"
             style={{
               background: `
                 linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(59, 130, 246, 0.9)),
