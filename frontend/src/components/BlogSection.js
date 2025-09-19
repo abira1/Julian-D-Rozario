@@ -68,23 +68,22 @@ const BlogCard = ({ blog, index, gridPosition }) => {
     navigate(`/blog/${blog.id}`);
   };
 
-  // Bento-style grid positioning
+  // Compact Bento-style grid positioning - smaller cards
   const getBentoClass = () => {
     const positions = {
-      0: 'md:col-span-2 md:row-span-2', // Large featured
+      0: 'md:col-span-2 md:row-span-1', // Medium featured (reduced from span-2)
       1: 'md:col-span-1 md:row-span-1', // Small
       2: 'md:col-span-1 md:row-span-1', // Small  
-      3: 'md:col-span-2 md:row-span-1', // Wide
+      3: 'md:col-span-2 md:row-span-1', // Wide (but shorter)
       4: 'md:col-span-1 md:row-span-1', // Small
-      5: 'md:col-span-1 md:row-span-2', // Tall
+      5: 'md:col-span-1 md:row-span-1', // Small (reduced from tall)
       6: 'md:col-span-1 md:row-span-1', // Small
       7: 'md:col-span-1 md:row-span-1', // Small
     };
     return positions[gridPosition] || 'md:col-span-1 md:row-span-1';
   };
 
-  const isLarge = gridPosition === 0;
-  const isTall = gridPosition === 5;
+  const isFeatured = gridPosition === 0;
   const isWide = gridPosition === 3;
 
   return (
