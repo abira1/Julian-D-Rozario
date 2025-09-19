@@ -79,113 +79,217 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900 border-t border-white/10">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-full filter blur-3xl"></div>
-        <div className="absolute -top-40 right-1/4 w-60 h-60 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full filter blur-3xl"></div>
+    <footer 
+      ref={footerRef}
+      className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 overflow-hidden"
+    >
+      {/* Modern Background with Mesh Gradient */}
+      <div className="absolute inset-0">
+        {/* Animated mesh background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-slate-900/30"></div>
+        
+        {/* Floating orbs */}
+        <div className="floating-orb absolute top-20 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full filter blur-2xl glow-pulse"></div>
+        <div className="floating-orb absolute top-32 right-1/3 w-24 h-24 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full filter blur-2xl glow-pulse"></div>
+        <div className="floating-orb absolute bottom-20 left-1/3 w-20 h-20 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full filter blur-2xl glow-pulse"></div>
+        
+        {/* Grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        ></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Brand Section */}
-          <div className="space-y-6">
-            <div className="flex items-center space-x-3">
-              <img 
-                src="/jdr-logo.png" 
-                alt="Julian D Rozario Logo" 
-                className="w-12 h-12"
-              />
-              <div>
-                <h3 className="text-xl font-bold text-white">Julian D Rozario</h3>
-                <p className="text-gray-400 text-sm">Business Consultant & Licensing Advisor</p>
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        
+        {/* Top Section with Enhanced Design */}
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-16">
+          
+          {/* Brand Section - Enhanced */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="group">
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="relative">
+                  <img 
+                    src="/jdr-logo.png" 
+                    alt="Julian D Rozario Logo" 
+                    className="w-14 h-14 group-hover:scale-110 transition-all duration-300 relative z-10"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full scale-0 group-hover:scale-150 transition-all duration-300 blur-md"></div>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+                    Julian D Rozario
+                  </h3>
+                  <p className="text-gray-400 text-sm font-medium">Business Consultant & Licensing Advisor</p>
+                </div>
               </div>
+              
+              <p className="text-gray-300 leading-relaxed text-lg max-w-md">
+                Transforming businesses through strategic consulting and innovative licensing solutions. 
+                <span className="block mt-2 text-purple-300 font-medium">Let's unlock your business potential together.</span>
+              </p>
+              
+              {/* CTA Button */}
+              <button
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="mt-6 group relative px-8 py-3 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-xl text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/25 overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Get Started Today
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
             </div>
-            <p className="text-gray-300 leading-relaxed">
-              Transforming businesses through strategic consulting and innovative licensing solutions. 
-              Let's work together to unlock your business potential.
-            </p>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-white">Quick Links</h4>
-            <div className="space-y-3">
-              {['About', 'Services', 'Blog', 'Contact'].map((item) => (
+          {/* Navigation Links - Modernized */}
+          <div className="space-y-8">
+            <h4 className="text-xl font-bold text-white relative">
+              Quick Navigation
+              <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></span>
+            </h4>
+            <div className="space-y-4">
+              {['About', 'Services', 'Blog', 'Contact'].map((item, index) => (
                 <button
                   key={item}
                   onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
-                  className="block text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                  className="group flex items-center gap-3 text-gray-300 hover:text-white transition-all duration-300 py-2"
                 >
-                  {item}
+                  <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full scale-0 group-hover:scale-100 transition-all duration-300"></div>
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">{item}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold text-white">Contact Info</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-gray-300">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.03 7.03 1 12 1S21 5.03 21 10Z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span>{contactData.location}</span>
+          {/* Contact Information - Enhanced */}
+          <div className="space-y-8">
+            <h4 className="text-xl font-bold text-white relative">
+              Get In Touch
+              <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></span>
+            </h4>
+            <div className="space-y-6">
+              <div className="group flex items-start gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/5 hover:border-purple-500/20">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.03 7.03 1 12 1S21 5.03 21 10Z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-medium">Location</p>
+                  <p className="text-gray-300 text-sm">{contactData.location}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-gray-300">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-                <span>{contactData.email}</span>
+              
+              <div className="group flex items-start gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/5 hover:border-purple-500/20">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-medium">Email</p>
+                  <p className="text-gray-300 text-sm">{contactData.email}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-gray-300">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12,6 12,12 16,14"/>
-                </svg>
-                <span className="text-green-400">{contactData.availability}</span>
+              
+              <div className="group flex items-start gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/5 hover:border-green-500/20">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-medium">Availability</p>
+                  <p className="text-green-400 text-sm font-medium">{contactData.availability}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-gray-400 text-sm">
-            © {currentYear} Julian D Rozario. All rights reserved.
-          </p>
+        {/* Separator Line with Gradient */}
+        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-12"></div>
 
-          {/* Social Links */}
+        {/* Bottom Section - Completely Redesigned */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+          
+          {/* Copyright and Developer Credit */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+            <p className="text-gray-400 text-sm">
+              © {currentYear} Julian D Rozario. All rights reserved.
+            </p>
+            <div className="hidden sm:block w-px h-4 bg-gray-600"></div>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-400 text-sm">Designed & Developed by</span>
+              <a
+                href="https://toiral-development.web.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative text-sm font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-blue-300 transition-all duration-300"
+              >
+                Toiral Web Development
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300 rounded-full"></span>
+              </a>
+            </div>
+          </div>
+
+          {/* Social Links - Enhanced Design */}
           <div className="flex items-center gap-4">
-            {socialLinks.map((social) => (
+            {socialLinks.map((social, index) => (
               <a
                 key={social.name}
                 href={social.href}
                 target={social.name === 'LinkedIn' ? '_blank' : undefined}
                 rel={social.name === 'LinkedIn' ? 'noopener noreferrer' : undefined}
-                className="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-600/20 hover:border-purple-500/30 transition-all duration-300 group"
+                className={`group relative w-12 h-12 bg-gradient-to-r ${social.color} rounded-xl flex items-center justify-center text-white hover:scale-110 hover:rotate-3 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden`}
                 title={social.name}
               >
-                {social.icon}
+                <span className="relative z-10 group-hover:scale-110 transition-transform duration-300">
+                  {social.icon}
+                </span>
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </a>
             ))}
           </div>
 
-          {/* Back to Top */}
+          {/* Enhanced Back to Top Button */}
           <button
             onClick={scrollToTop}
-            className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center text-white hover:scale-110 transition-all duration-300 group"
+            className="group relative w-12 h-12 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-xl flex items-center justify-center text-white hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-purple-500/30 overflow-hidden"
             title="Back to Top"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-0.5 transition-transform duration-300">
-              <path d="M18 15L12 9L6 15"/>
-            </svg>
+            <span className="relative z-10 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 15L12 9L6 15"/>
+              </svg>
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Ripple effect */}
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 rounded-xl bg-white/20 animate-ping"></div>
+            </div>
           </button>
         </div>
       </div>
+
+      {/* Bottom glow effect */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
     </footer>
   );
 };
