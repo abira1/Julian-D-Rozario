@@ -402,7 +402,7 @@ const BlogPost = () => {
                 </p>
 
                 <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-2xl p-8 my-8">
-                  <h3 className="text-xl font-semibold text-white mb-4">Phase 1: Assessment & Analysis</h3>
+                  <h3 id="assessment" className="text-xl font-semibold text-white mb-4">Phase 1: Assessment & Analysis</h3>
                   <p className="text-gray-300">
                     Comprehensive evaluation of current state, market position, and competitive landscape to identify opportunities and challenges.
                   </p>
