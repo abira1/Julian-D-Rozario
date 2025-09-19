@@ -4,6 +4,8 @@ import { contactData } from '../data/mockData';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const footerRef = useRef(null);
+  const animationRef = useRef([]);
 
   const socialLinks = [
     {
