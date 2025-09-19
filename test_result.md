@@ -118,29 +118,29 @@ backend:
           comment: "No backend modifications needed for this frontend-focused task"
 
 frontend:
-  - task: "Modernize mobile navbar with enhanced design and animations"
+  - task: "Fix desktop service card subtitles display issue"
     implemented: true
     working: true
-    file: "/app/frontend/src/components/Navigation.js"
+    file: "/app/frontend/src/components/MagicBento.css"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
         - working: true
           agent: "main"
-          comment: "Successfully implemented modern mobile navbar with: 1) Enhanced hamburger animation with gradient colors and sophisticated morphing, 2) Full-screen overlay mobile menu with backdrop blur, 3) GSAP-powered stagger animations for menu items, 4) Modern glassmorphism effects, 5) Improved visual hierarchy with large typography, 6) Added decorative elements and micro-interactions, 7) Body scroll lock functionality, 8) Enhanced desktop navbar design for consistency"
+          comment: "Successfully fixed service card subtitle truncation issue on desktop by adding responsive CSS rules. Increased line-clamp from 2 to 3 lines for desktop screens (1024px+) and 4 lines for large screens (1440px+). All 6 service cards now show their complete descriptions: 'Comprehensive business strategy development and implementation', 'Expert guidance on licensing deals and intellectual property', 'In-depth market research and competitive analysis', etc. Issue was caused by CSS line-clamping at 2 lines which cut off descriptions mid-sentence."
 
-  - task: "Add all 6 service images to service section cards"
+  - task: "Reduce blur effects on blog pages"
     implemented: true
     working: true
-    file: "/app/frontend/src/data/mockData.js, /app/frontend/src/components/MagicBento.js"
+    file: "/app/frontend/src/components/BlogPost.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
         - working: true
           agent: "main"
-          comment: "Successfully integrated all 6 uploaded service images into the services section: 1) Updated mockData.js to include image URLs for all services (Strategic Consulting, Licensing Advisory, Market Analysis, Operations Optimization, Financial Planning, Risk Management), 2) Modified MagicBento.js component to render images with proper styling (w-full h-32 object-cover rounded-lg mb-4), 3) Added error handling for failed image loads, 4) Images are displayed above the card content with responsive design, 5) All 6 uploaded images have been properly mapped to their corresponding services with modern card layout"
+          comment: "Successfully reduced excessive blur effects on blog pages to improve readability. Changes made: 1) Reduced GradualBlur strength from 2 to 1, height from 6rem to 4rem, and opacity from 0.6 to 0.3 at page bottom, 2) Changed backdrop-blur-xl to backdrop-blur-lg on navigation bar, table of contents, and main content area, 3) Maintained visual appeal while significantly improving content readability. Blog content is now much clearer and less distracting."
 
 metadata:
   created_by: "main_agent"
