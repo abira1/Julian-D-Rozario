@@ -145,7 +145,7 @@ const BlogCard = ({ blog, index, gridPosition }) => {
           </div>
         </div>
 
-        <h3 className={`font-semibold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300 line-clamp-2 ${isLarge ? 'text-xl' : isWide ? 'text-base' : 'text-sm'}`}>
+        <h3 className={`font-semibold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300 line-clamp-2 ${isFeatured ? 'text-lg' : isWide ? 'text-sm' : 'text-sm'}`}>
           {blog.title}
         </h3>
 
