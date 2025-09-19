@@ -139,6 +139,13 @@
   .card-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  /* Allow more lines for desktop descriptions */
+  .card__title,
+  .card__description {
+    --clamp-title: 2;
+    --clamp-desc: 3;
+  }
 }
 
 /* Border glow effect */
