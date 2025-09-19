@@ -125,8 +125,12 @@ const AboutSection = () => {
               }}
             >
               {/* Profile image placeholder */}
-              <div className="w-32 h-32 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
-                JR
+              <div className="w-32 h-32 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg">
+                <img 
+                  src="/jdr-logo.png" 
+                  alt="Julian D Rozario Logo" 
+                  className="w-24 h-24"
+                />
               </div>
               
               <h3 className="text-2xl font-semibold text-white mb-4 text-center">Julian D Rozario</h3>
