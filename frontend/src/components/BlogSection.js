@@ -11,7 +11,26 @@ const BlogCard = ({ blog, index, gridPosition }) => {
   const cardRef = useRef(null);
   const navigate = useNavigate();
 
-  // Simplified version without complex animations for debugging
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    
+    // Simple entrance animation without ScrollTrigger
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 20
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        delay: index * 0.1
+      }
+    );
+  }, [index]);
+
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
   };
