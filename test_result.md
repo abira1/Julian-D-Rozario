@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Update mobile navbar style and design! make it more modern and stylish!"
+user_problem_statement: "On desktop view service card subtitles not showing properly! please investigate and dedicated blog page reduce blur effect"
 
 backend:
   - task: "No backend changes required"
