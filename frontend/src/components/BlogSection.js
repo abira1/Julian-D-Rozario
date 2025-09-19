@@ -11,59 +11,7 @@ const BlogCard = ({ blog, index, gridPosition }) => {
   const cardRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const card = cardRef.current;
-    
-    // Entrance animation
-    gsap.fromTo(card,
-      {
-        opacity: 0,
-        y: 30,
-        scale: 0.95
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        },
-        delay: index * 0.1
-      }
-    );
-
-    // Hover animations
-    const handleMouseEnter = () => {
-      gsap.to(card, {
-        y: -8,
-        scale: 1.02,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(card, {
-        y: 0,
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    };
-
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [index]);
-
+  // Simplified version without complex animations for debugging
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
   };
