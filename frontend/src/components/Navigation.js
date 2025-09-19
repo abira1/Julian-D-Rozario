@@ -152,7 +152,6 @@ const Navigation = () => {
       <div
         ref={menuRef}
         className={`fixed inset-0 z-40 md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}
-        style={{ display: 'none' }}
       >
         {/* Backdrop */}
         <div 
