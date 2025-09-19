@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 import { contactData } from '../data/mockData';
 
 const Footer = () => {
