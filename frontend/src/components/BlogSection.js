@@ -57,7 +57,7 @@ const BlogCard = ({ blog, index, gridPosition }) => {
     <article 
       ref={cardRef}
       onClick={handleCardClick}
-      className={`group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 cursor-pointer ${getBentoClass()}`}
+      className={`group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 cursor-pointer hover:scale-105 hover:-translate-y-2 ${getBentoClass()}`}
       style={{
         background: `
           linear-gradient(135deg, 
