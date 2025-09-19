@@ -133,7 +133,7 @@ const BlogCard = ({ blog, index, gridPosition }) => {
       </div>
 
       {/* Content */}
-      <div className={`relative z-10 ${isLarge ? 'p-6' : isWide ? 'p-4' : 'p-4'}`}>
+      <div className={`relative z-10 ${isFeatured ? 'p-4' : isWide ? 'p-3' : 'p-3'}`}>
         <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
           <span>{new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
           <div className="flex items-center gap-1">
