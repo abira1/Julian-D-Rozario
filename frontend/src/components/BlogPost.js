@@ -13,7 +13,13 @@ const BlogPost = () => {
   const contentRef = useRef(null);
   const [readingProgress, setReadingProgress] = useState(0);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [estimatedReadingTime, setEstimatedReadingTime] = useState(0);
+  const [showTableOfContents, setShowTableOfContents] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [showComments, setShowComments] = useState(false);
 
   const blog = blogData.find(post => post.id === parseInt(id));
 
