@@ -32,6 +32,35 @@ const BlogPost = () => {
     // Scroll to top
     window.scrollTo(0, 0);
 
+    // Initialize like count and comments
+    setLikeCount(blog.likes);
+    setComments([
+      {
+        id: 1,
+        author: "Sarah Chen",
+        avatar: "SC",
+        content: "Great insights! This really helped me understand the complexities of digital licensing.",
+        timestamp: "2 hours ago",
+        likes: 12
+      },
+      {
+        id: 2,
+        author: "Michael Torres",
+        avatar: "MT",
+        content: "I've been implementing some of these strategies in my own business. The results are promising so far.",
+        timestamp: "1 day ago",
+        likes: 8
+      },
+      {
+        id: 3,
+        author: "Elena Rodriguez",
+        avatar: "ER",
+        content: "The section on risk management was particularly valuable. Would love to see more content on this topic.",
+        timestamp: "3 days ago",
+        likes: 15
+      }
+    ]);
+
     // Reading progress tracker
     const updateReadingProgress = () => {
       const scrollTop = window.scrollY;
