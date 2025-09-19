@@ -45,6 +45,39 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Enhanced animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Floating animation for decorative elements
+      gsap.to(".floating-orb", {
+        y: "random(-20, 20)",
+        x: "random(-15, 15)",
+        rotation: "random(-180, 180)",
+        scale: "random(0.8, 1.2)",
+        duration: "random(3, 5)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: {
+          amount: 2,
+          from: "random"
+        }
+      });
+
+      // Glow effect animation
+      gsap.to(".glow-pulse", {
+        opacity: "random(0.3, 0.8)",
+        scale: "random(1, 1.1)",
+        duration: "random(2, 4)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <footer className="relative bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900 border-t border-white/10">
       {/* Background elements */}
