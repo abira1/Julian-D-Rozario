@@ -8,6 +8,8 @@ import ServicesSection from "./components/ServicesSection";
 import BlogSection from "./components/BlogSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+import BlogListing from "./components/BlogListing";
+import BlogPost from "./components/BlogPost";
 
 const Home = () => {
   useEffect(() => {
@@ -77,9 +79,9 @@ function App() {
     <div className="App bg-slate-900 text-white overflow-x-hidden">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<BlogListing />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
         </Routes>
       </BrowserRouter>
     </div>
