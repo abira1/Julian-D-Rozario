@@ -145,7 +145,7 @@ const HeroSection = () => {
               {heroData.title}
             </h2>
             
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
               {heroData.subtitle}
             </p>
           </div>
