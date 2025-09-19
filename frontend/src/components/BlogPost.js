@@ -100,6 +100,39 @@ const BlogPost = () => {
     window.open(shareUrls[platform], '_blank', 'width=600,height=400');
   };
 
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+  };
+
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    if (newComment.trim()) {
+      const comment = {
+        id: comments.length + 1,
+        author: "You",
+        avatar: "YU",
+        content: newComment.trim(),
+        timestamp: "Just now",
+        likes: 0
+      };
+      setComments([comment, ...comments]);
+      setNewComment('');
+    }
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    // You could add a toast notification here
+  };
+
+  const tableOfContents = [
+    { id: 'introduction', title: 'Introduction', level: 1 },
+    { id: 'key-takeaways', title: 'Key Takeaways', level: 1 },
+    { id: 'implementation', title: 'Implementation Framework', level: 1 },
+    { id: 'assessment', title: 'Phase 1: Assessment & Analysis', level: 2 },
+  ];
+
   const relatedPosts = blogData
     .filter(post => post.id !== blog.id && (post.category === blog.category || post.tags?.some(tag => blog.tags?.includes(tag))))
     .slice(0, 3);
