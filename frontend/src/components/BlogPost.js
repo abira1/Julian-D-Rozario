@@ -355,13 +355,13 @@ const BlogPost = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12">
             <div className="prose prose-lg prose-invert max-w-none">
-              <div className="text-gray-300 leading-relaxed space-y-6">
+              <div id="introduction" className="text-gray-300 leading-relaxed space-y-6">
                 {/* Simulated article content */}
                 <p className="text-xl font-medium text-white mb-8">
                   {blog.content}
                 </p>
                 
-                <div className="grid md:grid-cols-2 gap-8 my-12">
+                <div id="key-takeaways" className="grid md:grid-cols-2 gap-8 my-12">
                   <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                     <h3 className="text-lg font-semibold text-purple-300 mb-4">Key Takeaways</h3>
                     <ul className="space-y-2 text-gray-300">
