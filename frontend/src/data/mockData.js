@@ -31,7 +31,8 @@ export const servicesData = [
     title: 'Strategic Consulting',
     description: 'Comprehensive business strategy development and implementation',
     label: 'Strategy',
-    icon: '📊'
+    icon: '📊',
+    image: 'https://customer-assets.emergentagent.com/job_modern-nav-2/artifacts/4ooz9ygj_Strategic%20Consulting.jpeg'
   },
   {
     color: 'rgba(94, 43, 151, 0.15)',
