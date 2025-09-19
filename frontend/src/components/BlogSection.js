@@ -137,7 +137,7 @@ const BlogCard = ({ blog, index, gridPosition }) => {
         <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
           <span>{new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
           <div className="flex items-center gap-1">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
