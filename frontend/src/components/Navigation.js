@@ -129,28 +129,61 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-        isMobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-      }`}>
-        <div className="bg-slate-900/95 backdrop-blur-xl border-t border-white/10 px-4 py-6">
-          <div className="space-y-4">
-            {navItems.map((item) => (
+      {/* Modern Mobile Menu Overlay */}
+      <div
+        ref={menuRef}
+        className={`fixed inset-0 z-40 md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}
+        style={{ display: 'none' }}
+      >
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-slate-900/95 backdrop-blur-2xl"
+          onClick={toggleMobileMenu}
+        ></div>
+        
+        {/* Menu Content */}
+        <div className="relative h-full flex flex-col justify-center items-center px-8">
+          {/* Close Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+            aria-label="Close menu"
+          >
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Navigation Items */}
+          <div className="flex flex-col items-center space-y-8 text-center">
+            {navItems.map((item, index) => (
               <button
                 key={item.id}
+                ref={el => menuItemsRef.current[index] = el}
                 onClick={() => scrollToSection(item.id)}
-                className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300"
+                className="group relative text-4xl font-light text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-400 transition-all duration-300 py-2"
               >
                 {item.name}
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-500"></div>
               </button>
             ))}
+            
+            {/* CTA Button */}
             <button
+              ref={el => menuItemsRef.current[navItems.length] = el}
               onClick={() => scrollToSection('contact')}
-              className="block w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white font-medium text-center hover:scale-105 transition-all duration-300 mt-4"
+              className="mt-8 px-12 py-4 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-2xl text-white font-medium text-xl hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 relative overflow-hidden group"
             >
-              Let's Talk
+              <span className="relative z-10">Let's Talk</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
           </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute top-1/4 left-8 w-2 h-2 bg-purple-500 rounded-full opacity-60 animate-pulse"></div>
+          <div className="absolute top-1/3 right-12 w-1 h-1 bg-blue-400 rounded-full opacity-40 animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-1/4 left-12 w-1.5 h-1.5 bg-purple-400 rounded-full opacity-50 animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-1/3 right-8 w-2 h-2 bg-blue-500 rounded-full opacity-30 animate-pulse" style={{ animationDelay: '3s' }}></div>
         </div>
       </div>
     </nav>
