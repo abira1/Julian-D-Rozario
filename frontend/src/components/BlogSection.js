@@ -113,7 +113,7 @@ const BlogCard = ({ blog, index, gridPosition }) => {
       <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-bounce"></div>
 
       {/* Image */}
-      <div className={`relative overflow-hidden ${isLarge ? 'h-48 lg:h-72' : isTall ? 'h-64' : isWide ? 'h-32' : 'h-32'}`}>
+      <div className={`relative overflow-hidden ${isFeatured ? 'h-32 lg:h-40' : isWide ? 'h-28' : 'h-28'}`}>
         <img 
           src={blog.image} 
           alt={blog.title}
