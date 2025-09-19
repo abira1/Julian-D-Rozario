@@ -86,17 +86,20 @@ const Navigation = () => {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Enhanced Logo */}
           <button
             onClick={() => scrollToSection('hero')}
-            className="flex items-center space-x-3 group cursor-pointer"
+            className="flex items-center space-x-3 group cursor-pointer relative"
           >
-            <img 
-              src="/jdr-logo.png" 
-              alt="Julian D Rozario Logo" 
-              className="w-12 h-12 group-hover:scale-110 transition-transform duration-300"
-            />
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <div className="relative">
+              <img 
+                src="/jdr-logo.png" 
+                alt="Julian D Rozario Logo" 
+                className="w-12 h-12 group-hover:scale-110 transition-all duration-300 relative z-10"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full scale-0 group-hover:scale-125 transition-all duration-300"></div>
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-blue-300 transition-all duration-300">
               Julian Rozario
             </span>
           </button>
