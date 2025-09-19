@@ -137,7 +137,7 @@ const HeroSection = () => {
           <div className="relative">
             <h2 
               ref={subtitleRef}
-              className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-semibold mb-6 sm:mb-8 text-gray-200 opacity-90"
+              className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 sm:mb-6 text-gray-200 opacity-90"
               style={{
                 textShadow: '0 0 30px rgba(59, 130, 246, 0.5)'
               }}
