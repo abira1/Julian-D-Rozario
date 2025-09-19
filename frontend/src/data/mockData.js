@@ -38,35 +38,40 @@ export const servicesData = [
     title: 'Licensing Advisory',
     description: 'Expert guidance on licensing deals and intellectual property',
     label: 'Licensing',
-    icon: '⚖️'
+    icon: '⚖️',
+    image: 'https://customer-assets.emergentagent.com/job_modern-nav-2/artifacts/ezl4w1ip_Licensing%20Advisory.jpeg'
   },
   {
     color: 'rgba(59, 130, 246, 0.15)',
     title: 'Market Analysis',
     description: 'In-depth market research and competitive analysis',
     label: 'Research',
-    icon: '🔍'
+    icon: '🔍',
+    image: 'https://customer-assets.emergentagent.com/job_modern-nav-2/artifacts/0vaiwvuj_Market%20Analysis.jpeg'
   },
   {
     color: 'rgba(139, 92, 246, 0.15)',
     title: 'Operations Optimization',
     description: 'Streamline processes and improve operational efficiency',
     label: 'Operations',
-    icon: '⚙️'
+    icon: '⚙️',
+    image: 'https://customer-assets.emergentagent.com/job_modern-nav-2/artifacts/mntztrrk_Operations%20Optimization.jpeg'
   },
   {
     color: 'rgba(30, 58, 138, 0.15)',
     title: 'Financial Planning',
     description: 'Strategic financial planning and budget optimization',
     label: 'Finance',
-    icon: '💰'
+    icon: '💰',
+    image: 'https://customer-assets.emergentagent.com/job_modern-nav-2/artifacts/i1zeq0rd_Financial%20Planning.jpeg'
   },
   {
     color: 'rgba(94, 43, 151, 0.15)',
     title: 'Risk Management',
     description: 'Identify and mitigate business risks effectively',
     label: 'Risk',
-    icon: '🛡️'
+    icon: '🛡️',
+    image: 'https://customer-assets.emergentagent.com/job_modern-nav-2/artifacts/jq8t4ufu_Risk%20Management.jpeg'
   }
 ];
 
