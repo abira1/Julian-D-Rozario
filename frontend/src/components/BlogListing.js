@@ -223,9 +223,11 @@ const BlogListing = () => {
             onClick={() => navigate('/')}
             className="flex items-center gap-3 group"
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform duration-300">
-              JR
-            </div>
+            <img 
+              src="/jdr-logo.png" 
+              alt="Julian D Rozario Logo" 
+              className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
+            />
             <span className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               Julian Rozario
             </span>
