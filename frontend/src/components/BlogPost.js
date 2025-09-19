@@ -355,7 +355,7 @@ const BlogPost = () => {
       {/* Article Content */}
       <article ref={contentRef} className="relative py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12">
+          <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12">
             <div className="prose prose-lg prose-invert max-w-none">
               <div id="introduction" className="text-gray-300 leading-relaxed space-y-6">
                 {/* Simulated article content */}
