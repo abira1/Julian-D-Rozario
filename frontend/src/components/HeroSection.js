@@ -121,7 +121,7 @@ const HeroSection = () => {
         <div className="mb-8">
           <h1 
             ref={titleRef}
-            className="text-6xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent leading-tight"
+            className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent leading-tight"
             style={{
               fontFamily: 'Poppins, sans-serif',
               textShadow: '0 0 50px rgba(139, 92, 246, 0.3)',
