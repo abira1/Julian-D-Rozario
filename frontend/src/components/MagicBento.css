@@ -148,6 +148,13 @@
   }
 }
 
+@media (min-width: 1440px) {
+  /* Allow full descriptions on large desktop screens */
+  .card__description {
+    --clamp-desc: 4;
+  }
+}
+
 /* Border glow effect */
 .card--border-glow::after {
   content: '';
