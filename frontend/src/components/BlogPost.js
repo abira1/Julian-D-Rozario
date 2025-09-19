@@ -395,7 +395,7 @@ const BlogPost = () => {
                   The methodology outlined in this article has been successfully implemented across various industries, from technology startups to established manufacturing companies. Each implementation is customized to address specific organizational needs and market conditions.
                 </p>
 
-                <h2 className="text-2xl font-bold text-white mt-12 mb-6">Implementation Framework</h2>
+                <h2 id="implementation" className="text-2xl font-bold text-white mt-12 mb-6">Implementation Framework</h2>
                 
                 <p>
                   Our proven framework consists of five key phases that ensure successful execution and sustainable results. Each phase builds upon the previous one, creating momentum and buy-in throughout the organization.
