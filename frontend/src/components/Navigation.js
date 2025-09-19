@@ -104,24 +104,26 @@ const Navigation = () => {
             </span>
           </button>
 
-          {/* Desktop Navigation */}
+          {/* Enhanced Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="relative px-4 py-2 text-gray-300 hover:text-white transition-colors duration-300 group"
+                className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 group font-medium"
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-500 rounded-full"></span>
+                <div className="absolute inset-0 bg-white/5 rounded-lg scale-0 group-hover:scale-100 transition-all duration-300 -z-10"></div>
               </button>
             ))}
             
             <button
               onClick={() => scrollToSection('contact')}
-              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white font-medium hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25"
+              className="relative px-8 py-3 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-xl text-white font-medium hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/25 overflow-hidden group"
             >
-              Let's Talk
+              <span className="relative z-10">Let's Talk</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
           </div>
 
