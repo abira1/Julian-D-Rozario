@@ -291,6 +291,28 @@ const BlogPost = () => {
                     <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24V15.564H7.078V12.073H10.125V9.405C10.125 6.348 11.917 4.697 14.658 4.697C15.971 4.697 17.344 4.922 17.344 4.922V7.875H15.83C14.34 7.875 13.875 8.8 13.875 9.75V12.073H17.203L16.671 15.564H13.875V24C19.612 23.094 24 18.1 24 12.073Z"/>
                   </svg>
                 </button>
+
+                <button 
+                  onClick={copyLink}
+                  className="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-gray-400 hover:text-green-500 hover:bg-green-500/10 transition-colors duration-300"
+                  title="Copy Link"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                  </svg>
+                </button>
+
+                <div className="flex items-center gap-2 text-sm text-gray-400">
+                  <span>{likeCount} likes</span>
+                  <span>•</span>
+                  <button 
+                    onClick={() => setShowComments(!showComments)}
+                    className="hover:text-purple-300 transition-colors duration-300"
+                  >
+                    {comments.length} comments
+                  </button>
+                </div>
               </div>
             </div>
           </div>
