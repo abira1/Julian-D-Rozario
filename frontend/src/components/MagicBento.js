@@ -622,6 +622,18 @@ const MagicBento = ({
               <div className="card__header">
                 <div className="card__label">{card.label}</div>
               </div>
+              {card.image && (
+                <div className="card__image">
+                  <img 
+                    src={card.image} 
+                    alt={card.title}
+                    className="w-full h-32 object-cover rounded-lg mb-4"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                </div>
+              )}
               <div className="card__content">
                 <h2 className="card__title">{card.title}</h2>
                 <p className="card__description">{card.description}</p>
