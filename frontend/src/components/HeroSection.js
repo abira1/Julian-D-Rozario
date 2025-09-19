@@ -171,14 +171,14 @@ const HeroSection = () => {
               transform: 'perspective(1000px) rotateX(5deg) rotateY(-2deg)'
             }}
           >
-            <span className="relative z-10 flex items-center gap-3">
+            <span className="relative z-10 flex items-center gap-2 sm:gap-3">
               {heroData.cta}
               <svg 
-                width="20" 
-                height="20" 
+                width="18" 
+                height="18" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                className="transform group-hover:translate-x-1 transition-transform duration-300"
+                className="transform group-hover:translate-x-1 transition-transform duration-300 sm:w-5 sm:h-5"
               >
                 <path 
                   d="M5 12H19M19 12L12 5M19 12L12 19" 
