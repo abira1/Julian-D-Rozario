@@ -151,23 +151,24 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* 3D CTA Button */}
+        {/* Enhanced Mobile-Friendly CTA Button */}
         <div ref={ctaRef} className="flex justify-center">
           <button
             onClick={handleCTAClick}
-            className="group relative px-12 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
+            className="group relative px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
             style={{
               background: `
                 linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(59, 130, 246, 0.9)),
                 rgba(255, 255, 255, 0.1)
               `,
-              backdropFilter: 'blur(20px)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               boxShadow: `
                 0 8px 32px rgba(139, 92, 246, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2)
               `,
-              transform: 'perspective(1000px) rotateX(10deg) rotateY(-5deg)'
+              transform: 'perspective(1000px) rotateX(5deg) rotateY(-2deg)'
             }}
           >
             <span className="relative z-10 flex items-center gap-3">
