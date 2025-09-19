@@ -118,7 +118,7 @@ const HeroSection = () => {
 
       {/* Main content */}
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <h1 
             ref={titleRef}
             className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent leading-tight"
