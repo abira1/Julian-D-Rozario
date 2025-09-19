@@ -122,12 +122,12 @@ const BlogCard = ({ blog, index, gridPosition }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
         
         {/* Category badge */}
-        <div className="absolute top-3 left-3 px-2 py-1 bg-gradient-to-r from-purple-600/90 to-blue-600/90 backdrop-blur-sm rounded-lg text-white text-xs font-medium border border-white/20 shadow-lg">
+        <div className="absolute top-2 left-2 px-2 py-1 bg-gradient-to-r from-purple-600/90 to-blue-600/90 backdrop-blur-sm rounded-md text-white text-xs font-medium border border-white/20 shadow-lg">
           {blog.category}
         </div>
 
         {/* Reading time */}
-        <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-lg text-white text-xs border border-white/20">
+        <div className="absolute top-2 right-2 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-md text-white text-xs border border-white/20">
           {blog.readTime}
         </div>
       </div>
