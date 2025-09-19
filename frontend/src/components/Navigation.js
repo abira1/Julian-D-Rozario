@@ -24,6 +24,37 @@ const Navigation = () => {
     }
   };
 
+  // Enhanced mobile menu toggle with GSAP animations
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    
+    if (!isMobileMenuOpen) {
+      // Opening animation
+      gsap.set(menuRef.current, { display: 'block' });
+      gsap.fromTo(menuRef.current, 
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
+      );
+      
+      // Stagger animation for menu items
+      gsap.fromTo(menuItemsRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out", delay: 0.1 }
+      );
+    } else {
+      // Closing animation
+      gsap.to(menuRef.current, {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.2,
+        ease: "power2.in",
+        onComplete: () => {
+          gsap.set(menuRef.current, { display: 'none' });
+        }
+      });
+    }
+  };
+
   const navItems = [
     { name: 'About', id: 'about' },
     { name: 'Services', id: 'services' },
