@@ -52,9 +52,11 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
-                JR
-              </div>
+              <img 
+                src="/jdr-logo.png" 
+                alt="Julian D Rozario Logo" 
+                className="w-12 h-12"
+              />
               <div>
                 <h3 className="text-xl font-bold text-white">Julian D Rozario</h3>
                 <p className="text-gray-400 text-sm">Business Consultant & Licensing Advisor</p>
