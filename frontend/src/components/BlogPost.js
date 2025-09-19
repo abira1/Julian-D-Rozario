@@ -151,6 +151,37 @@ const BlogPost = () => {
         />
       </div>
 
+      {/* Floating Table of Contents */}
+      {showTableOfContents && (
+        <div className="fixed top-32 right-4 z-30 w-64 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 max-h-80 overflow-y-auto">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            Contents
+          </h3>
+          <nav className="space-y-2">
+            {tableOfContents.map((item, index) => (
+              <a
+                key={index}
+                href={`#${item.id}`}
+                className={`block text-sm hover:text-purple-300 transition-colors duration-300 ${
+                  item.level === 1 ? 'text-gray-300 font-medium' : 'text-gray-400 ml-4'
+                }`}
+                onClick={() => setShowTableOfContents(false)}
+              >
+                {item.title}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-slate-900/90 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
