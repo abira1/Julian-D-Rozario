@@ -108,14 +108,23 @@ const Navigation = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Modern Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5 group"
+            onClick={toggleMobileMenu}
+            className="md:hidden relative w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+            aria-label="Toggle mobile menu"
           >
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+              <span className={`absolute w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
+                isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
+              }`}></span>
+              <span className={`absolute w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 ${
+                isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+              }`}></span>
+              <span className={`absolute w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
+                isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
+              }`}></span>
+            </div>
           </button>
         </div>
       </div>
