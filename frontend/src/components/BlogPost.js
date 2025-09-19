@@ -153,7 +153,7 @@ const BlogPost = () => {
 
       {/* Floating Table of Contents */}
       {showTableOfContents && (
-        <div className="fixed top-32 right-4 z-30 w-64 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 max-h-80 overflow-y-auto">
+        <div className="fixed top-32 right-4 z-30 w-64 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 max-h-80 overflow-y-auto">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="8" y1="6" x2="21" y2="6"/>
