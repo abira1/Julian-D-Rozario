@@ -150,10 +150,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Modern mobile navbar design and animations"
-    - "Mobile responsive hero section optimizations"
-    - "Modern footer design with Toiral Web Development credit"
-    - "Service section with uploaded images integration"
+    - "Desktop service card subtitles display fix"
+    - "Blog page blur effects reduction"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
