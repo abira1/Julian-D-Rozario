@@ -565,10 +565,10 @@ const BlogPost = () => {
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
         <GradualBlur
           position="bottom"
-          height="6rem"
-          strength={2}
-          divCount={6}
-          opacity={0.6}
+          height="4rem"
+          strength={1}
+          divCount={4}
+          opacity={0.3}
         />
       </div>
     </div>
