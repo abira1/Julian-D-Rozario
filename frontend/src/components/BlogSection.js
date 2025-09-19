@@ -149,15 +149,15 @@ const BlogCard = ({ blog, index, gridPosition }) => {
           {blog.title}
         </h3>
 
-        {(isLarge || isTall) && (
-          <p className="text-gray-300 text-sm leading-relaxed mb-3 line-clamp-2">
+        {isFeatured && (
+          <p className="text-gray-300 text-xs leading-relaxed mb-2 line-clamp-2">
             {blog.excerpt}
           </p>
         )}
 
-        {/* Tags - only for large cards */}
-        {isLarge && (
-          <div className="flex flex-wrap gap-1 mb-3">
+        {/* Tags - only for featured cards */}
+        {isFeatured && (
+          <div className="flex flex-wrap gap-1 mb-2">
             {blog.tags?.slice(0, 2).map((tag, idx) => (
               <span 
                 key={idx}
