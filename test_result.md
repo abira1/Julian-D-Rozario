@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "On Latest Insights section make card's small and keep this bento design. and also create dedicated page for each blogs where user can interact"
+user_problem_statement: "Update mobile navbar style and design! make it more modern and stylish!"
 
 backend:
   - task: "No backend changes required"
