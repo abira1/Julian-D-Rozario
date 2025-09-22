@@ -72,7 +72,7 @@ const ContactSection = () => {
     <section 
       ref={sectionRef}
       id="contact" 
-      className="relative py-24 px-4 bg-gradient-to-br from-black via-slate-950/40 to-black overflow-hidden"
+      className="relative py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-black via-slate-950/40 to-black overflow-hidden"
     >
       {/* Background elements */}
       <div className="absolute inset-0">
