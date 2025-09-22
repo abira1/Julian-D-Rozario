@@ -8,27 +8,30 @@ gsap.registerPlugin(ScrollTrigger);
 const ContactSection = () => {
   const sectionRef = useRef(null);
 
-  // Simple fade-in animation for contact info
+  // Simple fade-in animation for contact info - Mobile-friendly version
   useEffect(() => {
     const section = sectionRef.current;
+    const contactCard = section.querySelector('.contact-card');
     
-    gsap.fromTo(section.querySelector('.contact-card'),
-      {
-        opacity: 0,
-        y: 30
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 70%",
-          toggleActions: "play none none reverse"
+    if (contactCard) {
+      // Ensure the card is visible immediately on mobile
+      gsap.set(contactCard, { opacity: 1, y: 0 });
+      
+      // Apply subtle entrance animation that works on all devices
+      gsap.fromTo(contactCard,
+        {
+          opacity: 0,
+          y: 20
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          delay: 0.2
         }
-      }
-    );
+      );
+    }
   }, []);
 
   const handleLinkedInClick = () => {
