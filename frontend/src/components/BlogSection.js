@@ -69,8 +69,8 @@ const BlogSection = () => {
         </div>
 
         {/* Desktop Layout - Uniform Grid */}
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-3 gap-6">
+        <div className="hidden md:block">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogData.slice(0, 6).map((article, index) => (
               <div
                 key={article.id}
