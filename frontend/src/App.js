@@ -9,6 +9,7 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import BlogListing from "./components/BlogListing";
 import BlogPost from "./components/BlogPost";
+import AdminPanel from "./components/AdminPanel";
 
 const Home = () => {
   useEffect(() => {
