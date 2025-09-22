@@ -93,9 +93,9 @@ const ContactSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8">
-              <h3 className="text-2xl font-semibold text-white mb-6">Get in Touch</h3>
+          <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
+            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-3xl p-6 lg:p-8">
+              <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4 lg:mb-6" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>Get in Touch</h3>
               
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
