@@ -9,53 +9,28 @@ gsap.registerPlugin(ScrollTrigger);
 const ContactSection = () => {
   const sectionRef = useRef(null);
 
+  // Simple fade-in animation for contact info
   useEffect(() => {
     const section = sectionRef.current;
-    const form = formRef.current;
-
-    // Form entrance animation
-    gsap.fromTo(form,
+    
+    gsap.fromTo(section.querySelector('.contact-card'),
       {
         opacity: 0,
-        y: 50,
-        rotateX: 15
+        y: 30
       },
       {
         opacity: 1,
         y: 0,
-        rotateX: 0,
-        duration: 1,
+        duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: section,
-          start: "top 60%",
+          start: "top 70%",
           toggleActions: "play none none reverse"
         }
       }
     );
   }, []);
-
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
-    
-    // Show success message (you can implement toast notification here)
-    alert('Thank you for your message! I\'ll get back to you soon.');
-  };
 
   const handleLinkedInClick = () => {
     window.open(contactData.linkedin, '_blank');
