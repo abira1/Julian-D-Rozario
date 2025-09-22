@@ -1,57 +1,35 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { blogData } from '../data/mockData';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const BlogSection = () => {
   const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
   const navigate = useNavigate();
+  const [loadedImages, setLoadedImages] = useState(new Set());
 
+  // Preload images for better performance
   useEffect(() => {
-    const section = sectionRef.current;
-    const cards = cardsRef.current.filter(card => card !== null);
-    
-    if (!section || cards.length === 0) return;
-
-    // Check if we're on mobile/tablet (below lg breakpoint)
-    const isMobile = window.innerWidth < 1024;
-    
-    if (isMobile) {
-      // Make mobile cards immediately visible without animation
-      gsap.set(cards, { opacity: 1, y: 0 });
-    } else {
-      // Desktop animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 90%",
-          toggleActions: "play none none none"
-        }
+    const preloadImages = async () => {
+      const imagePromises = blogData.slice(0, 6).map((article) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            setLoadedImages(prev => new Set([...prev, article.id]));
+            resolve(article.id);
+          };
+          img.onerror = reject;
+          img.src = article.image;
+        });
       });
+      
+      try {
+        await Promise.allSettled(imagePromises);
+      } catch (error) {
+        console.log('Some images failed to preload:', error);
+      }
+    };
 
-      tl.fromTo(cards, 
-        {
-          opacity: 0,
-          y: 15
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.08,
-          ease: "power1.out"
-        }
-      );
-
-      // Cleanup
-      return () => {
-        tl.kill();
-      };
-    }
+    preloadImages();
   }, []);
 
   const handleArticleClick = (articleId) => {
