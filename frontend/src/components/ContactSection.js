@@ -62,7 +62,7 @@ const ContactSection = () => {
         {/* Centered Contact Info */}
         <div className="flex justify-center">
           <div className="w-full max-w-lg">
-            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-3xl p-6 lg:p-8 mb-6 lg:mb-8">
+            <div className="contact-card bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-3xl p-6 lg:p-8 mb-6 lg:mb-8">
               <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4 lg:mb-6 text-center" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>Get in Touch</h3>
               
               <div className="space-y-6">
