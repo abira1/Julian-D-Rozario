@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradualBlur from './GradualBlur';
 import { blogData, blogCategories } from '../data/mockData';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const BlogCard = ({ blog, index }) => {
   const cardRef = useRef(null);
