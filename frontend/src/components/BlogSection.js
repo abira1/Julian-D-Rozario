@@ -143,7 +143,7 @@ const BlogSection = () => {
         </div>
 
         {/* Mobile Layout - Simple List */}
-        <div className="lg:hidden space-y-4">
+        <div className="md:hidden space-y-4">
           {blogData.slice(0, 6).map((article, index) => (
             <div
               key={article.id}
