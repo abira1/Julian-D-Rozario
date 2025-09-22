@@ -167,11 +167,11 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div 
             ref={formRef}
-            className="relative"
+            className="relative order-1 lg:order-2"
             style={{ transformStyle: 'preserve-3d' }}
           >
             <div 
-              className="relative p-8 rounded-3xl backdrop-blur-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]"
+              className="relative p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]"
               style={{
                 background: `
                   linear-gradient(135deg, 
