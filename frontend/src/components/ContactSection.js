@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GradualBlur from './GradualBlur';
 import { contactData } from '../data/mockData';
 
 gsap.registerPlugin(ScrollTrigger);
