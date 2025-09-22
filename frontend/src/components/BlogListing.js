@@ -27,7 +27,7 @@ const BlogCard = ({ blog, index }) => {
     <article 
       ref={cardRef}
       onClick={handleCardClick}
-      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 cursor-pointer"
+      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:-translate-y-2 opacity-100"
       style={{
         background: `
           linear-gradient(135deg, 
@@ -39,7 +39,10 @@ const BlogCard = ({ blog, index }) => {
         boxShadow: `
           0 10px 25px rgba(0, 0, 0, 0.15),
           inset 0 1px 0 rgba(255, 255, 255, 0.1)
-        `
+        `,
+        opacity: 1,
+        transform: 'translateY(0px)',
+        animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
       }}
     >
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
