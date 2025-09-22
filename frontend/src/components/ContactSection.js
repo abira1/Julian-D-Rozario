@@ -141,7 +141,7 @@ const ContactSection = () => {
             {/* LinkedIn CTA */}
             <button
               onClick={handleLinkedInClick}
-              className="w-full group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
+              className="w-full group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl lg:rounded-2xl text-white font-semibold text-base lg:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
               style={{
                 background: `
                   linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(139, 92, 246, 0.9)),
