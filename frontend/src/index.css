@@ -48,6 +48,40 @@ code {
   animation-play-state: paused;
 }
 
+/* Blog Section Instant Loading Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Optimize image loading */
+img {
+  image-rendering: optimizeQuality;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Prevent layout shift during loading */
+.blog-card-skeleton {
+  min-height: 400px;
+}
+
 @layer base {
   :root {
         --background: 0 0% 100%;
