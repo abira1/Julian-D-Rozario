@@ -91,11 +91,11 @@ const ContactSection = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* Contact Info */}
-          <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
-            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-3xl p-6 lg:p-8">
-              <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4 lg:mb-6" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>Get in Touch</h3>
+        {/* Centered Contact Info */}
+        <div className="flex justify-center">
+          <div className="w-full max-w-lg">
+            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-3xl p-6 lg:p-8 mb-6 lg:mb-8">
+              <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4 lg:mb-6 text-center" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>Get in Touch</h3>
               
               <div className="space-y-6">
                 <div className="flex items-center gap-3 lg:gap-4">
@@ -152,7 +152,8 @@ const ContactSection = () => {
                 boxShadow: `
                   0 8px 32px rgba(59, 130, 246, 0.3),
                   inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                `
+                `,
+                fontFamily: 'Encode Sans Semi Expanded, sans-serif'
               }}
             >
               <span className="relative z-10 flex items-center justify-center gap-3">
@@ -162,116 +163,6 @@ const ContactSection = () => {
                 Connect on LinkedIn
               </span>
             </button>
-          </div>
-
-          {/* Contact Form */}
-          <div 
-            ref={formRef}
-            className="relative order-1 lg:order-2"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            <div 
-              className="relative p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]"
-              style={{
-                background: `
-                  linear-gradient(135deg, 
-                    rgba(139, 92, 246, 0.1) 0%, 
-                    rgba(59, 130, 246, 0.05) 50%, 
-                    rgba(30, 58, 138, 0.1) 100%
-                  )
-                `,
-                boxShadow: `
-                  0 25px 50px rgba(0, 0, 0, 0.3),
-                  0 0 0 1px rgba(255, 255, 255, 0.1),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                `
-              }}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 lg:px-4 py-3 bg-white/5 border border-white/10 rounded-lg lg:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 backdrop-blur-sm transition-all duration-300"
-                    placeholder="Enter your full name"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 lg:px-4 py-3 bg-white/5 border border-white/10 rounded-lg lg:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 backdrop-blur-sm transition-all duration-300"
-                    placeholder="Enter your email address"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="w-full px-3 lg:px-4 py-3 bg-white/5 border border-white/10 rounded-lg lg:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 backdrop-blur-sm transition-all duration-300 resize-none"
-                    placeholder="Tell me about your project or business needs..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg lg:rounded-xl text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center justify-center gap-3">
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                      </svg>
-                      Sending Message...
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center gap-3">
-                      Send Message
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
-                  )}
-                </button>
-              </form>
-
-              {/* Gradual blur overlay */}
-              <div className="absolute inset-0 pointer-events-none">
-                <GradualBlur
-                  position="top"
-                  height="2rem"
-                  strength={0.5}
-                  divCount={3}
-                  opacity={0.2}
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>
