@@ -255,7 +255,7 @@ For assistance with your specific visa requirements and application process, pro
         {
             "id": 1,
             "username": "admin",
-            "password_hash": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LeUVNlwLnN8Omc8Ny",  # admin123
+            "password_hash": "$2b$12$Addp/JyaVEZSCcII.ODKj.w0rGrDoLWFUpkqmJO.Z.US3w1joXReW",  # admin123
             "email": "admin@drozario.blog",
             "last_login": None
         }
