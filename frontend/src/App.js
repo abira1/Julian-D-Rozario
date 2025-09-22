@@ -81,6 +81,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<BlogListing />} />
           <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/julian_portfolio/*" element={<AdminPanel />} />
         </Routes>
       </BrowserRouter>
     </div>
