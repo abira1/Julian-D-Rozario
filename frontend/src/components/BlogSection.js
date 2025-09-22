@@ -147,19 +147,29 @@ const BlogSection = () => {
           {blogData.slice(0, 6).map((article, index) => (
             <div
               key={article.id}
-              ref={el => cardsRef.current[index + 6] = el}
               onClick={() => handleArticleClick(article.id)}
               className="group cursor-pointer bg-white/[0.08] backdrop-blur-sm rounded-xl border border-white/[0.12] hover:border-white/[0.25] hover:bg-white/[0.12] transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-500/10 p-4 opacity-100"
-              style={{ opacity: 1, transform: 'translateY(0px)' }}
+              style={{ 
+                opacity: 1, 
+                transform: 'translateY(0px)',
+                animation: `slideInLeft 0.5s ease-out ${index * 0.1}s both`
+              }}
             >
               <div className="flex gap-4">
                 {/* Image */}
-                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden">
-                  <img 
-                    src={article.image} 
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-slate-800">
+                  {loadedImages.has(article.id) ? (
+                    <img 
+                      src={article.image} 
+                      alt={article.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
+                      <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
