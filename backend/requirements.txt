@@ -5,6 +5,8 @@ requests-oauthlib>=2.0.0
 cryptography>=44.0.0
 python-dotenv>=1.0.1
 pymongo==4.9.1
+mysql-connector-python==9.1.0
+aiomysql==0.2.0
 pydantic>=2.10.3
 email-validator>=2.2.0
 pyjwt>=2.10.1
