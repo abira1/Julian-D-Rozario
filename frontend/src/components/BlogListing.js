@@ -351,7 +351,7 @@ const BlogListing = () => {
           ) : (
             <div className="text-center py-12 xxs:py-16">
               <div className="w-16 h-16 xxs:w-20 xxs:h-20 xs:w-24 xs:h-24 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 xxs:mb-6">
-                <svg width="32" height="32" xxs:width="36" xxs:height="36" xs:width="40" xs:height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400">
+                <svg className="w-8 h-8 xxs:w-9 xxs:h-9 xs:w-10 xs:h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400">
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21l-4.35-4.35"/>
                 </svg>
