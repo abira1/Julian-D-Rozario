@@ -131,26 +131,26 @@ const BlogPost = () => {
       <Navigation />
 
       <main className="relative z-10">
-        {/* Hero Section - Mobile First */}
-        <section className="pt-16 xxs:pt-18 xs:pt-20 sm-mobile:pt-24 pb-8 xxs:pb-12 xs:pb-16 px-3 xxs:px-4 xs:px-6">
+        {/* Hero Section - Enhanced Mobile First */}
+        <section className="pt-12 xxs:pt-16 xs:pt-20 sm-mobile:pt-24 pb-6 xxs:pb-8 xs:pb-12 px-2 xxs:px-3 xs:px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-4 xxs:mb-6">
-              <span className="inline-block px-3 xxs:px-4 py-1 xxs:py-2 bg-purple-600/20 text-purple-400 rounded-full text-xs xxs:text-sm font-medium mb-3 xxs:mb-4">
+            <div className="mb-3 xxs:mb-4 xs:mb-6">
+              <span className="inline-block px-2.5 xxs:px-3 xs:px-4 py-1 xxs:py-1.5 xs:py-2 bg-purple-600/20 text-purple-400 rounded-full text-xs xxs:text-sm font-medium mb-2 xxs:mb-3 xs:mb-4">
                 {blog.category}
               </span>
-              <h1 className="hero-title-mobile font-bold leading-tight px-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              <h1 className="hero-title-mobile font-bold leading-tight" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                 {blog.title}
               </h1>
-              <div className="flex items-center justify-center space-x-2 xxs:space-x-3 text-gray-400 mobile-text-xs xxs:mobile-text-sm">
-                <div className="flex items-center space-x-1.5 xxs:space-x-2">
-                  <div className="w-6 h-6 xxs:w-8 xxs:h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold mobile-text-xs">
+              <div className="flex items-center justify-center flex-wrap gap-1 xxs:gap-2 text-gray-400 text-xs xxs:text-sm mt-2 xxs:mt-3">
+                <div className="flex items-center space-x-1 xxs:space-x-1.5">
+                  <div className="w-5 h-5 xxs:w-6 xxs:h-6 xs:w-8 xs:h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold text-xs">
                     JD
                   </div>
-                  <span className="truncate max-w-20 xxs:max-w-none">{blog.author}</span>
+                  <span className="truncate max-w-16 xxs:max-w-20 xs:max-w-none">{blog.author}</span>
                 </div>
-                <span>•</span>
+                <span className="text-gray-600">•</span>
                 <span className="truncate">{blog.date}</span>
-                <span className="hidden xs:inline">•</span>
+                <span className="hidden xs:inline text-gray-600">•</span>
                 <span className="hidden xs:inline">{blog.readTime}</span>
               </div>
             </div>
