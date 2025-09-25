@@ -156,11 +156,11 @@ const BlogPost = () => {
             </div>
             
             {/* Featured Image - Responsive */}
-            <div className="relative rounded-lg xxs:rounded-xl xs:rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative mobile-card overflow-hidden shadow-2xl">
               <img
                 src={blog.image}
                 alt={blog.title}
-                className="w-full h-48 xxs:h-56 xs:h-64 sm-mobile:h-80 md-tablet:h-96 object-cover"
+                className="w-full h-40 xxs:h-48 xs:h-56 sm-mobile:h-72 md-tablet:h-80 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
