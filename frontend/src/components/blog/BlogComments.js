@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import LoginPopup from '../auth/LoginPopup';
 import { Heart, MessageCircle, Send } from 'lucide-react';
 
-const BlogComments = ({ blogId, blogTitle }) => {
+const BlogComments = ({ blogId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
