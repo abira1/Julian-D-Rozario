@@ -376,15 +376,15 @@ const BlogListing = () => {
 
       {/* Pagination - Mobile Optimized */}
       {totalPages > 1 && (
-        <section className="relative px-3 xxs:px-4 xs:px-6 mb-12 xxs:mb-16">
-          <div className="max-w-7xl mx-auto flex flex-col items-center gap-4 xxs:gap-6">
-            <div className="flex items-center gap-2 xxs:gap-3">
+        <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-12">
+          <div className="max-w-7xl mx-auto flex flex-col items-center mobile-content-gap">
+            <div className="flex items-center gap-1.5 xxs:gap-2">
               <button
                 onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="px-3 xxs:px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-600/20 hover:border-purple-500/30 transition-all duration-300 mobile-optimized-blur text-sm xxs:text-base touch-target"
+                className="mobile-button bg-white/5 border border-white/10 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-600/20 hover:border-purple-500/30 transition-all duration-300 mobile-optimized-blur"
               >
-                Previous
+                Prev
               </button>
               
               <div className="flex items-center gap-1">
