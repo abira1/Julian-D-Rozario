@@ -456,6 +456,307 @@ async def get_blog_likes(blog_id: str):
         logger.error(f"Get likes error: {str(e)}")
         raise HTTPException(status_code=400, detail="Failed to get likes")
 
+# Blog CRUD endpoints
+@api_router.get("/blogs", response_model=List[Blog])
+async def get_blogs(category: Optional[str] = None):
+    try:
+        blogs_ref = get_firebase_ref('blogs')
+        blogs_data = blogs_ref.get() or {}
+        
+        blogs = []
+        for blog_id, blog in blogs_data.items():
+            # Filter by category if specified
+            if category and category != 'All' and blog.get('category') != category:
+                continue
+                
+            blogs.append(Blog(
+                id=blog['id'],
+                title=blog['title'],
+                excerpt=blog['excerpt'],
+                content=blog['content'],
+                category=blog['category'],
+                author=blog.get('author', 'Julian D\'Rozario'),
+                read_time=blog.get('read_time', '5 min read'),
+                featured=blog.get('featured', False),
+                tags=blog.get('tags', []),
+                image_url=blog.get('image_url'),
+                views=blog.get('views', 0),
+                likes=blog.get('likes', 0),
+                created_at=datetime.fromisoformat(blog['created_at']),
+                updated_at=datetime.fromisoformat(blog.get('updated_at', blog['created_at']))
+            ))
+        
+        # Sort by created_at (newest first)
+        blogs.sort(key=lambda x: x.created_at, reverse=True)
+        return blogs
+        
+    except Exception as e:
+        logger.error(f"Get blogs error: {str(e)}")
+        return []
+
+@api_router.get("/blogs/{blog_id}", response_model=Blog)
+async def get_blog(blog_id: str):
+    try:
+        blog_ref = get_firebase_ref(f'blogs/{blog_id}')
+        blog_data = blog_ref.get()
+        
+        if not blog_data:
+            raise HTTPException(status_code=404, detail="Blog not found")
+        
+        # Increment views
+        views_ref = get_firebase_ref(f'blogs/{blog_id}/views')
+        current_views = views_ref.get() or 0
+        views_ref.set(current_views + 1)
+        blog_data['views'] = current_views + 1
+        
+        return Blog(
+            id=blog_data['id'],
+            title=blog_data['title'],
+            excerpt=blog_data['excerpt'],
+            content=blog_data['content'],
+            category=blog_data['category'],
+            author=blog_data.get('author', 'Julian D\'Rozario'),
+            read_time=blog_data.get('read_time', '5 min read'),
+            featured=blog_data.get('featured', False),
+            tags=blog_data.get('tags', []),
+            image_url=blog_data.get('image_url'),
+            views=blog_data.get('views', 0),
+            likes=blog_data.get('likes', 0),
+            created_at=datetime.fromisoformat(blog_data['created_at']),
+            updated_at=datetime.fromisoformat(blog_data.get('updated_at', blog_data['created_at']))
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Get blog error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to get blog")
+
+@api_router.post("/blogs", response_model=Blog)
+async def create_blog(blog_data: BlogCreate, current_user_email: str = Depends(verify_token)):
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        blog = Blog(
+            title=blog_data.title,
+            excerpt=blog_data.excerpt,
+            content=blog_data.content,
+            category=blog_data.category,
+            read_time=blog_data.read_time,
+            featured=blog_data.featured,
+            tags=blog_data.tags,
+            image_url=blog_data.image_url
+        )
+        
+        # Store in Firebase
+        blog_ref = get_firebase_ref(f'blogs/{blog.id}')
+        blog_ref.set({
+            'id': blog.id,
+            'title': blog.title,
+            'excerpt': blog.excerpt,
+            'content': blog.content,
+            'category': blog.category,
+            'author': blog.author,
+            'read_time': blog.read_time,
+            'featured': blog.featured,
+            'tags': blog.tags,
+            'image_url': blog.image_url,
+            'views': blog.views,
+            'likes': blog.likes,
+            'created_at': blog.created_at.isoformat(),
+            'updated_at': blog.updated_at.isoformat()
+        })
+        
+        return blog
+        
+    except Exception as e:
+        logger.error(f"Create blog error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to create blog")
+
+@api_router.put("/blogs/{blog_id}", response_model=Blog)
+async def update_blog(blog_id: str, blog_data: BlogUpdate, current_user_email: str = Depends(verify_token)):
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        blog_ref = get_firebase_ref(f'blogs/{blog_id}')
+        existing_blog = blog_ref.get()
+        
+        if not existing_blog:
+            raise HTTPException(status_code=404, detail="Blog not found")
+        
+        # Update only provided fields
+        update_data = {}
+        if blog_data.title is not None:
+            update_data['title'] = blog_data.title
+        if blog_data.excerpt is not None:
+            update_data['excerpt'] = blog_data.excerpt
+        if blog_data.content is not None:
+            update_data['content'] = blog_data.content
+        if blog_data.category is not None:
+            update_data['category'] = blog_data.category
+        if blog_data.read_time is not None:
+            update_data['read_time'] = blog_data.read_time
+        if blog_data.featured is not None:
+            update_data['featured'] = blog_data.featured
+        if blog_data.tags is not None:
+            update_data['tags'] = blog_data.tags
+        if blog_data.image_url is not None:
+            update_data['image_url'] = blog_data.image_url
+        
+        update_data['updated_at'] = datetime.utcnow().isoformat()
+        
+        # Update in Firebase
+        blog_ref.update(update_data)
+        
+        # Get updated blog
+        updated_blog = blog_ref.get()
+        return Blog(
+            id=updated_blog['id'],
+            title=updated_blog['title'],
+            excerpt=updated_blog['excerpt'],
+            content=updated_blog['content'],
+            category=updated_blog['category'],
+            author=updated_blog.get('author', 'Julian D\'Rozario'),
+            read_time=updated_blog.get('read_time', '5 min read'),
+            featured=updated_blog.get('featured', False),
+            tags=updated_blog.get('tags', []),
+            image_url=updated_blog.get('image_url'),
+            views=updated_blog.get('views', 0),
+            likes=updated_blog.get('likes', 0),
+            created_at=datetime.fromisoformat(updated_blog['created_at']),
+            updated_at=datetime.fromisoformat(updated_blog['updated_at'])
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Update blog error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to update blog")
+
+@api_router.delete("/blogs/{blog_id}")
+async def delete_blog(blog_id: str, current_user_email: str = Depends(verify_token)):
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        blog_ref = get_firebase_ref(f'blogs/{blog_id}')
+        existing_blog = blog_ref.get()
+        
+        if not existing_blog:
+            raise HTTPException(status_code=404, detail="Blog not found")
+        
+        # Delete blog
+        blog_ref.delete()
+        
+        # Also delete associated comments and likes
+        comments_ref = get_firebase_ref('blog_comments')
+        comments_data = comments_ref.get() or {}
+        for comment_id, comment in comments_data.items():
+            if comment.get('blog_id') == blog_id:
+                comment_ref = get_firebase_ref(f'blog_comments/{comment_id}')
+                comment_ref.delete()
+        
+        likes_ref = get_firebase_ref('blog_likes')
+        likes_data = likes_ref.get() or {}
+        for like_id, like in likes_data.items():
+            if like.get('blog_id') == blog_id:
+                like_ref = get_firebase_ref(f'blog_likes/{like_id}')
+                like_ref.delete()
+        
+        return {"message": "Blog deleted successfully"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Delete blog error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to delete blog")
+
+# Categories endpoints
+@api_router.get("/categories", response_model=List[Category])
+async def get_categories():
+    try:
+        categories_ref = get_firebase_ref('categories')
+        categories_data = categories_ref.get() or {}
+        
+        categories = []
+        for cat_id, category in categories_data.items():
+            categories.append(Category(
+                id=category['id'],
+                name=category['name'],
+                description=category.get('description'),
+                created_at=datetime.fromisoformat(category['created_at'])
+            ))
+        
+        # Add default "All" category
+        categories.insert(0, Category(
+            id="all",
+            name="All",
+            description="All blog categories"
+        ))
+        
+        return categories
+        
+    except Exception as e:
+        logger.error(f"Get categories error: {str(e)}")
+        return [Category(id="all", name="All", description="All blog categories")]
+
+@api_router.post("/categories", response_model=Category)
+async def create_category(category_data: CategoryCreate, current_user_email: str = Depends(verify_token)):
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        category = Category(
+            name=category_data.name,
+            description=category_data.description
+        )
+        
+        # Store in Firebase
+        category_ref = get_firebase_ref(f'categories/{category.id}')
+        category_ref.set({
+            'id': category.id,
+            'name': category.name,
+            'description': category.description,
+            'created_at': category.created_at.isoformat()
+        })
+        
+        return category
+        
+    except Exception as e:
+        logger.error(f"Create category error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to create category")
+
+# File upload endpoint
+@api_router.post("/upload", response_model=UploadResponse)
+async def upload_file(file: bytes = None, current_user_email: str = Depends(verify_token)):
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # For now, return a placeholder URL
+        # In production, you would upload to Firebase Storage or another service
+        filename = f"upload_{uuid.uuid4()}.jpg"
+        
+        # Placeholder implementation
+        # TODO: Implement actual file upload to Firebase Storage
+        placeholder_url = f"https://via.placeholder.com/600x400/7c3aed/ffffff?text={filename}"
+        
+        return UploadResponse(
+            url=placeholder_url,
+            filename=filename
+        )
+        
+    except Exception as e:
+        logger.error(f"File upload error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to upload file")
+
 # Legacy status endpoints (keeping for compatibility)
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
