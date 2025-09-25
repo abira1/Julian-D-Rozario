@@ -70,10 +70,93 @@ class AdminUser(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     last_login: datetime = Field(default_factory=datetime.utcnow)
 
+# Authentication helper functions
+def create_access_token(data: dict) -> str:
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
+
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
+    try:
+        payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+        return email
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+
+async def verify_google_token(token: str) -> dict:
+    try:
+        # Verify the Google token
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
+        
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+            
+        return idinfo
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid Google token: {str(e)}")
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
     return {"message": "Hello World"}
+
+# Admin authentication endpoints
+@api_router.post("/admin/google-login", response_model=TokenResponse)
+async def google_login(login_data: GoogleLoginRequest):
+    try:
+        # Verify Google token
+        google_user_info = await verify_google_token(login_data.google_token)
+        
+        # Check if email matches authorized email
+        if google_user_info['email'] != AUTHORIZED_EMAIL:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Access denied. Only authorized users can access the admin panel."
+            )
+        
+        # Check if user exists in database, if not create new user
+        existing_user = await db.admin_users.find_one({"email": google_user_info['email']})
+        
+        if not existing_user:
+            # Create new admin user
+            admin_user = AdminUser(
+                email=google_user_info['email'],
+                name=google_user_info['name'],
+                google_id=google_user_info['sub']
+            )
+            await db.admin_users.insert_one(admin_user.dict())
+        else:
+            # Update last login
+            await db.admin_users.update_one(
+                {"email": google_user_info['email']},
+                {"$set": {"last_login": datetime.utcnow()}}
+            )
+        
+        # Create JWT token
+        access_token = create_access_token(data={"sub": google_user_info['email']})
+        
+        return TokenResponse(
+            access_token=access_token,
+            username=google_user_info['name']
+        )
+        
+    except Exception as e:
+        logger.error(f"Google login error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Authentication failed")
+
+@api_router.get("/admin/verify")
+async def verify_admin_token(current_user_email: str = Depends(verify_token)):
+    # Get user from database
+    user = await db.admin_users.find_one({"email": current_user_email})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"username": user["name"], "email": user["email"]}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
