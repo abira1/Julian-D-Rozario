@@ -71,7 +71,7 @@ const BlogCard = ({ blog, index }) => {
 
       <div className="relative z-10 p-6">
         <div className="flex items-center justify-between text-sm text-gray-400 mb-3">
-          <span>{new Date(blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          <span>{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
           <div className="flex items-center gap-4">
             <span>{blog.readTime}</span>
             <div className="flex items-center gap-1">
