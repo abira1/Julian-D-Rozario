@@ -280,8 +280,8 @@ const BlogPost = () => {
                       </div>
                     </div>
 
-                    {/* Blog Interactions - Mobile Optimized */}
-                    <div className="mt-6 xxs:mt-8">
+                    {/* Blog Interactions - Enhanced Mobile */}
+                    <div className="mt-4 xxs:mt-6 xs:mt-8">
                       <BlogInteractions 
                         blogId={blog.id.toString()} 
                         blogTitle={blog.title}
