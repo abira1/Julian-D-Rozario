@@ -276,12 +276,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Desktop service card subtitles display fix"
-    - "Blog page blur effects reduction"
-    - "Update Hero section design with two-column layout"
-    - "Update content to reflect Dubai business expertise"
-    - "Remove Services section and improve mobile responsiveness"
-    - "Google OAuth Admin Authentication System"
+    - "Blog Post Interface with User Interactions"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
