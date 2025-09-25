@@ -9,12 +9,18 @@ const AdminLogin = ({ onLogin }) => {
 
   const CLIENT_ID = "474981062451-1kevsn9u6v4gjob0kmm0eog39fiae00h.apps.googleusercontent.com";
   const AUTHORIZED_EMAIL = "abirsabirhossain@gmail.com";
+  
+  // Use production redirect URI for Google OAuth
+  const REDIRECT_URI = window.location.hostname === 'localhost' 
+    ? "http://localhost:3000" 
+    : "https://drozario.blog";
 
   useEffect(() => {
     const initializeGapi = async () => {
       gapi.load('auth2', () => {
         gapi.auth2.init({
           client_id: CLIENT_ID,
+          redirect_uri: REDIRECT_URI
         });
       });
     };
