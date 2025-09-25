@@ -284,7 +284,6 @@ const BlogPost = () => {
       </main>
 
       <Footer />
-      <GradualBlur />
     </div>
   );
 };
