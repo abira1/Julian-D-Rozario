@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import LoginPopup from '../auth/LoginPopup';
-import { Heart, MessageCircle, Send } from 'lucide-react';
+import { MessageCircle, Send } from 'lucide-react';
 import { database } from '../../firebase/config';
 import { ref, onValue, off } from 'firebase/database';
 
@@ -14,15 +14,14 @@ const BlogComments = ({ blogId }) => {
   
   const { user, backendToken } = useAuth();
 
-  // Real-time comments and likes listeners
+  // Real-time comments listener
   useEffect(() => {
     if (!blogId) return;
 
     setLoading(true);
     
-    // Set up real-time listeners for comments
+    // Set up real-time listener for comments
     const commentsRef = ref(database, 'blog_comments');
-    const likesRef = ref(database, 'blog_likes');
     
     const commentsListener = onValue(commentsRef, (snapshot) => {
       try {
@@ -42,40 +41,17 @@ const BlogComments = ({ blogId }) => {
       }
     });
 
-    const likesListener = onValue(likesRef, (snapshot) => {
-      try {
-        const likesData = snapshot.val() || {};
-        
-        // Filter likes for this blog
-        const blogLikes = Object.values(likesData)
-          .filter(like => like.blog_id === blogId);
-        
-        setLikesCount(blogLikes.length);
-        
-        // Check if current user has liked this blog
-        if (user) {
-          const userLike = blogLikes.find(like => like.user_email === user.email);
-          setIsLiked(!!userLike);
-        }
-      } catch (error) {
-        console.error('Error processing likes data:', error);
-        // Fallback to API call
-        fetchLikesFromAPI();
-      }
-    });
-
     // Cleanup listeners on unmount
     return () => {
       try {
         off(commentsRef, commentsListener);
-        off(likesRef, likesListener);
       } catch (error) {
         console.error('Error cleaning up listeners:', error);
       }
     };
-  }, [blogId, user]);
+  }, [blogId]);
 
-  // Fallback API functions for when Firebase listeners fail
+  // Fallback API function for when Firebase listeners fail
   const fetchCommentsFromAPI = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blog/${blogId}/comments`);
@@ -90,29 +66,10 @@ const BlogComments = ({ blogId }) => {
     }
   };
 
-  const fetchLikesFromAPI = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blog/${blogId}/likes`);
-      if (response.ok) {
-        const data = await response.json();
-        setLikesCount(data.likes_count);
-        
-        // Check if current user has liked this blog
-        if (user && data.likes) {
-          const userLike = data.likes.find(like => like.user_email === user.email);
-          setIsLiked(!!userLike);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching likes from API:', error);
-    }
-  };
-
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     
     if (!user) {
-      setLoginPurpose('comment');
       setShowLoginPopup(true);
       return;
     }
@@ -145,35 +102,6 @@ const BlogComments = ({ blogId }) => {
       console.error('Error submitting comment:', error);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleLikeToggle = async () => {
-    if (!user) {
-      setLoginPurpose('like');
-      setShowLoginPopup(true);
-      return;
-    }
-
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blog/like`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${backendToken}`
-        },
-        body: JSON.stringify({
-          blog_id: blogId
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setIsLiked(data.liked);
-        setLikesCount(prev => data.liked ? prev + 1 : prev - 1);
-      }
-    } catch (error) {
-      console.error('Error toggling like:', error);
     }
   };
 
@@ -253,23 +181,28 @@ const BlogComments = ({ blogId }) => {
       {/* Comments List */}
       <div className="space-y-6">
         {comments.length > 0 ? (
-          comments.map((comment) => (
-            <div key={comment.id} className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-                  {comment.user_name.charAt(0).toUpperCase()}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="font-medium text-white">{comment.user_name}</span>
-                    <span className="text-xs text-gray-500">•</span>
-                    <span className="text-xs text-gray-500">{formatDate(comment.timestamp)}</span>
+          <div className="mb-6">
+            <h4 className="text-lg font-medium text-white mb-4">
+              {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
+            </h4>
+            {comments.map((comment) => (
+              <div key={comment.id} className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6 mb-4">
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                    {comment.user_name.charAt(0).toUpperCase()}
                   </div>
-                  <p className="text-gray-300 leading-relaxed">{comment.comment_text}</p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="font-medium text-white">{comment.user_name}</span>
+                      <span className="text-xs text-gray-500">•</span>
+                      <span className="text-xs text-gray-500">{formatDate(comment.timestamp)}</span>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed">{comment.comment_text}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         ) : (
           <div className="text-center py-12">
             <MessageCircle size={48} className="mx-auto text-gray-600 mb-4" />
@@ -283,7 +216,7 @@ const BlogComments = ({ blogId }) => {
       <LoginPopup
         isOpen={showLoginPopup}
         onClose={() => setShowLoginPopup(false)}
-        purpose={loginPurpose}
+        purpose="comment"
       />
     </div>
   );
