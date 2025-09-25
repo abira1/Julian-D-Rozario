@@ -161,11 +161,28 @@ const BlogSection = () => {
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Expert perspectives on Dubai business formation, UAE licensing, and corporate advisory services
           </p>
+          {/* Debug info */}
+          <div className="mt-4 text-sm text-gray-500">
+            Loading: {isLoading ? 'Yes' : 'No'} | Blogs count: {blogs.length} | Backend URL: {process.env.REACT_APP_BACKEND_URL}
+          </div>
         </div>
 
-        {/* Desktop Layout - Uniform Grid (768px and above) */}
-        <div className="hidden min-[768px]:block">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Loading State */}
+        {isLoading ? (
+          <div className="text-center py-16">
+            <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-300">Loading latest insights...</p>
+          </div>
+        ) : blogs.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-gray-300 text-lg mb-4">No blog posts available at the moment.</p>
+            <p className="text-gray-500 text-sm">Please check back later for the latest insights.</p>
+          </div>
+        ) : (
+          <>
+            {/* Desktop Layout - Uniform Grid (768px and above) */}
+            <div className="hidden min-[768px]:block">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs.map((article, index) => (
               <div
                 key={article.id}
