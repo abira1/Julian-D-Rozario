@@ -17,7 +17,7 @@ const BlogPost = () => {
 
   useEffect(() => {
     // Find the blog post
-    const foundBlog = mockBlogs.find(b => b.id === parseInt(id));
+    const foundBlog = blogData.find(b => b.id === parseInt(id));
     if (!foundBlog) {
       navigate('/blog');
       return;
@@ -26,7 +26,7 @@ const BlogPost = () => {
     setBlog(foundBlog);
     
     // Get related blogs (same category, excluding current)
-    const related = mockBlogs
+    const related = blogData
       .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
       .slice(0, 3);
     setRelatedBlogs(related);
