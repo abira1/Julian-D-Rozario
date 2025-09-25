@@ -42,7 +42,6 @@ const BlogSection = () => {
         const mockBlogs = blogData.slice(0, 6);
         setBlogs(mockBlogs);
         setDataSource('Mock Data');
-        preloadImages(mockBlogs);
         setIsLoading(false);
       }
     };
