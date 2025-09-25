@@ -29,6 +29,7 @@ const LoginPopup = ({ isOpen, onClose, purpose = "comment" }) => {
   const purposeText = {
     comment: "to comment on this blog",
     like: "to like this blog",
+    share: "to share this blog",
     admin: "to access the admin panel"
   };
 
