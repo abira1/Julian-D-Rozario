@@ -309,7 +309,7 @@ const BlogListing = () => {
             </div>
 
             {/* Category Pills - Mobile Optimized */}
-            <div className="flex flex-wrap gap-2 xxs:gap-3 justify-center">
+            <div className="flex flex-wrap gap-1.5 xxs:gap-2 justify-center">
               {categories.map((category) => (
                 <button
                   key={category.name}
@@ -317,13 +317,14 @@ const BlogListing = () => {
                     setSelectedCategory(category.name);
                     setCurrentPage(1);
                   }}
-                  className={`px-3 xxs:px-4 py-2 rounded-md xxs:rounded-lg font-medium transition-all duration-300 mobile-optimized-blur border text-xs xxs:text-sm touch-target ${
+                  className={`px-2.5 xxs:px-3 py-1.5 xxs:py-2 rounded mobile-text-xs xxs:mobile-text-sm font-medium transition-all duration-300 mobile-optimized-blur border touch-target ${
                     selectedCategory === category.name
                       ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-transparent shadow-lg'
                       : 'bg-white/5 text-gray-300 border-white/10 hover:border-purple-500/30 hover:text-purple-300'
                   }`}
                 >
-                  {category.name} {category.name !== 'All' && `(${category.count})`}
+                  {category.name === 'All' ? 'All' : category.name.split(' ')[0]} 
+                  {category.name !== 'All' && ` (${category.count})`}
                 </button>
               ))}
             </div>
