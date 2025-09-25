@@ -276,7 +276,7 @@ const BlogSection = () => {
                   >
                     {/* Image */}
                     <div className="relative h-40 overflow-hidden bg-slate-800">
-                      {loadedImages.has(article.id) ? (
+                       
                         <img 
                           src={article.image_url || article.image} 
                           alt={article.title}
@@ -343,7 +343,7 @@ const BlogSection = () => {
                   >
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden bg-slate-800">
-                      {loadedImages.has(article.id) ? (
+                       
                         <img 
                           src={article.image_url || article.image} 
                           alt={article.title}
