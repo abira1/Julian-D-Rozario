@@ -124,6 +124,7 @@ const AdminLogin = ({ onLogin }) => {
                   onSuccess={onGoogleSuccess}
                   onFailure={onGoogleFailure}
                   cookiePolicy={'single_host_origin'}
+                  redirectUri={window.location.origin}
                   className="w-full"
                   render={(renderProps) => (
                     <button
