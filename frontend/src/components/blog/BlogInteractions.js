@@ -117,54 +117,54 @@ const BlogInteractions = ({ blogId, blogTitle, blogUrl }) => {
   };
 
   return (
-    <div className="mt-8">
-      {/* Modern Interaction Bar */}
-      <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.12] rounded-2xl p-6 shadow-2xl shadow-purple-500/5">
+    <div className="mt-4 xxs:mt-6 xs:mt-8">
+      {/* Mobile-Optimized Interaction Bar */}
+      <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.02] mobile-optimized-blur border border-white/[0.12] rounded-xl xxs:rounded-2xl mobile-compact-spacing xxs:p-4 xs:p-5 lg:p-6 shadow-xl xxs:shadow-2xl shadow-purple-500/5">
         
-        {/* Engagement Stats Section */}
-        <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/[0.08]">
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-white">
+        {/* Mobile-First Engagement Stats */}
+        <div className="flex items-center justify-between mb-3 xxs:mb-4 xs:mb-6 pb-2 xxs:pb-3 xs:pb-4 border-b border-white/[0.08]">
+          <div className="flex items-center space-x-3 xxs:space-x-4 xs:space-x-6">
+            <div className="flex items-center space-x-1.5 xxs:space-x-2">
+              <div className="w-1.5 h-1.5 xxs:w-2 xxs:h-2 bg-red-500 rounded-full animate-pulse"></div>
+              <span className="text-xs xxs:text-sm font-medium text-white">
                 {likes.count} {likes.count === 1 ? 'like' : 'likes'}
               </span>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-white">
+            <div className="flex items-center space-x-1.5 xxs:space-x-2">
+              <div className="w-1.5 h-1.5 xxs:w-2 xxs:h-2 bg-blue-500 rounded-full animate-pulse"></div>
+              <span className="text-xs xxs:text-sm font-medium text-white">
                 {comments.count} {comments.count === 1 ? 'comment' : 'comments'}
               </span>
             </div>
           </div>
           
-          <div className="text-xs text-gray-500 font-medium px-3 py-1 bg-white/5 rounded-full">
+          <div className="text-xs text-gray-500 font-medium px-2 xxs:px-3 py-0.5 xxs:py-1 bg-white/5 rounded-full">
             Interactive
           </div>
         </div>
 
-        {/* Modern Action Buttons */}
-        <div className="flex items-center justify-center space-x-3">
+        {/* Mobile-Optimized Action Buttons */}
+        <div className="flex items-center justify-center gap-2 xxs:gap-3 xs:gap-4">
           
-          {/* Like Button - Modern Design */}
+          {/* Like Button - Mobile Enhanced */}
           <button
             onClick={handleLike}
             disabled={isLoading.like}
-            className={`group relative flex items-center space-x-3 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+            className={`group relative flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl font-semibold text-xs xxs:text-sm transition-all duration-300 transform active:scale-95 hover:scale-105 hover:shadow-lg touch-target ${
               likes.isLiked 
                 ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-red-500/25' 
                 : 'bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-red-500/20 hover:to-pink-500/20 hover:text-red-400 border border-white/10 hover:border-red-500/30'
             } ${isLoading.like ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
           >
-            <div className="relative">
+            <div className="relative flex items-center justify-center">
               {isLoading.like ? (
-                <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 xxs:w-5 xxs:h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
               ) : (
                 <>
                   <Heart 
-                    size={20} 
+                    size={16} 
+                    className={`xxs:w-5 xxs:h-5 transition-transform duration-200 ${likes.isLiked ? 'animate-pulse fill-current' : 'group-hover:scale-110'}`}
                     fill={likes.isLiked ? 'currentColor' : 'none'} 
-                    className={`transition-transform duration-200 ${likes.isLiked ? 'animate-pulse' : 'group-hover:scale-110'}`}
                   />
                   {likes.isLiked && (
                     <div className="absolute inset-0 bg-red-400 rounded-full opacity-20 animate-ping"></div>
@@ -172,26 +172,26 @@ const BlogInteractions = ({ blogId, blogTitle, blogUrl }) => {
                 </>
               )}
             </div>
-            <span>Like</span>
+            <span className="hidden xxs:inline">Like</span>
           </button>
 
-          {/* Comment Button - Modern Design */}
+          {/* Comment Button - Mobile Enhanced */}
           <button
             onClick={handleComment}
-            className="group flex items-center space-x-3 px-6 py-3 rounded-xl bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-blue-500/20 hover:to-indigo-500/20 hover:text-blue-400 border border-white/10 hover:border-blue-500/30 font-semibold text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
+            className="group flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-blue-500/20 hover:to-indigo-500/20 hover:text-blue-400 border border-white/10 hover:border-blue-500/30 font-semibold text-xs xxs:text-sm transition-all duration-300 transform active:scale-95 hover:scale-105 hover:shadow-lg cursor-pointer touch-target"
           >
-            <MessageCircle size={20} className="transition-transform duration-200 group-hover:scale-110" />
-            <span>Comment</span>
+            <MessageCircle size={16} className="xxs:w-5 xxs:h-5 transition-transform duration-200 group-hover:scale-110" />
+            <span className="hidden xxs:inline">Comment</span>
           </button>
 
-          {/* Share Button - Modern Design */}
+          {/* Share Button - Mobile Enhanced */}
           <div className="relative">
             <button
               onClick={() => setShowShareMenu(!showShareMenu)}
-              className="group flex items-center space-x-3 px-6 py-3 rounded-xl bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-green-500/20 hover:to-emerald-500/20 hover:text-green-400 border border-white/10 hover:border-green-500/30 font-semibold text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
+              className="group flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-green-500/20 hover:to-emerald-500/20 hover:text-green-400 border border-white/10 hover:border-green-500/30 font-semibold text-xs xxs:text-sm transition-all duration-300 transform active:scale-95 hover:scale-105 hover:shadow-lg cursor-pointer touch-target"
             >
-              <Share2 size={20} className="transition-transform duration-200 group-hover:scale-110" />
-              <span>Share</span>
+              <Share2 size={16} className="xxs:w-5 xxs:h-5 transition-transform duration-200 group-hover:scale-110" />
+              <span className="hidden xxs:inline">Share</span>
             </button>
 
             {/* Modern Share Menu */}
