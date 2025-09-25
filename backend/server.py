@@ -30,6 +30,16 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Security
+security = HTTPBearer()
+JWT_SECRET = os.environ.get('JWT_SECRET', 'your-super-secret-jwt-key-change-this-in-production')
+JWT_ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_HOURS = 24
+
+# Google OAuth configuration
+GOOGLE_CLIENT_ID = "474981062451-1kevsn9u6v4gjob0kmm0eog39fiae00h.apps.googleusercontent.com"
+AUTHORIZED_EMAIL = "abirsabirhossain@gmail.com"
+
 
 # Define Models
 class StatusCheck(BaseModel):
