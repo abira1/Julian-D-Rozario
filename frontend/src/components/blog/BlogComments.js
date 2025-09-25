@@ -10,9 +10,6 @@ const BlogComments = ({ blogId }) => {
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const [loginPurpose, setLoginPurpose] = useState('comment');
-  const [likesCount, setLikesCount] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
   const [loading, setLoading] = useState(true);
   
   const { user, backendToken } = useAuth();
