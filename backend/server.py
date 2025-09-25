@@ -202,10 +202,11 @@ async def verify_firebase_token(token: str) -> dict:
         if FIREBASE_MOCK_MODE:
             # Mock token verification for testing
             if token.startswith('mock_firebase_token'):
+                # Return admin email for testing admin functionality
                 return {
-                    'uid': 'mock_user_123',
-                    'email': 'test@example.com',
-                    'name': 'Test User',
+                    'uid': 'mock_admin_123',
+                    'email': 'abirsabirhossain@gmail.com',  # Admin email for testing
+                    'name': 'Test Admin User',
                     'picture': 'https://via.placeholder.com/100x100'
                 }
             else:
