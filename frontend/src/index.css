@@ -358,6 +358,35 @@ img {
   }
 }
 
+/* Mobile-Optimized Card Styling */
+.mobile-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+@media (min-width: 375px) {
+  .mobile-card {
+    border-radius: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-card {
+    border-radius: 1.25rem;
+  }
+}
+
+/* Enhanced Mobile Interaction States */
+.mobile-interactive:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-out;
+}
+
+.mobile-interactive:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: 2px;
+}
+
 /* Enhanced Mobile Content Spacing */
 .mobile-content-gap {
   gap: 0.75rem;
