@@ -266,6 +266,7 @@ test_plan:
     - "Update Hero section design with two-column layout"
     - "Update content to reflect Dubai business expertise"
     - "Remove Services section and improve mobile responsiveness"
+    - "Google OAuth Admin Authentication System"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
