@@ -12,8 +12,8 @@ const BlogCard = ({ blog, index }) => {
   useEffect(() => {
     const img = new Image();
     img.onload = () => setImageLoaded(true);
-    img.src = blog.image;
-  }, [blog.image]);
+    img.src = blog.image_url || blog.image;
+  }, [blog.image_url, blog.image]);
 
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
