@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import LoginPopup from '../auth/LoginPopup';
 import { Heart, MessageCircle, Send } from 'lucide-react';
+import { database } from '../../firebase/config';
+import { ref, on, off } from 'firebase/database';
 
 const BlogComments = ({ blogId }) => {
   const [comments, setComments] = useState([]);
