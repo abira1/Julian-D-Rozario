@@ -205,9 +205,80 @@ async def verify_firebase_token(token: str) -> dict:
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid Firebase token: {str(e)}")
 
+# Mock Firebase data store for testing
+MOCK_FIREBASE_DATA = {
+    'categories': {},
+    'blogs': {},
+    'users': {},
+    'blog_comments': {},
+    'blog_likes': {},
+    'status_checks': {}
+}
+
+class MockFirebaseRef:
+    def __init__(self, path: str):
+        self.path = path
+        
+    def get(self):
+        if FIREBASE_MOCK_MODE:
+            keys = self.path.split('/')
+            data = MOCK_FIREBASE_DATA
+            for key in keys:
+                if key and key in data:
+                    data = data[key]
+                elif key:
+                    return None
+            return data if data != MOCK_FIREBASE_DATA else None
+        else:
+            return db.reference(self.path).get()
+    
+    def set(self, value):
+        if FIREBASE_MOCK_MODE:
+            keys = self.path.split('/')
+            data = MOCK_FIREBASE_DATA
+            for key in keys[:-1]:
+                if key:
+                    if key not in data:
+                        data[key] = {}
+                    data = data[key]
+            if keys[-1]:
+                data[keys[-1]] = value
+        else:
+            db.reference(self.path).set(value)
+    
+    def update(self, value):
+        if FIREBASE_MOCK_MODE:
+            keys = self.path.split('/')
+            data = MOCK_FIREBASE_DATA
+            for key in keys[:-1]:
+                if key:
+                    if key not in data:
+                        data[key] = {}
+                    data = data[key]
+            if keys[-1]:
+                if keys[-1] not in data:
+                    data[keys[-1]] = {}
+                data[keys[-1]].update(value)
+        else:
+            db.reference(self.path).update(value)
+    
+    def delete(self):
+        if FIREBASE_MOCK_MODE:
+            keys = self.path.split('/')
+            data = MOCK_FIREBASE_DATA
+            for key in keys[:-1]:
+                if key:
+                    if key not in data:
+                        return
+                    data = data[key]
+            if keys[-1] and keys[-1] in data:
+                del data[keys[-1]]
+        else:
+            db.reference(self.path).delete()
+
 # Firebase Realtime Database helper functions
 def get_firebase_ref(path: str):
-    return db.reference(path)
+    return MockFirebaseRef(path)
 
 # Initialize default data
 def initialize_default_data():
