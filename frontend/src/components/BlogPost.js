@@ -168,9 +168,12 @@ const BlogPost = () => {
 
         {/* Content Section */}
         <section className="pb-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-lg border border-white/10 rounded-2xl">
-              <div className="p-8 md:p-12" ref={contentRef}>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-4 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-3">
+                <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-lg border border-white/10 rounded-2xl">
+                  <div className="p-8 md:p-12" ref={contentRef}>
                 {/* Table of Contents */}
                 <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-lg border border-white/10 rounded-xl p-6 mb-8">
                   <h3 className="text-lg font-semibold mb-4 text-white">Table of Contents</h3>
