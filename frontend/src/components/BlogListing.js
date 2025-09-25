@@ -425,7 +425,7 @@ const BlogListing = () => {
               </button>
             </div>
             
-            <div className="text-xs xxs:text-sm text-gray-400">
+            <div className="mobile-text-xs text-gray-400">
               Page {currentPage} of {totalPages}
             </div>
           </div>
