@@ -13,38 +13,66 @@ const BlogSection = () => {
 
   // Real-time blogs listener
   useEffect(() => {
-    // Set up real-time listener for blogs
-    const blogsRef = ref(database, 'blogs');
+    // Try Firebase first with a timeout, then fallback to API
+    let firebaseTimeout;
     
-    const blogsListener = onValue(blogsRef, (snapshot) => {
+    const setupFirebaseListener = () => {
       try {
-        const blogsData = snapshot.val() || {};
+        const blogsRef = ref(database, 'blogs');
         
-        // Convert to array and sort by created date (newest first)
-        const blogsArray = Object.values(blogsData)
-          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-          .slice(0, 6); // Show only first 6 blogs
-        
-        setBlogs(blogsArray);
-        setIsLoading(false);
-        
-        // Preload images for the new blogs
-        preloadImages(blogsArray);
-      } catch (error) {
-        console.error('Error processing blogs data:', error);
-        // Fallback to API call or mock data
-        fetchBlogsFromAPI();
-      }
-    });
+        const blogsListener = onValue(blogsRef, (snapshot) => {
+          try {
+            const blogsData = snapshot.val() || {};
+            
+            // Convert to array and sort by created date (newest first)
+            const blogsArray = Object.values(blogsData)
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+              .slice(0, 6); // Show only first 6 blogs
+            
+            // If Firebase has data, use it
+            if (blogsArray.length > 0) {
+              setBlogs(blogsArray);
+              setIsLoading(false);
+              preloadImages(blogsArray);
+              if (firebaseTimeout) clearTimeout(firebaseTimeout);
+            } else {
+              // If Firebase has no data, fallback to API
+              console.log('Firebase returned empty data, falling back to API');
+              fetchBlogsFromAPI();
+            }
+          } catch (error) {
+            console.error('Error processing blogs data:', error);
+            fetchBlogsFromAPI();
+          }
+        }, (error) => {
+          console.error('Firebase connection error:', error);
+          fetchBlogsFromAPI();
+        });
 
-    // Cleanup listener
-    return () => {
-      try {
-        off(blogsRef, blogsListener);
+        // Set a timeout to fallback to API if Firebase takes too long
+        firebaseTimeout = setTimeout(() => {
+          console.log('Firebase timeout, falling back to API');
+          fetchBlogsFromAPI();
+        }, 3000);
+
+        // Cleanup listener
+        return () => {
+          try {
+            off(blogsRef, blogsListener);
+            if (firebaseTimeout) clearTimeout(firebaseTimeout);
+          } catch (error) {
+            console.error('Error cleaning up blogs listener:', error);
+          }
+        };
       } catch (error) {
-        console.error('Error cleaning up blogs listener:', error);
+        console.error('Firebase setup error:', error);
+        fetchBlogsFromAPI();
+        return () => {};
       }
     };
+
+    const cleanup = setupFirebaseListener();
+    return cleanup;
   }, []);
 
   // Fallback API function
