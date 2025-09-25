@@ -93,18 +93,7 @@ const ContactSection = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 lg:gap-4">
-                  <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg lg:rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <polyline points="12,6 12,12 16,14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-400">Status</div>
-                    <div className="text-green-400">{contactData.availability}</div>
-                  </div>
-                </div>
+                {/* Status section removed per user request */}
               </div>
             </div>
 
