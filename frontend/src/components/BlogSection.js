@@ -230,18 +230,12 @@ const BlogSection = () => {
                     <div className="flex gap-4">
                       {/* Image */}
                       <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden bg-slate-800">
-                        {loadedImages.has(article.id) ? (
-                          <img 
-                            src={article.image_url || article.image} 
-                            alt={article.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
-                            <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                          </div>
-                        )}
+                        <img 
+                          src={article.image_url || article.image} 
+                          alt={article.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
                       </div>
 
                       {/* Content */}
