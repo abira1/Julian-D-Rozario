@@ -408,27 +408,38 @@ def test_google_auth_dependencies():
 
 def run_all_tests():
     """Run all backend tests"""
-    print("🚀 Starting Backend Health Check Tests")
-    print("=" * 50)
+    print("🚀 Starting Comprehensive Backend Health Check Tests")
+    print("🔐 Including Google OAuth Admin Authentication System")
+    print("=" * 60)
     
     test_results = []
     
-    # Test 1: Health Check
-    test_results.append(("Health Check", test_health_check()))
-    
-    # Test 2: MongoDB Connection (includes create and get tests)
+    # Basic API Tests
+    print("\n📡 BASIC API ENDPOINTS")
+    print("-" * 30)
+    test_results.append(("Health Check (GET /api/)", test_health_check()))
     test_results.append(("MongoDB Connection", test_mongodb_connection()))
+    test_results.append(("Get Status Checks (GET /api/status)", test_get_status_checks()))
     
-    # Test 3: Get Status Checks
-    test_results.append(("Get Status Checks", test_get_status_checks()))
+    # Google OAuth Admin System Tests
+    print("\n🔐 GOOGLE OAUTH ADMIN SYSTEM")
+    print("-" * 30)
+    test_results.append(("Admin Google Login Endpoint (POST /api/admin/google-login)", test_admin_google_login_endpoint()))
+    test_results.append(("Admin Verify Endpoint (GET /api/admin/verify)", test_admin_verify_endpoint()))
+    test_results.append(("JWT_SECRET Environment Variable", test_jwt_secret_environment()))
+    test_results.append(("MongoDB Admin Users Collection", test_mongodb_admin_users_collection()))
+    test_results.append(("Google Auth Dependencies", test_google_auth_dependencies()))
     
-    # Test 4: CORS Configuration
+    # System Configuration Tests
+    print("\n⚙️  SYSTEM CONFIGURATION")
+    print("-" * 30)
     test_results.append(("CORS Configuration", test_cors_headers()))
+    test_results.append(("Supervisor Services", test_supervisor_services()))
     
     # Summary
-    print("\n" + "=" * 50)
-    print("🏁 TEST SUMMARY")
-    print("=" * 50)
+    print("\n" + "=" * 60)
+    print("🏁 COMPREHENSIVE TEST SUMMARY")
+    print("=" * 60)
     
     passed = 0
     failed = 0
@@ -446,7 +457,12 @@ def run_all_tests():
     print(f"Failed: {failed}")
     
     if failed == 0:
-        print("\n🎉 All backend tests passed! Backend is healthy.")
+        print("\n🎉 All backend tests passed! Google OAuth admin system is ready.")
+        print("✅ Basic API endpoints working")
+        print("✅ Google OAuth admin authentication system implemented")
+        print("✅ MongoDB admin_users collection accessible")
+        print("✅ JWT authentication configured")
+        print("✅ All dependencies and services operational")
         return True
     else:
         print(f"\n⚠️  {failed} test(s) failed. Backend needs attention.")
