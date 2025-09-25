@@ -199,16 +199,16 @@ const BlogPost = () => {
                         </p>
                       </section>
 
-                      <section id="key-points" className="mb-6 xxs:mb-8">
-                        <h2 className="text-xl xxs:text-2xl font-bold mb-3 xxs:mb-4 text-white">Key Points</h2>
-                        <div className="grid grid-cols-1 md-tablet:grid-cols-2 gap-4 xxs:gap-6 mb-4 xxs:mb-6">
-                          <div className="bg-gradient-to-br from-purple-600/10 to-purple-600/5 border border-purple-600/20 rounded-lg p-4 xxs:p-6">
-                            <h4 className="font-semibold text-purple-300 mb-2 text-sm xxs:text-base">Strategic Approach</h4>
-                            <p className="text-gray-300 text-xs xxs:text-sm">Understanding the fundamentals and building a solid foundation.</p>
+                      <section id="key-points" className="mb-4 xxs:mb-6">
+                        <h2 className="mobile-title text-white">Key Points</h2>
+                        <div className="grid grid-cols-1 xs:grid-cols-2 mobile-content-gap mb-4">
+                          <div className="bg-gradient-to-br from-purple-600/10 to-purple-600/5 border border-purple-600/20 mobile-card mobile-compact-spacing">
+                            <h4 className="font-semibold text-purple-300 mb-1 xxs:mb-2 mobile-text-sm">Strategic Approach</h4>
+                            <p className="text-gray-300 mobile-text-xs">Understanding the fundamentals and building a solid foundation.</p>
                           </div>
-                          <div className="bg-gradient-to-br from-blue-600/10 to-blue-600/5 border border-blue-600/20 rounded-lg p-4 xxs:p-6">
-                            <h4 className="font-semibold text-blue-300 mb-2 text-sm xxs:text-base">Implementation</h4>
-                            <p className="text-gray-300 text-xs xxs:text-sm">Practical steps and real-world applications.</p>
+                          <div className="bg-gradient-to-br from-blue-600/10 to-blue-600/5 border border-blue-600/20 mobile-card mobile-compact-spacing">
+                            <h4 className="font-semibold text-blue-300 mb-1 xxs:mb-2 mobile-text-sm">Implementation</h4>
+                            <p className="text-gray-300 mobile-text-xs">Practical steps and real-world applications.</p>
                           </div>
                         </div>
                       </section>
