@@ -138,7 +138,7 @@ const BlogPost = () => {
               <span className="inline-block px-3 xxs:px-4 py-1 xxs:py-2 bg-purple-600/20 text-purple-400 rounded-full text-xs xxs:text-sm font-medium mb-3 xxs:mb-4">
                 {blog.category}
               </span>
-              <h1 className="text-2xl xxs:text-3xl xs:text-4xl sm-mobile:text-5xl md-tablet:text-6xl font-bold mb-4 xxs:mb-6 leading-tight px-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              <h1 className="hero-title-mobile font-bold leading-tight px-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                 {blog.title}
               </h1>
               <div className="flex items-center justify-center space-x-3 xxs:space-x-4 xs:space-x-6 text-gray-400 text-xs xxs:text-sm xs:text-base">
