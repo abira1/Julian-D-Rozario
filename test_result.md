@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "On desktop view service card subtitles not showing properly! please investigate and dedicated blog page reduce blur effect. UPDATE: User requested to update Hero section design with minimal two-column layout - image on right side, minimal text on left. Updated Julian's role to Business Relations Manager & Company formation Specialist with Dubai/UAE expertise focus. Updated all content to reflect Meydan Free Zone Authority experience and Dubai business formation specialization. LATEST UPDATE: User requested to remove entire Services section and improve mobile responsive hero section."
+user_problem_statement: "MYSQL MIGRATION & GOOGLE OAUTH ADMIN PANEL: User requested to migrate from MongoDB to MySQL database and ensure Google Login properly works on admin panel. Successfully migrated backend from MongoDB to MySQL with all existing functionality preserved."
 
 backend:
   - task: "No backend changes required"
