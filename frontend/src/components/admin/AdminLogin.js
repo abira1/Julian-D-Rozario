@@ -13,9 +13,10 @@ const AdminLogin = ({ onLogin }) => {
     setError('');
 
     // Create Google OAuth URL for implicit flow
-    const redirectUri = encodeURIComponent(window.location.origin + '/julian_portfolio');
-    const scope = encodeURIComponent('email profile');
-    const responseType = 'id_token token';
+    // Use the exact redirect URI that should be configured in Google Console
+    const redirectUri = encodeURIComponent(window.location.origin);
+    const scope = encodeURIComponent('openid email profile');
+    const responseType = 'id_token';
     const nonce = Date.now().toString();
 
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
