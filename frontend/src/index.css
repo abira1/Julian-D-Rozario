@@ -356,6 +356,61 @@ img {
   }
 }
 
+/* Mobile Performance Optimizations */
+.mobile-card, .mobile-button, .touch-target {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Mobile Typography Improvements */
+@media (max-width: 425px) {
+  body {
+    font-size: 14px;
+    line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+/* Mobile Image Optimization */
+.responsive-blog-image {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+@media (max-width: 425px) {
+  .responsive-blog-image {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Mobile Viewport Protection */
+@media (max-width: 425px) {
+  .overflow-x-auto {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Enhanced Mobile Container Queries Support */
+@container (max-width: 375px) {
+  .mobile-title {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+}
+
 /* Mobile-First Button Styles */
 .mobile-button {
   font-size: 0.875rem;
