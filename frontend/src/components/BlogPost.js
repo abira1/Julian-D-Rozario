@@ -141,17 +141,17 @@ const BlogPost = () => {
               <h1 className="hero-title-mobile font-bold leading-tight px-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                 {blog.title}
               </h1>
-              <div className="flex items-center justify-center space-x-3 xxs:space-x-4 xs:space-x-6 text-gray-400 text-xs xxs:text-sm xs:text-base">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 xxs:w-10 xxs:h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold text-xs xxs:text-sm">
+              <div className="flex items-center justify-center space-x-2 xxs:space-x-3 text-gray-400 mobile-text-xs xxs:mobile-text-sm">
+                <div className="flex items-center space-x-1.5 xxs:space-x-2">
+                  <div className="w-6 h-6 xxs:w-8 xxs:h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold mobile-text-xs">
                     JD
                   </div>
-                  <span>{blog.author}</span>
+                  <span className="truncate max-w-20 xxs:max-w-none">{blog.author}</span>
                 </div>
                 <span>•</span>
-                <span>{blog.date}</span>
-                <span className="hidden xxs:inline">•</span>
-                <span className="hidden xxs:inline">{blog.readTime}</span>
+                <span className="truncate">{blog.date}</span>
+                <span className="hidden xs:inline">•</span>
+                <span className="hidden xs:inline">{blog.readTime}</span>
               </div>
             </div>
             
