@@ -202,36 +202,73 @@ const BlogComments = ({ blogId }) => {
         </form>
       </div>
 
-      {/* Comments List */}
+      {/* Modern Comments List */}
       <div className="space-y-6">
         {comments.length > 0 ? (
           <div className="mb-6">
-            <h4 className="text-lg font-medium text-white mb-4">
-              {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
-            </h4>
-            {comments.map((comment) => (
-              <div key={comment.id} className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6 mb-4">
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-                    {comment.user_name.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="font-medium text-white">{comment.user_name}</span>
-                      <span className="text-xs text-gray-500">•</span>
-                      <span className="text-xs text-gray-500">{formatDate(comment.timestamp)}</span>
+            <div className="flex items-center space-x-3 mb-6">
+              <h4 className="text-lg font-semibold text-white">
+                {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
+              </h4>
+              <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+              <div className="text-xs text-gray-500 px-3 py-1 bg-white/5 rounded-full">
+                Latest
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              {comments.map((comment, index) => (
+                <div 
+                  key={comment.id} 
+                  className="bg-gradient-to-br from-white/[0.06] to-white/[0.01] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 hover:border-white/[0.15] transition-all duration-300 transform hover:scale-[1.01]"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="flex items-start space-x-4">
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        {comment.user_name.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900"></div>
                     </div>
-                    <p className="text-gray-300 leading-relaxed">{comment.comment_text}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <span className="font-semibold text-white text-base">{comment.user_name}</span>
+                        <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+                        <span className="text-xs text-gray-400 font-medium">{formatDate(comment.timestamp)}</span>
+                        <div className="flex-1"></div>
+                        <div className="text-xs text-gray-500 px-2 py-1 bg-white/5 rounded-lg">
+                          Verified
+                        </div>
+                      </div>
+                      <p className="text-gray-200 leading-relaxed text-sm">{comment.comment_text}</p>
+                      
+                      {/* Comment Actions */}
+                      <div className="flex items-center space-x-4 mt-4 pt-3 border-t border-white/5">
+                        <button className="flex items-center space-x-2 text-xs text-gray-400 hover:text-purple-400 transition-colors duration-200">
+                          <Heart size={14} />
+                          <span>Like</span>
+                        </button>
+                        <button className="flex items-center space-x-2 text-xs text-gray-400 hover:text-blue-400 transition-colors duration-200">
+                          <MessageCircle size={14} />
+                          <span>Reply</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="text-center py-12">
-            <MessageCircle size={48} className="mx-auto text-gray-600 mb-4" />
-            <h4 className="text-lg font-medium text-white mb-2">No comments yet</h4>
-            <p className="text-gray-400">Be the first to share your thoughts on this blog post!</p>
+          <div className="text-center py-16">
+            <div className="relative mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full mx-auto flex items-center justify-center">
+                <MessageCircle size={40} className="text-purple-400" />
+              </div>
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full animate-ping"></div>
+            </div>
+            <h4 className="text-xl font-semibold text-white mb-3">Start the Conversation</h4>
+            <p className="text-gray-400 max-w-md mx-auto leading-relaxed">Be the first to share your insights and thoughts on this article. Your perspective matters!</p>
           </div>
         )}
       </div>
