@@ -891,6 +891,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_event():
+    # Initialize default data when server starts
+    initialize_default_data()
+
 @app.on_event("shutdown")
 async def shutdown_event():
     # Firebase Admin SDK will clean up automatically
