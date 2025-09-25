@@ -49,27 +49,6 @@ const BlogSection = () => {
     loadBlogs();
   }, []);
 
-  // Preload images for better performance
-  const preloadImages = async (articlesList) => {
-    const imagePromises = articlesList.map((article) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          setLoadedImages(prev => new Set([...prev, article.id]));
-          resolve(article.id);
-        };
-        img.onerror = () => resolve(article.id); // Continue even if image fails
-        img.src = article.image_url || article.image;
-      });
-    });
-    
-    try {
-      await Promise.allSettled(imagePromises);
-    } catch (error) {
-      console.log('Some images failed to preload:', error);
-    }
-  };
-
   const handleArticleClick = (articleId) => {
     navigate(`/blog/${articleId}`);
   };
