@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Backend Health Check and API Testing
-Tests all backend endpoints and verifies system health
-Includes Google OAuth admin authentication system testing
+MySQL Backend Health Check and API Testing
+Tests all backend endpoints and verifies MySQL migration
+Includes Google OAuth admin authentication system testing with MySQL
 """
 
 import requests
@@ -12,6 +12,7 @@ import os
 from datetime import datetime
 import time
 import subprocess
+import pymysql
 
 # Get backend URL from frontend .env file
 def get_backend_url():
