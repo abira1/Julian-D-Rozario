@@ -311,24 +311,22 @@ const BlogPost = () => {
                 </button>
 
                 {/* Sidebar Content */}
-                <div className={`lg-desktop:sticky lg-desktop:top-8 space-y-4 xxs:space-y-6 ${sidebarOpen ? 'block' : 'hidden lg-desktop:block'}`}>
-                  {/* Quick Actions section removed per user request */}
-                  
+                <div className={`lg-desktop:sticky lg-desktop:top-8 mobile-content-gap ${sidebarOpen ? 'block' : 'hidden lg-desktop:block'}`}>
                   {/* Author Info */}
-                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl p-3 xxs:p-4">
-                    <h4 className="text-sm font-medium text-white mb-2 xxs:mb-3" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing">
+                    <h4 className="mobile-text-sm font-medium text-white mb-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                       About the Author
                     </h4>
-                    <div className="flex items-center space-x-2 xxs:space-x-3 mb-2 xxs:mb-3">
-                      <div className="w-10 h-10 xxs:w-12 xxs:h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold text-xs xxs:text-sm">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="w-8 h-8 xxs:w-10 xxs:h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold mobile-text-xs">
                         JD
                       </div>
-                      <div>
-                        <p className="text-xs xxs:text-sm font-medium text-white">{blog.author}</p>
-                        <p className="text-xs text-gray-400">Business Relations Manager</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="mobile-text-xs font-medium text-white truncate">{blog.author}</p>
+                        <p className="mobile-text-xs text-gray-400">Business Relations Manager</p>
                       </div>
                     </div>
-                    <p className="text-xs leading-relaxed text-gray-400">
+                    <p className="mobile-text-xs leading-relaxed text-gray-400">
                       Expert in UAE business formation with 10+ years experience in company setup and licensing.
                     </p>
                   </div>
