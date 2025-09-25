@@ -46,7 +46,7 @@ const BlogCard = ({ blog, index }) => {
       <div className="relative h-48 overflow-hidden bg-slate-800">
         {imageLoaded ? (
           <img 
-            src={blog.image} 
+            src={blog.image_url || blog.image} 
             alt={blog.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
