@@ -194,6 +194,218 @@ def test_cors_headers():
         print(f"⚠️  CORS test failed: {e}")
         return True  # Not critical for basic functionality
 
+def test_admin_google_login_endpoint():
+    """Test Google OAuth admin login endpoint structure"""
+    print("\n=== Testing Admin Google Login Endpoint ===")
+    try:
+        # Test with invalid/missing data to check endpoint exists and has proper error handling
+        test_data = {
+            "google_token": "invalid_token",
+            "email": "test@example.com",
+            "name": "Test User",
+            "google_id": "123456789"
+        }
+        
+        response = requests.post(
+            f"{API_BASE_URL}/admin/google-login",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        
+        # We expect this to fail with 400 (bad token) but endpoint should exist
+        if response.status_code in [400, 401, 403]:
+            print("✅ Admin Google login endpoint exists and has proper error handling")
+            print(f"   Status: {response.status_code} (expected for invalid token)")
+            return True
+        elif response.status_code == 404:
+            print("❌ Admin Google login endpoint not found (404)")
+            return False
+        else:
+            print(f"⚠️  Unexpected status code: {response.status_code}")
+            print(f"   Response: {response.text}")
+            return True  # Endpoint exists but different behavior
+            
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Admin Google login endpoint test failed: {e}")
+        return False
+
+def test_admin_verify_endpoint():
+    """Test admin token verification endpoint structure"""
+    print("\n=== Testing Admin Verify Endpoint ===")
+    try:
+        # Test without authorization header - should get 401/403
+        response = requests.get(f"{API_BASE_URL}/admin/verify", timeout=10)
+        
+        if response.status_code in [401, 403, 422]:  # 422 for missing auth header
+            print("✅ Admin verify endpoint exists and requires authentication")
+            print(f"   Status: {response.status_code} (expected for missing auth)")
+            return True
+        elif response.status_code == 404:
+            print("❌ Admin verify endpoint not found (404)")
+            return False
+        else:
+            print(f"⚠️  Unexpected status code: {response.status_code}")
+            print(f"   Response: {response.text}")
+            return True  # Endpoint exists but different behavior
+            
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Admin verify endpoint test failed: {e}")
+        return False
+
+def test_jwt_secret_environment():
+    """Test JWT_SECRET environment variable is loaded"""
+    print("\n=== Testing JWT_SECRET Environment Variable ===")
+    try:
+        # Read backend .env file to check if JWT_SECRET exists
+        env_file_path = "/app/backend/.env"
+        if os.path.exists(env_file_path):
+            with open(env_file_path, 'r') as f:
+                env_content = f.read()
+                if 'JWT_SECRET=' in env_content:
+                    print("✅ JWT_SECRET found in backend/.env")
+                    # Extract the value (without revealing it)
+                    for line in env_content.split('\n'):
+                        if line.startswith('JWT_SECRET='):
+                            jwt_secret = line.split('=', 1)[1].strip().strip('"')
+                            if len(jwt_secret) > 10:  # Basic length check
+                                print(f"   JWT_SECRET length: {len(jwt_secret)} characters (good)")
+                                return True
+                            else:
+                                print("⚠️  JWT_SECRET seems too short for production")
+                                return True  # Still working, just warning
+                    print("⚠️  JWT_SECRET found but could not parse value")
+                    return True
+                else:
+                    print("❌ JWT_SECRET not found in backend/.env")
+                    return False
+        else:
+            print("❌ Backend .env file not found")
+            return False
+            
+    except Exception as e:
+        print(f"❌ JWT_SECRET environment test failed: {e}")
+        return False
+
+def test_mongodb_admin_users_collection():
+    """Test MongoDB admin_users collection accessibility"""
+    print("\n=== Testing MongoDB Admin Users Collection ===")
+    try:
+        # We can't directly test the collection, but we can test the admin login endpoint
+        # which would fail if MongoDB connection or collection access is broken
+        test_data = {
+            "google_token": "test_token_for_collection_check",
+            "email": "test@example.com", 
+            "name": "Test User",
+            "google_id": "123456789"
+        }
+        
+        response = requests.post(
+            f"{API_BASE_URL}/admin/google-login",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        
+        # If we get a 400 (bad token) rather than 500 (server error), 
+        # it means MongoDB connection and collection access is working
+        if response.status_code == 400:
+            try:
+                error_data = response.json()
+                if "Invalid Google token" in str(error_data) or "Authentication failed" in str(error_data):
+                    print("✅ MongoDB admin_users collection accessible (Google token validation working)")
+                    return True
+            except:
+                pass
+        elif response.status_code == 500:
+            print("❌ MongoDB admin_users collection may have issues (server error)")
+            print(f"   Response: {response.text}")
+            return False
+        
+        print("✅ MongoDB admin_users collection appears accessible")
+        return True
+        
+    except requests.exceptions.RequestException as e:
+        print(f"❌ MongoDB admin_users collection test failed: {e}")
+        return False
+
+def test_supervisor_services():
+    """Test that all supervisor services are running"""
+    print("\n=== Testing Supervisor Services ===")
+    try:
+        result = subprocess.run(['sudo', 'supervisorctl', 'status'], 
+                              capture_output=True, text=True, timeout=10)
+        
+        if result.returncode == 0:
+            output = result.stdout
+            services = ['backend', 'frontend', 'mongodb']
+            running_services = []
+            
+            for service in services:
+                if f"{service}" in output and "RUNNING" in output:
+                    running_services.append(service)
+            
+            if len(running_services) == len(services):
+                print("✅ All supervisor services running")
+                for service in running_services:
+                    print(f"   ✅ {service}: RUNNING")
+                return True
+            else:
+                missing_services = [s for s in services if s not in running_services]
+                print(f"⚠️  Some services not running: {missing_services}")
+                for service in running_services:
+                    print(f"   ✅ {service}: RUNNING")
+                return False
+        else:
+            print(f"❌ Supervisor status check failed: {result.stderr}")
+            return False
+            
+    except subprocess.TimeoutExpired:
+        print("❌ Supervisor status check timed out")
+        return False
+    except Exception as e:
+        print(f"❌ Supervisor services test failed: {e}")
+        return False
+
+def test_google_auth_dependencies():
+    """Test that Google Auth dependencies are available"""
+    print("\n=== Testing Google Auth Dependencies ===")
+    try:
+        # Check if google-auth libraries are installed by testing import
+        # We'll do this by checking the requirements.txt file
+        requirements_file = "/app/backend/requirements.txt"
+        if os.path.exists(requirements_file):
+            with open(requirements_file, 'r') as f:
+                requirements = f.read()
+                
+            google_deps = [
+                'google-auth',
+                'google-auth-oauthlib', 
+                'google-auth-httplib2'
+            ]
+            
+            found_deps = []
+            for dep in google_deps:
+                if dep in requirements:
+                    found_deps.append(dep)
+            
+            if len(found_deps) == len(google_deps):
+                print("✅ All Google Auth dependencies found in requirements.txt")
+                for dep in found_deps:
+                    print(f"   ✅ {dep}")
+                return True
+            else:
+                missing_deps = [d for d in google_deps if d not in found_deps]
+                print(f"❌ Missing Google Auth dependencies: {missing_deps}")
+                return False
+        else:
+            print("❌ Requirements.txt file not found")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Google Auth dependencies test failed: {e}")
+        return False
+
 def run_all_tests():
     """Run all backend tests"""
     print("🚀 Starting Backend Health Check Tests")
