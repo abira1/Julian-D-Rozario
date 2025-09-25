@@ -202,26 +202,6 @@ const BlogComments = ({ blogId }) => {
 
   return (
     <div className="space-y-8">
-      {/* Like and Comment Stats */}
-      <div className="flex items-center space-x-6 pb-6 border-b border-white/10">
-        <button
-          onClick={handleLikeToggle}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-            isLiked 
-              ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' 
-              : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-red-400'
-          }`}
-        >
-          <Heart size={20} fill={isLiked ? 'currentColor' : 'none'} />
-          <span>{likesCount} {likesCount === 1 ? 'Like' : 'Likes'}</span>
-        </button>
-        
-        <div className="flex items-center space-x-2 text-gray-400">
-          <MessageCircle size={20} />
-          <span>{comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}</span>
-        </div>
-      </div>
-
       {/* Comment Form */}
       <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6">
         <h3 className="text-xl font-semibold text-white mb-4" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
