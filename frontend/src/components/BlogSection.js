@@ -11,6 +11,37 @@ const BlogSection = () => {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fallback API function
+  const fetchBlogsFromAPI = async () => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
+      console.log('Fetching blogs from API:', `${backendUrl}/api/blogs`);
+      
+      const response = await fetch(`${backendUrl}/api/blogs`);
+      if (response.ok) {
+        const blogsData = await response.json();
+        console.log('API blogs data:', blogsData);
+        const latestBlogs = blogsData.slice(0, 6);
+        setBlogs(latestBlogs);
+        preloadImages(latestBlogs);
+      } else {
+        console.error('API response not ok:', response.status);
+        // Final fallback to mock data
+        console.log('Falling back to mock data');
+        setBlogs(blogData.slice(0, 6));
+        preloadImages(blogData.slice(0, 6));
+      }
+    } catch (error) {
+      console.error('Error fetching blogs from API:', error);
+      // Final fallback to mock data
+      console.log('Falling back to mock data due to error');
+      setBlogs(blogData.slice(0, 6));
+      preloadImages(blogData.slice(0, 6));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Real-time blogs listener
   useEffect(() => {
     // Try Firebase first with a timeout, then fallback to API
@@ -74,37 +105,6 @@ const BlogSection = () => {
     const cleanup = setupFirebaseListener();
     return cleanup;
   }, []);
-
-  // Fallback API function
-  const fetchBlogsFromAPI = async () => {
-    try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL;
-      console.log('Fetching blogs from API:', `${backendUrl}/api/blogs`);
-      
-      const response = await fetch(`${backendUrl}/api/blogs`);
-      if (response.ok) {
-        const blogsData = await response.json();
-        console.log('API blogs data:', blogsData);
-        const latestBlogs = blogsData.slice(0, 6);
-        setBlogs(latestBlogs);
-        preloadImages(latestBlogs);
-      } else {
-        console.error('API response not ok:', response.status);
-        // Final fallback to mock data
-        console.log('Falling back to mock data');
-        setBlogs(blogData.slice(0, 6));
-        preloadImages(blogData.slice(0, 6));
-      }
-    } catch (error) {
-      console.error('Error fetching blogs from API:', error);
-      // Final fallback to mock data
-      console.log('Falling back to mock data due to error');
-      setBlogs(blogData.slice(0, 6));
-      preloadImages(blogData.slice(0, 6));
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   // Preload images for better performance
   const preloadImages = async (articlesList) => {
