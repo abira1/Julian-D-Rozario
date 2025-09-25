@@ -192,7 +192,7 @@ const BlogListing = () => {
   };
 
   // Filter and search logic
-  const filteredBlogs = blogData.filter(blog => {
+  const filteredBlogs = blogs.filter(blog => {
     const matchesCategory = selectedCategory === 'All' || blog.category === selectedCategory;
     const matchesSearch = blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -204,7 +204,7 @@ const BlogListing = () => {
   const sortedBlogs = [...filteredBlogs].sort((a, b) => {
     switch (sortBy) {
       case 'date':
-        return new Date(b.date) - new Date(a.date);
+        return new Date(b.created_at || b.date) - new Date(a.created_at || a.date);
       case 'views':
         return b.views - a.views;
       case 'likes':
