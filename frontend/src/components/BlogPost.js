@@ -312,39 +312,7 @@ const BlogPost = () => {
 
                 {/* Sidebar Content */}
                 <div className={`lg-desktop:sticky lg-desktop:top-8 space-y-4 xxs:space-y-6 ${sidebarOpen ? 'block' : 'hidden lg-desktop:block'}`}>
-                  {/* Quick Actions */}
-                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl p-3 xxs:p-4">
-                    <h4 className="text-sm font-medium text-white mb-2 xxs:mb-3" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                      Quick Actions
-                    </h4>
-                    <div className="space-y-1 xxs:space-y-2">
-                      <button 
-                        onClick={() => {
-                          const commentsSection = document.querySelector('#comments-section');
-                          if (commentsSection) commentsSection.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="w-full text-left px-3 py-2 text-xs xxs:text-sm text-gray-400 hover:text-purple-400 hover:bg-white/5 rounded-md transition-all duration-200 touch-target"
-                      >
-                        💬 Join Discussion
-                      </button>
-                      <button 
-                        onClick={() => {
-                          navigator.share ? 
-                            navigator.share({ title: blog.title, url: window.location.href }) :
-                            navigator.clipboard.writeText(window.location.href)
-                        }}
-                        className="w-full text-left px-3 py-2 text-xs xxs:text-sm text-gray-400 hover:text-purple-400 hover:bg-white/5 rounded-md transition-all duration-200 touch-target"
-                      >
-                        🔗 Share Article
-                      </button>
-                      <Link
-                        to="/blog"
-                        className="block w-full text-left px-3 py-2 text-xs xxs:text-sm text-gray-400 hover:text-purple-400 hover:bg-white/5 rounded-md transition-all duration-200 touch-target"
-                      >
-                        📚 More Articles
-                      </Link>
-                    </div>
-                  </div>
+                  {/* Quick Actions section removed per user request */}
                   
                   {/* Author Info */}
                   <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl p-3 xxs:p-4">
