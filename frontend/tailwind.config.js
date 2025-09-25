@@ -8,7 +8,12 @@ module.exports = {
   theme: {
   	extend: {
   		screens: {
-  			'xs': '475px',
+  			'xxs': '320px',
+  			'xs': '375px', 
+  			'sm-mobile': '425px',
+  			'md-tablet': '768px',
+  			'lg-desktop': '1024px',
+  			'xl-desktop': '1280px',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
