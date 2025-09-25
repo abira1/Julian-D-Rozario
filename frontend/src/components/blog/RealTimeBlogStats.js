@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { database } from '../../firebase/config';
-import { ref, on, off } from 'firebase/database';
+import { ref, onValue, off } from 'firebase/database';
 import { Eye, Heart, MessageCircle, TrendingUp } from 'lucide-react';
 
 const RealTimeBlogStats = ({ blogId }) => {
@@ -20,7 +20,7 @@ const RealTimeBlogStats = ({ blogId }) => {
     const commentsRef = ref(database, 'blog_comments');
     const likesRef = ref(database, 'blog_likes');
     
-    const blogListener = on(blogRef, 'value', (snapshot) => {
+    const blogListener = onValue(blogRef, (snapshot) => {
       try {
         const blogData = snapshot.val();
         if (blogData) {
@@ -34,7 +34,7 @@ const RealTimeBlogStats = ({ blogId }) => {
       }
     });
 
-    const commentsListener = on(commentsRef, 'value', (snapshot) => {
+    const commentsListener = onValue(commentsRef, (snapshot) => {
       try {
         const commentsData = snapshot.val() || {};
         const blogComments = Object.values(commentsData)
@@ -54,7 +54,7 @@ const RealTimeBlogStats = ({ blogId }) => {
       }
     });
 
-    const likesListener = on(likesRef, 'value', (snapshot) => {
+    const likesListener = onValue(likesRef, (snapshot) => {
       try {
         const likesData = snapshot.val() || {};
         const blogLikes = Object.values(likesData)
@@ -77,9 +77,9 @@ const RealTimeBlogStats = ({ blogId }) => {
     // Cleanup listeners
     return () => {
       try {
-        off(blogRef, 'value', blogListener);
-        off(commentsRef, 'value', commentsListener);
-        off(likesRef, 'value', likesListener);
+        off(blogRef, blogListener);
+        off(commentsRef, commentsListener);
+        off(likesRef, likesListener);
       } catch (error) {
         console.error('Error cleaning up stats listeners:', error);
       }

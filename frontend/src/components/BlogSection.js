@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { blogData } from '../data/mockData';
 import { database } from '../firebase/config';
-import { ref, on, off } from 'firebase/database';
+import { ref, onValue, off } from 'firebase/database';
 
 const BlogSection = () => {
   const sectionRef = useRef(null);
@@ -16,7 +16,7 @@ const BlogSection = () => {
     // Set up real-time listener for blogs
     const blogsRef = ref(database, 'blogs');
     
-    const blogsListener = on(blogsRef, 'value', (snapshot) => {
+    const blogsListener = onValue(blogsRef, (snapshot) => {
       try {
         const blogsData = snapshot.val() || {};
         
@@ -40,7 +40,7 @@ const BlogSection = () => {
     // Cleanup listener
     return () => {
       try {
-        off(blogsRef, 'value', blogsListener);
+        off(blogsRef, blogsListener);
       } catch (error) {
         console.error('Error cleaning up blogs listener:', error);
       }

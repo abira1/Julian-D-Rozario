@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import LoginPopup from '../auth/LoginPopup';
 import { Heart, MessageCircle, Send } from 'lucide-react';
 import { database } from '../../firebase/config';
-import { ref, on, off } from 'firebase/database';
+import { ref, onValue, off } from 'firebase/database';
 
 const BlogComments = ({ blogId }) => {
   const [comments, setComments] = useState([]);
@@ -27,7 +27,7 @@ const BlogComments = ({ blogId }) => {
     const commentsRef = ref(database, 'blog_comments');
     const likesRef = ref(database, 'blog_likes');
     
-    const commentsListener = on(commentsRef, 'value', (snapshot) => {
+    const commentsListener = onValue(commentsRef, (snapshot) => {
       try {
         const commentsData = snapshot.val() || {};
         
@@ -45,7 +45,7 @@ const BlogComments = ({ blogId }) => {
       }
     });
 
-    const likesListener = on(likesRef, 'value', (snapshot) => {
+    const likesListener = onValue(likesRef, (snapshot) => {
       try {
         const likesData = snapshot.val() || {};
         
@@ -70,8 +70,8 @@ const BlogComments = ({ blogId }) => {
     // Cleanup listeners on unmount
     return () => {
       try {
-        off(commentsRef, 'value', commentsListener);
-        off(likesRef, 'value', likesListener);
+        off(commentsRef, commentsListener);
+        off(likesRef, likesListener);
       } catch (error) {
         console.error('Error cleaning up listeners:', error);
       }
