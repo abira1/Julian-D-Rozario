@@ -283,6 +283,53 @@ const BlogPost = () => {
                 <div className="mt-12">
                   <BlogComments blogId={blog.id.toString()} blogTitle={blog.title} />
                 </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Sidebar */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-8 space-y-6">
+                  {/* Real-time Blog Stats */}
+                  <RealTimeBlogStats blogId={blog.id.toString()} />
+                  
+                  {/* Author Info */}
+                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-4">
+                    <h4 className="text-sm font-medium text-white mb-3" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                      About the Author
+                    </h4>
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold">
+                        JD
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-white">{blog.author}</p>
+                        <p className="text-xs text-gray-400">Business Relations Manager</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-400 leading-relaxed">
+                      Expert in UAE business formation with 10+ years experience in company setup and licensing.
+                    </p>
+                  </div>
+                  
+                  {/* Blog Categories */}
+                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-4">
+                    <h4 className="text-sm font-medium text-white mb-3" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                      Blog Categories
+                    </h4>
+                    <div className="space-y-2">
+                      {['Company Formation', 'Immigration', 'Technology', 'Operations', 'Business Development', 'Compliance'].map(category => (
+                        <Link 
+                          key={category}
+                          to={`/blog?category=${category}`}
+                          className="block text-xs text-gray-400 hover:text-purple-400 transition-colors duration-200"
+                        >
+                          {category}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
