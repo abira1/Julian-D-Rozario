@@ -90,11 +90,11 @@ const BlogCard = ({ blog, index }) => {
           {blog.excerpt}
         </p>
 
-        <div className="flex flex-wrap gap-1 xxs:gap-2 mb-3 xxs:mb-4">
-          {blog.tags?.slice(0, 3).map((tag, idx) => (
+        <div className="flex flex-wrap gap-1 mb-2 xxs:mb-3">
+          {blog.tags?.slice(0, 2).map((tag, idx) => (
             <span 
               key={idx}
-              className="px-2 py-1 bg-white/5 border border-white/10 rounded-md xxs:rounded-lg text-xs text-gray-400"
+              className="px-1.5 xxs:px-2 py-0.5 xxs:py-1 bg-white/5 border border-white/10 rounded mobile-text-xs text-gray-400"
             >
               #{tag}
             </span>
