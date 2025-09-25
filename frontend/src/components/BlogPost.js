@@ -5,7 +5,6 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import BlogComments from './blog/BlogComments';
 import { blogData } from '../data/mockData';
-import GradualBlur from './ui/GradualBlur';
 
 const BlogPost = () => {
   const { id } = useParams();
