@@ -350,11 +350,6 @@ const BlogSection = () => {
                           className="responsive-blog-image transition-transform duration-500 group-hover:scale-110"
                           loading="lazy"
                         />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
-                          <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                        </div>
-                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                       
                       {/* Category Badge */}
