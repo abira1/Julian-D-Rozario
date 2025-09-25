@@ -150,7 +150,7 @@ const BlogInteractions = ({ blogId, blogTitle, blogUrl }) => {
           <button
             onClick={handleLike}
             disabled={isLoading.like}
-            className={`group relative flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl font-semibold text-xs xxs:text-sm transition-all duration-300 transform active:scale-95 hover:scale-105 hover:shadow-lg touch-target ${
+            className={`mobile-reaction-button mobile-interactive group relative flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl font-semibold text-xs xxs:text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg touch-target ${
               likes.isLiked 
                 ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-red-500/25' 
                 : 'bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-red-500/20 hover:to-pink-500/20 hover:text-red-400 border border-white/10 hover:border-red-500/30'
