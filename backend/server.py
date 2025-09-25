@@ -203,6 +203,77 @@ async def verify_firebase_token(token: str) -> dict:
 def get_firebase_ref(path: str):
     return db.reference(path)
 
+# Initialize default data
+def initialize_default_data():
+    try:
+        # Check if categories exist, if not create defaults
+        categories_ref = get_firebase_ref('categories')
+        existing_categories = categories_ref.get() or {}
+        
+        if not existing_categories:
+            default_categories = [
+                {"name": "Company Formation", "description": "UAE business setup and company formation"},
+                {"name": "Immigration", "description": "UAE visa and immigration services"},
+                {"name": "Technology", "description": "Business technology and digital transformation"},
+                {"name": "Operations", "description": "Business operations and management"},
+                {"name": "Business Development", "description": "Growth strategies and market expansion"},
+                {"name": "Compliance", "description": "Legal compliance and regulatory matters"}
+            ]
+            
+            for cat_data in default_categories:
+                category = Category(
+                    name=cat_data["name"],
+                    description=cat_data["description"]
+                )
+                category_ref = get_firebase_ref(f'categories/{category.id}')
+                category_ref.set({
+                    'id': category.id,
+                    'name': category.name,
+                    'description': category.description,
+                    'created_at': category.created_at.isoformat()
+                })
+            
+            logger.info("Default categories initialized")
+        
+        # Initialize sample blog if no blogs exist
+        blogs_ref = get_firebase_ref('blogs')
+        existing_blogs = blogs_ref.get() or {}
+        
+        if not existing_blogs:
+            sample_blog = Blog(
+                title="Welcome to Julian D'Rozario's Blog",
+                excerpt="Explore insights on UAE business formation, company setup, and entrepreneurial success in Dubai's dynamic business landscape.",
+                content="<h2>Welcome to my blog!</h2><p>I'm Julian D'Rozario, a Business Relations Manager and Company Formation Specialist with over 10 years of experience in the UAE business landscape.</p><p>Through this blog, I'll be sharing valuable insights on:</p><ul><li>UAE business formation and company setup</li><li>Free zone vs mainland business options</li><li>Visa and immigration processes</li><li>Market trends and opportunities</li><li>Compliance and regulatory updates</li></ul><p>Stay tuned for regular updates and practical advice to help you succeed in the UAE business ecosystem.</p>",
+                category="Business Development",
+                featured=True,
+                tags=["welcome", "business formation", "UAE", "entrepreneurship"],
+                image_url="https://via.placeholder.com/800x600/7c3aed/ffffff?text=Welcome+Blog"
+            )
+            
+            blog_ref = get_firebase_ref(f'blogs/{sample_blog.id}')
+            blog_ref.set({
+                'id': sample_blog.id,
+                'title': sample_blog.title,
+                'excerpt': sample_blog.excerpt,
+                'content': sample_blog.content,
+                'category': sample_blog.category,
+                'author': sample_blog.author,
+                'read_time': sample_blog.read_time,
+                'featured': sample_blog.featured,
+                'tags': sample_blog.tags,
+                'image_url': sample_blog.image_url,
+                'views': sample_blog.views,
+                'likes': sample_blog.likes,
+                'created_at': sample_blog.created_at.isoformat(),
+                'updated_at': sample_blog.updated_at.isoformat()
+            })
+            
+            logger.info("Sample blog initialized")
+            
+    except Exception as e:
+        logger.error(f"Error initializing default data: {str(e)}")
+        # Don't fail if initialization fails
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
