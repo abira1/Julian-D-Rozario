@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import BlogComments from './blog/BlogComments';
-import { mockBlogs } from '../data/mockData';
+import { blogData } from '../data/mockData';
 import GradualBlur from './ui/GradualBlur';
 
 const BlogPost = () => {
