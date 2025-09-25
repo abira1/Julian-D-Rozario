@@ -332,16 +332,16 @@ const BlogPost = () => {
                   </div>
                   
                   {/* Blog Categories */}
-                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl p-3 xxs:p-4">
-                    <h4 className="text-sm font-medium text-white mb-2 xxs:mb-3" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                      Blog Categories
+                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing">
+                    <h4 className="mobile-text-sm font-medium text-white mb-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                      Categories
                     </h4>
-                    <div className="space-y-1 xxs:space-y-2">
+                    <div className="space-y-0.5">
                       {['Company Formation', 'Immigration', 'Technology', 'Operations', 'Business Development', 'Compliance'].map(category => (
                         <Link 
                           key={category}
                           to={`/blog?category=${category}`}
-                          className="block text-xs text-gray-400 hover:text-purple-400 transition-colors duration-200 touch-target py-1"
+                          className="block mobile-text-xs text-gray-400 hover:text-purple-400 transition-colors duration-200 touch-target py-1 truncate"
                         >
                           {category}
                         </Link>
