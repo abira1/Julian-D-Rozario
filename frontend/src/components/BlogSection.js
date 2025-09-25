@@ -26,7 +26,6 @@ const BlogSection = () => {
           if (apiBlogs.length > 0) {
             setBlogs(apiBlogs.slice(0, 6));
             setDataSource('API');
-            preloadImages(apiBlogs.slice(0, 6));
             setIsLoading(false);
             return;
           }
