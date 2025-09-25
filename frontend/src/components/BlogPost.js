@@ -279,8 +279,17 @@ const BlogPost = () => {
                   </div>
                 </div>
 
+                {/* Blog Interactions */}
+                <div className="mt-8">
+                  <BlogInteractions 
+                    blogId={blog.id.toString()} 
+                    blogTitle={blog.title}
+                    blogUrl={window.location.href}
+                  />
+                </div>
+
                 {/* Comments Section */}
-                <div className="mt-12">
+                <div id="comments-section" className="mt-12">
                   <BlogComments blogId={blog.id.toString()} blogTitle={blog.title} />
                 </div>
                   </div>
