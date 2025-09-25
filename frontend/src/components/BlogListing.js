@@ -217,14 +217,74 @@ const BlogListing = () => {
   const startIndex = (currentPage - 1) * articlesPerPage;
   const currentBlogs = sortedBlogs.slice(startIndex, startIndex + articlesPerPage);
 
-  // Loading state
+  // Enhanced Mobile Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-slate-950/30 to-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-20 w-20 xxs:h-24 xxs:w-24 xs:h-32 xs:w-32 border-b-2 border-purple-500 mx-auto mb-4"></div>
-          <p className="text-white text-sm xxs:text-base xs:text-lg">Loading blogs...</p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-black via-slate-950/30 to-black">
+        {/* Navigation Skeleton */}
+        <nav className="fixed top-0 left-0 right-0 z-40 bg-black/90 mobile-optimized-blur border-b border-white/10">
+          <div className="max-w-7xl mx-auto px-3 xxs:px-4 xs:px-6 py-3 xxs:py-4 flex items-center justify-between">
+            <div className="h-6 w-32 mobile-skeleton rounded"></div>
+            <div className="h-6 w-24 mobile-skeleton rounded"></div>
+          </div>
+        </nav>
+
+        {/* Hero Section Skeleton */}
+        <section className="relative pt-16 xxs:pt-18 xs:pt-20 pb-8 xxs:pb-12 px-3 xxs:px-4 xs:px-6">
+          <div className="relative z-10 max-w-7xl mx-auto text-center">
+            <div className="h-8 xxs:h-10 xs:h-12 w-48 xxs:w-56 xs:w-64 mx-auto mb-4 mobile-skeleton rounded"></div>
+            <div className="h-4 w-80 mx-auto mb-2 mobile-skeleton rounded"></div>
+            <div className="h-4 w-64 mx-auto mb-6 mobile-skeleton rounded"></div>
+            <div className="w-16 h-1 mx-auto mobile-skeleton rounded-full"></div>
+          </div>
+        </section>
+
+        {/* Search Section Skeleton */}
+        <section className="relative px-3 xxs:px-4 xs:px-6 mb-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing">
+              <div className="h-12 mb-4 mobile-skeleton rounded"></div>
+              <div className="flex gap-2 mb-4">
+                <div className="h-6 w-16 mobile-skeleton rounded"></div>
+                <div className="h-6 w-24 mobile-skeleton rounded"></div>
+              </div>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {[1,2,3,4,5,6].map(i => (
+                  <div key={i} className="h-8 w-20 mobile-skeleton rounded"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Cards Grid Skeleton */}
+        <section className="relative px-3 xxs:px-4 xs:px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md-tablet:grid-cols-3 lg-desktop:grid-cols-4 mobile-content-gap">
+              {[1,2,3,4,5,6,7,8].map(i => (
+                <div key={i} className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card overflow-hidden">
+                  <div className="h-32 xxs:h-36 mobile-skeleton"></div>
+                  <div className="mobile-compact-spacing">
+                    <div className="flex justify-between mb-2">
+                      <div className="h-3 w-16 mobile-skeleton rounded"></div>
+                      <div className="h-3 w-12 mobile-skeleton rounded"></div>
+                    </div>
+                    <div className="h-5 mb-2 mobile-skeleton rounded"></div>
+                    <div className="h-4 mb-2 mobile-skeleton rounded"></div>
+                    <div className="h-4 w-3/4 mb-2 mobile-skeleton rounded"></div>
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 mobile-skeleton rounded-full"></div>
+                        <div className="h-3 w-16 mobile-skeleton rounded"></div>
+                      </div>
+                      <div className="h-3 w-12 mobile-skeleton rounded"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
