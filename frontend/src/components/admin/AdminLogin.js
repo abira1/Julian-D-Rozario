@@ -163,7 +163,7 @@ const AdminLogin = ({ onLogin }) => {
               <span className="font-semibold">Authorized Access Only</span> <br />
               You need to add the redirect URI to Google Console: <br />
               <code className="text-xs bg-blue-900/30 px-2 py-1 rounded mt-1 inline-block">
-                {window.location.origin}/julian_portfolio
+                {window.location.origin}
               </code>
             </p>
           </div>
