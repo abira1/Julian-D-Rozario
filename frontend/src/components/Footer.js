@@ -184,18 +184,7 @@ const Footer = () => {
                 </div>
               </div>
               
-              <div className="group flex items-start gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/5 hover:border-green-500/20">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12,6 12,12 16,14"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-medium">Availability</p>
-                  <p className="text-green-400 text-sm font-medium">{contactData.availability}</p>
-                </div>
-              </div>
+              {/* Availability section removed per user request */}
             </div>
           </div>
         </div>
