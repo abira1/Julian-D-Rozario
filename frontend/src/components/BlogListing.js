@@ -297,7 +297,7 @@ const BlogListing = () => {
             </div>
 
             <div className="flex flex-wrap gap-3 justify-center">
-              {blogCategories.map((category) => (
+              {categories.map((category) => (
                 <button
                   key={category.name}
                   onClick={() => {
