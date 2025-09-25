@@ -187,13 +187,13 @@ const BlogPost = () => {
                     </div>
 
                     {/* Blog Content - Mobile Optimized Typography */}
-                    <div className="prose prose-sm xxs:prose-base xs:prose-lg prose-invert max-w-none">
-                      <section id="introduction" className="mb-6 xxs:mb-8">
-                        <h2 className="text-xl xxs:text-2xl font-bold mb-3 xxs:mb-4 text-white">Introduction</h2>
-                        <p className="text-gray-300 leading-relaxed mb-3 xxs:mb-4 text-sm xxs:text-base">
+                    <div className="prose prose-sm prose-invert max-w-none">
+                      <section id="introduction" className="mb-4 xxs:mb-6">
+                        <h2 className="mobile-title text-white">Introduction</h2>
+                        <p className="text-gray-300 leading-relaxed mb-3 mobile-text-base">
                           {blog.excerpt}
                         </p>
-                        <p className="text-gray-300 leading-relaxed text-sm xxs:text-base">
+                        <p className="text-gray-300 leading-relaxed mobile-text-base">
                           In this comprehensive guide, we'll explore the intricacies of {blog.title.toLowerCase()}, 
                           providing you with actionable insights and strategies that you can implement immediately.
                         </p>
