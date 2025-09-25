@@ -404,7 +404,7 @@ const BlogListing = () => {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`w-8 h-8 xxs:w-10 xxs:h-10 rounded-lg font-medium transition-all duration-300 mobile-optimized-blur text-sm xxs:text-base touch-target ${
+                      className={`w-8 h-8 xxs:w-9 xxs:h-9 rounded mobile-text-sm font-medium transition-all duration-300 mobile-optimized-blur touch-target ${
                         currentPage === page
                           ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
                           : 'bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/30 hover:text-purple-300'
