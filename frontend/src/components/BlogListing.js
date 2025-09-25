@@ -341,10 +341,10 @@ const BlogListing = () => {
       </section>
 
       {/* Articles Grid - Mobile First Responsive */}
-      <section className="relative px-3 xxs:px-4 xs:px-6 mb-12 xxs:mb-16">
+      <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-12">
         <div className="max-w-7xl mx-auto">
           {currentBlogs.length > 0 ? (
-            <div className="grid grid-cols-1 sm-mobile:grid-cols-2 md-tablet:grid-cols-2 lg-desktop:grid-cols-3 xl-desktop:grid-cols-4 gap-4 xxs:gap-6 xs:gap-8">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md-tablet:grid-cols-3 lg-desktop:grid-cols-4 mobile-content-gap">
               {currentBlogs.map((blog, index) => (
                 <BlogCard key={blog.id} blog={blog} index={index} />
               ))}
