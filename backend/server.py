@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
+import aiomysql
 import os
 import logging
 from pathlib import Path
@@ -19,10 +19,24 @@ import json
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# MySQL connection pool
+mysql_pool = None
+
+async def init_db():
+    global mysql_pool
+    mysql_pool = await aiomysql.create_pool(
+        host='localhost',
+        port=3306,
+        user=os.environ.get('MYSQL_USER', 'dbuser'),
+        password=os.environ.get('MYSQL_PASSWORD', 'dbpassword'),
+        db=os.environ.get('MYSQL_DB', 'test_database'),
+        minsize=1,
+        maxsize=10,
+        autocommit=True
+    )
+
+async def get_db_connection():
+    return mysql_pool
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -32,7 +46,7 @@ api_router = APIRouter(prefix="/api")
 
 # Security
 security = HTTPBearer()
-JWT_SECRET = os.environ.get('JWT_SECRET', 'your-super-secret-jwt-key-change-this-in-production')
+JWT_SECRET = os.environ.get('JWT_SECRET', 'julian-drozario-admin-panel-super-secret-jwt-key-2025')
 JWT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
@@ -119,23 +133,31 @@ async def google_login(login_data: GoogleLoginRequest):
                 detail="Access denied. Only authorized users can access the admin panel."
             )
         
-        # Check if user exists in database, if not create new user
-        existing_user = await db.admin_users.find_one({"email": google_user_info['email']})
-        
-        if not existing_user:
-            # Create new admin user
-            admin_user = AdminUser(
-                email=google_user_info['email'],
-                name=google_user_info['name'],
-                google_id=google_user_info['sub']
-            )
-            await db.admin_users.insert_one(admin_user.dict())
-        else:
-            # Update last login
-            await db.admin_users.update_one(
-                {"email": google_user_info['email']},
-                {"$set": {"last_login": datetime.utcnow()}}
-            )
+        # Get database connection
+        pool = await get_db_connection()
+        async with pool.acquire() as conn:
+            async with conn.cursor() as cursor:
+                # Check if user exists in database
+                await cursor.execute("SELECT * FROM admin_users WHERE email = %s", (google_user_info['email'],))
+                existing_user = await cursor.fetchone()
+                
+                if not existing_user:
+                    # Create new admin user
+                    admin_user = AdminUser(
+                        email=google_user_info['email'],
+                        name=google_user_info['name'],
+                        google_id=google_user_info['sub']
+                    )
+                    await cursor.execute(
+                        "INSERT INTO admin_users (id, email, name, google_id, created_at, last_login) VALUES (%s, %s, %s, %s, %s, %s)",
+                        (admin_user.id, admin_user.email, admin_user.name, admin_user.google_id, admin_user.created_at, admin_user.last_login)
+                    )
+                else:
+                    # Update last login
+                    await cursor.execute(
+                        "UPDATE admin_users SET last_login = %s WHERE email = %s",
+                        (datetime.utcnow(), google_user_info['email'])
+                    )
         
         # Create JWT token
         access_token = create_access_token(data={"sub": google_user_info['email']})
@@ -152,23 +174,48 @@ async def google_login(login_data: GoogleLoginRequest):
 @api_router.get("/admin/verify")
 async def verify_admin_token(current_user_email: str = Depends(verify_token)):
     # Get user from database
-    user = await db.admin_users.find_one({"email": current_user_email})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    
-    return {"username": user["name"], "email": user["email"]}
+    pool = await get_db_connection()
+    async with pool.acquire() as conn:
+        async with conn.cursor() as cursor:
+            await cursor.execute("SELECT * FROM admin_users WHERE email = %s", (current_user_email,))
+            user = await cursor.fetchone()
+            if not user:
+                raise HTTPException(status_code=404, detail="User not found")
+            
+            # user is a tuple: (id, email, name, google_id, created_at, last_login)
+            return {"username": user[2], "email": user[1]}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.dict()
-    status_obj = StatusCheck(**status_dict)
-    _ = await db.status_checks.insert_one(status_obj.dict())
+    status_obj = StatusCheck(client_name=input.client_name)
+    
+    pool = await get_db_connection()
+    async with pool.acquire() as conn:
+        async with conn.cursor() as cursor:
+            await cursor.execute(
+                "INSERT INTO status_checks (id, client_name, timestamp) VALUES (%s, %s, %s)",
+                (status_obj.id, status_obj.client_name, status_obj.timestamp)
+            )
+    
     return status_obj
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
-    return [StatusCheck(**status_check) for status_check in status_checks]
+    pool = await get_db_connection()
+    async with pool.acquire() as conn:
+        async with conn.cursor() as cursor:
+            await cursor.execute("SELECT id, client_name, timestamp FROM status_checks")
+            rows = await cursor.fetchall()
+            
+            status_checks = []
+            for row in rows:
+                status_checks.append(StatusCheck(
+                    id=row[0],
+                    client_name=row[1],
+                    timestamp=row[2]
+                ))
+            
+            return status_checks
 
 # Include the router in the main app
 app.include_router(api_router)
@@ -188,6 +235,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_db_client():
+    await init_db()
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    client.close()
+    global mysql_pool
+    if mysql_pool:
+        mysql_pool.close()
+        await mysql_pool.wait_closed()
