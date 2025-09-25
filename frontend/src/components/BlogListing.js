@@ -293,12 +293,12 @@ const BlogListing = () => {
     <div className="min-h-screen bg-gradient-to-br from-black via-slate-950/30 to-black">
       {/* Navigation - Mobile Optimized */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-black/90 mobile-optimized-blur border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-3 xxs:px-4 xs:px-6 py-3 xxs:py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 xxs:gap-3 group touch-target"
+            className="flex items-center group touch-target mobile-focus"
           >
-            <span className="text-base xxs:text-lg xs:text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300"
+            <span className="mobile-text-base xxs:text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 truncate max-w-44 xxs:max-w-none"
             style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
               Julian D'Rozario
             </span>
@@ -306,9 +306,13 @@ const BlogListing = () => {
 
           <button
             onClick={() => navigate('/')}
-            className="text-gray-300 hover:text-white transition-colors duration-300 text-sm xxs:text-base touch-target"
+            className="text-gray-300 hover:text-white transition-colors duration-300 mobile-text-sm touch-target mobile-focus flex items-center gap-1"
           >
-            ← Back to Home
+            <svg className="w-3 h-3 xxs:w-4 xxs:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="hidden xxs:inline">Back to Home</span>
+            <span className="xxs:hidden">Home</span>
           </button>
         </div>
       </nav>
