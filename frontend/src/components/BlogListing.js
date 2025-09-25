@@ -294,12 +294,12 @@ const BlogListing = () => {
               </div>
 
               {/* Sort Dropdown */}
-              <div className="flex items-center gap-3 xxs:gap-4">
-                <label className="text-gray-300 text-xs xxs:text-sm">Sort by:</label>
+              <div className="flex items-center gap-2 xxs:gap-3">
+                <label className="text-gray-300 mobile-text-xs flex-shrink-0">Sort:</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 xxs:px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500/50 mobile-optimized-blur transition-all duration-300 text-sm touch-target"
+                  className="mobile-button bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50 mobile-optimized-blur transition-all duration-300"
                 >
                   <option value="date">Latest</option>
                   <option value="views">Most Viewed</option>
