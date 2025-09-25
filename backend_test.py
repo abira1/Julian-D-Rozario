@@ -2,6 +2,7 @@
 """
 Backend Health Check and API Testing
 Tests all backend endpoints and verifies system health
+Includes Google OAuth admin authentication system testing
 """
 
 import requests
@@ -10,6 +11,7 @@ import sys
 import os
 from datetime import datetime
 import time
+import subprocess
 
 # Get backend URL from frontend .env file
 def get_backend_url():
