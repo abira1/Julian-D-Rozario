@@ -17,13 +17,69 @@ const BlogComments = ({ blogId }) => {
   
   const { user, backendToken } = useAuth();
 
-  // Fetch comments and likes
+  // Real-time comments and likes listeners
   useEffect(() => {
-    fetchComments();
-    fetchLikes();
-  }, [blogId]);
+    if (!blogId) return;
 
-  const fetchComments = async () => {
+    setLoading(true);
+    
+    // Set up real-time listeners for comments
+    const commentsRef = ref(database, 'blog_comments');
+    const likesRef = ref(database, 'blog_likes');
+    
+    const commentsListener = on(commentsRef, 'value', (snapshot) => {
+      try {
+        const commentsData = snapshot.val() || {};
+        
+        // Filter comments for this blog and sort by timestamp
+        const blogComments = Object.values(commentsData)
+          .filter(comment => comment.blog_id === blogId)
+          .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        
+        setComments(blogComments);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error processing comments data:', error);
+        // Fallback to API call
+        fetchCommentsFromAPI();
+      }
+    });
+
+    const likesListener = on(likesRef, 'value', (snapshot) => {
+      try {
+        const likesData = snapshot.val() || {};
+        
+        // Filter likes for this blog
+        const blogLikes = Object.values(likesData)
+          .filter(like => like.blog_id === blogId);
+        
+        setLikesCount(blogLikes.length);
+        
+        // Check if current user has liked this blog
+        if (user) {
+          const userLike = blogLikes.find(like => like.user_email === user.email);
+          setIsLiked(!!userLike);
+        }
+      } catch (error) {
+        console.error('Error processing likes data:', error);
+        // Fallback to API call
+        fetchLikesFromAPI();
+      }
+    });
+
+    // Cleanup listeners on unmount
+    return () => {
+      try {
+        off(commentsRef, 'value', commentsListener);
+        off(likesRef, 'value', likesListener);
+      } catch (error) {
+        console.error('Error cleaning up listeners:', error);
+      }
+    };
+  }, [blogId, user]);
+
+  // Fallback API functions for when Firebase listeners fail
+  const fetchCommentsFromAPI = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blog/${blogId}/comments`);
       if (response.ok) {
@@ -31,13 +87,13 @@ const BlogComments = ({ blogId }) => {
         setComments(data);
       }
     } catch (error) {
-      console.error('Error fetching comments:', error);
+      console.error('Error fetching comments from API:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchLikes = async () => {
+  const fetchLikesFromAPI = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blog/${blogId}/likes`);
       if (response.ok) {
@@ -51,7 +107,7 @@ const BlogComments = ({ blogId }) => {
         }
       }
     } catch (error) {
-      console.error('Error fetching likes:', error);
+      console.error('Error fetching likes from API:', error);
     }
   };
 
