@@ -272,10 +272,10 @@ const BlogListing = () => {
       </section>
 
       {/* Search and Filter Controls - Mobile First */}
-      <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-10 xs:mb-12">
+      <section className="relative px-3 xxs:px-4 xs:px-6 mb-6 xxs:mb-8 xs:mb-10">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-2xl xxs:rounded-3xl p-4 xxs:p-6 xs:p-8">
-            <div className="flex flex-col gap-4 xxs:gap-6 mb-6 xxs:mb-8">
+          <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing">
+            <div className="flex flex-col mobile-content-gap mb-4 xxs:mb-6">
               {/* Search Bar */}
               <div className="relative w-full">
                 <input
