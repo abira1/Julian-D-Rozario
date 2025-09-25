@@ -5,7 +5,6 @@ import { blogData } from '../data/mockData';
 const BlogSection = () => {
   const sectionRef = useRef(null);
   const navigate = useNavigate();
-  const [loadedImages, setLoadedImages] = useState(new Set());
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dataSource, setDataSource] = useState('');
