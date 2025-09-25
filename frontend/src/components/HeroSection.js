@@ -84,7 +84,7 @@ const HeroSection = () => {
                 <div className="w-8 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500"></div>
                 <div className="px-4 py-2 border-2 border-white/20 rounded-lg bg-white/5 backdrop-blur-sm shadow-sm">
                   <span className="text-white font-medium" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                    Hello There! 👋
+                    Hi there...
                   </span>
                 </div>
                 <div className="w-8 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500"></div>
