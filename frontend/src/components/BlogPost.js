@@ -16,23 +16,65 @@ const BlogPost = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Find the blog post
-    const foundBlog = blogData.find(b => b.id === parseInt(id));
-    if (!foundBlog) {
-      navigate('/blog');
-      return;
-    }
-    
-    setBlog(foundBlog);
-    
-    // Get related blogs (same category, excluding current)
-    const related = blogData
-      .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
-      .slice(0, 3);
-    setRelatedBlogs(related);
-    
-    setIsLoading(false);
+    // Fetch blog from Firebase API
+    fetchBlog();
   }, [id, navigate]);
+
+  const fetchBlog = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Fetch the specific blog
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${id}`);
+      if (response.ok) {
+        const blogData = await response.json();
+        setBlog(blogData);
+        
+        // Fetch related blogs (same category, excluding current)
+        const allBlogsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs?category=${blogData.category}`);
+        if (allBlogsResponse.ok) {
+          const allBlogs = await allBlogsResponse.json();
+          const related = allBlogs
+            .filter(b => b.id !== blogData.id)
+            .slice(0, 3);
+          setRelatedBlogs(related);
+        }
+      } else if (response.status === 404) {
+        // Blog not found, fallback to mock data
+        const foundBlog = blogData.find(b => b.id === parseInt(id));
+        if (!foundBlog) {
+          navigate('/blog');
+          return;
+        }
+        setBlog(foundBlog);
+        
+        // Get related blogs from mock data
+        const related = blogData
+          .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
+          .slice(0, 3);
+        setRelatedBlogs(related);
+      } else {
+        navigate('/blog');
+        return;
+      }
+    } catch (error) {
+      console.error('Error fetching blog:', error);
+      // Fallback to mock data
+      const foundBlog = blogData.find(b => b.id === parseInt(id));
+      if (!foundBlog) {
+        navigate('/blog');
+        return;
+      }
+      setBlog(foundBlog);
+      
+      const related = blogData
+        .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
+        .slice(0, 3);
+      setRelatedBlogs(related);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!isLoading && contentRef.current) {
