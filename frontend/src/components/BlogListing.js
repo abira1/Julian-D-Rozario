@@ -143,11 +143,53 @@ const BlogCard = ({ blog, index }) => {
 
 const BlogListing = () => {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchParams] = useSearchParams();
+  const [blogs, setBlogs] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'All');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('date');
+  const [isLoading, setIsLoading] = useState(true);
   const articlesPerPage = 9;
+
+  // Fetch blogs and categories from Firebase API
+  useEffect(() => {
+    fetchBlogsAndCategories();
+  }, []);
+
+  const fetchBlogsAndCategories = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Fetch blogs
+      const blogsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
+      if (blogsResponse.ok) {
+        const blogsData = await blogsResponse.json();
+        setBlogs(blogsData);
+      } else {
+        // Fallback to mock data
+        setBlogs(blogData);
+      }
+
+      // Fetch categories
+      const categoriesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
+      if (categoriesResponse.ok) {
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+      } else {
+        // Fallback to mock data
+        setCategories(blogCategories);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Fallback to mock data
+      setBlogs(blogData);
+      setCategories(blogCategories);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Filter and search logic
   const filteredBlogs = blogData.filter(blog => {
