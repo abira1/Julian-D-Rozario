@@ -34,7 +34,10 @@ const AdminLogin = ({ onLogin }) => {
   useEffect(() => {
     const handleOAuthCallback = async () => {
       const hash = window.location.hash;
-      if (hash.includes('id_token')) {
+      const pathname = window.location.pathname;
+      
+      // Check if we're in the admin panel and have an OAuth response
+      if (pathname === '/julian_portfolio' && hash.includes('id_token')) {
         const params = new URLSearchParams(hash.substring(1));
         const idToken = params.get('id_token');
         
@@ -79,6 +82,13 @@ const AdminLogin = ({ onLogin }) => {
             setIsLoading(false);
           }
         }
+      } else if (hash.includes('error')) {
+        // Handle OAuth errors
+        const params = new URLSearchParams(hash.substring(1));
+        const error = params.get('error');
+        const errorDescription = params.get('error_description');
+        setError(`OAuth Error: ${errorDescription || error}`);
+        setIsLoading(false);
       }
     };
 
