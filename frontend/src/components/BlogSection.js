@@ -131,7 +131,7 @@ const BlogSection = () => {
         {/* Desktop Layout - Uniform Grid (768px and above) */}
         <div className="hidden min-[768px]:block">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogData.slice(0, 6).map((article, index) => (
+            {blogs.map((article, index) => (
               <div
                 key={article.id}
                 onClick={() => handleArticleClick(article.id)}
