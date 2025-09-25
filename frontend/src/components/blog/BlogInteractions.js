@@ -188,7 +188,7 @@ const BlogInteractions = ({ blogId, blogTitle, blogUrl }) => {
           <div className="relative">
             <button
               onClick={() => setShowShareMenu(!showShareMenu)}
-              className="group flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-green-500/20 hover:to-emerald-500/20 hover:text-green-400 border border-white/10 hover:border-green-500/30 font-semibold text-xs xxs:text-sm transition-all duration-300 transform active:scale-95 hover:scale-105 hover:shadow-lg cursor-pointer touch-target"
+              className="mobile-reaction-button mobile-interactive group flex items-center justify-center xxs:space-x-2 xs:space-x-3 px-3 xxs:px-4 xs:px-6 py-2.5 xxs:py-3 rounded-lg xxs:rounded-xl bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-green-500/20 hover:to-emerald-500/20 hover:text-green-400 border border-white/10 hover:border-green-500/30 font-semibold text-xs xxs:text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer touch-target"
             >
               <Share2 size={16} className="xxs:w-5 xxs:h-5 transition-transform duration-200 group-hover:scale-110" />
               <span className="hidden xxs:inline">Share</span>
