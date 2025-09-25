@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import AdminLogin from './admin/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
 import BlogManager from './admin/BlogManager';
@@ -12,58 +13,46 @@ const AdminPanel = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user: authUser, isAdmin, backendToken, loading: authLoading } = useAuth();
 
   useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
-  const checkAuthStatus = async () => {
-    const token = localStorage.getItem('admin_token');
-    if (!token) {
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/verify`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+    if (!authLoading) {
+      if (authUser && backendToken) {
+        if (isAdmin) {
+          setIsAuthenticated(true);
+          setUser(authUser.displayName || authUser.email);
+        } else {
+          // User is logged in but not admin, redirect to homepage
+          navigate('/');
         }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setIsAuthenticated(true);
-        setUser(data.username);
       } else {
-        localStorage.removeItem('admin_token');
         setIsAuthenticated(false);
+        setUser(null);
       }
-    } catch (error) {
-      console.error('Auth verification failed:', error);
-      localStorage.removeItem('admin_token');
-      setIsAuthenticated(false);
-    } finally {
       setIsLoading(false);
     }
-  };
+  }, [authUser, isAdmin, backendToken, authLoading, navigate]);
 
   const handleLogin = (token, username) => {
-    localStorage.setItem('admin_token', token);
     setIsAuthenticated(true);
     setUser(username);
     navigate('/julian_portfolio/dashboard');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_token');
-    setIsAuthenticated(false);
-    setUser(null);
-    navigate('/julian_portfolio');
+  const handleLogout = async () => {
+    try {
+      const { logout } = await import('../contexts/AuthContext');
+      // This won't work directly, we need to use the hook
+      // Instead, we'll handle logout through the auth context
+      setIsAuthenticated(false);
+      setUser(null);
+      navigate('/julian_portfolio');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
-  if (isLoading) {
+  if (isLoading || authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-500"></div>
