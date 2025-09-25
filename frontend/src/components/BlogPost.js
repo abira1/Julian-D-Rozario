@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import BlogComments from './blog/BlogComments';
-import RealTimeBlogStats from './blog/RealTimeBlogStats';
+import BlogInteractions from './blog/BlogInteractions';
 import { blogData } from '../data/mockData';
 
 const BlogPost = () => {
