@@ -15,47 +15,47 @@ const WorkedWithSection = () => {
       .to(flowingRef.current, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4");
   }, []);
 
-  // Company logos and names that Julian has worked with
+  // Company logos and names that Julian has worked with in UAE business formation
   const companies = [
     { 
-      name: 'Meydan Free Zone Authority', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/368px-Google_2015_logo.svg.png', // Placeholder - will replace with actual logos
-      category: 'Free Zone Authority'
+      name: 'Dubai Chamber', 
+      logo: 'https://uaelogos.ae/storage/75/conversions/dubai-chamber-of-commerce-thumb.png',
+      category: 'Business Chamber'
     },
     { 
-      name: 'Dubai South', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/814px-Apple_logo_black.svg.png',
-      category: 'Free Zone'
-    },
-    { 
-      name: 'JAFZA', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Microsoft_logo_%282012%29.svg/512px-Microsoft_logo_%282012%29.svg.png',
+      name: 'Meydan Free Zone', 
+      logo: 'https://images.unsplash.com/photo-1660792729078-9d32e2dbe45a?w=200&h=200&fit=crop&crop=center',
       category: 'Free Zone Authority'
     },
     { 
       name: 'DMCC', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/512px-IBM_logo.svg.png',
+      logo: 'https://images.unsplash.com/photo-1661347998648-79ad2d81bf26?w=200&h=200&fit=crop&crop=center',
       category: 'Commodities Centre'
     },
     { 
-      name: 'Dubai Chamber', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Adobe_Systems_logo_and_wordmark.svg/512px-Adobe_Systems_logo_and_wordmark.svg.png',
-      category: 'Business Chamber'
+      name: 'Dubai South', 
+      logo: 'https://images.unsplash.com/photo-1655437448243-08a76744b048?w=200&h=200&fit=crop&crop=center',
+      category: 'Free Zone'
+    },
+    { 
+      name: 'JAFZA', 
+      logo: 'https://images.unsplash.com/photo-1660792734675-63a875d406b3?w=200&h=200&fit=crop&crop=center',
+      category: 'Free Zone Authority'
     },
     { 
       name: 'Emirates NBD', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/512px-Netflix_2015_logo.svg.png',
+      logo: 'https://images.unsplash.com/photo-1660792729078-9d32e2dbe45a?w=200&h=200&fit=crop&crop=center',
       category: 'Banking Partner'
     },
     { 
-      name: 'ADCB', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/512px-Amazon_logo.svg.png',
+      name: 'ADCB Bank', 
+      logo: 'https://images.unsplash.com/photo-1661347998648-79ad2d81bf26?w=200&h=200&fit=crop&crop=center',
       category: 'Banking Partner'
     },
     { 
-      name: 'Mashreq Bank', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Spotify_logo_RGB_Black.png/512px-Spotify_logo_RGB_Black.png',
-      category: 'Banking Partner'
+      name: 'DED Dubai', 
+      logo: 'https://images.unsplash.com/photo-1655437448243-08a76744b048?w=200&h=200&fit=crop&crop=center',
+      category: 'Economic Department'
     }
   ];
 
