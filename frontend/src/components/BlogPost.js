@@ -299,8 +299,39 @@ const BlogPost = () => {
               {/* Sidebar */}
               <div className="lg:col-span-1">
                 <div className="sticky top-8 space-y-6">
-                  {/* Real-time Blog Stats */}
-                  <RealTimeBlogStats blogId={blog.id.toString()} />
+                  {/* Quick Actions */}
+                  <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-4">
+                    <h4 className="text-sm font-medium text-white mb-3" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                      Quick Actions
+                    </h4>
+                    <div className="space-y-2">
+                      <button 
+                        onClick={() => {
+                          const commentsSection = document.querySelector('#comments-section');
+                          if (commentsSection) commentsSection.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="w-full text-left px-3 py-2 text-sm text-gray-400 hover:text-purple-400 hover:bg-white/5 rounded-md transition-all duration-200"
+                      >
+                        💬 Join Discussion
+                      </button>
+                      <button 
+                        onClick={() => {
+                          navigator.share ? 
+                            navigator.share({ title: blog.title, url: window.location.href }) :
+                            navigator.clipboard.writeText(window.location.href)
+                        }}
+                        className="w-full text-left px-3 py-2 text-sm text-gray-400 hover:text-purple-400 hover:bg-white/5 rounded-md transition-all duration-200"
+                      >
+                        🔗 Share Article
+                      </button>
+                      <Link
+                        to="/blog"
+                        className="block w-full text-left px-3 py-2 text-sm text-gray-400 hover:text-purple-400 hover:bg-white/5 rounded-md transition-all duration-200"
+                      >
+                        📚 More Articles
+                      </Link>
+                    </div>
+                  </div>
                   
                   {/* Author Info */}
                   <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-4">
