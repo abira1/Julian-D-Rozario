@@ -204,7 +204,7 @@ const BlogSection = () => {
 
         {/* Mobile Layout - Simple List (below 768px) */}
         <div className="min-[768px]:hidden space-y-4">
-          {blogData.slice(0, 6).map((article, index) => (
+          {blogs.map((article, index) => (
             <div
               key={article.id}
               onClick={() => handleArticleClick(article.id)}
