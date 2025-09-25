@@ -734,25 +734,35 @@ async def create_category(category_data: CategoryCreate, current_user_email: str
 
 # File upload endpoint
 @api_router.post("/upload", response_model=UploadResponse)
-async def upload_file(file: bytes = None, current_user_email: str = Depends(verify_token)):
+async def upload_file(file: UploadFile = File(...), current_user_email: str = Depends(verify_token)):
     # Check if user is admin
     if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
         raise HTTPException(status_code=403, detail="Admin access required")
     
     try:
-        # For now, return a placeholder URL
-        # In production, you would upload to Firebase Storage or another service
-        filename = f"upload_{uuid.uuid4()}.jpg"
+        # Validate file type
+        if not file.content_type or not file.content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="Only image files are allowed")
         
-        # Placeholder implementation
-        # TODO: Implement actual file upload to Firebase Storage
-        placeholder_url = f"https://via.placeholder.com/600x400/7c3aed/ffffff?text={filename}"
+        # Generate unique filename
+        file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
+        unique_filename = f"blog_image_{uuid.uuid4()}.{file_extension}"
+        
+        # For now, return a placeholder URL with the actual filename
+        # TODO: Implement actual file upload to Firebase Storage or cloud provider
+        placeholder_url = f"https://via.placeholder.com/800x600/7c3aed/ffffff?text=Blog+Image"
+        
+        # In production, you would save the file content:
+        # content = await file.read()
+        # Save to Firebase Storage, AWS S3, or local storage
         
         return UploadResponse(
             url=placeholder_url,
-            filename=filename
+            filename=unique_filename
         )
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"File upload error: {str(e)}")
         raise HTTPException(status_code=400, detail="Failed to upload file")
