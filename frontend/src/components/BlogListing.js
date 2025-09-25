@@ -119,7 +119,7 @@ const BlogCard = ({ blog, index }) => {
 
           <button className="hidden xxs:flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors duration-300 text-sm font-medium touch-target">
             Read More
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none">
               <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
