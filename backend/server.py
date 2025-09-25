@@ -199,9 +199,21 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)) 
 
 async def verify_firebase_token(token: str) -> dict:
     try:
-        # Verify the Firebase ID token
-        decoded_token = firebase_auth.verify_id_token(token)
-        return decoded_token
+        if FIREBASE_MOCK_MODE:
+            # Mock token verification for testing
+            if token.startswith('mock_firebase_token'):
+                return {
+                    'uid': 'mock_user_123',
+                    'email': 'test@example.com',
+                    'name': 'Test User',
+                    'picture': 'https://via.placeholder.com/100x100'
+                }
+            else:
+                raise Exception("Invalid mock token")
+        else:
+            # Verify the Firebase ID token
+            decoded_token = firebase_auth.verify_id_token(token)
+            return decoded_token
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid Firebase token: {str(e)}")
 
