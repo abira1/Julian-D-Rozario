@@ -127,52 +127,76 @@ const BlogComments = ({ blogId }) => {
 
   return (
     <div className="space-y-8">
-      {/* Comment Form */}
-      <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6">
-        <h3 className="text-xl font-semibold text-white mb-4" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-          Join the Discussion
-        </h3>
+      {/* Modern Comment Form */}
+      <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.12] rounded-2xl p-6 shadow-2xl shadow-purple-500/5">
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+            <MessageCircle size={18} className="text-white" />
+          </div>
+          <h3 className="text-xl font-semibold text-white" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+            Join the Discussion
+          </h3>
+          <div className="flex-1 h-px bg-gradient-to-r from-purple-500/20 to-transparent"></div>
+        </div>
         
-        <form onSubmit={handleCommentSubmit} className="space-y-4">
+        <form onSubmit={handleCommentSubmit} className="space-y-6">
           <div className="relative">
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              placeholder={user ? "Share your thoughts..." : "Sign in to join the conversation"}
-              className="w-full h-24 bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors duration-200 resize-none"
+              placeholder={user ? "Share your thoughts and insights..." : "Sign in with Google to join the conversation"}
+              className="w-full h-28 bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/[0.15] rounded-xl px-5 py-4 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:bg-white/[0.12] transition-all duration-300 resize-none text-sm leading-relaxed"
               disabled={!user}
             />
+            <div className="absolute bottom-3 right-3 text-xs text-gray-500">
+              {newComment.length}/1000
+            </div>
           </div>
           
           <div className="flex items-center justify-between">
             {user ? (
-              <div className="flex items-center space-x-3">
-                <img
-                  src={user.photoURL || '/default-avatar.png'}
-                  alt={user.displayName}
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="text-sm text-gray-400">
-                  Commenting as {user.displayName || user.email}
-                </span>
+              <div className="flex items-center space-x-4">
+                <div className="relative">
+                  <img
+                    src={user.photoURL || '/default-avatar.png'}
+                    alt={user.displayName}
+                    className="w-10 h-10 rounded-full border-2 border-white/20"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900"></div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-white">
+                    {user.displayName || user.email}
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    Verified account
+                  </div>
+                </div>
               </div>
             ) : (
-              <span className="text-sm text-gray-400">
-                Please sign in to comment
-              </span>
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-gray-600 to-gray-500 rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <span className="text-sm text-gray-400">
+                  Please sign in to participate
+                </span>
+              </div>
             )}
             
             <button
               type="submit"
               disabled={!user || !newComment.trim() || isSubmitting}
-              className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-blue-700 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg hover:shadow-purple-500/25"
             >
               {isSubmitting ? (
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
               ) : (
-                <Send size={16} />
+                <Send size={18} className="transition-transform duration-200" />
               )}
-              <span>{isSubmitting ? 'Posting...' : 'Post Comment'}</span>
+              <span className="text-sm">{isSubmitting ? 'Publishing...' : 'Post Comment'}</span>
             </button>
           </div>
         </form>
