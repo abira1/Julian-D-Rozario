@@ -176,13 +176,13 @@ const BlogPost = () => {
                 <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card">
                   <div className="mobile-compact-spacing md-tablet:p-8 lg-desktop:p-12" ref={contentRef}>
                     {/* Table of Contents - Collapsible on Mobile */}
-                    <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl p-4 xxs:p-6 mb-6 xxs:mb-8">
-                      <h3 className="text-base xxs:text-lg font-semibold mb-3 xxs:mb-4 text-white">Table of Contents</h3>
-                      <ul className="space-y-1 xxs:space-y-2">
-                        <li><a href="#introduction" className="text-gray-400 hover:text-purple-400 transition-colors text-sm xxs:text-base">Introduction</a></li>
-                        <li><a href="#key-points" className="text-gray-400 hover:text-purple-400 transition-colors text-sm xxs:text-base">Key Points</a></li>
-                        <li><a href="#detailed-analysis" className="text-gray-400 hover:text-purple-400 transition-colors text-sm xxs:text-base">Detailed Analysis</a></li>
-                        <li><a href="#conclusion" className="text-gray-400 hover:text-purple-400 transition-colors text-sm xxs:text-base">Conclusion</a></li>
+                    <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing mb-4 xxs:mb-6">
+                      <h3 className="mobile-title font-semibold text-white">Table of Contents</h3>
+                      <ul className="space-y-1 xxs:space-y-1.5">
+                        <li><a href="#introduction" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Introduction</a></li>
+                        <li><a href="#key-points" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Key Points</a></li>
+                        <li><a href="#detailed-analysis" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Detailed Analysis</a></li>
+                        <li><a href="#conclusion" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Conclusion</a></li>
                       </ul>
                     </div>
 
