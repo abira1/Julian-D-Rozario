@@ -18,6 +18,9 @@ import json
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+# Mock Firebase for testing when credentials are not available
+FIREBASE_MOCK_MODE = False
+
 # Initialize Firebase Admin SDK
 if not firebase_admin._apps:
     # Use environment variables for Firebase configuration
@@ -38,19 +41,22 @@ if not firebase_admin._apps:
     try:
         if firebase_config['private_key']:
             cred = credentials.Certificate(firebase_config)
+            firebase_admin.initialize_app(cred, {
+                'databaseURL': 'https://julian-d-rozario-default-rtdb.asia-southeast1.firebasedatabase.app'
+            })
         else:
-            # Use default credentials for development
-            cred = credentials.ApplicationDefault()
-        
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://julian-d-rozario-default-rtdb.asia-southeast1.firebasedatabase.app'
-        })
+            # Enable mock mode for testing
+            FIREBASE_MOCK_MODE = True
+            print("Firebase running in MOCK MODE for testing - no real Firebase connection")
+            # Initialize a dummy app to prevent errors
+            firebase_admin.initialize_app(options={'projectId': 'mock-project'})
     except Exception as e:
         print(f"Firebase initialization error: {e}")
-        # Initialize without credentials for now - will need service account key
-        firebase_admin.initialize_app(options={
-            'databaseURL': 'https://julian-d-rozario-default-rtdb.asia-southeast1.firebasedatabase.app'
-        })
+        # Enable mock mode for testing
+        FIREBASE_MOCK_MODE = True
+        print("Firebase running in MOCK MODE for testing - no real Firebase connection")
+        # Initialize a dummy app to prevent errors
+        firebase_admin.initialize_app(options={'projectId': 'mock-project'})
 
 # Create the main app without a prefix
 app = FastAPI()
