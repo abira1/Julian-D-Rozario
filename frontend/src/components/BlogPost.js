@@ -302,10 +302,10 @@ const BlogPost = () => {
                 {/* Mobile Sidebar Toggle */}
                 <button 
                   onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="lg-desktop:hidden w-full mb-4 px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg flex items-center justify-center gap-2 touch-target"
+                  className="lg-desktop:hidden w-full mb-3 mobile-button bg-gradient-to-r from-purple-600 to-blue-600 text-white flex items-center justify-center gap-1.5"
                 >
-                  <span className="text-sm font-medium">Article Info</span>
-                  <svg className={`w-4 h-4 transition-transform duration-300 ${sidebarOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="mobile-text-sm font-medium">Article Info</span>
+                  <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${sidebarOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
