@@ -8,31 +8,89 @@ const BlogSection = () => {
   const sectionRef = useRef(null);
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState(new Set());
+  const [blogs, setBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Preload images for better performance
+  // Real-time blogs listener
   useEffect(() => {
-    const preloadImages = async () => {
-      const imagePromises = blogData.slice(0, 6).map((article) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => {
-            setLoadedImages(prev => new Set([...prev, article.id]));
-            resolve(article.id);
-          };
-          img.onerror = reject;
-          img.src = article.image;
-        });
-      });
-      
+    // Set up real-time listener for blogs
+    const blogsRef = ref(database, 'blogs');
+    
+    const blogsListener = on(blogsRef, 'value', (snapshot) => {
       try {
-        await Promise.allSettled(imagePromises);
+        const blogsData = snapshot.val() || {};
+        
+        // Convert to array and sort by created date (newest first)
+        const blogsArray = Object.values(blogsData)
+          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+          .slice(0, 6); // Show only first 6 blogs
+        
+        setBlogs(blogsArray);
+        setIsLoading(false);
+        
+        // Preload images for the new blogs
+        preloadImages(blogsArray);
       } catch (error) {
-        console.log('Some images failed to preload:', error);
+        console.error('Error processing blogs data:', error);
+        // Fallback to API call or mock data
+        fetchBlogsFromAPI();
+      }
+    });
+
+    // Cleanup listener
+    return () => {
+      try {
+        off(blogsRef, 'value', blogsListener);
+      } catch (error) {
+        console.error('Error cleaning up blogs listener:', error);
       }
     };
-
-    preloadImages();
   }, []);
+
+  // Fallback API function
+  const fetchBlogsFromAPI = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
+      if (response.ok) {
+        const blogsData = await response.json();
+        const latestBlogs = blogsData.slice(0, 6);
+        setBlogs(latestBlogs);
+        preloadImages(latestBlogs);
+      } else {
+        // Final fallback to mock data
+        setBlogs(blogData.slice(0, 6));
+        preloadImages(blogData.slice(0, 6));
+      }
+    } catch (error) {
+      console.error('Error fetching blogs from API:', error);
+      // Final fallback to mock data
+      setBlogs(blogData.slice(0, 6));
+      preloadImages(blogData.slice(0, 6));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Preload images for better performance
+  const preloadImages = async (articlesList) => {
+    const imagePromises = articlesList.map((article) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          setLoadedImages(prev => new Set([...prev, article.id]));
+          resolve(article.id);
+        };
+        img.onerror = reject;
+        img.src = article.image_url || article.image;
+      });
+    });
+    
+    try {
+      await Promise.allSettled(imagePromises);
+    } catch (error) {
+      console.log('Some images failed to preload:', error);
+    }
+  };
 
   const handleArticleClick = (articleId) => {
     navigate(`/blog/${articleId}`);
