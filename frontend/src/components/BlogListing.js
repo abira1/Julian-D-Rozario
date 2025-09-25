@@ -73,7 +73,7 @@ const BlogCard = ({ blog, index }) => {
           <div className="flex items-center gap-2 xxs:gap-4">
             <span className="hidden xxs:inline">{blog.readTime}</span>
             <div className="flex items-center gap-1">
-              <svg width="12" height="12" xxs:width="14" xxs:height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-3 h-3 xxs:w-3.5 xxs:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
                 <circle cx="12" cy="12" r="3"/>
               </svg>
