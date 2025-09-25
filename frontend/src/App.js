@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
@@ -78,14 +79,16 @@ const Home = () => {
 function App() {
   return (
     <div className="App bg-black text-white overflow-x-hidden">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<BlogListing />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/julian_portfolio/*" element={<AdminPanel />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<BlogListing />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/julian_portfolio/*" element={<AdminPanel />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
