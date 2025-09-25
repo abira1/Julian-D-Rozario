@@ -67,13 +67,13 @@ const BlogCard = ({ blog, index }) => {
         )}
       </div>
 
-      <div className="relative z-10 p-3 xxs:p-4 xs:p-5 sm-mobile:p-6">
-        <div className="flex items-center justify-between text-xs xxs:text-sm text-gray-400 mb-2 xxs:mb-3">
-          <span>{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-          <div className="flex items-center gap-2 xxs:gap-4">
-            <span className="hidden xxs:inline">{blog.readTime}</span>
+      <div className="relative z-10 mobile-compact-spacing">
+        <div className="flex items-center justify-between mobile-text-xs text-gray-400 mb-1 xxs:mb-2">
+          <span className="truncate max-w-[60%]">{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+          <div className="flex items-center gap-1 xxs:gap-2">
+            <span className="hidden xs:inline mobile-text-xs">{blog.readTime}</span>
             <div className="flex items-center gap-1">
-              <svg className="w-3 h-3 xxs:w-3.5 xxs:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
                 <circle cx="12" cy="12" r="3"/>
               </svg>
@@ -82,11 +82,11 @@ const BlogCard = ({ blog, index }) => {
           </div>
         </div>
 
-        <h3 className="mobile-title font-semibold text-white mb-2 xxs:mb-3 group-hover:text-purple-300 transition-colors duration-300 line-clamp-2">
+        <h3 className="mobile-title font-semibold text-white group-hover:text-purple-300 transition-colors duration-300 line-clamp-2">
           {blog.title}
         </h3>
 
-        <p className="text-gray-300 text-xs xxs:text-sm leading-relaxed mb-3 xxs:mb-4 line-clamp-2 xxs:line-clamp-3">
+        <p className="text-gray-300 mobile-text-sm leading-relaxed mb-2 xxs:mb-3 line-clamp-2">
           {blog.excerpt}
         </p>
 
