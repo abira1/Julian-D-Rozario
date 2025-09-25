@@ -261,13 +261,13 @@ const BlogListing = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl xxs:text-3xl xs:text-4xl sm-mobile:text-5xl md-tablet:text-6xl font-bold mb-4 xxs:mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+          <h1 className="hero-title-mobile font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
             All Articles
           </h1>
-          <p className="text-sm xxs:text-base xs:text-lg sm-mobile:text-xl text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-3xl mx-auto mb-6 xxs:mb-8 px-2">
+          <p className="mobile-text-sm xxs:mobile-text-base text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-3xl mx-auto mb-4 xxs:mb-6 xs:mb-8 px-3 leading-relaxed">
             Comprehensive insights on business consulting, licensing strategies, and industry trends
           </p>
-          <div className="w-16 xxs:w-20 xs:w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
+          <div className="w-12 xxs:w-16 xs:w-20 h-0.5 xxs:h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
         </div>
       </section>
 
