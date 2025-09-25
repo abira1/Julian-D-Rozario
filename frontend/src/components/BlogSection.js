@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { blogData } from '../data/mockData';
+import { database } from '../firebase/config';
+import { ref, on, off } from 'firebase/database';
 
 const BlogSection = () => {
   const sectionRef = useRef(null);
