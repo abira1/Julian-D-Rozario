@@ -146,7 +146,7 @@ const BlogSection = () => {
                 <div className="relative h-48 overflow-hidden bg-slate-800">
                   {loadedImages.has(article.id) ? (
                     <img 
-                      src={article.image} 
+                      src={article.image_url || article.image} 
                       alt={article.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
@@ -220,7 +220,7 @@ const BlogSection = () => {
                 <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-slate-800">
                   {loadedImages.has(article.id) ? (
                     <img 
-                      src={article.image} 
+                      src={article.image_url || article.image} 
                       alt={article.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
