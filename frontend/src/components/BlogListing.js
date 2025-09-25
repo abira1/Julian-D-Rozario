@@ -41,7 +41,7 @@ const BlogCard = ({ blog, index }) => {
     >
       <div className="absolute inset-0 rounded-xl xxs:rounded-2xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
-      <div className="relative h-36 xxs:h-40 xs:h-44 sm-mobile:h-48 overflow-hidden bg-slate-800">
+      <div className="relative h-32 xxs:h-36 xs:h-40 sm-mobile:h-44 overflow-hidden bg-slate-800">
         {imageLoaded ? (
           <img 
             src={blog.image_url || blog.image} 
