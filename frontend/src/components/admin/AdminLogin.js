@@ -1,99 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { gsap } from 'gsap';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = ({ onLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const { loginWithGoogle, user, isAdmin, backendToken } = useAuth();
+  const navigate = useNavigate();
 
-  const CLIENT_ID = "474981062451-1kevsn9u6v4gjob0kmm0eog39fiae00h.apps.googleusercontent.com";
-  const AUTHORIZED_EMAIL = "abirsabirhossain@gmail.com";
-
-  const handleGoogleLogin = () => {
-    setIsLoading(true);
-    setError('');
-
-    // Create Google OAuth URL for implicit flow
-    // Use the exact redirect URI that should be configured in Google Console
-    const redirectUri = encodeURIComponent(window.location.origin);
-    const scope = encodeURIComponent('openid email profile');
-    const responseType = 'id_token';
-    const nonce = Date.now().toString();
-
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
-      `client_id=${CLIENT_ID}&` +
-      `redirect_uri=${redirectUri}&` +
-      `scope=${scope}&` +
-      `response_type=${responseType}&` +
-      `nonce=${nonce}`;
-
-    // Open Google OAuth in the same window
-    window.location.href = googleAuthUrl;
-  };
-
-  // Handle OAuth callback
+  // Check if user is already logged in and is admin
   useEffect(() => {
-    const handleOAuthCallback = async () => {
-      const hash = window.location.hash;
-      const pathname = window.location.pathname;
-      
-      // Check if we're in the admin panel and have an OAuth response
-      if (pathname === '/julian_portfolio' && hash.includes('id_token')) {
-        const params = new URLSearchParams(hash.substring(1));
-        const idToken = params.get('id_token');
-        
-        if (idToken) {
-          try {
-            // Decode the JWT token to get user info
-            const tokenPayload = JSON.parse(atob(idToken.split('.')[1]));
-            
-            if (tokenPayload.email !== AUTHORIZED_EMAIL) {
-              setError('Access denied. Only authorized users can access the admin panel.');
-              setIsLoading(false);
-              return;
-            }
-
-            // Send to backend for verification
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/admin/google-login`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                google_token: idToken,
-                email: tokenPayload.email,
-                name: tokenPayload.name,
-                google_id: tokenPayload.sub
-              }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-              // Clear the hash from URL
-              window.history.replaceState(null, null, window.location.pathname);
-              onLogin(data.access_token, data.username);
-            } else {
-              setError(data.detail || 'Authentication failed');
-            }
-          } catch (error) {
-            console.error('Token processing error:', error);
-            setError('Authentication failed. Please try again.');
-          } finally {
-            setIsLoading(false);
-          }
-        }
-      } else if (hash.includes('error')) {
-        // Handle OAuth errors
-        const params = new URLSearchParams(hash.substring(1));
-        const error = params.get('error');
-        const errorDescription = params.get('error_description');
-        setError(`OAuth Error: ${errorDescription || error}`);
-        setIsLoading(false);
+    if (user && backendToken) {
+      if (isAdmin) {
+        // User is admin, proceed to dashboard
+        onLogin(backendToken, user.displayName || user.email);
+      } else {
+        // User is not admin, redirect to homepage
+        setError('Access denied. This area is restricted to administrators only.');
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       }
-    };
+    }
+  }, [user, isAdmin, backendToken, onLogin, navigate]);
 
-    handleOAuthCallback();
-  }, []);
+  const handleGoogleLogin = async () => {
+    try {
+      setIsLoading(true);
+      setError('');
+      
+      await loginWithGoogle();
+      
+    } catch (error) {
+      setError('Login failed. Please try again.');
+      console.error('Admin login error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -160,11 +104,9 @@ const AdminLogin = ({ onLogin }) => {
           {/* Access info */}
           <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
             <p className="text-xs text-blue-400 text-center">
-              <span className="font-semibold">Authorized Access Only</span> <br />
-              You need to add the redirect URI to Google Console: <br />
-              <code className="text-xs bg-blue-900/30 px-2 py-1 rounded mt-1 inline-block">
-                {window.location.origin}
-              </code>
+              <span className="font-semibold">Authorized Admin Access Only</span> <br />
+              Only authorized email addresses can access the admin panel. <br />
+              Unauthorized users will be redirected to the homepage.
             </p>
           </div>
         </div>
