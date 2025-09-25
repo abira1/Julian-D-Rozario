@@ -103,6 +103,57 @@ class BlogLike(BaseModel):
 class BlogLikeCreate(BaseModel):
     blog_id: str
 
+# Blog models
+class Blog(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    excerpt: str
+    content: str
+    category: str
+    author: str = "Julian D'Rozario"
+    read_time: str = "5 min read"
+    featured: bool = False
+    tags: List[str] = Field(default_factory=list)
+    image_url: Optional[str] = None
+    views: int = Field(default=0)
+    likes: int = Field(default=0)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class BlogCreate(BaseModel):
+    title: str
+    excerpt: str
+    content: str
+    category: str
+    read_time: str = "5 min read"
+    featured: bool = False
+    tags: List[str] = Field(default_factory=list)
+    image_url: Optional[str] = None
+
+class BlogUpdate(BaseModel):
+    title: Optional[str] = None
+    excerpt: Optional[str] = None
+    content: Optional[str] = None
+    category: Optional[str] = None
+    read_time: Optional[str] = None
+    featured: Optional[bool] = None
+    tags: Optional[List[str]] = None
+    image_url: Optional[str] = None
+
+class Category(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    description: Optional[str] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class CategoryCreate(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+class UploadResponse(BaseModel):
+    url: str
+    filename: str
+
 class UserProfile(BaseModel):
     uid: str
     email: str
