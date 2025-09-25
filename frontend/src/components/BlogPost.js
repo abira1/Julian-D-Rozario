@@ -173,8 +173,8 @@ const BlogPost = () => {
             <div className="lg-desktop:grid lg-desktop:grid-cols-4 lg-desktop:gap-8">
               {/* Main Content */}
               <div className="lg-desktop:col-span-3">
-                <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-xl xxs:rounded-2xl">
-                  <div className="p-4 xxs:p-6 xs:p-8 md-tablet:p-12" ref={contentRef}>
+                <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card">
+                  <div className="mobile-compact-spacing md-tablet:p-8 lg-desktop:p-12" ref={contentRef}>
                     {/* Table of Contents - Collapsible on Mobile */}
                     <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl p-4 xxs:p-6 mb-6 xxs:mb-8">
                       <h3 className="text-base xxs:text-lg font-semibold mb-3 xxs:mb-4 text-white">Table of Contents</h3>
