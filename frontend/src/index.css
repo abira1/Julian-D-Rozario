@@ -193,43 +193,82 @@ img {
   }
 }
 
-/* Ultra Responsive Hero Titles */
+/* Ultra Responsive Hero Titles - Enhanced Mobile */
 .hero-title-mobile {
-  font-size: 1.75rem;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.025em;
+  padding: 0 0.5rem;
+  text-align: center;
+  hyphens: auto;
+  word-wrap: break-word;
 }
 
 @media (min-width: 375px) {
   .hero-title-mobile {
-    font-size: 2rem;
-    line-height: 2.25rem;
-    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    line-height: 2.125rem;
+    margin-bottom: 0.75rem;
+    padding: 0 0.75rem;
   }
 }
 
 @media (min-width: 425px) {
   .hero-title-mobile {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    margin-bottom: 1.25rem;
+    font-size: 2.125rem;
+    line-height: 2.375rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
   }
 }
 
 @media (min-width: 768px) {
   .hero-title-mobile {
-    font-size: 3rem;
-    line-height: 3.25rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.875rem;
+    line-height: 3.125rem;
+    margin-bottom: 1.25rem;
+    padding: 0 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-title-mobile {
-    font-size: 4rem;
-    line-height: 4.25rem;
-    margin-bottom: 2rem;
+    font-size: 3.75rem;
+    line-height: 4rem;
+    margin-bottom: 1.5rem;
+    padding: 0 2rem;
+  }
+}
+
+/* Mobile-Optimized Reaction Buttons */
+.mobile-reaction-button {
+  min-height: 44px;
+  min-width: 44px;
+  position: relative;
+  transition: all 0.2s ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-reaction-button:active {
+  transform: scale(0.95);
+}
+
+.mobile-reaction-button:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: 2px;
+}
+
+/* Enhanced Mobile Touch Interactions */
+@media (max-width: 768px) {
+  .mobile-reaction-button {
+    font-size: 0.75rem;
+    padding: 0.625rem 0.75rem;
+  }
+  
+  .mobile-reaction-button svg {
+    width: 16px;
+    height: 16px;
   }
 }
 
