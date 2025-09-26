@@ -131,24 +131,26 @@ const Navigation = () => {
             </button>
           </div>
 
-          {/* Modern Mobile Menu Button - Shown on mobile/tablet */}
-          <button
-            onClick={toggleMobileMenu}
-            className="lg:hidden relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group z-50"
-            aria-label="Toggle mobile menu"
-          >
-            <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex flex-col justify-center items-center">
-              <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
-              }`}></span>
-              <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 ${
-                isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-              }`}></span>
-              <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
-                isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
-              }`}></span>
-            </div>
-          </button>
+          {/* Mobile Menu Button - Fixed positioning */}
+          <div className="flex-shrink-0 lg:hidden">
+            <button
+              onClick={toggleMobileMenu}
+              className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group z-50"
+              aria-label="Toggle mobile menu"
+            >
+              <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex flex-col justify-center items-center">
+                <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
+                }`}></span>
+                <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+                }`}></span>
+                <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
+                  isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
+                }`}></span>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
