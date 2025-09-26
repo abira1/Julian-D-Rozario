@@ -112,7 +112,7 @@ const BlogSection = () => {
                   <div
                     key={article.id}
                     onClick={() => handleArticleClick(article.id)}
-                    className="group cursor-pointer bg-white/[0.08] mobile-optimized-blur rounded-lg border border-white/[0.12] hover:border-purple-500/30 hover:bg-white/[0.12] transition-all duration-300 touch-target mobile-card-spacing"
+                    className="group touch-interactive bg-white/[0.08] mobile-optimized-blur rounded-lg border border-white/[0.12] hover:border-purple-500/30 hover:bg-white/[0.12] transition-all duration-300 touch-target mobile-card-spacing"
                     style={{ 
                       animation: `mobileSlideUp 0.5s ease-out ${index * 0.1}s both`
                     }}
