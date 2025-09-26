@@ -13,6 +13,21 @@ const AboutSection = () => {
   const [workedWithPartners, setWorkedWithPartners] = useState([]);
   const [partnersLoading, setPartnersLoading] = useState(true);
 
+  const fetchWorkedWithPartners = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/worked-with`);
+      if (response.ok) {
+        const data = await response.json();
+        // Only show active partners
+        setWorkedWithPartners(data.filter(partner => partner.is_active));
+      }
+    } catch (error) {
+      console.error('Error fetching worked with partners:', error);
+    } finally {
+      setPartnersLoading(false);
+    }
+  };
+
   useEffect(() => {
     const section = sectionRef.current;
     const profileCard = profileCardRef.current;
