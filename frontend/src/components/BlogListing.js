@@ -3,12 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import GradualBlur from './GradualBlur';
 import { blogData, blogCategories } from '../data/mockData';
 
-const BlogCard = ({ blog, index }) => {
-  const cardRef = useRef(null);
+// Mobile Card Component - Simplified and Modern
+const MobileBlogCard = ({ blog, index }) => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Preload image for better performance
   useEffect(() => {
     const img = new Image();
     img.onload = () => setImageLoaded(true);
@@ -21,121 +20,198 @@ const BlogCard = ({ blog, index }) => {
 
   return (
     <article 
-      ref={cardRef}
       onClick={handleCardClick}
-      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card hover:border-purple-500/30 transition-all duration-300 hover:scale-[1.01] xxs:hover:scale-[1.02] hover:-translate-y-1 touch-target touch-interactive"
+      className="group p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+    >
+      <div className="flex gap-4">
+        {/* Thumbnail */}
+        <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-800">
+          {imageLoaded ? (
+            <img 
+              src={blog.image_url || blog.image} 
+              alt={blog.title}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
+              <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          {/* Meta */}
+          <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+            <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md font-medium">
+              {blog.category}
+            </span>
+            <span>•</span>
+            <span>{blog.readTime || '5 min read'}</span>
+          </div>
+
+          {/* Title */}
+          <h3 className="text-sm font-semibold text-white leading-tight mb-2 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300">
+            {blog.title}
+          </h3>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 text-xs text-gray-400">
+                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>{blog.views || 0}</span>
+              </div>
+              <span className="text-xs text-gray-500">•</span>
+              <span className="text-xs text-gray-400">
+                {new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              </span>
+            </div>
+            
+            {/* Read More Arrow */}
+            <svg className="w-4 h-4 text-purple-400 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+// Desktop Card Component - Enhanced
+const DesktopBlogCard = ({ blog, index }) => {
+  const navigate = useNavigate();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setImageLoaded(true);
+    img.src = blog.image_url || blog.image;
+  }, [blog.image_url, blog.image]);
+
+  const handleCardClick = () => {
+    navigate(`/blog/${blog.id}`);
+  };
+
+  return (
+    <article 
+      onClick={handleCardClick}
+      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
       style={{
-        background: `
-          linear-gradient(135deg, 
-            rgba(139, 92, 246, 0.08) 0%, 
-            rgba(59, 130, 246, 0.04) 50%, 
-            rgba(30, 58, 138, 0.08) 100%
-          )
-        `,
-        boxShadow: `
-          0 4px 15px rgba(0, 0, 0, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1)
-        `,
         animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
       }}
     >
-      <div className="absolute inset-0 rounded-xl xxs:rounded-2xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
-      <div className="relative h-32 xxs:h-36 xs:h-40 sm-mobile:h-44 overflow-hidden bg-slate-800">
+      {/* Image */}
+      <div className="relative h-48 overflow-hidden bg-slate-800">
         {imageLoaded ? (
           <img 
             src={blog.image_url || blog.image} 
             alt={blog.title}
-            className="responsive-blog-image transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
-            <div className="w-6 h-6 xxs:w-8 xxs:h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         
-        <div className="absolute top-2 xxs:top-3 xs:top-4 left-2 xxs:left-3 xs:left-4 px-2 xxs:px-3 py-1 bg-gradient-to-r from-purple-600/90 to-blue-600/90 mobile-optimized-blur rounded-md xxs:rounded-lg text-white text-xs xxs:text-sm font-medium border border-white/20">
-          {blog.category}
+        {/* Badges */}
+        <div className="absolute top-3 left-3">
+          <span className="px-3 py-1 bg-purple-600/90 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/20">
+            {blog.category}
+          </span>
         </div>
 
         {blog.featured && (
-          <div className="absolute top-2 xxs:top-3 xs:top-4 right-2 xxs:right-3 xs:right-4 px-2 py-1 bg-gradient-to-r from-yellow-500/90 to-orange-500/90 mobile-optimized-blur rounded-md xxs:rounded-lg text-white text-xs font-medium border border-white/20">
-            ⭐ Featured
+          <div className="absolute top-3 right-3">
+            <span className="px-3 py-1 bg-yellow-500/90 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/20">
+              ⭐ Featured
+            </span>
           </div>
         )}
       </div>
 
-      <div className="relative z-10 mobile-compact-spacing">
-        <div className="flex items-center justify-between mobile-text-xs text-gray-400 mb-1 xxs:mb-2">
-          <span className="truncate max-w-[60%]">{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-          <div className="flex items-center gap-1 xxs:gap-2">
-            <span className="hidden xs:inline mobile-text-xs">{blog.readTime}</span>
+      {/* Content */}
+      <div className="relative z-10 p-5">
+        <div className="flex items-center justify-between text-xs text-gray-400 mb-3">
+          <span>{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+          <div className="flex items-center gap-2">
+            <span>{blog.readTime || '5 min read'}</span>
+            <span>•</span>
             <div className="flex items-center gap-1">
               <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
                 <circle cx="12" cy="12" r="3"/>
               </svg>
-              <span>{blog.views}</span>
+              <span>{blog.views || 0}</span>
             </div>
           </div>
         </div>
 
-        <h3 className="mobile-title font-semibold text-white group-hover:text-purple-300 transition-colors duration-300 line-clamp-2">
+        <h3 className="text-base font-bold text-white mb-3 leading-tight group-hover:text-purple-200 transition-colors duration-300 line-clamp-2">
           {blog.title}
         </h3>
 
-        <p className="text-gray-300 mobile-text-sm leading-relaxed mb-2 xxs:mb-3 line-clamp-2">
+        <p className="text-sm text-gray-300 leading-relaxed line-clamp-3 mb-4">
           {blog.excerpt}
         </p>
 
-        <div className="flex flex-wrap gap-1 mb-2 xxs:mb-3">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
           {blog.tags?.slice(0, 2).map((tag, idx) => (
             <span 
               key={idx}
-              className="px-1.5 xxs:px-2 py-0.5 xxs:py-1 bg-white/5 border border-white/10 rounded mobile-text-xs text-gray-400"
+              className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs text-gray-400"
             >
               #{tag}
             </span>
           ))}
         </div>
 
+        {/* Author & Actions */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 xxs:gap-2">
-            <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white mobile-text-xs font-semibold">
-              JD
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              J
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-gray-400 mobile-text-xs truncate">{blog.author}</div>
-              <div className="flex items-center gap-1 mobile-text-xs text-gray-500">
-                <svg className="w-2.5 h-2.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 3C16.3128 3.00364 15.6865 3.15523 15.1146 3.44361C14.5427 3.73198 14.0389 4.14704 13.64 4.66L12 6.78L10.36 4.66C9.96104 4.14704 9.45727 3.73198 8.88537 3.44361C8.31348 3.15523 7.68717 3.00364 7.05 3C6.32755 2.99817 5.61208 3.14052 4.94463 3.41708C4.27718 3.69364 3.67075 4.099 3.16 4.61C2.14821 5.6228 1.58407 7.01368 1.58407 8.465C1.58407 9.91632 2.14821 11.3072 3.16 12.32L12 21.16L20.84 12.32C21.8518 11.3072 22.4159 9.91632 22.4159 8.465C22.4159 7.01368 21.8518 5.6228 20.84 4.61Z"/>
-                </svg>
-                <span>{blog.likes}</span>
-              </div>
-            </div>
+            <span className="text-gray-400 text-xs">{blog.author}</span>
           </div>
 
-          <button className="hidden sm-mobile:flex items-center gap-1.5 text-purple-400 hover:text-purple-300 transition-colors duration-300 mobile-text-sm font-medium touch-target">
+          <button className="flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors duration-300 text-sm font-medium">
             Read
-            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none">
+            <svg className="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-200" viewBox="0 0 24 24" fill="none">
               <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
         </div>
       </div>
-
-      <div className="absolute inset-0 pointer-events-none">
-        <GradualBlur
-          position="bottom"
-          height="2rem"
-          strength={1}
-          divCount={3}
-          opacity={0.3}
-        />
-      </div>
     </article>
+  );
+};
+
+// Main Blog Card Component
+const BlogCard = ({ blog, index }) => {
+  return (
+    <>
+      {/* Mobile Layout */}
+      <div className="block md:hidden">
+        <MobileBlogCard blog={blog} index={index} />
+      </div>
+      
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        <DesktopBlogCard blog={blog} index={index} />
+      </div>
+    </>
   );
 };
 
