@@ -65,14 +65,14 @@ const Navigation = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // For mobile menu, close it first and scroll immediately after
+      // For mobile menu, close it first then scroll with minimal delay
       if (isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
         
-        // Use a shorter delay for faster interaction
+        // Reduced delay for immediate response - no jumping
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        }, 50);
       } else {
         // For desktop, scroll immediately
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
