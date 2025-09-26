@@ -17,6 +17,9 @@ const AboutSection = () => {
     const section = sectionRef.current;
     const profileCard = profileCardRef.current;
 
+    // Fetch worked with partners
+    fetchWorkedWithPartners();
+
     // Profile card 3D animation
     gsap.fromTo(profileCard, 
       { 
