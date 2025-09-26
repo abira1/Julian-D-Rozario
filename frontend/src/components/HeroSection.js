@@ -180,10 +180,10 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* 10+ Years tag - repositioned to upper right */}
+              {/* 10+ Years tag - positioned mid-right, aligned closer to subject's shoulder */}
               <div 
                 ref={el => tagsRef.current[1] = el}
-                className="hidden lg:block absolute -top-4 -right-28 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform rotate-12 z-30"
+                className="hidden lg:block absolute top-20 -right-24 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform rotate-8 z-30"
               >
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-red-400 rounded-full"></div>
@@ -191,10 +191,10 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Company Formation tag - repositioned to mid-left */}
+              {/* Company Formation tag - positioned slightly higher mid-left, closer to subject's arm */}
               <div 
                 ref={el => tagsRef.current[2] = el}
-                className="hidden lg:block absolute top-16 -left-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
+                className="hidden lg:block absolute top-8 -left-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
               >
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
