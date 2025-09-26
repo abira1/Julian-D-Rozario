@@ -239,7 +239,7 @@ const HeroSection = () => {
                 {[...services, ...services].map((service, index) => (
                   <div 
                     key={`${service.name}-${index}`}
-                    className="group flex-shrink-0 flex items-center space-x-4 px-6 py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20"
+                    className="group flex-shrink-0 flex items-center space-x-4 px-6 py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 touch-interactive transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20"
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15))';
                     }}
