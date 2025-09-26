@@ -17,29 +17,30 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Enhanced body scroll lock for mobile menu with scroll position preservation
+  // Enhanced body scroll lock for mobile menu with proper scroll position preservation
   useEffect(() => {
     if (isMobileMenuOpen) {
       // Capture current scroll position before locking
       const currentScrollY = window.scrollY;
       setScrollPosition(currentScrollY);
       
-      // Apply scroll lock styles
+      // Apply scroll lock styles with proper scroll position preservation
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${currentScrollY}px`;
       document.body.style.width = '100%';
+      document.body.style.left = '0';
     } else {
       // Restore scroll position and remove lock
+      const savedScrollY = scrollPosition;
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
+      document.body.style.left = '';
       
-      // Restore scroll position smoothly
-      if (scrollPosition > 0) {
-        window.scrollTo(0, scrollPosition);
-      }
+      // Restore scroll position immediately
+      window.scrollTo(0, savedScrollY);
     }
 
     // Cleanup on unmount
@@ -48,8 +49,9 @@ const Navigation = () => {
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
+      document.body.style.left = '';
     };
-  }, [isMobileMenuOpen, scrollPosition]);
+  }, [isMobileMenuOpen]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
