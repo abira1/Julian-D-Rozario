@@ -54,13 +54,18 @@ const Navigation = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Close mobile menu first
-      setIsMobileMenuOpen(false);
-      
-      // Small delay to allow menu close animation
-      setTimeout(() => {
+      // For mobile menu, close it first and scroll immediately after
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        
+        // Use a shorter delay for faster interaction
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      } else {
+        // For desktop, scroll immediately
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 200);
+      }
     }
   };
 
