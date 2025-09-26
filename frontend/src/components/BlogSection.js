@@ -105,132 +105,119 @@ const BlogSection = () => {
           <>
             {/* Mobile-First Layout */}
             
-            {/* Ultra Mobile Layout (320px - 374px) */}
-            <div className="block xxs:hidden">
-              <div className="space-y-4">
-                {blogs.slice(0, 4).map((article, index) => (
+            {/* Modern Mobile Layout - All Mobile Sizes */}
+            <div className="block md-tablet:hidden">
+              
+              {/* Featured Article Card - Mobile */}
+              <div className="mb-6">
+                {blogs.length > 0 && (
                   <div
-                    key={article.id}
-                    onClick={() => handleArticleClick(article.id)}
-                    className="group touch-interactive bg-white/[0.08] mobile-optimized-blur rounded-lg border border-white/[0.12] hover:border-purple-500/30 hover:bg-white/[0.12] transition-all duration-300 touch-target mobile-card-spacing"
-                    style={{ 
-                      animation: `mobileSlideUp 0.5s ease-out ${index * 0.1}s both`
-                    }}
+                    onClick={() => handleArticleClick(blogs[0].id)}
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/50 to-slate-800/50 border border-white/10 hover:border-purple-400/30 transition-all duration-300 cursor-pointer"
                   >
-                    <div className="flex gap-3">
-                      {/* Compact Image */}
-                      <div className="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden bg-slate-800">
-                        <img 
-                          src={article.image_url || article.image} 
-                          alt={article.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                          loading="lazy"
-                        />
+                    {/* Featured Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={blogs[0].image_url || blogs[0].image} 
+                        alt={blogs[0].title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                      
+                      {/* Featured Badge */}
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 bg-purple-600 text-white text-xs font-semibold rounded-full">
+                          ⭐ Featured
+                        </span>
                       </div>
-
-                      {/* Compact Content */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-1 text-xs text-gray-300 mb-1">
-                          <span className="px-2 py-0.5 bg-purple-600/30 rounded text-purple-200 font-medium text-xs">{article.category}</span>
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-4 right-4">
+                        <span className="px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20">
+                          {blogs[0].category}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="p-5">
+                      <div className="flex items-center gap-2 text-xs text-gray-400 mb-3">
+                        <span>{new Date(blogs[0].date || blogs[0].created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                        <span>•</span>
+                        <span>{blogs[0].readTime || blogs[0].read_time || '5 min read'}</span>
+                      </div>
+                      
+                      <h3 className="text-lg font-bold text-white mb-3 leading-tight group-hover:text-purple-200 transition-colors duration-300">
+                        {blogs[0].title}
+                      </h3>
+                      
+                      <p className="text-sm text-gray-300 leading-relaxed line-clamp-2 mb-4">
+                        {blogs[0].excerpt}
+                      </p>
+                      
+                      {/* Author */}
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          J
                         </div>
-                        <h4 className="text-sm font-semibold text-white leading-tight mb-1 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300">
-                          {article.title}
-                        </h4>
-                        <p className="text-xs text-gray-300 line-clamp-1">
-                          {article.readTime || article.read_time || '5 min read'}
-                        </p>
+                        <span className="text-gray-400 text-sm font-medium">{blogs[0].author}</span>
                       </div>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
-            </div>
 
-            {/* Small Mobile Layout (375px - 424px) */}
-            <div className="hidden xxs:block xs:hidden">
+              {/* Recent Articles List - Mobile */}
               <div className="space-y-4">
-                {blogs.slice(0, 5).map((article, index) => (
+                <h4 className="text-lg font-semibold text-white mb-4" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                  Recent Articles
+                </h4>
+                
+                {blogs.slice(1, 6).map((article, index) => (
                   <div
                     key={article.id}
                     onClick={() => handleArticleClick(article.id)}
-                    className="group touch-interactive bg-white/[0.08] mobile-optimized-blur rounded-xl border border-white/[0.12] hover:border-purple-500/30 hover:bg-white/[0.12] transition-all duration-300 hover:scale-[1.01] touch-target mobile-card-spacing"
-                    style={{ 
-                      animation: `mobileSlideUp 0.5s ease-out ${index * 0.1}s both`
-                    }}
-                  >
-                    <div className="flex gap-3">
-                      {/* Image */}
-                      <div className="flex-shrink-0 w-18 h-18 rounded-lg overflow-hidden bg-slate-800">
-                        <img 
-                          src={article.image_url || article.image} 
-                          alt={article.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-300 mb-2">
-                          <span className="px-2 py-1 bg-purple-600/30 rounded text-purple-200 font-medium">{article.category}</span>
-                          <span>•</span>
-                          <span>{new Date(article.date || article.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                        </div>
-
-                        <h4 className="text-sm font-semibold text-white leading-tight mb-2 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300">
-                          {article.title}
-                        </h4>
-
-                        <p className="text-xs text-gray-300 leading-relaxed line-clamp-1">
-                          {article.readTime || article.read_time || '5 min read'}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Medium Mobile Layout (425px - 767px) */}
-            <div className="hidden xs:block md-tablet:hidden">
-              <div className="space-y-5">
-                {blogs.map((article, index) => (
-                  <div
-                    key={article.id}
-                    onClick={() => handleArticleClick(article.id)}
-                    className="group touch-interactive bg-white/[0.08] mobile-optimized-blur rounded-xl border border-white/[0.12] hover:border-white/[0.25] hover:bg-white/[0.12] transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-purple-500/10 touch-target mobile-card-spacing"
-                    style={{ 
-                      animation: `slideInLeft 0.5s ease-out ${index * 0.1}s both`
-                    }}
+                    className="group p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 cursor-pointer"
                   >
                     <div className="flex gap-4">
-                      {/* Image */}
-                      <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden bg-slate-800">
+                      {/* Thumbnail */}
+                      <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-800">
                         <img 
                           src={article.image_url || article.image} 
                           alt={article.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                           loading="lazy"
                         />
                       </div>
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-300 mb-2">
-                          <span className="px-2 py-1 bg-purple-600/30 rounded text-purple-200 font-medium">{article.category}</span>
-                          <span>•</span>
-                          <span>{new Date(article.date || article.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                        {/* Meta */}
+                        <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                          <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md font-medium">
+                            {article.category}
+                          </span>
                           <span>•</span>
                           <span>{article.readTime || article.read_time || '5 min read'}</span>
                         </div>
 
-                        <h4 className="text-base font-semibold text-white leading-tight mb-2 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300">
+                        {/* Title */}
+                        <h4 className="text-sm font-semibold text-white leading-tight mb-2 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300">
                           {article.title}
                         </h4>
 
-                        <p className="text-sm text-gray-300 leading-relaxed line-clamp-2">
-                          {article.excerpt}
-                        </p>
+                        {/* Date & Author */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-400">
+                            {new Date(article.date || article.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          </span>
+                          
+                          {/* Read More Arrow */}
+                          <svg className="w-4 h-4 text-purple-400 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
                       </div>
                     </div>
                   </div>
