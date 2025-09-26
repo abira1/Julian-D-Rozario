@@ -103,7 +103,7 @@ const WorkedWithSection = () => {
                 {[...companies, ...companies].map((company, index) => (
                   <div 
                     key={`${company.name}-${index}`}
-                    className="group flex-shrink-0 flex flex-col items-center space-y-4 px-8 py-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20 min-w-[200px]"
+                    className="group flex-shrink-0 flex flex-col items-center space-y-4 px-8 py-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 touch-interactive transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20 min-w-[200px]"
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1))';
                     }}
