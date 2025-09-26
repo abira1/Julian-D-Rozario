@@ -180,10 +180,21 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Company Formation tag - positioned further outside top-right */}
+              {/* 10+ Years tag - repositioned to upper right */}
               <div 
                 ref={el => tagsRef.current[1] = el}
                 className="hidden lg:block absolute -top-4 -right-28 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform rotate-12 z-30"
+              >
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                  <span className="text-sm font-medium text-white">10+ Years</span>
+                </div>
+              </div>
+
+              {/* Company Formation tag - repositioned to mid-left */}
+              <div 
+                ref={el => tagsRef.current[2] = el}
+                className="hidden lg:block absolute top-16 -left-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
               >
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
@@ -193,7 +204,7 @@ const HeroSection = () => {
 
               {/* Dubai Expert tag - positioned further outside bottom-left */}
               <div 
-                ref={el => tagsRef.current[2] = el}
+                ref={el => tagsRef.current[3] = el}
                 className="hidden lg:block absolute -bottom-8 -left-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-6 z-30"
               >
                 <div className="flex items-center space-x-2">
@@ -204,23 +215,12 @@ const HeroSection = () => {
 
               {/* UAE Specialist tag - positioned further outside bottom-right */}
               <div 
-                ref={el => tagsRef.current[3] = el}
+                ref={el => tagsRef.current[4] = el}
                 className="hidden lg:block absolute -bottom-8 -right-24 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform rotate-8 z-30"
               >
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
                   <span className="text-sm font-medium text-white">UAE Specialist</span>
-                </div>
-              </div>
-
-              {/* 10+ Years tag - positioned further outside middle-left */}
-              <div 
-                ref={el => tagsRef.current[4] = el}
-                className="hidden lg:block absolute top-16 -left-16 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-sm font-medium text-white">10+ Years</span>
                 </div>
               </div>
             </div>
