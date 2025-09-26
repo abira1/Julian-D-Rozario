@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollPositionRef = useRef(0);
   const menuRef = useRef(null);
   const menuItemsRef = useRef([]);
 
@@ -21,18 +21,17 @@ const Navigation = () => {
   useEffect(() => {
     if (isMobileMenuOpen) {
       // Capture current scroll position before locking
-      const currentScrollY = window.scrollY;
-      setScrollPosition(currentScrollY);
+      scrollPositionRef.current = window.scrollY;
       
       // Apply scroll lock styles with proper scroll position preservation
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${currentScrollY}px`;
+      document.body.style.top = `-${scrollPositionRef.current}px`;
       document.body.style.width = '100%';
       document.body.style.left = '0';
     } else {
       // Restore scroll position and remove lock
-      const savedScrollY = scrollPosition;
+      const savedScrollY = scrollPositionRef.current;
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
