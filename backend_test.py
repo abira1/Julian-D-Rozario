@@ -35,6 +35,7 @@ print(f"🔍 Testing Firebase backend at: {API_BASE_URL}")
 # Global variables for testing
 test_blog_id = None
 test_auth_token = None
+test_worked_with_id = None
 
 def test_health_check():
     """Test basic health check endpoint"""
