@@ -154,10 +154,10 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Modern Mobile Menu Overlay - Simplified */}
+      {/* Mobile Menu Overlay - Fixed z-index and display */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 z-40 lg:hidden ${isMobileMenuOpen ? 'flex' : 'hidden'} flex-col`}
+        className={`fixed inset-0 z-[99999] lg:hidden ${isMobileMenuOpen ? 'flex' : 'hidden'} flex-col`}
       >
         {/* Backdrop with improved blur */}
         <div 
