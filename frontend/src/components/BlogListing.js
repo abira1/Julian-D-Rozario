@@ -23,7 +23,7 @@ const BlogCard = ({ blog, index }) => {
     <article 
       ref={cardRef}
       onClick={handleCardClick}
-      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card hover:border-purple-500/30 transition-all duration-300 cursor-pointer hover:scale-[1.01] xxs:hover:scale-[1.02] hover:-translate-y-1 touch-target"
+      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card hover:border-purple-500/30 transition-all duration-300 hover:scale-[1.01] xxs:hover:scale-[1.02] hover:-translate-y-1 touch-target touch-interactive"
       style={{
         background: `
           linear-gradient(135deg, 
