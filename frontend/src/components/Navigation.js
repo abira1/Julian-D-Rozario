@@ -17,38 +17,48 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Enhanced body scroll lock for mobile menu with proper scroll position preservation
+  // Fixed mobile menu scroll position preservation - no more jumping to hero
   useEffect(() => {
     if (isMobileMenuOpen) {
-      // Capture current scroll position before locking
-      scrollPositionRef.current = window.scrollY;
+      // Capture current scroll position accurately
+      const currentScrollY = window.scrollY;
+      scrollPositionRef.current = currentScrollY;
       
-      // Apply scroll lock styles with proper scroll position preservation
+      // Apply scroll lock without affecting visual scroll position
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollPositionRef.current}px`;
+      document.body.style.top = `-${currentScrollY}px`;
       document.body.style.width = '100%';
       document.body.style.left = '0';
+      document.body.style.right = '0';
     } else {
-      // Restore scroll position and remove lock
-      const savedScrollY = scrollPositionRef.current;
+      // Get the saved scroll position
+      const savedScrollY = Math.abs(parseInt(document.body.style.top) || 0);
+      
+      // Remove all scroll lock styles first
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
       document.body.style.left = '';
+      document.body.style.right = '';
       
-      // Restore scroll position immediately
-      window.scrollTo(0, savedScrollY);
+      // Restore exact scroll position immediately without animation
+      if (savedScrollY > 0) {
+        window.scrollTo(0, savedScrollY);
+      }
     }
 
-    // Cleanup on unmount
+    // Cleanup on unmount to prevent sticky scroll locks
     return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.left = '';
+      if (document.body.style.position === 'fixed') {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+      }
     };
   }, [isMobileMenuOpen]);
 
