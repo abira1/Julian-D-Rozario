@@ -80,39 +80,39 @@ const Navigation = () => {
     }
   };
 
-  // Enhanced mobile menu toggle with optimized GSAP animations
+  // Simplified and faster mobile menu toggle animations
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     
     if (!isMobileMenuOpen) {
-      // Opening animation - faster and smoother
+      // Opening animation - immediate and smooth
       gsap.set(menuRef.current, { display: 'flex' });
       gsap.fromTo(menuRef.current, 
-        { opacity: 0, scale: 0.98 },
-        { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" }
+        { opacity: 0, scale: 0.99 },
+        { opacity: 1, scale: 1, duration: 0.15, ease: "power2.out" }
       );
       
-      // Faster stagger animation for menu items
+      // Fast menu items animation
       gsap.fromTo(menuItemsRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.1 }
+        { y: 15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.2, stagger: 0.03, ease: "power2.out", delay: 0.05 }
       );
     } else {
-      // Closing animation - very fast
+      // Closing animation - very fast and clean
       gsap.to(menuItemsRef.current, {
-        y: -15,
+        y: -10,
         opacity: 0,
-        duration: 0.15,
-        stagger: 0.02,
+        duration: 0.1,
+        stagger: 0.01,
         ease: "power2.in"
       });
       
       gsap.to(menuRef.current, {
         opacity: 0,
-        scale: 0.98,
-        duration: 0.2,
+        scale: 0.99,
+        duration: 0.15,
         ease: "power2.in",
-        delay: 0.05,
+        delay: 0.02,
         onComplete: () => {
           gsap.set(menuRef.current, { display: 'none' });
         }
