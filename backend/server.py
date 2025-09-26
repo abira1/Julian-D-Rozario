@@ -985,6 +985,167 @@ async def get_status_checks():
         logger.error(f"Get status checks error: {str(e)}")
         return []
 
+# WorkedWith endpoints for business partners/collaborations management
+@api_router.get("/worked-with", response_model=List[WorkedWith])
+async def get_worked_with():
+    """Get all active worked with partners, sorted by display_order"""
+    try:
+        worked_with_ref = get_firebase_ref('worked_with')
+        worked_with_data = worked_with_ref.get() or {}
+        
+        worked_with_list = []
+        for partner_id, partner_data in worked_with_data.items():
+            worked_with_list.append(WorkedWith(
+                id=partner_id,
+                company_name=partner_data.get('company_name', ''),
+                logo_url=partner_data.get('logo_url', ''),
+                display_order=partner_data.get('display_order', 0),
+                is_active=partner_data.get('is_active', True),
+                created_at=datetime.fromisoformat(partner_data.get('created_at', datetime.utcnow().isoformat())),
+                updated_at=datetime.fromisoformat(partner_data.get('updated_at', datetime.utcnow().isoformat()))
+            ))
+        
+        # Sort by display_order and then by company_name
+        worked_with_list.sort(key=lambda x: (x.display_order, x.company_name.lower()))
+        
+        return worked_with_list
+        
+    except Exception as e:
+        logger.error(f"Get worked with error: {str(e)}")
+        return []
+
+@api_router.get("/worked-with/{partner_id}", response_model=WorkedWith)
+async def get_worked_with_partner(partner_id: str):
+    """Get specific worked with partner by ID"""
+    try:
+        partner_ref = get_firebase_ref(f'worked_with/{partner_id}')
+        partner_data = partner_ref.get()
+        
+        if not partner_data:
+            raise HTTPException(status_code=404, detail="Partner not found")
+        
+        return WorkedWith(
+            id=partner_id,
+            company_name=partner_data.get('company_name', ''),
+            logo_url=partner_data.get('logo_url', ''),
+            display_order=partner_data.get('display_order', 0),
+            is_active=partner_data.get('is_active', True),
+            created_at=datetime.fromisoformat(partner_data.get('created_at', datetime.utcnow().isoformat())),
+            updated_at=datetime.fromisoformat(partner_data.get('updated_at', datetime.utcnow().isoformat()))
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Get worked with partner error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to get partner")
+
+@api_router.post("/worked-with", response_model=WorkedWith)
+async def create_worked_with(partner_data: WorkedWithCreate, current_user_email: str = Depends(verify_token)):
+    """Create new worked with partner (Admin only)"""
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        partner = WorkedWith(
+            company_name=partner_data.company_name,
+            logo_url=partner_data.logo_url,
+            display_order=partner_data.display_order,
+            is_active=partner_data.is_active
+        )
+        
+        # Store in Firebase
+        partner_ref = get_firebase_ref(f'worked_with/{partner.id}')
+        partner_ref.set({
+            'company_name': partner.company_name,
+            'logo_url': partner.logo_url,
+            'display_order': partner.display_order,
+            'is_active': partner.is_active,
+            'created_at': partner.created_at.isoformat(),
+            'updated_at': partner.updated_at.isoformat()
+        })
+        
+        logger.info(f"Created worked with partner: {partner.company_name}")
+        return partner
+        
+    except Exception as e:
+        logger.error(f"Create worked with error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to create partner")
+
+@api_router.put("/worked-with/{partner_id}", response_model=WorkedWith)
+async def update_worked_with(partner_id: str, partner_data: WorkedWithUpdate, current_user_email: str = Depends(verify_token)):
+    """Update worked with partner (Admin only)"""
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # Get existing partner
+        partner_ref = get_firebase_ref(f'worked_with/{partner_id}')
+        existing_data = partner_ref.get()
+        
+        if not existing_data:
+            raise HTTPException(status_code=404, detail="Partner not found")
+        
+        # Update only provided fields
+        updated_data = existing_data.copy()
+        update_dict = partner_data.dict(exclude_unset=True)
+        
+        for field, value in update_dict.items():
+            if value is not None:
+                updated_data[field] = value
+        
+        # Always update the updated_at timestamp
+        updated_data['updated_at'] = datetime.utcnow().isoformat()
+        
+        # Update in Firebase
+        partner_ref.set(updated_data)
+        
+        # Return updated partner
+        return WorkedWith(
+            id=partner_id,
+            company_name=updated_data.get('company_name', ''),
+            logo_url=updated_data.get('logo_url', ''),
+            display_order=updated_data.get('display_order', 0),
+            is_active=updated_data.get('is_active', True),
+            created_at=datetime.fromisoformat(updated_data.get('created_at', datetime.utcnow().isoformat())),
+            updated_at=datetime.fromisoformat(updated_data.get('updated_at', datetime.utcnow().isoformat()))
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Update worked with error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to update partner")
+
+@api_router.delete("/worked-with/{partner_id}")
+async def delete_worked_with(partner_id: str, current_user_email: str = Depends(verify_token)):
+    """Delete worked with partner (Admin only)"""
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # Check if partner exists
+        partner_ref = get_firebase_ref(f'worked_with/{partner_id}')
+        partner_data = partner_ref.get()
+        
+        if not partner_data:
+            raise HTTPException(status_code=404, detail="Partner not found")
+        
+        # Delete from Firebase
+        partner_ref.delete()
+        
+        logger.info(f"Deleted worked with partner: {partner_data.get('company_name', partner_id)}")
+        return {"message": "Partner deleted successfully"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Delete worked with error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to delete partner")
+
 # Include the router in the main app
 app.include_router(api_router)
 
