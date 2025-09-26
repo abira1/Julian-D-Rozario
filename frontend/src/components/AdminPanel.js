@@ -75,7 +75,6 @@ const AdminPanel = () => {
       
       <div className="pt-16">
         <Routes>
-          <Routes>
           <Route path="/" element={<Navigate to="/julian_portfolio/dashboard" replace />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/blogs" element={<BlogManager />} />
