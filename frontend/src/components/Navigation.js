@@ -17,57 +17,19 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // FINAL FIX: Mobile menu scroll position preservation - no more jumping to hero
+  // Simple mobile menu body scroll lock - no position preservation
   useEffect(() => {
     if (isMobileMenuOpen) {
-      // Capture current scroll position accurately
-      const currentScrollY = window.scrollY;
-      scrollPositionRef.current = currentScrollY;
-      
-      // Apply scroll lock without affecting visual scroll position
+      // Simple overflow hidden for body scroll lock
       document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${currentScrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.left = '0';
-      document.body.style.right = '0';
     } else {
-      // CRITICAL FIX: Get saved scroll position BEFORE clearing styles
-      const savedScrollY = scrollPositionRef.current;
-      
-      // Remove all scroll lock styles
+      // Restore body scroll
       document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      
-      // Restore exact scroll position immediately - use requestAnimationFrame for reliability
-      if (savedScrollY > 0) {
-        requestAnimationFrame(() => {
-          window.scrollTo(0, savedScrollY);
-        });
-      }
     }
 
-    // Cleanup on unmount to prevent sticky scroll locks
+    // Cleanup on unmount
     return () => {
-      if (document.body.style.position === 'fixed') {
-        const currentSavedScrollY = scrollPositionRef.current;
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        
-        if (currentSavedScrollY > 0) {
-          requestAnimationFrame(() => {
-            window.scrollTo(0, currentSavedScrollY);
-          });
-        }
-      }
+      document.body.style.overflow = '';
     };
   }, [isMobileMenuOpen]);
 
