@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const menuRef = useRef(null);
   const menuItemsRef = useRef([]);
 
@@ -16,25 +17,39 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Body scroll lock for mobile menu
+  // Enhanced body scroll lock for mobile menu with scroll position preservation
   useEffect(() => {
     if (isMobileMenuOpen) {
+      // Capture current scroll position before locking
+      const currentScrollY = window.scrollY;
+      setScrollPosition(currentScrollY);
+      
+      // Apply scroll lock styles
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
+      document.body.style.top = `-${currentScrollY}px`;
       document.body.style.width = '100%';
     } else {
+      // Restore scroll position and remove lock
       document.body.style.overflow = '';
       document.body.style.position = '';
+      document.body.style.top = '';
       document.body.style.width = '';
+      
+      // Restore scroll position smoothly
+      if (scrollPosition > 0) {
+        window.scrollTo(0, scrollPosition);
+      }
     }
 
     // Cleanup on unmount
     return () => {
       document.body.style.overflow = '';
       document.body.style.position = '';
+      document.body.style.top = '';
       document.body.style.width = '';
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, scrollPosition]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
