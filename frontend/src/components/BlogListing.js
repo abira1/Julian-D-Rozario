@@ -480,15 +480,25 @@ const BlogListing = () => {
         </div>
       </section>
 
-      {/* Articles Grid - Mobile First Responsive */}
+      {/* Articles Grid - Separate Mobile and Desktop */}
       <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-12">
         <div className="max-w-7xl mx-auto">
           {currentBlogs.length > 0 ? (
-            <div className="grid grid-cols-1 xs:grid-cols-2 md-tablet:grid-cols-3 lg-desktop:grid-cols-4 mobile-content-gap">
-              {currentBlogs.map((blog, index) => (
-                <BlogCard key={blog.id} blog={blog} index={index} />
-              ))}
-            </div>
+            <>
+              {/* Mobile Layout - Stack Cards Vertically */}
+              <div className="block md:hidden space-y-4">
+                {currentBlogs.map((blog, index) => (
+                  <BlogCard key={blog.id} blog={blog} index={index} />
+                ))}
+              </div>
+
+              {/* Desktop Layout - Grid */}
+              <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {currentBlogs.map((blog, index) => (
+                  <BlogCard key={blog.id} blog={blog} index={index} />
+                ))}
+              </div>
+            </>)
           ) : (
             <div className="text-center py-12 xxs:py-16">
               <div className="w-16 h-16 xxs:w-20 xxs:h-20 xs:w-24 xs:h-24 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 xxs:mb-6">
