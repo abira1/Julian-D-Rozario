@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import React, { useState, useEffect } from 'react';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-  const menuItemsRef = useRef([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,73 +13,18 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Simple mobile menu body scroll lock - no position preservation
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      // Simple overflow hidden for body scroll lock
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Restore body scroll
-      document.body.style.overflow = '';
-    }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
-
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Close mobile menu immediately if open
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-      
-      // Smooth scroll to section without any delay
+      // Close mobile menu first
+      setIsMobileMenuOpen(false);
+      // Simple smooth scroll
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  // Simple and reliable mobile menu toggle
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    
-    if (!isMobileMenuOpen) {
-      // Opening animation - ensure visibility
-      gsap.set(menuItemsRef.current, { opacity: 0, y: 30 });
-      gsap.fromTo(menuRef.current, 
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3, ease: "power2.out" }
-      );
-      
-      // Animate menu items to be visible
-      gsap.to(menuItemsRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.4,
-        stagger: 0.1,
-        ease: "power2.out",
-        delay: 0.1
-      });
-    } else {
-      // Closing animation
-      gsap.to(menuItemsRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.2,
-        stagger: 0.03,
-        ease: "power2.in"
-      });
-      
-      gsap.to(menuRef.current, {
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-        delay: 0.1
-      });
-    }
   };
 
   const navItems = [
