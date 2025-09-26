@@ -275,8 +275,10 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus:
+    - "Fix and optimize mobile navbar for smooth functionality after scroll"
+  stuck_tasks:
+    - "Fix and optimize mobile navbar for smooth functionality after scroll"
   test_all: false
   test_priority: "high_first"
 
