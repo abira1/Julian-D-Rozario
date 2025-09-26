@@ -17,7 +17,7 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fixed mobile menu scroll position preservation - no more jumping to hero
+  // FINAL FIX: Mobile menu scroll position preservation - no more jumping to hero
   useEffect(() => {
     if (isMobileMenuOpen) {
       // Capture current scroll position accurately
@@ -32,10 +32,10 @@ const Navigation = () => {
       document.body.style.left = '0';
       document.body.style.right = '0';
     } else {
-      // Get the saved scroll position
-      const savedScrollY = Math.abs(parseInt(document.body.style.top) || 0);
+      // CRITICAL FIX: Get saved scroll position BEFORE clearing styles
+      const savedScrollY = scrollPositionRef.current;
       
-      // Remove all scroll lock styles first
+      // Remove all scroll lock styles
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
@@ -43,21 +43,30 @@ const Navigation = () => {
       document.body.style.left = '';
       document.body.style.right = '';
       
-      // Restore exact scroll position immediately without animation
+      // Restore exact scroll position immediately - use requestAnimationFrame for reliability
       if (savedScrollY > 0) {
-        window.scrollTo(0, savedScrollY);
+        requestAnimationFrame(() => {
+          window.scrollTo(0, savedScrollY);
+        });
       }
     }
 
     // Cleanup on unmount to prevent sticky scroll locks
     return () => {
       if (document.body.style.position === 'fixed') {
+        const currentSavedScrollY = scrollPositionRef.current;
         document.body.style.overflow = '';
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.width = '';
         document.body.style.left = '';
         document.body.style.right = '';
+        
+        if (currentSavedScrollY > 0) {
+          requestAnimationFrame(() => {
+            window.scrollTo(0, currentSavedScrollY);
+          });
+        }
       }
     };
   }, [isMobileMenuOpen]);
