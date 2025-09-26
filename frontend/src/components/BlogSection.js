@@ -245,7 +245,7 @@ const BlogSection = () => {
                   <div
                     key={article.id}
                     onClick={() => handleArticleClick(article.id)}
-                    className="group cursor-pointer bg-white/[0.02] mobile-optimized-blur rounded-xl overflow-hidden border border-white/[0.05] hover:border-white/[0.15] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10"
+                    className="group touch-interactive bg-white/[0.02] mobile-optimized-blur rounded-xl overflow-hidden border border-white/[0.05] hover:border-white/[0.15] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10"
                     style={{ 
                       animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                     }}
@@ -312,7 +312,7 @@ const BlogSection = () => {
                   <div
                     key={article.id}
                     onClick={() => handleArticleClick(article.id)}
-                    className="group cursor-pointer bg-white/[0.02] mobile-optimized-blur rounded-xl overflow-hidden border border-white/[0.05] hover:border-white/[0.15] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10"
+                    className="group touch-interactive bg-white/[0.02] mobile-optimized-blur rounded-xl overflow-hidden border border-white/[0.05] hover:border-white/[0.15] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10"
                     style={{ 
                       animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                     }}
