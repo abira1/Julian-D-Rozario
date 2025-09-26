@@ -87,24 +87,26 @@ const Navigation = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
         isScrolled 
           ? 'bg-black/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl shadow-purple-500/5' 
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Enhanced Logo */}
-          <button
-            onClick={() => scrollToSection('hero')}
-            className="flex items-center space-x-3 group touch-interactive relative z-50"
-          >
-            <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-blue-300 transition-all duration-300"
-            style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-              Julian D'Rozario
-            </span>
-          </button>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="flex items-center justify-between h-16 sm:h-20 w-full relative">
+          {/* Enhanced Logo - Fixed positioning */}
+          <div className="flex-shrink-0">
+            <button
+              onClick={() => scrollToSection('hero')}
+              className="flex items-center space-x-3 group touch-interactive relative z-50"
+            >
+              <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-blue-300 transition-all duration-300 whitespace-nowrap"
+              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                Julian D'Rozario
+              </span>
+            </button>
+          </div>
 
           {/* Desktop Navigation - Hidden on mobile/tablet */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
