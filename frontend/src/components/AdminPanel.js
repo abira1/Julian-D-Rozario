@@ -75,11 +75,13 @@ const AdminPanel = () => {
       
       <div className="pt-16">
         <Routes>
+          <Routes>
           <Route path="/" element={<Navigate to="/julian_portfolio/dashboard" replace />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/blogs" element={<BlogManager />} />
           <Route path="/blogs/:action/:id?" element={<BlogManager />} />
           <Route path="/contact" element={<ContactManager />} />
+          <Route path="/worked-with" element={<WorkedWithManager />} />
           <Route path="*" element={<Navigate to="/julian_portfolio/dashboard" replace />} />
         </Routes>
       </div>
