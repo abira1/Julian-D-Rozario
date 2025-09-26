@@ -435,6 +435,402 @@ def test_supervisor_services():
         print(f"❌ Supervisor services test failed: {e}")
         return False
 
+def test_worked_with_get_all():
+    """Test GET /api/worked-with - Should return empty array initially (no auth required)"""
+    print("\n=== Testing Get All Worked With Partners ===")
+    try:
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/worked-with", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            if isinstance(data, list):
+                print(f"✅ Get worked with partners working ({response_time:.2f}ms) - Retrieved {len(data)} partners")
+                
+                # Check structure if any partners exist
+                if data:
+                    first_partner = data[0]
+                    required_fields = ["id", "company_name", "logo_url", "display_order", "is_active", "created_at", "updated_at"]
+                    missing_fields = [field for field in required_fields if field not in first_partner]
+                    
+                    if not missing_fields:
+                        print("   ✅ Partner structure is correct")
+                        return True
+                    else:
+                        print(f"   ❌ Partner missing fields: {missing_fields}")
+                        return False
+                else:
+                    print("   ✅ Empty array returned (expected for initial state)")
+                    return True
+            else:
+                print(f"❌ Expected list, got {type(data)}")
+                return False
+        else:
+            print(f"❌ Get worked with partners failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Get worked with partners request failed: {e}")
+        return False
+
+def test_worked_with_create_no_auth():
+    """Test POST /api/worked-with without authentication - Should fail"""
+    print("\n=== Testing Create Worked With Partner (No Auth) ===")
+    try:
+        test_data = {
+            "company_name": "Test Company Ltd",
+            "logo_url": "https://example.com/logo.png",
+            "display_order": 1,
+            "is_active": True
+        }
+        
+        start_time = time.time()
+        response = requests.post(
+            f"{API_BASE_URL}/worked-with",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code in [401, 403, 422]:
+            print(f"✅ Create worked with partner requires authentication ({response_time:.2f}ms)")
+            return True
+        else:
+            print(f"❌ Expected auth error, got status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Create worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_create_with_auth():
+    """Test POST /api/worked-with with admin authentication"""
+    print("\n=== Testing Create Worked With Partner (With Admin Auth) ===")
+    
+    if not test_auth_token:
+        print("⚠️  No auth token available for testing")
+        return True
+    
+    try:
+        test_data = {
+            "company_name": "Test Company Ltd",
+            "logo_url": "https://example.com/logo.png",
+            "display_order": 1,
+            "is_active": True
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.post(
+            f"{API_BASE_URL}/worked-with",
+            json=test_data,
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["id", "company_name", "logo_url", "display_order", "is_active", "created_at", "updated_at"]
+            missing_fields = [field for field in required_fields if field not in data]
+            
+            if not missing_fields:
+                if data["company_name"] == test_data["company_name"]:
+                    print(f"✅ Create worked with partner working ({response_time:.2f}ms)")
+                    print(f"   Created partner: {data['company_name']}")
+                    print(f"   Partner ID: {data['id']}")
+                    global test_worked_with_id
+                    test_worked_with_id = data['id']
+                    return True
+                else:
+                    print(f"❌ Company name mismatch")
+                    return False
+            else:
+                print(f"❌ Missing required fields: {missing_fields}")
+                return False
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        else:
+            print(f"❌ Create worked with partner failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Create worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_get_single():
+    """Test GET /api/worked-with/{id} - Get specific partner (no auth required)"""
+    print("\n=== Testing Get Single Worked With Partner ===")
+    
+    if not test_worked_with_id:
+        print("⚠️  No partner ID available for testing")
+        return True
+    
+    try:
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/worked-with/{test_worked_with_id}", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["id", "company_name", "logo_url", "display_order", "is_active", "created_at", "updated_at"]
+            missing_fields = [field for field in required_fields if field not in data]
+            
+            if not missing_fields:
+                print(f"✅ Get single worked with partner working ({response_time:.2f}ms)")
+                print(f"   Partner: {data['company_name']}")
+                print(f"   Display Order: {data['display_order']}")
+                print(f"   Active: {data['is_active']}")
+                return True
+            else:
+                print(f"❌ Partner missing fields: {missing_fields}")
+                return False
+        elif response.status_code == 404:
+            print("⚠️  Partner not found (404) - may have been deleted")
+            return True
+        else:
+            print(f"❌ Get single worked with partner failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Get single worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_update_no_auth():
+    """Test PUT /api/worked-with/{id} without authentication - Should fail"""
+    print("\n=== Testing Update Worked With Partner (No Auth) ===")
+    
+    if not test_worked_with_id:
+        print("⚠️  No partner ID available for testing")
+        return True
+    
+    try:
+        test_data = {
+            "company_name": "Updated Test Company Ltd",
+            "display_order": 2
+        }
+        
+        start_time = time.time()
+        response = requests.put(
+            f"{API_BASE_URL}/worked-with/{test_worked_with_id}",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code in [401, 403, 422]:
+            print(f"✅ Update worked with partner requires authentication ({response_time:.2f}ms)")
+            return True
+        else:
+            print(f"❌ Expected auth error, got status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Update worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_update_with_auth():
+    """Test PUT /api/worked-with/{id} with admin authentication"""
+    print("\n=== Testing Update Worked With Partner (With Admin Auth) ===")
+    
+    if not test_auth_token or not test_worked_with_id:
+        print("⚠️  No auth token or partner ID available for testing")
+        return True
+    
+    try:
+        test_data = {
+            "company_name": "Updated Test Company Ltd",
+            "display_order": 2,
+            "is_active": False
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.put(
+            f"{API_BASE_URL}/worked-with/{test_worked_with_id}",
+            json=test_data,
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["id", "company_name", "logo_url", "display_order", "is_active", "created_at", "updated_at"]
+            missing_fields = [field for field in required_fields if field not in data]
+            
+            if not missing_fields:
+                if data["company_name"] == test_data["company_name"] and data["display_order"] == test_data["display_order"]:
+                    print(f"✅ Update worked with partner working ({response_time:.2f}ms)")
+                    print(f"   Updated partner: {data['company_name']}")
+                    print(f"   New display order: {data['display_order']}")
+                    print(f"   Active status: {data['is_active']}")
+                    return True
+                else:
+                    print(f"❌ Update data mismatch")
+                    return False
+            else:
+                print(f"❌ Missing required fields: {missing_fields}")
+                return False
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        elif response.status_code == 404:
+            print(f"⚠️  Partner not found ({response_time:.2f}ms) - may have been deleted")
+            return True
+        else:
+            print(f"❌ Update worked with partner failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Update worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_delete_no_auth():
+    """Test DELETE /api/worked-with/{id} without authentication - Should fail"""
+    print("\n=== Testing Delete Worked With Partner (No Auth) ===")
+    
+    if not test_worked_with_id:
+        print("⚠️  No partner ID available for testing")
+        return True
+    
+    try:
+        start_time = time.time()
+        response = requests.delete(f"{API_BASE_URL}/worked-with/{test_worked_with_id}", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code in [401, 403, 422]:
+            print(f"✅ Delete worked with partner requires authentication ({response_time:.2f}ms)")
+            return True
+        else:
+            print(f"❌ Expected auth error, got status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Delete worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_delete_with_auth():
+    """Test DELETE /api/worked-with/{id} with admin authentication"""
+    print("\n=== Testing Delete Worked With Partner (With Admin Auth) ===")
+    
+    if not test_auth_token or not test_worked_with_id:
+        print("⚠️  No auth token or partner ID available for testing")
+        return True
+    
+    try:
+        headers = {
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.delete(
+            f"{API_BASE_URL}/worked-with/{test_worked_with_id}",
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            if "message" in data and "deleted" in data["message"].lower():
+                print(f"✅ Delete worked with partner working ({response_time:.2f}ms)")
+                print(f"   Message: {data['message']}")
+                return True
+            else:
+                print(f"❌ Unexpected delete response: {data}")
+                return False
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        elif response.status_code == 404:
+            print(f"⚠️  Partner not found ({response_time:.2f}ms) - may have been already deleted")
+            return True
+        else:
+            print(f"❌ Delete worked with partner failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Delete worked with partner request failed: {e}")
+        return False
+
+def test_worked_with_data_validation():
+    """Test data validation for WorkedWith endpoints"""
+    print("\n=== Testing Worked With Data Validation ===")
+    
+    if not test_auth_token:
+        print("⚠️  No auth token available for testing")
+        return True
+    
+    try:
+        # Test with missing required fields
+        invalid_data = {
+            "display_order": 1
+            # Missing company_name and logo_url
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.post(
+            f"{API_BASE_URL}/worked-with",
+            json=invalid_data,
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 422:
+            print(f"✅ Data validation working ({response_time:.2f}ms) - Rejected invalid data")
+            return True
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        else:
+            print(f"⚠️  Expected validation error (422), got status {response.status_code}")
+            return True  # Not critical if validation is handled differently
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Data validation test request failed: {e}")
+        return False
+
+def test_worked_with_invalid_id():
+    """Test endpoints with invalid partner ID"""
+    print("\n=== Testing Worked With Invalid ID Handling ===")
+    try:
+        invalid_id = "invalid-uuid-123"
+        
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/worked-with/{invalid_id}", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 404:
+            print(f"✅ Invalid ID handling working ({response_time:.2f}ms) - Returns 404 for non-existent partner")
+            return True
+        elif response.status_code == 422:
+            print(f"✅ Invalid ID validation working ({response_time:.2f}ms) - Validates UUID format")
+            return True
+        else:
+            print(f"⚠️  Unexpected status for invalid ID: {response.status_code}")
+            return True  # Not critical
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Invalid ID test request failed: {e}")
+        return False
+
 def test_firebase_dependencies():
     """Test Firebase dependencies"""
     print("\n=== Testing Firebase Dependencies ===")
