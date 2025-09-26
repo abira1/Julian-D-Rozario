@@ -151,7 +151,7 @@ const Footer = () => {
               <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></span>
             </h4>
             <div className="space-y-4">
-              {['About', 'Services', 'Blog', 'Contact'].map((item, index) => (
+              {['About', 'Blog', 'Contact'].map((item, index) => (
                 <button
                   key={item}
                   onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
