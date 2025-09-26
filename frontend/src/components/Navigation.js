@@ -155,23 +155,31 @@ const Navigation = () => {
             </button>
           </div>
 
-          {/* Enhanced Mobile Menu Button */}
+          {/* Modern Animated Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="lg:hidden p-2 sm:p-2.5 text-white hover:bg-white/10 rounded-lg transition-all duration-200 touch-manipulation"
+            className="lg:hidden relative p-3 text-white hover:bg-white/15 rounded-xl transition-all duration-300 touch-manipulation group active:scale-95"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? (
-              // Enhanced X icon
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              // Enhanced Hamburger icon  
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+              {/* Top line */}
+              <span className={`block absolute h-0.5 w-6 bg-white rounded-full transform transition-all duration-300 ease-out ${
+                isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'
+              }`}></span>
+              
+              {/* Middle line */}
+              <span className={`block absolute h-0.5 w-6 bg-white rounded-full transition-all duration-300 ease-out ${
+                isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+              }`}></span>
+              
+              {/* Bottom line */}
+              <span className={`block absolute h-0.5 w-6 bg-white rounded-full transform transition-all duration-300 ease-out ${
+                isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'
+              }`}></span>
+            </div>
+            
+            {/* Subtle glow effect on hover */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
         </div>
 
