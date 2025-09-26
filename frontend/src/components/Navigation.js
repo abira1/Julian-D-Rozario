@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
+  const mobileItemsRef = useRef([]);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,18 +17,96 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Enhanced body scroll lock with position preservation
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Capture current scroll position
+      scrollPositionRef.current = window.scrollY;
+      
+      // Apply body lock with position preservation
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPositionRef.current}px`;
+      document.body.style.width = '100%';
+      document.body.style.right = '0';
+    } else {
+      // Restore scroll position
+      const savedScrollY = scrollPositionRef.current;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.right = '';
+      
+      // Restore scroll position with smooth restoration
+      if (savedScrollY > 0) {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, savedScrollY);
+        });
+      }
+    }
+
+    // Cleanup function
+    return () => {
+      if (document.body.style.position === 'fixed') {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.right = '';
+      }
+    };
+  }, [isMobileMenuOpen]);
+
+  // Enhanced smooth scroll with mobile optimization
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Close mobile menu first
+      // Close mobile menu with animation
       setIsMobileMenuOpen(false);
-      // Simple smooth scroll
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // Optimized scroll timing for mobile
+      setTimeout(() => {
+        element.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }, 200);
     }
   };
 
+  // Enhanced mobile menu toggle with GSAP animations
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (!isMobileMenuOpen) {
+      setIsMobileMenuOpen(true);
+      // Animate menu opening
+      setTimeout(() => {
+        if (mobileMenuRef.current) {
+          gsap.fromTo(mobileMenuRef.current, 
+            { opacity: 0, y: -20, scale: 0.98 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.25, ease: "power2.out" }
+          );
+          
+          // Stagger animate menu items
+          gsap.fromTo(mobileItemsRef.current,
+            { opacity: 0, y: -15, x: -10 },
+            { opacity: 1, y: 0, x: 0, duration: 0.2, stagger: 0.08, ease: "power2.out", delay: 0.1 }
+          );
+        }
+      }, 50);
+    } else {
+      // Animate menu closing
+      if (mobileMenuRef.current) {
+        gsap.to(mobileMenuRef.current, {
+          opacity: 0,
+          y: -15,
+          scale: 0.98,
+          duration: 0.2,
+          ease: "power2.in",
+          onComplete: () => setIsMobileMenuOpen(false)
+        });
+      } else {
+        setIsMobileMenuOpen(false);
+      }
+    }
   };
 
   const navItems = [
