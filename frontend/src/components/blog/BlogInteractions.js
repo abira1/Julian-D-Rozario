@@ -154,7 +154,7 @@ const BlogInteractions = ({ blogId, blogTitle, blogUrl }) => {
               likes.isLiked 
                 ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-red-500/25' 
                 : 'bg-gradient-to-r from-white/10 to-white/5 text-gray-300 hover:from-red-500/20 hover:to-pink-500/20 hover:text-red-400 border border-white/10 hover:border-red-500/30'
-            } ${isLoading.like ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+            } ${isLoading.like ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <div className="relative flex items-center justify-center">
               {isLoading.like ? (
