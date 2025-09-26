@@ -863,7 +863,7 @@ def test_firebase_dependencies():
 def run_all_tests():
     """Run all comprehensive backend tests"""
     print("🚀 Starting Comprehensive Backend Health Check")
-    print("🔄 Testing Firebase Blog System & API Endpoints")
+    print("🔄 Testing Firebase Blog System & Worked With API Endpoints")
     print("=" * 70)
     
     test_results = []
@@ -888,6 +888,20 @@ def run_all_tests():
     print("-" * 40)
     test_results.append(("Firebase Auth Login (POST /api/auth/firebase-login)", test_firebase_auth_login()))
     test_results.append(("Admin Verify (GET /api/admin/verify)", test_admin_verify()))
+    
+    # Worked With API Tests (NEW)
+    print("\n🤝 WORKED WITH API ENDPOINTS")
+    print("-" * 40)
+    test_results.append(("Get All Partners (GET /api/worked-with)", test_worked_with_get_all()))
+    test_results.append(("Create Partner - No Auth (POST /api/worked-with)", test_worked_with_create_no_auth()))
+    test_results.append(("Create Partner - With Auth (POST /api/worked-with)", test_worked_with_create_with_auth()))
+    test_results.append(("Get Single Partner (GET /api/worked-with/{id})", test_worked_with_get_single()))
+    test_results.append(("Update Partner - No Auth (PUT /api/worked-with/{id})", test_worked_with_update_no_auth()))
+    test_results.append(("Update Partner - With Auth (PUT /api/worked-with/{id})", test_worked_with_update_with_auth()))
+    test_results.append(("Delete Partner - No Auth (DELETE /api/worked-with/{id})", test_worked_with_delete_no_auth()))
+    test_results.append(("Delete Partner - With Auth (DELETE /api/worked-with/{id})", test_worked_with_delete_with_auth()))
+    test_results.append(("Data Validation (POST /api/worked-with)", test_worked_with_data_validation()))
+    test_results.append(("Invalid ID Handling (GET /api/worked-with/{invalid_id})", test_worked_with_invalid_id()))
     
     # Admin Endpoints Tests
     print("\n👑 ADMIN ENDPOINTS")
@@ -931,8 +945,10 @@ def run_all_tests():
         print("\n🎉 All backend tests passed!")
         print("✅ FastAPI server responding correctly")
         print("✅ Firebase blog system operational (**MOCKED** for testing)")
+        print("✅ Worked With API endpoints fully functional")
         print("✅ All API endpoints accessible")
         print("✅ Authentication system working")
+        print("✅ Admin authorization enforcement working")
         print("✅ Blog interactions functional")
         print("✅ Data persistence confirmed")
         print("✅ All supervisor services running")
