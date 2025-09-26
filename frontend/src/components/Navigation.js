@@ -50,8 +50,7 @@ const Navigation = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     
     if (!isMobileMenuOpen) {
-      // Opening animation - smooth and simple
-      gsap.set(menuRef.current, { display: 'flex' });
+      // Simple opening animation
       gsap.fromTo(menuRef.current, 
         { opacity: 0 },
         { opacity: 1, duration: 0.2, ease: "power2.out" }
@@ -63,7 +62,7 @@ const Navigation = () => {
         { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out" }
       );
     } else {
-      // Closing animation - clean and simple
+      // Simple closing animation
       gsap.to(menuItemsRef.current, {
         y: -20,
         opacity: 0,
@@ -75,10 +74,7 @@ const Navigation = () => {
       gsap.to(menuRef.current, {
         opacity: 0,
         duration: 0.2,
-        ease: "power2.in",
-        onComplete: () => {
-          gsap.set(menuRef.current, { display: 'none' });
-        }
+        ease: "power2.in"
       });
     }
   };
