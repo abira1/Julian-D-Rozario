@@ -499,7 +499,6 @@ const BlogListing = () => {
                 ))}
               </div>
             </>
-          )
           ) : (
             <div className="text-center py-12 xxs:py-16">
               <div className="w-16 h-16 xxs:w-20 xxs:h-20 xs:w-24 xs:h-24 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 xxs:mb-6">
