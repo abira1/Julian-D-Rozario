@@ -108,7 +108,7 @@ const Navigation = () => {
           {/* Enhanced Logo */}
           <button
             onClick={() => scrollToSection('hero')}
-            className="flex items-center space-x-3 group cursor-pointer relative z-50"
+            className="flex items-center space-x-3 group touch-interactive relative z-50"
           >
             <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-blue-300 transition-all duration-300"
             style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
