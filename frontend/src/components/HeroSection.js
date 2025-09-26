@@ -191,10 +191,10 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Company Formation tag - positioned lower in mid-left area */}
+              {/* Company Formation tag - positioned lower in mid-left area, outside image border */}
               <div 
                 ref={el => tagsRef.current[2] = el}
-                className="hidden lg:block absolute top-32 -left-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
+                className="hidden lg:block absolute top-32 -left-32 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
               >
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
