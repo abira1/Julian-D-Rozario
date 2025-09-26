@@ -35,122 +35,86 @@ const Navigation = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-black/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl shadow-purple-500/5' 
+          ? 'bg-black/95 backdrop-blur-xl border-b border-white/10' 
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-        <div className="flex items-center justify-between h-16 sm:h-20 w-full relative">
-          {/* Enhanced Logo - Fixed positioning */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => scrollToSection('hero')}
-              className="flex items-center space-x-3 group touch-interactive relative z-50"
-            >
-              <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent group-hover:from-purple-300 group-hover:to-blue-300 transition-all duration-300 whitespace-nowrap"
-              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                Julian D'Rozario
-              </span>
-            </button>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <button
+            onClick={() => scrollToSection('hero')}
+            className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-blue-300 transition-all duration-300"
+            style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
+          >
+            Julian D'Rozario
+          </button>
 
-          {/* Desktop Navigation - Hidden on mobile/tablet */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="relative px-3 py-2 text-gray-300 hover:text-white transition-all duration-300 group font-medium text-sm xl:text-base"
+                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-500 rounded-full"></span>
-                <div className="absolute inset-0 bg-white/5 rounded-lg scale-0 group-hover:scale-100 transition-all duration-300 -z-10"></div>
               </button>
             ))}
-            
             <button
               onClick={() => scrollToSection('contact')}
-              className="relative px-6 py-2.5 xl:px-8 xl:py-3 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-xl text-white font-medium text-sm xl:text-base hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/25 overflow-hidden group"
+              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white font-medium hover:scale-105 transition-transform duration-200"
             >
-              <span className="relative z-10">Let's Talk</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Let's Talk
             </button>
           </div>
 
-          {/* Mobile Menu Button - Fixed positioning */}
-          <div className="flex-shrink-0 lg:hidden">
-            <button
-              onClick={toggleMobileMenu}
-              className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group z-50"
-              aria-label="Toggle mobile menu"
-            >
-              <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex flex-col justify-center items-center">
-                <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
-                  isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
-                }`}></span>
-                <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 ${
-                  isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-                }`}></span>
-                <span className={`absolute w-5 sm:w-6 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full transition-all duration-300 transform ${
-                  isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
-                }`}></span>
-              </div>
-            </button>
-          </div>
+          {/* Simple Mobile Menu Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden p-2 text-white"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              // X icon
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              // Hamburger icon  
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
-      </div>
 
-      {/* Mobile Menu Overlay - Fixed z-index and display */}
-      <div
-        ref={menuRef}
-        className={`fixed inset-0 z-[99999] lg:hidden ${isMobileMenuOpen ? 'flex' : 'hidden'} flex-col`}
-      >
-        {/* Backdrop with improved blur */}
-        <div 
-          className="absolute inset-0 bg-black/98 backdrop-blur-3xl"
-          onClick={toggleMobileMenu}
-        ></div>
-        
-        {/* Menu Content - Fixed centering and layout */}
-        <div className="relative h-full w-full flex flex-col justify-center items-center px-6 sm:px-8">
-          {/* Navigation Items - Fixed mobile sizing and positioning */}
-          <div className="flex flex-col items-center justify-center space-y-8 text-center min-h-0">
-            {navItems.map((item, index) => (
+        {/* Simple Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10 py-4">
+            {navItems.map((item) => (
               <button
                 key={item.id}
-                ref={el => menuItemsRef.current[index] = el}
                 onClick={() => scrollToSection(item.id)}
-                className="group relative text-2xl sm:text-3xl font-light text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-400 transition-all duration-300 py-3 px-6 rounded-lg hover:bg-white/5"
-                style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
+                className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 transition-colors duration-200"
               >
                 {item.name}
-                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-500"></div>
               </button>
             ))}
-            
-            {/* CTA Button - Fixed mobile sizing */}
             <button
-              ref={el => menuItemsRef.current[navItems.length] = el}
               onClick={() => scrollToSection('contact')}
-              className="mt-4 px-8 py-3 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-2xl text-white font-medium text-lg hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 relative overflow-hidden group"
-              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
+              className="block w-full text-left px-4 py-3 mt-2 mx-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white text-center hover:scale-105 transition-transform duration-200"
             >
-              <span className="relative z-10">Let's Talk</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Let's Talk
             </button>
           </div>
-
-          {/* Decorative Elements - Responsive positioning */}
-          <div className="absolute top-1/4 left-4 sm:left-8 w-2 h-2 bg-purple-500 rounded-full opacity-60 animate-pulse"></div>
-          <div className="absolute top-1/3 right-6 sm:right-12 w-1 h-1 bg-blue-400 rounded-full opacity-40 animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 left-6 sm:left-12 w-1.5 h-1.5 bg-purple-400 rounded-full opacity-50 animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-1/3 right-4 sm:right-8 w-2 h-2 bg-blue-500 rounded-full opacity-30 animate-pulse" style={{ animationDelay: '3s' }}></div>
-        </div>
+        )}
       </div>
     </nav>
   );
+};
 };
 
 export default Navigation;
