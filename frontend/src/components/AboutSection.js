@@ -10,6 +10,8 @@ const AboutSection = () => {
   const profileCardRef = useRef(null);
   const statsRef = useRef([]);
   const [countersStarted, setCountersStarted] = useState(false);
+  const [workedWithPartners, setWorkedWithPartners] = useState([]);
+  const [partnersLoading, setPartnersLoading] = useState(true);
 
   useEffect(() => {
     const section = sectionRef.current;
