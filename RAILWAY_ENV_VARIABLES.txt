@@ -1,0 +1,15 @@
+# 🔧 RAILWAY ENVIRONMENT VARIABLES
+# Copy these EXACTLY into Railway dashboard
+
+MYSQL_HOST=localhost
+MYSQL_USER=railway_user
+MYSQL_PASSWORD=railway_password_2024
+MYSQL_DATABASE=julian_portfolio
+MYSQL_PORT=3306
+JWT_SECRET_KEY=julian-portfolio-super-secret-jwt-key-2024-railway-production
+FRONTEND_URL=https://your-hostinger-domain.com
+
+# Notes:
+# - Railway provides free MySQL database automatically
+# - Update FRONTEND_URL with your actual Hostinger domain
+# - These are temporary values - Railway will provide real database credentials
