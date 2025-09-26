@@ -5,6 +5,7 @@ import AdminLogin from './admin/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
 import BlogManager from './admin/BlogManager';
 import ContactManager from './admin/ContactManager';
+import WorkedWithManager from './admin/WorkedWithManager';
 import AdminNavigation from './admin/AdminNavigation';
 
 const AdminPanel = () => {
