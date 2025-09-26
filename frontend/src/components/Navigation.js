@@ -69,39 +69,39 @@ const Navigation = () => {
     }
   };
 
-  // Enhanced mobile menu toggle with GSAP animations
+  // Enhanced mobile menu toggle with optimized GSAP animations
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     
     if (!isMobileMenuOpen) {
-      // Opening animation
+      // Opening animation - faster and smoother
       gsap.set(menuRef.current, { display: 'flex' });
       gsap.fromTo(menuRef.current, 
-        { opacity: 0, scale: 0.95 },
-        { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
+        { opacity: 0, scale: 0.98 },
+        { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" }
       );
       
-      // Stagger animation for menu items
+      // Faster stagger animation for menu items
       gsap.fromTo(menuItemsRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out", delay: 0.15 }
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.1 }
       );
     } else {
-      // Closing animation
+      // Closing animation - very fast
       gsap.to(menuItemsRef.current, {
-        y: -20,
+        y: -15,
         opacity: 0,
-        duration: 0.2,
-        stagger: 0.05,
+        duration: 0.15,
+        stagger: 0.02,
         ease: "power2.in"
       });
       
       gsap.to(menuRef.current, {
         opacity: 0,
-        scale: 0.95,
-        duration: 0.25,
+        scale: 0.98,
+        duration: 0.2,
         ease: "power2.in",
-        delay: 0.1,
+        delay: 0.05,
         onComplete: () => {
           gsap.set(menuRef.current, { display: 'none' });
         }
