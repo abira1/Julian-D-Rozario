@@ -171,16 +171,16 @@ const Navigation = () => {
           onClick={toggleMobileMenu}
         ></div>
         
-        {/* Menu Content - Improved spacing and layout */}
-        <div className="relative h-full flex flex-col justify-center items-center px-6 sm:px-8">
-          {/* Navigation Items - Better mobile sizing */}
-          <div className="flex flex-col items-center space-y-6 sm:space-y-8 text-center">
+        {/* Menu Content - Fixed centering and layout */}
+        <div className="relative h-full w-full flex flex-col justify-center items-center px-6 sm:px-8">
+          {/* Navigation Items - Fixed mobile sizing and positioning */}
+          <div className="flex flex-col items-center justify-center space-y-8 text-center min-h-0">
             {navItems.map((item, index) => (
               <button
                 key={item.id}
                 ref={el => menuItemsRef.current[index] = el}
                 onClick={() => scrollToSection(item.id)}
-                className="group relative text-3xl sm:text-4xl font-light text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-400 transition-all duration-300 py-2 px-4 rounded-lg hover:bg-white/5"
+                className="group relative text-2xl sm:text-3xl font-light text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-400 transition-all duration-300 py-3 px-6 rounded-lg hover:bg-white/5"
                 style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
               >
                 {item.name}
@@ -188,11 +188,11 @@ const Navigation = () => {
               </button>
             ))}
             
-            {/* CTA Button - Better mobile sizing */}
+            {/* CTA Button - Fixed mobile sizing */}
             <button
               ref={el => menuItemsRef.current[navItems.length] = el}
               onClick={() => scrollToSection('contact')}
-              className="mt-6 sm:mt-8 px-10 py-3 sm:px-12 sm:py-4 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-2xl text-white font-medium text-lg sm:text-xl hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 relative overflow-hidden group"
+              className="mt-4 px-8 py-3 bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 rounded-2xl text-white font-medium text-lg hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 relative overflow-hidden group"
               style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
             >
               <span className="relative z-10">Let's Talk</span>
