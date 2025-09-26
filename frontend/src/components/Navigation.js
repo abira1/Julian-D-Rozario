@@ -46,39 +46,37 @@ const Navigation = () => {
     }
   };
 
-  // Simplified and faster mobile menu toggle animations
+  // Simple and fast mobile menu toggle animations
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     
     if (!isMobileMenuOpen) {
-      // Opening animation - immediate and smooth
+      // Opening animation - smooth and simple
       gsap.set(menuRef.current, { display: 'flex' });
       gsap.fromTo(menuRef.current, 
-        { opacity: 0, scale: 0.99 },
-        { opacity: 1, scale: 1, duration: 0.15, ease: "power2.out" }
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: "power2.out" }
       );
       
-      // Fast menu items animation
+      // Simple menu items animation
       gsap.fromTo(menuItemsRef.current,
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.2, stagger: 0.03, ease: "power2.out", delay: 0.05 }
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out" }
       );
     } else {
-      // Closing animation - very fast and clean
+      // Closing animation - clean and simple
       gsap.to(menuItemsRef.current, {
-        y: -10,
+        y: -20,
         opacity: 0,
-        duration: 0.1,
-        stagger: 0.01,
+        duration: 0.2,
+        stagger: 0.02,
         ease: "power2.in"
       });
       
       gsap.to(menuRef.current, {
         opacity: 0,
-        scale: 0.99,
-        duration: 0.15,
+        duration: 0.2,
         ease: "power2.in",
-        delay: 0.02,
         onComplete: () => {
           gsap.set(menuRef.current, { display: 'none' });
         }
