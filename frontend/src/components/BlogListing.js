@@ -234,7 +234,7 @@ const BlogListing = () => {
       
       // Fetch blogs - using working MySQL backend endpoint
       const apiUrl = '/api/blogs';
-      console.log('BlogListing: Fetching blogs from', apiUrl);
+      // Fetching blogs from API
       const blogsResponse = await fetch(apiUrl);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
