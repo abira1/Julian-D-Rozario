@@ -32,8 +32,8 @@ const BlogPost = () => {
         setBlog(blogData);
         
         // Fetch related blogs (same category, excluding current)
-        const allBlogsApiUrl = process.env.REACT_APP_API_BLOGS || `${process.env.REACT_APP_BACKEND_URL}/api-blogs.php`;
-        const allBlogsResponse = await fetch(allBlogsApiUrl);
+        const allBlogsResponse = await fetch('/api/blogs');
+        console.log('BlogPost: Fetching related blogs from /api/blogs');
         if (allBlogsResponse.ok) {
           const allBlogs = await allBlogsResponse.json();
           const related = allBlogs
