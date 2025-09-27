@@ -454,7 +454,7 @@ const BlogListing = () => {
             <div className="flex flex-wrap gap-1.5 xxs:gap-2 justify-center">
               {categories.map((category) => (
                 <button
-                  key={category.name}
+                  key={category.id}
                   onClick={() => {
                     setSelectedCategory(category.name);
                     setCurrentPage(1);
