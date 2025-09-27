@@ -261,7 +261,7 @@ const BlogListing = () => {
       console.error('Error fetching data:', error);
       // Show empty state instead of mock data
       setBlogs([]);
-      setCategories([{ id: 0, name: 'All' }]);
+      setCategories([{ id: 'all', name: 'All' }]);
     } finally {
       setIsLoading(false);
     }
