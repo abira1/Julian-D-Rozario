@@ -249,7 +249,7 @@ const BlogListing = () => {
       const categoriesResponse = await fetch('/api/categories');
       if (categoriesResponse.ok) {
         const categoriesData = await categoriesResponse.json();
-        console.log('BlogListing: Categories data received:', categoriesData);
+        // Categories loaded successfully
         setCategories(categoriesData); // API already includes "All" category
       } else {
         // Default categories if API fails
