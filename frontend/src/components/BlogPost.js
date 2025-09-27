@@ -24,9 +24,9 @@ const BlogPost = () => {
     try {
       setIsLoading(true);
       
-      // Fetch the specific blog
-      const apiUrl = process.env.REACT_APP_API_BLOG || `${process.env.REACT_APP_BACKEND_URL}/api-blog.php`;
-      const response = await fetch(`${apiUrl}?id=${id}`);
+      // Fetch the specific blog - using working MySQL backend endpoint
+      const response = await fetch(`/api/blogs/${id}`);
+      console.log('BlogPost: Fetching blog from /api/blogs/' + id);
       if (response.ok) {
         const blogData = await response.json();
         setBlog(blogData);
