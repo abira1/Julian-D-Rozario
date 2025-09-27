@@ -234,8 +234,9 @@ const BlogListing = () => {
     try {
       setIsLoading(true);
       
-      // Fetch blogs
-      const apiUrl = process.env.REACT_APP_API_BLOGS || `${process.env.REACT_APP_BACKEND_URL}/api-blogs.php`;
+      // Fetch blogs - using working MySQL backend endpoint
+      const apiUrl = '/api/blogs';
+      console.log('BlogListing: Fetching blogs from', apiUrl);
       const blogsResponse = await fetch(apiUrl);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
