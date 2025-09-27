@@ -247,8 +247,8 @@ const BlogListing = () => {
         setBlogs([]);
       }
 
-      // Fetch categories
-      const categoriesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
+      // Fetch categories - using working MySQL backend endpoint
+      const categoriesResponse = await fetch('/api/categories');
       if (categoriesResponse.ok) {
         const categoriesData = await categoriesResponse.json();
         setCategories([{ id: 0, name: 'All' }, ...categoriesData]);
