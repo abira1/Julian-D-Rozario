@@ -275,6 +275,15 @@ const BlogListing = () => {
                          blog.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
+  
+  // Debug logging
+  console.log('BlogListing Debug:', {
+    totalBlogs: blogs.length,
+    selectedCategory,
+    filteredBlogs: filteredBlogs.length,
+    searchQuery,
+    firstBlog: blogs[0]
+  });
 
   // Sort logic
   const sortedBlogs = [...filteredBlogs].sort((a, b) => {
