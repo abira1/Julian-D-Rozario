@@ -274,14 +274,7 @@ const BlogListing = () => {
     return matchesCategory && matchesSearch;
   });
   
-  // Debug logging
-  console.log('BlogListing Debug:', {
-    totalBlogs: blogs.length,
-    selectedCategory,
-    filteredBlogs: filteredBlogs.length,
-    searchQuery,
-    firstBlog: blogs[0]
-  });
+  // Debug logging removed for production
 
   // Sort logic
   const sortedBlogs = [...filteredBlogs].sort((a, b) => {
