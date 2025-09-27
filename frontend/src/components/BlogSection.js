@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { blogData } from '../data/mockData';
 
 const BlogSection = () => {
   const sectionRef = useRef(null);
@@ -15,33 +14,53 @@ const BlogSection = () => {
       console.log('BlogSection: Starting to load blogs...');
       
       try {
-        // Try API first
-        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
-        console.log('BlogSection: Trying API at', `${backendUrl}/api/blogs`);
+        // Use relative URL to avoid any domain/protocol issues
+        const apiUrl = process.env.REACT_APP_API_BLOGS || '/api/blogs';
+        console.log('BlogSection: Trying API at', apiUrl);
         
-        const response = await fetch(`${backendUrl}/api/blogs`);
+        const response = await fetch(apiUrl);
+        console.log('BlogSection: Response status:', response.status);
+        
         if (response.ok) {
-          const apiBlogs = await response.json();
-          console.log('BlogSection: Got API blogs:', apiBlogs.length);
-          if (apiBlogs.length > 0) {
+          const apiResponse = await response.json();
+          console.log('BlogSection: Raw API response:', apiResponse);
+          
+          // API returns {blogs: [...], total: n}, we need just the blogs array
+          const apiBlogs = apiResponse.blogs || apiResponse;
+          console.log('BlogSection: Extracted blogs array:', apiBlogs);
+          console.log('BlogSection: Got API blogs count:', apiBlogs ? apiBlogs.length : 'null/undefined');
+          
+          if (apiBlogs && Array.isArray(apiBlogs) && apiBlogs.length > 0) {
+            console.log('BlogSection: Setting blogs to:', apiBlogs.slice(0, 6));
+            console.log('BlogSection: First blog sample:', apiBlogs[0]);
             setBlogs(apiBlogs.slice(0, 6));
             setDataSource('API');
             setIsLoading(false);
             return;
+          } else {
+            console.log('BlogSection: No valid blogs found in response');
+            console.log('BlogSection: apiBlogs is:', apiBlogs);
+            console.log('BlogSection: Is array?', Array.isArray(apiBlogs));
+            console.log('BlogSection: Length:', apiBlogs ? apiBlogs.length : 'N/A');
           }
+        } else {
+          console.log('BlogSection: Response not OK, status:', response.status);
         }
         
-        console.log('API failed or empty, using mock data');
-        throw new Error('API not available');
+        console.log('API failed or empty, showing no blogs');
+        console.log('BlogSection: Final decision - no blogs to show');
+        // Don't use fallback mock data - show empty state instead
+        setBlogs([]);
+        setDataSource('No Data');
+        setIsLoading(false);
         
       } catch (error) {
         console.error('BlogSection: API error:', error);
-        console.log('BlogSection: Falling back to mock data');
+        console.log('BlogSection: No blogs to display');
         
-        // Fallback to mock data
-        const mockBlogs = blogData.slice(0, 6);
-        setBlogs(mockBlogs);
-        setDataSource('Mock Data');
+        // Don't use mock data - show empty state
+        setBlogs([]);
+        setDataSource('No Data');
         setIsLoading(false);
       }
     };

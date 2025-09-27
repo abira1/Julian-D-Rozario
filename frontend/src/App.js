@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import BlogSection from './components/BlogSectionDebug';
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -6,7 +7,6 @@ import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import WorkedWithSection from "./components/WorkedWithSection";
-import BlogSection from "./components/BlogSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import BlogListing from "./components/BlogListing";

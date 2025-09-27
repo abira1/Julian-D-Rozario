@@ -5,7 +5,6 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import BlogComments from './blog/BlogComments';
 import BlogInteractions from './blog/BlogInteractions';
-import { blogData } from '../data/mockData';
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -26,13 +25,15 @@ const BlogPost = () => {
       setIsLoading(true);
       
       // Fetch the specific blog
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${id}`);
+      const apiUrl = process.env.REACT_APP_API_BLOG || `${process.env.REACT_APP_BACKEND_URL}/api-blog.php`;
+      const response = await fetch(`${apiUrl}?id=${id}`);
       if (response.ok) {
         const blogData = await response.json();
         setBlog(blogData);
         
         // Fetch related blogs (same category, excluding current)
-        const allBlogsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs?category=${blogData.category}`);
+        const allBlogsApiUrl = process.env.REACT_APP_API_BLOGS || `${process.env.REACT_APP_BACKEND_URL}/api-blogs.php`;
+        const allBlogsResponse = await fetch(allBlogsApiUrl);
         if (allBlogsResponse.ok) {
           const allBlogs = await allBlogsResponse.json();
           const related = allBlogs
@@ -41,37 +42,18 @@ const BlogPost = () => {
           setRelatedBlogs(related);
         }
       } else if (response.status === 404) {
-        // Blog not found, fallback to mock data
-        const foundBlog = blogData.find(b => b.id === parseInt(id));
-        if (!foundBlog) {
-          navigate('/blog');
-          return;
-        }
-        setBlog(foundBlog);
-        
-        // Get related blogs from mock data
-        const related = blogData
-          .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
-          .slice(0, 3);
-        setRelatedBlogs(related);
+        // Blog not found, redirect to blog list
+        navigate('/blog');
+        return;
       } else {
         navigate('/blog');
         return;
       }
     } catch (error) {
       console.error('Error fetching blog:', error);
-      // Fallback to mock data
-      const foundBlog = blogData.find(b => b.id === parseInt(id));
-      if (!foundBlog) {
-        navigate('/blog');
-        return;
-      }
-      setBlog(foundBlog);
-      
-      const related = blogData
-        .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
-        .slice(0, 3);
-      setRelatedBlogs(related);
+      // No fallback, redirect to blog list
+      navigate('/blog');
+      return;
     } finally {
       setIsLoading(false);
     }

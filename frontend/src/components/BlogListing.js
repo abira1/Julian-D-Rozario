@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import GradualBlur from './GradualBlur';
-import { blogData, blogCategories } from '../data/mockData';
 
 // Mobile Card Component - Simplified and Modern
 const MobileBlogCard = ({ blog, index }) => {
@@ -237,29 +235,31 @@ const BlogListing = () => {
       setIsLoading(true);
       
       // Fetch blogs
-      const blogsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
+      const apiUrl = process.env.REACT_APP_API_BLOGS || `${process.env.REACT_APP_BACKEND_URL}/api-blogs.php`;
+      const blogsResponse = await fetch(apiUrl);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
-        setBlogs(blogsData);
+        // API returns {blogs: [...], total: n}, we need just the blogs array
+        setBlogs(blogsData.blogs || blogsData);
       } else {
-        // Fallback to mock data
-        setBlogs(blogData);
+        // No fallback - show empty state
+        setBlogs([]);
       }
 
       // Fetch categories
       const categoriesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
       if (categoriesResponse.ok) {
         const categoriesData = await categoriesResponse.json();
-        setCategories(categoriesData);
+        setCategories([{ id: 0, name: 'All' }, ...categoriesData]);
       } else {
-        // Fallback to mock data
-        setCategories(blogCategories);
+        // Default categories if API fails
+        setCategories([{ id: 0, name: 'All' }]);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      // Fallback to mock data
-      setBlogs(blogData);
-      setCategories(blogCategories);
+      // Show empty state instead of mock data
+      setBlogs([]);
+      setCategories([{ id: 0, name: 'All' }]);
     } finally {
       setIsLoading(false);
     }

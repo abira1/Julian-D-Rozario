@@ -1,0 +1,42 @@
+# Enable URL Rewriting
+RewriteEngine On
+
+# API routes - redirect to api folder
+RewriteRule ^api/test$ /api/test.php [QSA,L]
+RewriteRule ^api/(.*)$ /api/index.php [QSA,L]
+
+# Handle React Router - all non-file requests go to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule . /index.html [L]
+
+# Security headers
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-XSS-Protection "1; mode=block"
+
+# DISABLE cache for debugging - force reload
+<FilesMatch "\.(html|js|css)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</FilesMatch>
+
+# Cache static files (images only)
+<FilesMatch "\.(png|jpg|jpeg|gif|ico|svg)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    Header set Cache-Control "public, immutable"
+</FilesMatch>
+
+# Security - hide sensitive files
+<Files ".htaccess">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files "*.log">
+    Order Allow,Deny
+    Deny from all
+</Files>

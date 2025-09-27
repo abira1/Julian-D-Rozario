@@ -21,7 +21,8 @@ const AdminDashboard = () => {
       const token = localStorage.getItem('admin_token');
       
       // Fetch stats
-      const statsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/stats`, {
+      const statsApiUrl = process.env.REACT_APP_API_STATS || `${process.env.REACT_APP_BACKEND_URL}/api-stats.php`;
+      const statsResponse = await fetch(statsApiUrl, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -37,7 +38,9 @@ const AdminDashboard = () => {
       const blogsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
-        setRecentBlogs(blogsData.slice(0, 5)); // Get latest 5 blogs
+        // API returns {blogs: [...], total: n}, we need just the blogs array
+        const blogs = blogsData.blogs || blogsData;
+        setRecentBlogs(blogs.slice(0, 5)); // Get latest 5 blogs
       }
     } catch (error) {
       console.error('Error fetching dashboard data:', error);

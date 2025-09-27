@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Test Page</title>
+</head>
+<body>
+    <h1>Blog API Test</h1>
+    <div id="result"></div>
+    
+    <script>
+        console.log('Testing blog API...');
+        
+        // Test the API directly
+        fetch('/api/blogs')
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                return response.json();
+            })
+            .then(data => {
+                console.log('API Response:', data);
+                document.getElementById('result').innerHTML = 
+                    '<h2>API Working!</h2>' +
+                    '<p>Found ' + (data.blogs ? data.blogs.length : 0) + ' blogs</p>' +
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 
+                    '<h2>API Error!</h2>' +
+                    '<p>' + error.message + '</p>';
+            });
+    </script>
+</body>
+</html>

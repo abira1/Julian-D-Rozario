@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import SimpleTextEditor from '../SimpleTextEditor';
 
 const BlogManager = () => {
   const { action, id } = useParams();
@@ -41,10 +40,16 @@ const BlogManager = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
+      // Use relative URL to avoid domain/protocol issues
+      const apiUrl = process.env.REACT_APP_BACKEND_URL 
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/blogs`
+        : '/api/blogs';
+        
+      const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
-        setBlogs(data);
+        // API returns {"blogs": [...], "total": n}, extract blogs array
+        setBlogs(data.blogs || data);
       }
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -55,7 +60,10 @@ const BlogManager = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
+      const apiUrl = process.env.REACT_APP_BACKEND_URL 
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/categories`
+        : '/api/categories';
+      const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
         setCategories(data.filter(cat => cat.name !== 'All'));
@@ -67,7 +75,10 @@ const BlogManager = () => {
 
   const fetchBlogForEdit = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${id}`);
+      const apiUrl = process.env.REACT_APP_BACKEND_URL 
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/blogs/${id}`
+        : `/api/blogs/${id}`;
+      const response = await fetch(apiUrl);
       if (response.ok) {
         const blog = await response.json();
         setFormData({
@@ -128,7 +139,10 @@ const BlogManager = () => {
 
     try {
       const token = localStorage.getItem('admin_token');
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/upload`, {
+      const apiUrl = process.env.REACT_APP_BACKEND_URL 
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/upload`
+        : '/api/upload';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -156,9 +170,10 @@ const BlogManager = () => {
 
     try {
       const token = localStorage.getItem('admin_token');
+      const baseUrl = process.env.REACT_APP_BACKEND_URL || '';
       const url = isEditMode 
-        ? `${process.env.REACT_APP_BACKEND_URL}/api/blogs/${id}`
-        : `${process.env.REACT_APP_BACKEND_URL}/api/blogs`;
+        ? `${baseUrl}/api/blogs/${id}`
+        : `${baseUrl}/api/blogs`;
       
       const method = isEditMode ? 'PUT' : 'POST';
 
@@ -176,6 +191,10 @@ const BlogManager = () => {
           type: 'success', 
           text: `Blog ${isEditMode ? 'updated' : 'created'} successfully!` 
         });
+        
+        // Refresh blogs list immediately for better UX
+        await fetchBlogs();
+        
         setTimeout(() => {
           navigate('/julian_portfolio/blogs');
         }, 1500);
@@ -198,7 +217,10 @@ const BlogManager = () => {
 
     try {
       const token = localStorage.getItem('admin_token');
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${blogId}`, {
+      const apiUrl = process.env.REACT_APP_BACKEND_URL 
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/blogs/${blogId}`
+        : `/api/blogs/${blogId}`;
+      const response = await fetch(apiUrl, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -217,31 +239,7 @@ const BlogManager = () => {
     }
   };
 
-  // Quill editor configuration
-  const quillModules = {
-    toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'script': 'sub'}, { 'script': 'super' }],
-      [{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ 'direction': 'rtl' }],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'font': [] }],
-      [{ 'align': [] }],
-      ['link', 'image', 'video'],
-      ['clean']
-    ],
-  };
-
-  const quillFormats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image', 'video',
-    'align', 'color', 'background',
-    'script'
-  ];
+  // Simple text editor - no configuration needed
 
   if (isLoading) {
     return (
@@ -343,17 +341,12 @@ const BlogManager = () => {
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Blog Content *
                 </label>
-                <div className="bg-white rounded-lg">
-                  <ReactQuill
-                    theme="snow"
-                    value={formData.content}
-                    onChange={handleContentChange}
-                    modules={quillModules}
-                    formats={quillFormats}
-                    placeholder="Start writing your blog content here..."
-                    style={{ minHeight: '300px' }}
-                  />
-                </div>
+                <SimpleTextEditor
+                  value={formData.content}
+                  onChange={handleContentChange}
+                  placeholder="Start writing your blog content here..."
+                  style={{ minHeight: '300px' }}
+                />
               </div>
             </div>
 
