@@ -7,10 +7,9 @@ const MobileBlogCard = ({ blog, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.src = blog.image_url || blog.image;
-  }, [blog.image_url, blog.image]);
+    // Skip image loading check for now - always show card
+    setImageLoaded(true);
+  }, []);
 
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
