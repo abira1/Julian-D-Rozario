@@ -35,6 +35,8 @@ const PremiumBlogPost = () => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
+  const [comment, setComment] = useState('');
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     fetchBlog();
