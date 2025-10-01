@@ -195,8 +195,8 @@ const PremiumBlogPost = () => {
         </div>
       </header>
 
-      {/* Hero Section with Cover Image */}
-      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative h-[70vh] flex items-center justify-center overflow-hidden pt-16">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -204,79 +204,61 @@ const PremiumBlogPost = () => {
             alt={blog.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Category Badge */}
-          <div className="animate-in mb-6">
-            <span className="inline-flex items-center px-4 py-2 bg-purple-600/90 text-white text-sm font-medium rounded-full backdrop-blur-sm border border-purple-500/50">
-              <Tag className="w-4 h-4 mr-2" />
-              {blog.category}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Badges */}
+          <div className="animate-in mb-6 flex items-center space-x-3">
+            <span className="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-full">
+              Company Formation
+            </span>
+            <span className="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-full">
+              ⭐ Featured
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="animate-in text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 
+            className="animate-in text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight max-w-4xl"
+            style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
+          >
             {blog.title}
           </h1>
 
-          {/* Subtitle/Excerpt */}
-          <p className="animate-in text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            {blog.excerpt}
+          {/* Subtitle */}
+          <p className="animate-in text-xl text-gray-200 mb-8 max-w-3xl leading-relaxed">
+            Understanding the key differences between Free Zone and Mainland company formation in Dubai and which option suits your business needs.
           </p>
 
-          {/* Author Meta Row */}
-          <div className="animate-in flex flex-col sm:flex-row items-center justify-between max-w-2xl mx-auto">
-            <div className="flex items-center space-x-4 mb-4 sm:mb-0">
-              <img 
-                src="/api/placeholder/48/48" 
-                alt={blog.author}
-                className="w-12 h-12 rounded-full border-2 border-purple-500/50"
-              />
-              <div className="text-left">
-                <p className="text-white font-semibold">{blog.author}</p>
-                <div className="flex items-center text-gray-400 text-sm space-x-4">
-                  <span className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(blog.created_at).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </span>
-                  <span className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {blog.read_time || '5 min read'}
-                  </span>
-                </div>
+          {/* Author Info */}
+          <div className="animate-in flex items-center space-x-4 mb-8">
+            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+              JR
+            </div>
+            <div>
+              <div className="flex items-center space-x-4 text-sm text-gray-300">
+                <span className="font-semibold text-white">Julian D'Rozario</span>
+                <span>Updated on 18, 2024</span>
+                <span>1 min read</span>
+                <span>2947 views</span>
               </div>
             </div>
-
-            {/* Reaction Counters */}
-            <div className="flex items-center space-x-6">
-              <button
-                onClick={handleLike}
-                className={`flex items-center space-x-2 transition-colors ${
-                  liked ? 'text-red-500' : 'text-gray-400 hover:text-red-500'
-                }`}
-              >
-                <Heart className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
-                <span>{likes}</span>
-              </button>
-              <div className="flex items-center space-x-2 text-gray-400">
-                <MessageCircle className="w-5 h-5" />
-                <span>{blog.comments || 0}</span>
+            <div className="flex items-center space-x-4 ml-auto">
+              <Twitter className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              <Linkedin className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              <Facebook className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              <Share2 className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              <div className="flex items-center space-x-1 text-gray-400">
+                <Heart className="w-4 h-4" />
+                <span className="text-sm">89 likes</span>
+              </div>
+              <div className="flex items-center space-x-1 text-gray-400">
+                <MessageCircle className="w-4 h-4" />
+                <span className="text-sm">3 comments</span>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/30 rounded-full mt-2"></div>
           </div>
         </div>
       </section>
