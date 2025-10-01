@@ -347,40 +347,201 @@ def initialize_default_data():
             
             logger.info("Default categories initialized")
         
-        # Initialize sample blog if no blogs exist
+        # Initialize sample blogs if no blogs exist
         blogs_ref = get_firebase_ref('blogs')
         existing_blogs = blogs_ref.get() or {}
         
         if not existing_blogs:
-            sample_blog = Blog(
-                title="Welcome to Julian D'Rozario's Blog",
-                excerpt="Explore insights on UAE business formation, company setup, and entrepreneurial success in Dubai's dynamic business landscape.",
-                content="<h2>Welcome to my blog!</h2><p>I'm Julian D'Rozario, a Business Relations Manager and Company Formation Specialist with over 10 years of experience in the UAE business landscape.</p><p>Through this blog, I'll be sharing valuable insights on:</p><ul><li>UAE business formation and company setup</li><li>Free zone vs mainland business options</li><li>Visa and immigration processes</li><li>Market trends and opportunities</li><li>Compliance and regulatory updates</li></ul><p>Stay tuned for regular updates and practical advice to help you succeed in the UAE business ecosystem.</p>",
-                category="Business Development",
-                featured=True,
-                tags=["welcome", "business formation", "UAE", "entrepreneurship"],
-                image_url="https://via.placeholder.com/800x600/7c3aed/ffffff?text=Welcome+Blog"
-            )
+            # Professional blog posts with real images
+            sample_blogs = [
+                Blog(
+                    title="Ultimate Guide to Dubai Business Formation in 2024",
+                    excerpt="Comprehensive insights into setting up your business in Dubai's thriving economy, including free zones, mainland options, and regulatory requirements.",
+                    content="""<h2>Why Dubai is the Ultimate Business Hub</h2>
+                    <p>Dubai has emerged as the premier destination for international businesses seeking to establish their presence in the Middle East. With its strategic location, business-friendly policies, and world-class infrastructure, Dubai offers unparalleled opportunities for entrepreneurs and established companies alike.</p>
+                    
+                    <h3>Key Advantages of Dubai Business Formation</h3>
+                    <ul>
+                        <li><strong>Tax Benefits:</strong> Zero corporate tax for most business activities</li>
+                        <li><strong>Strategic Location:</strong> Gateway between East and West</li>
+                        <li><strong>100% Foreign Ownership:</strong> Available in free zones and mainland</li>
+                        <li><strong>World-Class Infrastructure:</strong> Advanced logistics and telecommunications</li>
+                        <li><strong>Diverse Workforce:</strong> Access to international talent pool</li>
+                    </ul>
+                    
+                    <h3>Free Zone vs Mainland: Making the Right Choice</h3>
+                    <p>The choice between free zone and mainland company formation depends on your business model, target market, and growth plans. Free zones offer 100% foreign ownership and tax exemptions but limit local market access, while mainland companies can trade freely within the UAE market.</p>
+                    
+                    <h3>Essential Steps for Business Setup</h3>
+                    <ol>
+                        <li>Choose your business structure and jurisdiction</li>
+                        <li>Reserve your company name</li>
+                        <li>Prepare required documentation</li>
+                        <li>Submit application and pay fees</li>
+                        <li>Obtain necessary licenses and permits</li>
+                        <li>Set up corporate banking</li>
+                    </ol>
+                    
+                    <p>With over 10 years of experience in UAE business formation, I've helped thousands of entrepreneurs successfully establish their presence in Dubai. The key is understanding the nuances of each jurisdiction and aligning them with your business objectives.</p>""",
+                    category="Company Formation",
+                    featured=True,
+                    tags=["dubai", "business formation", "free zone", "mainland", "setup"],
+                    image_url="https://images.unsplash.com/photo-1523270918669-1fd17ac1742d",
+                    read_time="8 min read"
+                ),
+                
+                Blog(
+                    title="UAE Corporate Advisory: Navigating Compliance and Growth",
+                    excerpt="Expert guidance on regulatory compliance, corporate governance, and strategic planning for businesses operating in the UAE market.",
+                    content="""<h2>Corporate Advisory Excellence in the UAE</h2>
+                    <p>Navigating the UAE's business landscape requires expert knowledge of local regulations, market dynamics, and growth opportunities. As a seasoned Business Relations Manager, I provide comprehensive corporate advisory services to help businesses thrive.</p>
+                    
+                    <h3>Compliance Framework</h3>
+                    <p>Understanding UAE compliance requirements is crucial for sustainable business operations. Key areas include:</p>
+                    <ul>
+                        <li>Annual compliance and renewal procedures</li>
+                        <li>VAT registration and reporting</li>
+                        <li>Labor law compliance and visa management</li>
+                        <li>Industry-specific regulatory requirements</li>
+                        <li>Corporate governance best practices</li>
+                    </ul>
+                    
+                    <h3>Strategic Growth Planning</h3>
+                    <p>Successful businesses in the UAE leverage strategic planning to capitalize on market opportunities. This includes market analysis, competitor research, and expansion strategies tailored to the local market dynamics.</p>
+                    
+                    <h3>Partnership and Joint Ventures</h3>
+                    <p>The UAE offers unique opportunities for strategic partnerships and joint ventures. Understanding the legal framework and cultural nuances is essential for successful collaborations.</p>""",
+                    category="Corporate Advisory",
+                    featured=False,
+                    tags=["compliance", "corporate governance", "advisory", "regulation"],
+                    image_url="https://images.unsplash.com/photo-1521791136064-7986c2920216",
+                    read_time="6 min read"
+                ),
+                
+                Blog(
+                    title="Immigration and Visa Services: Your Gateway to the UAE",
+                    excerpt="Complete guide to UAE visa processes, residency permits, and immigration requirements for business professionals and investors.",
+                    content="""<h2>UAE Immigration: Opening Doors to Opportunity</h2>
+                    <p>The UAE's progressive immigration policies create opportunities for global professionals and investors to establish long-term residency. Understanding the various visa categories and requirements is essential for successful immigration.</p>
+                    
+                    <h3>Investor Visa Programs</h3>
+                    <ul>
+                        <li><strong>Golden Visa:</strong> Long-term residency for investors and entrepreneurs</li>
+                        <li><strong>Green Visa:</strong> Self-sponsored residency options</li>
+                        <li><strong>Business Visa:</strong> For company owners and partners</li>
+                        <li><strong>Freelancer Visa:</strong> For independent professionals</li>
+                    </ul>
+                    
+                    <h3>Employment-Based Immigration</h3>
+                    <p>Employment visas remain the most common pathway for UAE residency. Key considerations include salary requirements, educational qualifications, and industry-specific regulations.</p>
+                    
+                    <h3>Family Sponsorship</h3>
+                    <p>UAE residents can sponsor family members under specific conditions. Understanding the requirements and documentation process ensures smooth family reunification.</p>""",
+                    category="Immigration",
+                    featured=False,
+                    tags=["visa", "immigration", "golden visa", "residency"],
+                    image_url="https://images.unsplash.com/photo-1523271076791-627581d559fa",
+                    read_time="7 min read"
+                ),
+                
+                Blog(
+                    title="Technology and Innovation in UAE Business Landscape",
+                    excerpt="Exploring the role of technology in transforming business operations and the UAE's commitment to becoming a global innovation hub.",
+                    content="""<h2>UAE's Digital Transformation Journey</h2>
+                    <p>The UAE has positioned itself as a global leader in digital innovation, with ambitious initiatives like UAE Vision 2071 and the National AI Strategy 2031. This commitment to technology creates unprecedented opportunities for businesses.</p>
+                    
+                    <h3>Fintech Revolution</h3>
+                    <p>The UAE's fintech sector is rapidly evolving, with regulatory sandboxes and progressive policies encouraging innovation. Key developments include digital banking, blockchain adoption, and cryptocurrency regulations.</p>
+                    
+                    <h3>Smart City Initiatives</h3>
+                    <p>Dubai and Abu Dhabi's smart city projects create opportunities for technology companies and service providers. From IoT infrastructure to AI-powered government services, the possibilities are endless.</p>
+                    
+                    <h3>Startup Ecosystem</h3>
+                    <p>The UAE's thriving startup ecosystem, supported by government initiatives and private sector investment, provides a fertile ground for technology entrepreneurs and innovators.</p>""",
+                    category="Technology",
+                    featured=False,
+                    tags=["technology", "innovation", "fintech", "startups"],
+                    image_url="https://images.unsplash.com/photo-1706322075100-48a5530648ca",
+                    read_time="5 min read"
+                ),
+                
+                Blog(
+                    title="Operations Excellence: Streamlining Business Processes",
+                    excerpt="Best practices for operational efficiency, process optimization, and performance management in the UAE business environment.",
+                    content="""<h2>Operational Excellence in the UAE Market</h2>
+                    <p>Achieving operational excellence in the UAE requires understanding local market dynamics, cultural considerations, and regulatory frameworks while implementing global best practices.</p>
+                    
+                    <h3>Process Optimization Strategies</h3>
+                    <ul>
+                        <li>Lean management principles adapted for UAE context</li>
+                        <li>Digital transformation of business processes</li>
+                        <li>Quality management systems and certifications</li>
+                        <li>Performance measurement and KPI development</li>
+                    </ul>
+                    
+                    <h3>Human Resources Management</h3>
+                    <p>Managing a diverse workforce in the UAE requires cultural sensitivity, compliance with labor laws, and effective communication strategies. Building high-performing teams across different nationalities and backgrounds is both a challenge and opportunity.</p>
+                    
+                    <h3>Supply Chain Excellence</h3>
+                    <p>Leveraging the UAE's strategic location and world-class logistics infrastructure to optimize supply chain operations and reduce costs while maintaining quality standards.</p>""",
+                    category="Operations",
+                    featured=False,
+                    tags=["operations", "efficiency", "processes", "management"],
+                    image_url="https://images.unsplash.com/photo-1595133452708-75b6517a34dd",
+                    read_time="6 min read"
+                ),
+                
+                Blog(
+                    title="Comprehensive Business Development Strategies",
+                    excerpt="Strategic approaches to market entry, partnership building, and sustainable growth in the competitive UAE business environment.",
+                    content="""<h2>Building Sustainable Business Growth</h2>
+                    <p>Successful business development in the UAE requires a deep understanding of market dynamics, cultural nuances, and strategic relationship building. My approach combines global best practices with local market insights.</p>
+                    
+                    <h3>Market Entry Strategies</h3>
+                    <p>Entering the UAE market successfully requires careful planning and execution. Key considerations include market research, competitive analysis, regulatory compliance, and cultural adaptation.</p>
+                    
+                    <h3>Partnership Development</h3>
+                    <ul>
+                        <li>Identifying strategic partners and stakeholders</li>
+                        <li>Building long-term business relationships</li>
+                        <li>Negotiating win-win partnership agreements</li>
+                        <li>Managing partner networks effectively</li>
+                    </ul>
+                    
+                    <h3>Channel Partner Relations</h3>
+                    <p>With over 100 active channel partners, I understand the importance of building strong distributor and reseller networks. Effective channel management drives revenue growth and market expansion.</p>
+                    
+                    <h3>Sustainable Growth Planning</h3>
+                    <p>Long-term success requires sustainable growth strategies that balance profitability, market share, and stakeholder value. This includes diversification strategies, market expansion, and continuous innovation.</p>""",
+                    category="Business Development",
+                    featured=False,
+                    tags=["strategy", "partnerships", "growth", "market entry"],
+                    image_url="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+                    read_time="7 min read"
+                )
+            ]
             
-            blog_ref = get_firebase_ref(f'blogs/{sample_blog.id}')
-            blog_ref.set({
-                'id': sample_blog.id,
-                'title': sample_blog.title,
-                'excerpt': sample_blog.excerpt,
-                'content': sample_blog.content,
-                'category': sample_blog.category,
-                'author': sample_blog.author,
-                'read_time': sample_blog.read_time,
-                'featured': sample_blog.featured,
-                'tags': sample_blog.tags,
-                'image_url': sample_blog.image_url,
-                'views': sample_blog.views,
-                'likes': sample_blog.likes,
-                'created_at': sample_blog.created_at.isoformat(),
-                'updated_at': sample_blog.updated_at.isoformat()
-            })
+            # Save all sample blogs
+            for blog in sample_blogs:
+                blog_ref = get_firebase_ref(f'blogs/{blog.id}')
+                blog_ref.set({
+                    'id': blog.id,
+                    'title': blog.title,
+                    'excerpt': blog.excerpt,
+                    'content': blog.content,
+                    'category': blog.category,
+                    'author': blog.author,
+                    'read_time': blog.read_time,
+                    'featured': blog.featured,
+                    'tags': blog.tags,
+                    'image_url': blog.image_url,
+                    'views': blog.views,
+                    'likes': blog.likes,
+                    'created_at': blog.created_at.isoformat(),
+                    'updated_at': blog.updated_at.isoformat()
+                })
             
-            logger.info("Sample blog initialized")
+            logger.info(f"Initialized {len(sample_blogs)} professional blog posts with high-quality content and images")
             
     except Exception as e:
         logger.error(f"Error initializing default data: {str(e)}")
