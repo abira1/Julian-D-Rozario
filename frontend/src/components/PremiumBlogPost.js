@@ -292,39 +292,39 @@ const PremiumBlogPost = () => {
 
       {/* Main Content */}
       <section ref={contentRef} className="relative bg-black">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
           
           {/* Opening Content */}
-          <div className="content-section mb-12">
-            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+          <div className="content-section mb-8 sm:mb-12">
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
               Choosing between Free Zone and Mainland company formation is one of the most critical decisions when setting up a business in Dubai...
             </p>
           </div>
 
           {/* Key Takeaways and Quick Stats */}
-          <div className="content-section grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="content-section grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
             {/* Key Takeaways */}
-            <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Key Takeaways</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">Strategic planning drives sustainable growth</span>
+            <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Key Takeaways</h3>
+              <ul className="space-y-2.5 sm:space-y-3">
+                <li className="flex items-start space-x-2.5 sm:space-x-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">Strategic planning drives sustainable growth</span>
                 </li>
-                <li className="flex items-start space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">Data-driven decisions improve outcomes</span>
+                <li className="flex items-start space-x-2.5 sm:space-x-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">Data-driven decisions improve outcomes</span>
                 </li>
-                <li className="flex items-start space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">Implementation requires systematic approach</span>
+                <li className="flex items-start space-x-2.5 sm:space-x-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">Implementation requires systematic approach</span>
                 </li>
               </ul>
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Quick Stats</h3>
+            <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Quick Stats</h3>
               <ul className="space-y-3">
                 <li className="flex items-start space-x-3">
                   <TrendingUp className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
