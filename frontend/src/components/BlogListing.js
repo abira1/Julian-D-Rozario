@@ -475,21 +475,76 @@ const BlogListing = () => {
         </div>
       </nav>
 
-      {/* Hero Section - Left Aligned */}
-      <section className="relative pt-16 xxs:pt-18 xs:pt-20 sm-mobile:pt-24 pb-8 xxs:pb-12 xs:pb-16 px-3 xxs:px-4 xs:px-6">
+      {/* Enhanced Hero Section - Modern & Engaging */}
+      <section className="relative pt-16 xxs:pt-18 xs:pt-20 sm-mobile:pt-24 pb-12 xxs:pb-16 xs:pb-20 px-3 xxs:px-4 xs:px-6 overflow-hidden">
+        {/* Dynamic Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-48 h-48 xxs:w-64 xxs:h-64 xs:w-80 xs:h-80 sm-mobile:w-96 sm-mobile:h-96 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-36 h-36 xxs:w-48 xxs:h-48 xs:w-60 xs:h-60 sm-mobile:w-72 sm-mobile:h-72 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/4 right-1/4 w-72 h-72 xxs:w-96 xxs:h-96 bg-gradient-to-r from-purple-500/8 to-blue-500/8 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-64 h-64 xxs:w-80 xxs:h-80 bg-gradient-to-r from-blue-500/8 to-purple-500/8 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-indigo-500/5 to-cyan-500/5 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto text-left">
-          <h1 className="hero-title-mobile font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
-            All Articles
-          </h1>
-          <p className="mobile-text-sm xxs:mobile-text-base text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-3xl mb-4 xxs:mb-6 xs:mb-8 leading-relaxed">
-            Comprehensive insights on business consulting, licensing strategies, and industry trends
-          </p>
-          <div className="w-12 xxs:w-16 xs:w-20 h-0.5 xxs:h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* Breadcrumb */}
+          <nav className="flex items-center text-sm text-gray-400 mb-6">
+            <a href="/" className="hover:text-purple-400 transition-colors">Home</a>
+            <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-purple-400">Blog</span>
+          </nav>
+
+          <div className="text-left max-w-4xl">
+            {/* Enhanced Title with Gradient */}
+            <div className="relative">
+              <h1 className="text-4xl xxs:text-5xl xs:text-6xl sm-mobile:text-7xl md-tablet:text-8xl font-bold mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+                  Insights & 
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  Expertise
+                </span>
+              </h1>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-purple-500/20 rounded-full blur-lg"></div>
+              <div className="absolute top-1/2 -right-8 w-6 h-6 bg-blue-500/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
+            </div>
+            
+            {/* Enhanced Description */}
+            <p className="text-lg xxs:text-xl text-gray-300 max-w-3xl mb-8 leading-relaxed">
+              Deep insights into Dubai business formation, corporate services, and the evolving landscape 
+              of UAE entrepreneurship from industry expert Julian D'Rozario.
+            </p>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-4 max-w-lg mb-8">
+              <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 border border-purple-500/20 rounded-xl p-4 text-center backdrop-blur-sm">
+                <div className="text-2xl xxs:text-3xl font-bold text-purple-400 mb-1">{sortedBlogs.length}</div>
+                <div className="text-xs text-gray-400 font-medium">Articles</div>
+              </div>
+              <div className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/20 rounded-xl p-4 text-center backdrop-blur-sm">
+                <div className="text-2xl xxs:text-3xl font-bold text-blue-400 mb-1">{categories.length - 1}</div>
+                <div className="text-xs text-gray-400 font-medium">Categories</div>
+              </div>
+              <div className="bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 border border-cyan-500/20 rounded-xl p-4 text-center backdrop-blur-sm">
+                <div className="text-2xl xxs:text-3xl font-bold text-cyan-400 mb-1">10+</div>
+                <div className="text-xs text-gray-400 font-medium">Years Experience</div>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="flex items-center space-x-4">
+              <div className="w-16 xxs:w-20 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
+              <span className="text-gray-400 text-sm font-medium">Scroll to explore</span>
+              <div className="animate-bounce">
+                <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
