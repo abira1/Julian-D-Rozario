@@ -325,26 +325,26 @@ const PremiumBlogPost = () => {
             {/* Quick Stats */}
             <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-4 sm:p-6">
               <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Quick Stats</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start space-x-3">
-                  <TrendingUp className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">85% success rate in implementations</span>
+              <ul className="space-y-2.5 sm:space-y-3">
+                <li className="flex items-start space-x-2.5 sm:space-x-3">
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">85% success rate in implementations</span>
                 </li>
-                <li className="flex items-start space-x-3">
-                  <BarChart3 className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">3x ROI improvement on average</span>
+                <li className="flex items-start space-x-2.5 sm:space-x-3">
+                  <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">3x ROI improvement on average</span>
                 </li>
-                <li className="flex items-start space-x-3">
-                  <Clock className="w-5 h-5 text-orange-400 mt-1 flex-shrink-0" />
-                  <span className="text-gray-300">6-month typical timeline</span>
+                <li className="flex items-start space-x-2.5 sm:space-x-3">
+                  <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">6-month typical timeline</span>
                 </li>
               </ul>
             </div>
           </div>
 
           {/* Main Article Content */}
-          <div className="content-section mb-12">
-            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+          <div className="content-section mb-8 sm:mb-12">
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
               In today's rapidly evolving business landscape, companies must adapt quickly to remain competitive. 
               This comprehensive approach to strategic planning ensures that organizations can navigate challenges 
               while capitalizing on emerging opportunities.
@@ -352,17 +352,17 @@ const PremiumBlogPost = () => {
           </div>
 
           {/* Pull Quote */}
-          <div className="content-section mb-12 border-l-4 border-purple-500 bg-gray-900/50 p-8 rounded-r-xl">
-            <Quote className="w-8 h-8 text-purple-400 mb-4" />
-            <blockquote className="text-xl text-white italic font-light mb-4 leading-relaxed">
+          <div className="content-section mb-8 sm:mb-12 border-l-3 sm:border-l-4 border-purple-500 bg-gray-900/50 p-4 sm:p-6 lg:p-8 rounded-r-xl">
+            <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 mb-3 sm:mb-4" />
+            <blockquote className="text-lg sm:text-xl text-white italic font-light mb-3 sm:mb-4 leading-relaxed">
               "Success in business requires training and discipline and hard work. But if you're not frightened by these things, the opportunities are just as great today as they ever were."
             </blockquote>
-            <cite className="text-purple-400 font-medium">— David Rockefeller</cite>
+            <cite className="text-purple-400 font-medium text-sm sm:text-base">— David Rockefeller</cite>
           </div>
 
           {/* Article Content */}
-          <div className="content-section mb-12">
-            <p className="text-gray-300 text-lg leading-relaxed mb-6">
+          <div className="content-section mb-8 sm:mb-12">
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
               The methodology outlined in this article has been successfully implemented across various industries, 
               from technology startups to established manufacturing companies. Each implementation is customized to 
               address specific organizational needs and market conditions.
@@ -370,25 +370,25 @@ const PremiumBlogPost = () => {
           </div>
 
           {/* Implementation Framework */}
-          <div className="content-section mb-12">
-            <h2 className="text-3xl font-bold text-white mb-8">Implementation Framework</h2>
-            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+          <div className="content-section mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">Implementation Framework</h2>
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
               Our framework consists of five key phases that ensure successful execution and sustainable results. 
               Each phase builds upon the previous one, creating momentum and buy-in throughout the organization.
             </p>
 
             {/* Phase 1 */}
-            <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6 mb-6">
-              <h3 className="text-xl font-bold text-white mb-4">Phase 1: Assessment & Analysis</h3>
-              <p className="text-gray-300 leading-relaxed">
+            <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Phase 1: Assessment & Analysis</h3>
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                 Comprehensive evaluation of current state, market position, and competitive landscape to 
                 identify opportunities and challenges.
               </p>
             </div>
           </div>
 
-          <div className="content-section mb-12">
-            <p className="text-gray-300 text-lg leading-relaxed">
+          <div className="content-section mb-8 sm:mb-12">
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
               The remaining phases focus on strategic development, implementation planning, execution, and 
               continuous monitoring to ensure long-term success:
             </p>
