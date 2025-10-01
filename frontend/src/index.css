@@ -19,6 +19,92 @@ code {
         monospace;
 }
 
+/* Premium Blog Styles */
+.charcoal-bg {
+  background-color: #1a1a1a;
+}
+
+.charcoal-800 {
+  background-color: #262626;
+}
+
+/* Text Clamping */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Prose Styling for Blog Content */
+.prose {
+  max-width: 65ch;
+}
+
+.prose-invert {
+  --tw-prose-body: #d1d5db;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-links: #8b5cf6;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-code: #d1d5db;
+  --tw-prose-pre-bg: #1f2937;
+  --tw-prose-th-borders: #374151;
+  --tw-prose-td-borders: #4b5563;
+}
+
+.prose-lg {
+  font-size: 1.125rem;
+  line-height: 1.7777778;
+}
+
+.prose h1 {
+  color: var(--tw-prose-headings);
+  font-weight: 800;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+.prose h2 {
+  color: var(--tw-prose-headings);
+  font-weight: 700;
+  font-size: 1.875em;
+  margin-top: 1.5555556em;
+  margin-bottom: 0.8888889em;
+  line-height: 1.3333333;
+}
+
+.prose h3 {
+  color: var(--tw-prose-headings);
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: var(--tw-prose-links);
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #a78bfa;
+}
+
 /* Mobile backdrop filter support */
 @supports (backdrop-filter: blur(10px)) {
   .mobile-blur-button {
