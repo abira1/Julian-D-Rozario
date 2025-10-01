@@ -483,41 +483,59 @@ const PremiumBlogPost = () => {
       </section>
 
       {/* Related Articles */}
-      {relatedBlogs.length > 0 && (
-        <section className="py-16 bg-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 className="text-3xl font-bold text-white mb-12 text-center">Related Articles</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {relatedBlogs.map((relatedBlog, index) => (
-                <Link
-                  key={relatedBlog.id}
-                  to={`/blog/${relatedBlog.id}`}
-                  className="group bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 transform hover:scale-105"
-                >
-                  <div className="aspect-w-16 aspect-h-9 bg-gray-800">
-                    <img 
-                      src={relatedBlog.image_url || '/api/placeholder/400/225'}
-                      alt={relatedBlog.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="inline-block px-3 py-1 bg-purple-600/20 text-purple-300 text-sm rounded-full mb-3">
-                      {relatedBlog.category}
-                    </span>
+      <section className="py-16 bg-black border-t border-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-2xl font-bold text-white mb-8">More Articles</h3>
+          <div className="space-y-6">
+            {[
+              {
+                title: "UAE Visa Requirements: Complete Guide for Business Investors",
+                excerpt: "Comprehensive overview of visa options available for business investors in the UAE.",
+                category: "Immigration",
+                readTime: "4 min read"
+              },
+              {
+                title: "Free Zone vs Mainland: Cost Comparison Analysis", 
+                excerpt: "Detailed cost breakdown to help you make an informed decision for your business setup.",
+                category: "Business Setup",
+                readTime: "6 min read"
+              },
+              {
+                title: "Corporate Banking in Dubai: Opening Your Business Account",
+                excerpt: "Step-by-step guide to opening corporate bank accounts for your UAE business.",
+                category: "Banking",
+                readTime: "5 min read"
+              }
+            ].map((article, index) => (
+              <Link
+                key={index}
+                to={`/blog/${index + 2}`}
+                className="block group bg-gray-900/30 border border-gray-700 rounded-lg p-6 hover:bg-gray-900/50 hover:border-purple-500/30 transition-all duration-300"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="px-3 py-1 bg-purple-600/20 text-purple-300 text-xs rounded-full">
+                        {article.category}
+                      </span>
+                      <span className="text-gray-400 text-sm">{article.readTime}</span>
+                    </div>
                     <h4 className="text-lg font-semibold text-white mb-2 group-hover:text-purple-300 transition-colors">
-                      {relatedBlog.title}
+                      {article.title}
                     </h4>
-                    <p className="text-gray-400 text-sm">
-                      {relatedBlog.excerpt}
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {article.excerpt}
                     </p>
                   </div>
-                </Link>
-              ))}
-            </div>
+                  <div className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowLeft className="w-5 h-5 text-purple-400 rotate-180" />
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
     </div>
   );
 };
