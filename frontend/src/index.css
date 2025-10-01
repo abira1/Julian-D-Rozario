@@ -34,6 +34,7 @@ code {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.4;
 }
 
 .line-clamp-3 {
@@ -41,6 +42,26 @@ code {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.5;
+}
+
+/* Blog Card Consistency */
+.blog-card {
+  height: 100%;
+}
+
+.blog-card .bg-zinc-900 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure consistent image sizing */
+.blog-card img {
+  width: 100%;
+  height: 192px; /* h-48 equivalent */
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Prose Styling for Blog Content */
