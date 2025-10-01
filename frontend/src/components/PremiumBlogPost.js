@@ -367,46 +367,22 @@ const PremiumBlogPost = () => {
             </p>
           </div>
 
-            {/* Process Steps */}
-            <div className="content-section px-8 py-12">
-              <h3 className="text-2xl font-bold text-white mb-8">Our Approach</h3>
-              <div className="space-y-6">
-                {[
-                  { step: '01', title: 'Initial Consultation', desc: 'Understanding your specific business requirements and goals.' },
-                  { step: '02', title: 'Jurisdiction Analysis', desc: 'Comprehensive review of the most suitable free zones and mainland options.' },
-                  { step: '03', title: 'License Processing', desc: 'End-to-end handling of all documentation and regulatory requirements.' },
-                  { step: '04', title: 'Post-Formation Support', desc: 'Ongoing compliance and business development assistance.' }
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                      {item.step}
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold text-white mb-2">{item.title}</h4>
-                      <p className="text-gray-400">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {/* Tags Section */}
+          <div className="content-section mb-12">
+            <h3 className="text-xl font-bold text-white mb-6">Tags</h3>
+            <div className="flex flex-wrap gap-3">
+              {[
+                '#Dubai Business', '#Free Zone', '#Mainland', '#Company Formation'
+              ].map((tag, index) => (
+                <span 
+                  key={index} 
+                  className="px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-all cursor-pointer"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-
-            {/* Tags Cloud */}
-            <div className="content-section px-8 py-12 border-t border-white/10 bg-black/20">
-              <h3 className="text-xl font-bold text-white mb-6">Related Topics</h3>
-              <div className="flex flex-wrap gap-3">
-                {blog.tags && blog.tags.length > 0 ? blog.tags.map((tag, index) => (
-                  <span key={index} className="px-4 py-2 bg-white/10 hover:bg-purple-600/20 border border-white/20 hover:border-purple-500/30 rounded-full text-sm text-gray-300 hover:text-white transition-all cursor-pointer">
-                    #{tag}
-                  </span>
-                )) : [
-                  'Dubai Business Setup', 'Free Zone Licensing', 'Corporate Services', 'Immigration', 'Compliance'
-                ].map((tag, index) => (
-                  <span key={index} className="px-4 py-2 bg-white/10 hover:bg-purple-600/20 border border-white/20 hover:border-purple-500/30 rounded-full text-sm text-gray-300 hover:text-white transition-all cursor-pointer">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+          </div>
 
             {/* Author Bio Card */}
             <div className="content-section px-8 py-12 border-t border-white/10">
