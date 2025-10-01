@@ -251,32 +251,42 @@ const BlogPost = () => {
               <div className="lg-desktop:col-span-8">
                 <article className="bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border border-white/15 rounded-3xl overflow-hidden shadow-2xl">
                   <div className="p-8 xxs:p-10 md-tablet:p-12 lg-desktop:p-16" ref={contentRef}>
-                    {/* Enhanced Table of Contents */}
-                    <div className="mb-12 p-8 bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-2xl backdrop-blur-sm">
-                      <div className="flex items-center mb-6">
-                        <svg className="w-6 h-6 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <h3 className="text-xl font-bold text-white">Table of Contents</h3>
+                    {/* Reading Information */}
+                    <div className="mb-12 p-6 bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-2xl backdrop-blur-sm">
+                      <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div className="flex items-center space-x-6">
+                          <div className="flex items-center space-x-2 text-gray-300">
+                            <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <circle cx="12" cy="12" r="10"/>
+                              <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                            <span className="font-medium">{blog.read_time}</span>
+                          </div>
+                          <div className="flex items-center space-x-2 text-gray-300">
+                            <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <span className="font-medium">{blog.views} views</span>
+                          </div>
+                          <div className="flex items-center space-x-2 text-gray-300">
+                            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                            </svg>
+                            <span className="font-medium">{blog.likes} likes</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="px-3 py-1.5 bg-purple-600/20 text-purple-300 rounded-full text-sm font-medium">
+                            {blog.category}
+                          </div>
+                          {blog.featured && (
+                            <div className="px-3 py-1.5 bg-yellow-600/20 text-yellow-300 rounded-full text-sm font-medium">
+                              ⭐ Featured
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <nav className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <a href="#introduction" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
-                          <span className="font-medium">Introduction</span>
-                        </a>
-                        <a href="#key-points" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
-                          <span className="font-medium">Key Points</span>
-                        </a>
-                        <a href="#detailed-analysis" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
-                          <div className="w-2 h-2 bg-green-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
-                          <span className="font-medium">Detailed Analysis</span>
-                        </a>
-                        <a href="#conclusion" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
-                          <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
-                          <span className="font-medium">Conclusion</span>
-                        </a>
-                      </nav>
                     </div>
 
                     {/* Enhanced Blog Content - Dynamic Content from Database */}
