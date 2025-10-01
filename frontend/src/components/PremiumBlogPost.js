@@ -315,25 +315,57 @@ const PremiumBlogPost = () => {
             </div>
           </div>
 
-            {/* Main Article Content */}
-            <div className="content-section px-8 py-12">
-              <div className="prose prose-invert prose-lg max-w-none">
-                <div 
-                  className="text-gray-300 leading-relaxed space-y-6"
-                  dangerouslySetInnerHTML={{ __html: blog.content }}
-                />
-              </div>
-            </div>
+          {/* Main Article Content */}
+          <div className="content-section mb-12">
+            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              In today's rapidly evolving business landscape, companies must adapt quickly to remain competitive. 
+              This comprehensive approach to strategic planning ensures that organizations can navigate challenges 
+              while capitalizing on emerging opportunities.
+            </p>
+          </div>
 
-            {/* Pull Quote */}
-            <div className="content-section px-8 py-12 border-t border-b border-white/10 bg-gradient-to-r from-purple-600/5 to-blue-600/5">
-              <blockquote className="text-center">
-                <p className="text-2xl font-light text-white italic mb-4">
-                  "Empowering corporate service providers with end-to-end licensing expertise that drives real business growth."
-                </p>
-                <cite className="text-purple-400 font-medium">— Julian D'Rozario</cite>
-              </blockquote>
+          {/* Pull Quote */}
+          <div className="content-section mb-12 border-l-4 border-purple-500 bg-gray-900/50 p-8 rounded-r-xl">
+            <Quote className="w-8 h-8 text-purple-400 mb-4" />
+            <blockquote className="text-xl text-white italic font-light mb-4 leading-relaxed">
+              "Success in business requires training and discipline and hard work. But if you're not frightened by these things, the opportunities are just as great today as they ever were."
+            </blockquote>
+            <cite className="text-purple-400 font-medium">— David Rockefeller</cite>
+          </div>
+
+          {/* Article Content */}
+          <div className="content-section mb-12">
+            <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              The methodology outlined in this article has been successfully implemented across various industries, 
+              from technology startups to established manufacturing companies. Each implementation is customized to 
+              address specific organizational needs and market conditions.
+            </p>
+          </div>
+
+          {/* Implementation Framework */}
+          <div className="content-section mb-12">
+            <h2 className="text-3xl font-bold text-white mb-8">Implementation Framework</h2>
+            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              Our framework consists of five key phases that ensure successful execution and sustainable results. 
+              Each phase builds upon the previous one, creating momentum and buy-in throughout the organization.
+            </p>
+
+            {/* Phase 1 */}
+            <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Phase 1: Assessment & Analysis</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Comprehensive evaluation of current state, market position, and competitive landscape to 
+                identify opportunities and challenges.
+              </p>
             </div>
+          </div>
+
+          <div className="content-section mb-12">
+            <p className="text-gray-300 text-lg leading-relaxed">
+              The remaining phases focus on strategic development, implementation planning, execution, and 
+              continuous monitoring to ensure long-term success:
+            </p>
+          </div>
 
             {/* Process Steps */}
             <div className="content-section px-8 py-12">
