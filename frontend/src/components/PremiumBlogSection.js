@@ -146,36 +146,45 @@ const PremiumBlogSection = () => {
               {blogs.map((blog, index) => (
                 <article
                   key={blog.id}
-                  className="blog-card group cursor-pointer"
+                  className="blog-card group cursor-pointer h-full"
                   onClick={() => handleBlogClick(blog.id)}
                 >
-                  <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+                  <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 h-full flex flex-col">
                     
-                    {/* Image */}
-                    <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-zinc-800 to-zinc-700 overflow-hidden relative">
+                    {/* Image - Fixed Height */}
+                    <div className="relative h-48 bg-gradient-to-br from-zinc-800 to-zinc-700 overflow-hidden flex-shrink-0">
                       {blog.featured_image || blog.image_url ? (
                         <img 
                           src={blog.featured_image || blog.image_url}
                           alt={blog.title}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.nextSibling.style.display = 'flex';
+                          }}
                         />
-                      ) : (
-                        <div className="w-full h-48 bg-gradient-to-br from-purple-600/20 to-blue-600/20 flex items-center justify-center">
-                          <BookOpen className="w-12 h-12 text-purple-400" />
-                        </div>
-                      )}
+                      ) : null}
                       
-                      {(blog.is_featured || index === 0) && (
+                      {/* Fallback image container */}
+                      <div 
+                        className={`absolute inset-0 bg-gradient-to-br from-purple-600/20 to-blue-600/20 flex items-center justify-center ${
+                          (blog.featured_image || blog.image_url) ? 'hidden' : 'flex'
+                        }`}
+                      >
+                        <BookOpen className="w-12 h-12 text-purple-400" />
+                      </div>
+                      
+                      {(blog.is_featured || blog.featured || index === 0) && (
                         <div className="absolute top-4 left-4 bg-purple-600/90 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
                           Featured
                         </div>
                       )}
                     </div>
 
-                    {/* Content */}
-                    <div className="p-6">
+                    {/* Content - Flexible Height */}
+                    <div className="p-6 flex flex-col flex-grow">
                       {/* Category & Meta */}
-                      <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center justify-between mb-4 flex-shrink-0">
                         <span className="inline-flex items-center px-3 py-1 bg-purple-600/20 text-purple-300 text-sm font-medium rounded-full">
                           <Tag className="w-3 h-3 mr-1" />
                           {blog.category || 'Business Insights'}
@@ -186,24 +195,24 @@ const PremiumBlogSection = () => {
                         </div>
                       </div>
 
-                      {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-purple-300 transition-colors">
+                      {/* Title - Fixed Height */}
+                      <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-purple-300 transition-colors flex-shrink-0 min-h-[3.5rem]">
                         {blog.title}
                       </h3>
 
-                      {/* Excerpt */}
-                      <p className="text-gray-400 text-sm mb-4 line-clamp-3">
-                        {blog.excerpt}
+                      {/* Excerpt - Flexible Height */}
+                      <p className="text-gray-400 text-sm mb-6 line-clamp-3 flex-grow">
+                        {blog.excerpt || 'Expert insights on Dubai business formation and UAE corporate services.'}
                       </p>
 
-                      {/* Footer */}
-                      <div className="flex items-center justify-between">
+                      {/* Footer - Fixed at Bottom */}
+                      <div className="flex items-center justify-between flex-shrink-0 mt-auto">
                         <div className="flex items-center space-x-4 text-xs text-gray-500">
                           <span className="flex items-center">
                             <Clock className="w-3 h-3 mr-1" />
                             {blog.read_time || '5 min read'}
                           </span>
-                          {blog.views && (
+                          {blog.views && blog.views > 0 && (
                             <span>{blog.views} views</span>
                           )}
                         </div>
