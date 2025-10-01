@@ -243,121 +243,234 @@ const BlogPost = () => {
           </div>
         </section>
 
-        {/* Content Section - Mobile First Layout */}
-        <section className="pb-12 xxs:pb-16 px-3 xxs:px-4 xs:px-6">
+        {/* Enhanced Content Section - Optimized for Reading */}
+        <section className="pb-16 xxs:pb-20 px-4 xxs:px-6 xs:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="lg-desktop:grid lg-desktop:grid-cols-4 lg-desktop:gap-8">
+            <div className="lg-desktop:grid lg-desktop:grid-cols-12 lg-desktop:gap-12">
               {/* Main Content */}
-              <div className="lg-desktop:col-span-3">
-                <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card">
-                  <div className="mobile-compact-spacing md-tablet:p-8 lg-desktop:p-12" ref={contentRef}>
-                    {/* Table of Contents - Collapsible on Mobile */}
-                    <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing mb-4 xxs:mb-6">
-                      <h3 className="mobile-title font-semibold text-white">Table of Contents</h3>
-                      <ul className="space-y-1 xxs:space-y-1.5">
-                        <li><a href="#introduction" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Introduction</a></li>
-                        <li><a href="#key-points" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Key Points</a></li>
-                        <li><a href="#detailed-analysis" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Detailed Analysis</a></li>
-                        <li><a href="#conclusion" className="text-gray-400 hover:text-purple-400 transition-colors mobile-text-sm touch-target block py-1">Conclusion</a></li>
-                      </ul>
+              <div className="lg-desktop:col-span-8">
+                <article className="bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border border-white/15 rounded-3xl overflow-hidden shadow-2xl">
+                  <div className="p-8 xxs:p-10 md-tablet:p-12 lg-desktop:p-16" ref={contentRef}>
+                    {/* Enhanced Table of Contents */}
+                    <div className="mb-12 p-8 bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-2xl backdrop-blur-sm">
+                      <div className="flex items-center mb-6">
+                        <svg className="w-6 h-6 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <h3 className="text-xl font-bold text-white">Table of Contents</h3>
+                      </div>
+                      <nav className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <a href="#introduction" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
+                          <span className="font-medium">Introduction</span>
+                        </a>
+                        <a href="#key-points" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
+                          <span className="font-medium">Key Points</span>
+                        </a>
+                        <a href="#detailed-analysis" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
+                          <div className="w-2 h-2 bg-green-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
+                          <span className="font-medium">Detailed Analysis</span>
+                        </a>
+                        <a href="#conclusion" className="group flex items-center p-3 text-gray-300 hover:text-purple-300 hover:bg-white/10 rounded-lg transition-all duration-200">
+                          <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
+                          <span className="font-medium">Conclusion</span>
+                        </a>
+                      </nav>
                     </div>
 
-                    {/* Blog Content - Mobile Optimized Typography */}
-                    <div className="prose prose-sm prose-invert max-w-none">
-                      <section id="introduction" className="mb-4 xxs:mb-6">
-                        <h2 className="mobile-title text-white">Introduction</h2>
-                        <p className="text-gray-300 leading-relaxed mb-3 mobile-text-base">
-                          {blog.excerpt}
-                        </p>
-                        <p className="text-gray-300 leading-relaxed mobile-text-base">
-                          In this comprehensive guide, we'll explore the intricacies of {blog.title.toLowerCase()}, 
-                          providing you with actionable insights and strategies that you can implement immediately.
-                        </p>
+                    {/* Enhanced Blog Content */}
+                    <div className="prose prose-lg prose-invert max-w-none">
+                      <section id="introduction" className="mb-12">
+                        <div className="flex items-center mb-6">
+                          <div className="w-3 h-3 bg-purple-500 rounded-full mr-4"></div>
+                          <h2 className="text-3xl font-bold text-white m-0">Introduction</h2>
+                        </div>
+                        <div className="text-lg leading-relaxed text-gray-300 space-y-6">
+                          <p className="text-xl font-medium text-purple-200 border-l-4 border-purple-500 pl-6 py-2 bg-purple-500/5 rounded-r-lg">
+                            {blog.excerpt}
+                          </p>
+                          <p>
+                            In this comprehensive guide, we'll explore the intricacies of {blog.title.toLowerCase()}, 
+                            providing you with actionable insights and strategies that you can implement immediately in Dubai's dynamic business landscape.
+                          </p>
+                        </div>
                       </section>
 
-                      <section id="key-points" className="mb-4 xxs:mb-6">
-                        <h2 className="mobile-title text-white">Key Points</h2>
-                        <div className="grid grid-cols-1 xs:grid-cols-2 mobile-content-gap mb-4">
-                          <div className="bg-gradient-to-br from-purple-600/10 to-purple-600/5 border border-purple-600/20 mobile-card mobile-compact-spacing">
-                            <h4 className="font-semibold text-purple-300 mb-1 xxs:mb-2 mobile-text-sm">Strategic Approach</h4>
-                            <p className="text-gray-300 mobile-text-xs">Understanding the fundamentals and building a solid foundation.</p>
+                      <section id="key-points" className="mb-12">
+                        <div className="flex items-center mb-6">
+                          <div className="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
+                          <h2 className="text-3xl font-bold text-white m-0">Key Insights</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                          <div className="group p-6 bg-gradient-to-br from-purple-600/15 to-purple-600/5 border border-purple-600/25 rounded-2xl hover:from-purple-600/20 hover:to-purple-600/10 transition-all duration-300">
+                            <div className="flex items-center mb-4">
+                              <svg className="w-8 h-8 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                              </svg>
+                              <h4 className="text-lg font-bold text-purple-300">Strategic Approach</h4>
+                            </div>
+                            <p className="text-gray-300 leading-relaxed">Understanding the fundamentals of UAE business formation and building a solid foundation for long-term success.</p>
                           </div>
-                          <div className="bg-gradient-to-br from-blue-600/10 to-blue-600/5 border border-blue-600/20 mobile-card mobile-compact-spacing">
-                            <h4 className="font-semibold text-blue-300 mb-1 xxs:mb-2 mobile-text-sm">Implementation</h4>
-                            <p className="text-gray-300 mobile-text-xs">Practical steps and real-world applications.</p>
+                          <div className="group p-6 bg-gradient-to-br from-blue-600/15 to-blue-600/5 border border-blue-600/25 rounded-2xl hover:from-blue-600/20 hover:to-blue-600/10 transition-all duration-300">
+                            <div className="flex items-center mb-4">
+                              <svg className="w-8 h-8 text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                              <h4 className="text-lg font-bold text-blue-300">Implementation</h4>
+                            </div>
+                            <p className="text-gray-300 leading-relaxed">Practical steps and real-world applications based on 10+ years of experience in Dubai's business ecosystem.</p>
                           </div>
                         </div>
                       </section>
 
-                      <section id="detailed-analysis" className="mb-6 xxs:mb-8">
-                        <h2 className="text-xl xxs:text-2xl font-bold mb-3 xxs:mb-4 text-white">Detailed Analysis</h2>
-                        <p className="text-gray-300 leading-relaxed mb-3 xxs:mb-4 text-sm xxs:text-base">
-                          The landscape of business formation in Dubai has evolved significantly over the past decade. 
-                          With my experience at Meydan Free Zone Authority, I've witnessed firsthand how regulatory 
-                          changes and market dynamics have shaped the opportunities available to entrepreneurs and investors.
-                        </p>
+                      <section id="detailed-analysis" className="mb-12">
+                        <div className="flex items-center mb-6">
+                          <div className="w-3 h-3 bg-green-500 rounded-full mr-4"></div>
+                          <h2 className="text-3xl font-bold text-white m-0">Expert Analysis</h2>
+                        </div>
                         
-                        <blockquote className="border-l-4 border-purple-500 pl-4 xxs:pl-6 py-2 my-4 xxs:my-6 bg-gradient-to-r from-purple-500/10 to-transparent">
-                          <p className="text-purple-300 italic text-sm xxs:text-base">
-                            "Success in Dubai's business environment requires not just understanding the regulations, 
-                            but also building the right relationships and choosing the optimal structure for your specific needs."
+                        <div className="text-lg leading-relaxed text-gray-300 space-y-8">
+                          <p>
+                            The landscape of business formation in Dubai has evolved significantly over the past decade. 
+                            With my experience at Meydan Free Zone Authority, I've witnessed firsthand how regulatory 
+                            changes and market dynamics have shaped the opportunities available to entrepreneurs and investors.
                           </p>
-                          <cite className="text-gray-400 text-xs xxs:text-sm">- Julian D'Rozario</cite>
-                        </blockquote>
+                          
+                          <blockquote className="relative border-l-4 border-purple-500 pl-8 py-6 my-8 bg-gradient-to-r from-purple-500/10 to-transparent rounded-r-2xl">
+                            <div className="absolute -left-2 top-6 w-4 h-4 bg-purple-500 rounded-full"></div>
+                            <p className="text-xl text-purple-200 italic font-medium leading-relaxed mb-4">
+                              "Success in Dubai's business environment requires not just understanding the regulations, 
+                              but also building the right relationships and choosing the optimal structure for your specific needs."
+                            </p>
+                            <cite className="text-gray-400 font-semibold">- Julian D'Rozario, Business Relations Manager</cite>
+                          </blockquote>
 
-                        <h3 className="text-lg xxs:text-xl font-semibold mb-2 xxs:mb-3 text-white">Market Insights</h3>
-                        <p className="text-gray-300 leading-relaxed mb-3 xxs:mb-4 text-sm xxs:text-base">
-                          Based on my experience incorporating over 3,200 licenses and working with 100+ channel partners, 
-                          here are the critical factors that determine success in Dubai's business formation landscape.
-                        </p>
+                          <div className="bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 border border-cyan-500/20 rounded-2xl p-8">
+                            <h3 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center">
+                              <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                              </svg>
+                              Market Insights
+                            </h3>
+                            <p className="text-gray-300 leading-relaxed mb-6">
+                              Based on my experience incorporating over 3,200 licenses and working with 100+ channel partners, 
+                              here are the critical factors that determine success in Dubai's business formation landscape.
+                            </p>
 
-                        <ul className="space-y-1 xxs:space-y-2 mb-4 xxs:mb-6">
-                          <li className="flex items-start space-x-2 xxs:space-x-3">
-                            <div className="w-2 h-2 bg-purple-500 rounded-full mt-1.5 xxs:mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-300 text-sm xxs:text-base">Regulatory compliance and proper documentation</span>
-                          </li>
-                          <li className="flex items-start space-x-2 xxs:space-x-3">
-                            <div className="w-2 h-2 bg-purple-500 rounded-full mt-1.5 xxs:mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-300 text-sm xxs:text-base">Strategic location and business activity selection</span>
-                          </li>
-                          <li className="flex items-start space-x-2 xxs:space-x-3">
-                            <div className="w-2 h-2 bg-purple-500 rounded-full mt-1.5 xxs:mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-300 text-sm xxs:text-base">Post-formation support and ongoing compliance</span>
-                          </li>
-                        </ul>
+                            <ul className="space-y-4">
+                              <li className="flex items-start space-x-4">
+                                <div className="flex-shrink-0 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center mt-1">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                  </svg>
+                                </div>
+                                <span className="text-gray-300 text-lg">Regulatory compliance and proper documentation processes</span>
+                              </li>
+                              <li className="flex items-start space-x-4">
+                                <div className="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mt-1">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                  </svg>
+                                </div>
+                                <span className="text-gray-300 text-lg">Strategic location and business activity selection</span>
+                              </li>
+                              <li className="flex items-start space-x-4">
+                                <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                  </svg>
+                                </div>
+                                <span className="text-gray-300 text-lg">Post-formation support and ongoing compliance management</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
                       </section>
 
-                      <section id="conclusion" className="mb-6 xxs:mb-8">
-                        <h2 className="text-xl xxs:text-2xl font-bold mb-3 xxs:mb-4 text-white">Conclusion</h2>
-                        <p className="text-gray-300 leading-relaxed text-sm xxs:text-base">
-                          The opportunities in Dubai's business landscape continue to expand, but success requires 
-                          expert guidance and strategic planning. Whether you're a corporate service provider or 
-                          an entrepreneur looking to establish your presence in the UAE, understanding these 
-                          fundamentals will set you on the path to success.
-                        </p>
+                      <section id="conclusion" className="mb-12">
+                        <div className="flex items-center mb-6">
+                          <div className="w-3 h-3 bg-yellow-500 rounded-full mr-4"></div>
+                          <h2 className="text-3xl font-bold text-white m-0">Key Takeaways</h2>
+                        </div>
+                        <div className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-2xl p-8">
+                          <p className="text-lg leading-relaxed text-gray-300 mb-6">
+                            The opportunities in Dubai's business landscape continue to expand, but success requires 
+                            expert guidance and strategic planning. Whether you're a corporate service provider or 
+                            an entrepreneur looking to establish your presence in the UAE, understanding these 
+                            fundamentals will set you on the path to success.
+                          </p>
+                          
+                          <div className="flex items-center justify-between flex-wrap gap-4 p-6 bg-gradient-to-r from-purple-600/10 to-blue-600/10 border border-purple-500/20 rounded-xl">
+                            <div className="text-center">
+                              <div className="text-2xl font-bold text-purple-400">3200+</div>
+                              <div className="text-sm text-gray-400">Licenses Incorporated</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-2xl font-bold text-blue-400">100+</div>
+                              <div className="text-sm text-gray-400">Channel Partners</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-2xl font-bold text-green-400">10+</div>
+                              <div className="text-sm text-gray-400">Years Experience</div>
+                            </div>
+                          </div>
+                        </div>
                       </section>
                     </div>
 
-                    {/* Author Bio - Mobile Optimized */}
-                    <div className="mt-8 xxs:mt-12 p-4 xxs:p-6 bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 rounded-lg xxs:rounded-xl">
-                      <div className="flex items-start space-x-3 xxs:space-x-4">
-                        <div className="w-12 h-12 xxs:w-16 xxs:h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm xxs:text-xl">
-                          JD
+                    {/* Enhanced Author Bio */}
+                    <div className="mt-16 p-8 bg-gradient-to-br from-white/10 to-white/[0.04] backdrop-blur-xl border border-white/20 rounded-2xl">
+                      <div className="flex items-start space-x-6">
+                        <div className="relative flex-shrink-0">
+                          <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+                            JD
+                          </div>
+                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-400 rounded-full border-3 border-gray-900 flex items-center justify-center">
+                            <svg className="w-3 h-3 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                          </div>
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-base xxs:text-lg font-semibold text-white mb-1 xxs:mb-2">About the Author</h4>
-                          <p className="text-gray-300 text-xs xxs:text-sm leading-relaxed">
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className="text-2xl font-bold text-white">About the Author</h4>
+                            <div className="flex items-center space-x-2">
+                              <div className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm font-medium">
+                                Expert
+                              </div>
+                              <div className="px-3 py-1 bg-green-600/20 text-green-300 rounded-full text-sm font-medium">
+                                Verified
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-gray-300 leading-relaxed text-lg mb-4">
                             Julian D'Rozario is a Business Relations Manager at Meydan Free Zone Authority with over 
                             a decade of experience in company formation and corporate services. He has facilitated 
                             the incorporation of over 3,200 licenses and works with 100+ active channel partners 
                             across the UAE business formation landscape.
                           </p>
+                          <div className="flex items-center space-x-4 text-sm text-gray-400">
+                            <div className="flex items-center space-x-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+                              </svg>
+                              <span>Business Relations Manager</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              <span>Dubai, UAE</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Blog Interactions - Enhanced Mobile */}
-                    <div className="mt-4 xxs:mt-6 xs:mt-8">
+                    {/* Blog Interactions */}
+                    <div className="mt-12">
                       <BlogInteractions 
                         blogId={blog.id.toString()} 
                         blogTitle={blog.title}
@@ -365,12 +478,12 @@ const BlogPost = () => {
                       />
                     </div>
 
-                    {/* Comments Section - Mobile Optimized */}
-                    <div id="comments-section" className="mt-8 xxs:mt-12">
+                    {/* Comments Section */}
+                    <div id="comments-section" className="mt-16">
                       <BlogComments blogId={blog.id.toString()} blogTitle={blog.title} />
                     </div>
                   </div>
-                </div>
+                </article>
               </div>
               
               {/* Sidebar - Mobile Drawer on Small Screens */}
