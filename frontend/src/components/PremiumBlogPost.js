@@ -263,28 +263,57 @@ const PremiumBlogPost = () => {
         </div>
       </section>
 
-      {/* Main Content Panel */}
-      <section ref={contentRef} className="relative -mt-20 z-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-zinc-900 rounded-t-3xl border border-white/10 shadow-2xl overflow-hidden">
-            
-            {/* Quick Highlight Cards */}
-            <div className="content-section p-8 border-b border-white/10">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-purple-600/10 border border-purple-500/20 rounded-xl p-6">
-                  <h4 className="text-purple-400 font-semibold mb-2">Key Insight</h4>
-                  <p className="text-gray-300 text-sm">Understanding Dubai's business formation landscape requires expertise in multiple jurisdictions.</p>
-                </div>
-                <div className="bg-blue-600/10 border border-blue-500/20 rounded-xl p-6">
-                  <h4 className="text-blue-400 font-semibold mb-2">Experience</h4>
-                  <p className="text-gray-300 text-sm">Over 10 years helping corporate service providers establish their presence.</p>
-                </div>
-                <div className="bg-amber-600/10 border border-amber-500/20 rounded-xl p-6">
-                  <h4 className="text-amber-400 font-semibold mb-2">Results</h4>
-                  <p className="text-gray-300 text-sm">3200+ licenses incorporated across various free zones and mainland.</p>
-                </div>
-              </div>
+      {/* Main Content */}
+      <section ref={contentRef} className="relative bg-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          
+          {/* Opening Content */}
+          <div className="content-section mb-12">
+            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              Choosing between Free Zone and Mainland company formation is one of the most critical decisions when setting up a business in Dubai...
+            </p>
+          </div>
+
+          {/* Key Takeaways and Quick Stats */}
+          <div className="content-section grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {/* Key Takeaways */}
+            <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4">Key Takeaways</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Strategic planning drives sustainable growth</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Data-driven decisions improve outcomes</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Implementation requires systematic approach</span>
+                </li>
+              </ul>
             </div>
+
+            {/* Quick Stats */}
+            <div className="bg-gray-900/80 border border-gray-700 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4">Quick Stats</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start space-x-3">
+                  <TrendingUp className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">85% success rate in implementations</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <BarChart3 className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">3x ROI improvement on average</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <Clock className="w-5 h-5 text-orange-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">6-month typical timeline</span>
+                </li>
+              </ul>
+            </div>
+          </div>
 
             {/* Main Article Content */}
             <div className="content-section px-8 py-12">
