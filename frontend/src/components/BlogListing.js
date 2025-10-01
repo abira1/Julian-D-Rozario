@@ -80,7 +80,7 @@ const MobileBlogCard = ({ blog, index }) => {
   );
 };
 
-// Desktop Card Component - Enhanced
+// Desktop Card Component - Enhanced Modern Design
 const DesktopBlogCard = ({ blog, index }) => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -97,96 +97,132 @@ const DesktopBlogCard = ({ blog, index }) => {
   return (
     <article 
       onClick={handleCardClick}
-      className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
+      className="group relative bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-sm border border-white/15 rounded-2xl overflow-hidden hover:border-purple-500/40 hover:from-white/12 hover:to-white/[0.06] transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-purple-500/10"
       style={{
-        animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+        animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both`
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      {/* Modern Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/0 via-transparent to-blue-600/0 group-hover:from-purple-600/5 group-hover:to-blue-600/5 transition-all duration-500"></div>
       
-      {/* Image */}
-      <div className="relative h-48 overflow-hidden bg-slate-800">
+      {/* Enhanced Image Section */}
+      <div className="relative h-56 overflow-hidden">
         {imageLoaded ? (
           <img 
             src={blog.image_url || blog.image} 
             alt={blog.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
             loading="lazy"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-3 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
-        {/* Reduced overlay for better image visibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        {/* Subtle overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         
-        {/* Badges */}
-        <div className="absolute top-3 left-3">
-          <span className="px-3 py-1 bg-purple-600/90 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/20">
+        {/* Modern Badges */}
+        <div className="absolute top-4 left-4">
+          <span className="inline-flex items-center px-3 py-1.5 bg-white/90 backdrop-blur-md rounded-full text-gray-800 text-xs font-semibold shadow-lg border border-white/20">
+            <div className="w-2 h-2 bg-purple-500 rounded-full mr-1.5"></div>
             {blog.category}
           </span>
         </div>
 
         {blog.featured && (
-          <div className="absolute top-3 right-3">
-            <span className="px-3 py-1 bg-yellow-500/90 backdrop-blur-sm rounded-full text-white text-xs font-medium border border-white/20">
-              ⭐ Featured
+          <div className="absolute top-4 right-4">
+            <span className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full text-white text-xs font-semibold shadow-lg">
+              <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              Featured
             </span>
           </div>
         )}
+
+        {/* Read Time Badge */}
+        <div className="absolute bottom-4 right-4">
+          <span className="inline-flex items-center px-3 py-1.5 bg-black/70 backdrop-blur-md rounded-full text-white text-xs font-medium">
+            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+            {blog.readTime || '5 min read'}
+          </span>
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 p-5">
-        <div className="flex items-center justify-between text-xs text-gray-400 mb-3">
-          <span>{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-          <div className="flex items-center gap-2">
-            <span>{blog.readTime || '5 min read'}</span>
+      {/* Enhanced Content Section */}
+      <div className="relative z-10 p-6">
+        {/* Meta Info */}
+        <div className="flex items-center justify-between text-xs text-gray-400 mb-4">
+          <div className="flex items-center space-x-3">
+            <span className="font-medium">{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric',
+              year: 'numeric'
+            })}</span>
             <span>•</span>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center space-x-1">
               <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
                 <circle cx="12" cy="12" r="3"/>
               </svg>
-              <span>{blog.views || 0}</span>
+              <span>{blog.views || 0} views</span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 text-red-400">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+              </svg>
+              <span>{blog.likes || 0}</span>
             </div>
           </div>
         </div>
 
-        <h3 className="text-base font-bold text-white mb-3 leading-tight group-hover:text-purple-200 transition-colors duration-300 line-clamp-2">
+        {/* Enhanced Title */}
+        <h3 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-purple-200 transition-colors duration-300 line-clamp-2 font-display">
           {blog.title}
         </h3>
 
-        <p className="text-sm text-gray-300 leading-relaxed line-clamp-3 mb-4">
+        {/* Enhanced Excerpt */}
+        <p className="text-gray-300 leading-relaxed line-clamp-3 mb-6 text-sm">
           {blog.excerpt}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {blog.tags?.slice(0, 2).map((tag, idx) => (
+        {/* Modern Tags */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {blog.tags?.slice(0, 3).map((tag, idx) => (
             <span 
               key={idx}
-              className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs text-gray-400"
+              className="inline-flex items-center px-2.5 py-1 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full text-xs text-purple-300 font-medium hover:from-purple-500/20 hover:to-blue-500/20 transition-all duration-200"
             >
               #{tag}
             </span>
           ))}
         </div>
 
-        {/* Author & Actions */}
+        {/* Enhanced Author & Read More */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-              J
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-lg">
+                J
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-900"></div>
             </div>
-            <span className="text-gray-400 text-xs">{blog.author}</span>
+            <div>
+              <p className="text-gray-300 text-sm font-medium">{blog.author}</p>
+              <p className="text-gray-500 text-xs">Business Expert</p>
+            </div>
           </div>
 
-          <button className="flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors duration-300 text-sm font-medium">
-            Read
-            <svg className="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-200" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <button className="group/btn inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white text-sm font-medium hover:from-purple-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-purple-500/25">
+            <span>Read More</span>
+            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
