@@ -548,71 +548,144 @@ const BlogListing = () => {
         </div>
       </section>
 
-      {/* Search and Filter Controls - Mobile First */}
-      <section className="relative px-3 xxs:px-4 xs:px-6 mb-6 xxs:mb-8 xs:mb-10">
+      {/* Enhanced Search and Filter Section */}
+      <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-white/5 to-white/[0.02] mobile-optimized-blur border border-white/10 mobile-card mobile-compact-spacing">
-            <div className="flex flex-col mobile-content-gap mb-4 xxs:mb-6">
-              {/* Search Bar */}
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full mobile-button pl-8 xxs:pl-10 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 mobile-optimized-blur transition-all duration-300"
-                />
-                <svg className="absolute left-2.5 xxs:left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border border-white/15 rounded-2xl p-6 xxs:p-8 shadow-2xl">
+            {/* Section Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-white flex items-center">
+                <svg className="w-5 h-5 text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-              </div>
-
-              {/* Sort Dropdown */}
-              <div className="flex items-center gap-2 xxs:gap-3">
-                <label className="text-gray-300 mobile-text-xs flex-shrink-0">Sort:</label>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="mobile-button bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50 mobile-optimized-blur transition-all duration-300"
-                >
-                  <option value="date">Latest</option>
-                  <option value="views">Most Viewed</option>
-                  <option value="likes">Most Liked</option>
-                </select>
+                Discover Articles
+              </h2>
+              <div className="text-sm text-gray-400">
+                Found {currentBlogs.length} of {sortedBlogs.length} articles
               </div>
             </div>
 
-            {/* Category Pills - Left Aligned */}
-            <div className="flex flex-wrap gap-1.5 xxs:gap-2 justify-start">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => {
-                    setSelectedCategory(category.name);
-                    setCurrentPage(1);
-                  }}
-                  className={`px-2.5 xxs:px-3 py-1.5 xxs:py-2 rounded mobile-text-xs xxs:mobile-text-sm font-medium transition-all duration-300 mobile-optimized-blur border touch-target ${
-                    selectedCategory === category.name
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-transparent shadow-lg'
-                      : 'bg-white/5 text-gray-300 border-white/10 hover:border-purple-500/30 hover:text-purple-300'
-                  }`}
-                >
-                  {category.name === 'All' ? 'All' : category.name.split(' ')[0]} 
-                  {category.name !== 'All' && ` (${category.count})`}
-                </button>
-              ))}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Enhanced Search Bar */}
+              <div className="lg:col-span-8">
+                <label className="block text-sm font-medium text-gray-300 mb-3">Search Articles</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search by title, content, or tags..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full px-5 py-4 pl-12 pr-5 bg-gradient-to-r from-white/5 to-white/[0.02] border border-white/15 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 backdrop-blur-sm transition-all duration-300 text-base"
+                  />
+                  <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  {searchQuery && (
+                    <button
+                      onClick={() => {
+                        setSearchQuery('');
+                        setCurrentPage(1);
+                      }}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Enhanced Sort Dropdown */}
+              <div className="lg:col-span-4">
+                <label className="block text-sm font-medium text-gray-300 mb-3">Sort By</label>
+                <div className="relative">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full px-5 py-4 bg-gradient-to-r from-white/5 to-white/[0.02] border border-white/15 rounded-xl text-white focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 backdrop-blur-sm transition-all duration-300 appearance-none cursor-pointer text-base"
+                  >
+                    <option value="date" className="bg-gray-800">Latest First</option>
+                    <option value="views" className="bg-gray-800">Most Viewed</option>
+                    <option value="likes" className="bg-gray-800">Most Liked</option>
+                  </select>
+                  <svg className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
 
-            <div className="text-left mt-4 xxs:mt-6">
-              <p className="text-gray-400 text-xs xxs:text-sm">
-                Showing {currentBlogs.length} of {sortedBlogs.length} articles
-                {searchQuery && ` for "${searchQuery}"`}
-                {selectedCategory !== 'All' && ` in ${selectedCategory}`}
-              </p>
+            {/* Enhanced Category Pills */}
+            <div className="mt-8">
+              <label className="block text-sm font-medium text-gray-300 mb-4">Categories</label>
+              <div className="flex flex-wrap gap-3">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => {
+                      setSelectedCategory(category.name);
+                      setCurrentPage(1);
+                    }}
+                    className={`group relative inline-flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm backdrop-blur-sm border ${
+                      selectedCategory === category.name
+                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-transparent shadow-lg shadow-purple-500/25 scale-105'
+                        : 'bg-gradient-to-r from-white/5 to-white/[0.02] text-gray-300 border-white/15 hover:border-purple-500/30 hover:from-white/10 hover:to-white/[0.05] hover:text-purple-300 hover:scale-105'
+                    }`}
+                  >
+                    <span className="relative z-10">
+                      {category.name === 'All' ? 'All Articles' : category.name}
+                      {category.name !== 'All' && category.count && (
+                        <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                          selectedCategory === category.name
+                            ? 'bg-white/20 text-white'
+                            : 'bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20'
+                        }`}>
+                          {category.count}
+                        </span>
+                      )}
+                    </span>
+                    {selectedCategory !== category.name && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-blue-600/0 group-hover:from-purple-600/5 group-hover:to-blue-600/5 rounded-xl transition-all duration-300"></div>
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
+
+            {/* Search Results Summary */}
+            {(searchQuery || selectedCategory !== 'All') && (
+              <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-xl">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center text-sm">
+                    <svg className="w-4 h-4 text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-gray-300">
+                      Showing <span className="font-semibold text-white">{currentBlogs.length}</span> results
+                      {searchQuery && <span> for "<span className="text-purple-300 font-medium">{searchQuery}</span>"</span>}
+                      {selectedCategory !== 'All' && <span> in <span className="text-blue-300 font-medium">{selectedCategory}</span></span>}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory('All');
+                      setCurrentPage(1);
+                    }}
+                    className="text-xs text-purple-400 hover:text-purple-300 font-medium flex items-center transition-colors"
+                  >
+                    Clear filters
+                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
