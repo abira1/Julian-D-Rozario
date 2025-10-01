@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-// Mobile Card Component - Simplified and Modern
+// Mobile Card Component - Enhanced Modern Design
 const MobileBlogCard = ({ blog, index }) => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -18,61 +18,104 @@ const MobileBlogCard = ({ blog, index }) => {
   return (
     <article 
       onClick={handleCardClick}
-      className="group p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-purple-400/30 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+      className="group p-5 bg-gradient-to-br from-white/10 to-white/[0.04] backdrop-blur-md rounded-2xl border border-white/20 hover:border-purple-400/40 hover:from-white/15 hover:to-white/[0.07] transition-all duration-500 cursor-pointer shadow-lg hover:shadow-xl hover:shadow-purple-500/10 active:scale-[0.98]"
     >
       <div className="flex gap-4">
-        {/* Thumbnail */}
-        <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-800">
-          {imageLoaded ? (
-            <img 
-              src={blog.image_url || blog.image} 
-              alt={blog.title}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
-              <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+        {/* Enhanced Thumbnail */}
+        <div className="flex-shrink-0 relative">
+          <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-800 shadow-lg">
+            {imageLoaded ? (
+              <img 
+                src={blog.image_url || blog.image} 
+                alt={blog.title}
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+                loading="lazy"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-700 animate-pulse flex items-center justify-center">
+                <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
+            {/* Modern overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+          </div>
+          
+          {/* Status indicator */}
+          {blog.featured && (
+            <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+              <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
             </div>
           )}
         </div>
 
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          {/* Meta */}
+        {/* Enhanced Content */}
+        <div className="flex-1 min-w-0 flex flex-col">
+          {/* Meta Info */}
           <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
-            <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md font-medium">
+            <span className="inline-flex items-center px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md font-medium text-xs">
+              <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-1"></div>
               {blog.category}
             </span>
             <span>•</span>
-            <span>{blog.readTime || '5 min read'}</span>
+            <span className="font-medium">{blog.readTime || '5 min read'}</span>
           </div>
 
-          {/* Title */}
-          <h3 className="text-sm font-semibold text-white leading-tight mb-2 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300">
+          {/* Enhanced Title */}
+          <h3 className="text-base font-bold text-white leading-tight mb-2 line-clamp-2 group-hover:text-purple-200 transition-colors duration-300 font-display">
             {blog.title}
           </h3>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 text-xs text-gray-400">
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-                <span>{blog.views || 0}</span>
+          {/* Excerpt for longer mobile cards */}
+          <p className="text-sm text-gray-300 line-clamp-2 mb-3 flex-grow">
+            {blog.excerpt}
+          </p>
+
+          {/* Enhanced Footer */}
+          <div className="flex items-center justify-between mt-auto">
+            <div className="flex items-center gap-3">
+              {/* Author */}
+              <div className="flex items-center gap-1.5">
+                <div className="w-5 h-5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  J
+                </div>
+                <span className="text-xs text-gray-400 font-medium truncate max-w-16">{blog.author}</span>
               </div>
-              <span className="text-xs text-gray-500">•</span>
-              <span className="text-xs text-gray-400">
-                {new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-              </span>
+              
+              {/* Stats */}
+              <div className="flex items-center gap-3 text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <span>{blog.views || 0}</span>
+                </div>
+                <div className="flex items-center gap-1 text-red-400">
+                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                  </svg>
+                  <span>{blog.likes || 0}</span>
+                </div>
+              </div>
             </div>
             
             {/* Read More Arrow */}
-            <svg className="w-4 h-4 text-purple-400 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <div className="flex items-center text-purple-400">
+              <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Date */}
+          <div className="text-xs text-gray-500 mt-2 text-right">
+            {new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric',
+              year: 'numeric' 
+            })}
           </div>
         </div>
       </div>
