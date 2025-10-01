@@ -130,6 +130,9 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-black text-white relative">
+      {/* Reading Progress Bar */}
+      <ReadingProgress />
+      
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-48 h-48 xxs:w-64 xxs:h-64 xs:w-80 xs:h-80 sm-mobile:w-96 sm-mobile:h-96 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-full filter blur-3xl"></div>
