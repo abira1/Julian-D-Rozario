@@ -450,8 +450,8 @@ const BlogListing = () => {
               </div>
             </div>
 
-            {/* Category Pills - Mobile Optimized */}
-            <div className="flex flex-wrap gap-1.5 xxs:gap-2 justify-center">
+            {/* Category Pills - Left Aligned */}
+            <div className="flex flex-wrap gap-1.5 xxs:gap-2 justify-start">
               {categories.map((category) => (
                 <button
                   key={category.id}
@@ -471,7 +471,7 @@ const BlogListing = () => {
               ))}
             </div>
 
-            <div className="text-center mt-4 xxs:mt-6">
+            <div className="text-left mt-4 xxs:mt-6">
               <p className="text-gray-400 text-xs xxs:text-sm">
                 Showing {currentBlogs.length} of {sortedBlogs.length} articles
                 {searchQuery && ` for "${searchQuery}"`}
