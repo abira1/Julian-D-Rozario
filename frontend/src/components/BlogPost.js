@@ -6,6 +6,32 @@ import Footer from './Footer';
 import BlogComments from './blog/BlogComments';
 import BlogInteractions from './blog/BlogInteractions';
 
+// Reading Progress Component
+const ReadingProgress = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      setProgress(Math.min(scrollPercent, 100));
+    };
+
+    window.addEventListener('scroll', updateProgress);
+    return () => window.removeEventListener('scroll', updateProgress);
+  }, []);
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
+      <div 
+        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-150 ease-out"
+        style={{ width: `${progress}%` }}
+      />
+    </div>
+  );
+};
+
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
