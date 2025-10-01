@@ -1654,6 +1654,15 @@ def run_all_tests():
     test_results.append(("Firebase Auth Login (POST /api/auth/firebase-login)", test_firebase_auth_login()))
     test_results.append(("Admin Verify (GET /api/admin/verify)", test_admin_verify()))
     
+    # Professional Blog System Tests (PRIORITY)
+    print("\n🏢 PROFESSIONAL BLOG SYSTEM - PRIORITY TESTS")
+    print("-" * 40)
+    test_results.append(("Professional Blog Data & Content", test_professional_blog_data()))
+    test_results.append(("Blog Image Accessibility (Unsplash)", test_blog_image_accessibility()))
+    test_results.append(("Blog Categories Assignment", test_blog_categories_assignment()))
+    test_results.append(("Individual Blog Enhanced HTML", test_individual_blog_enhanced_html()))
+    test_results.append(("Admin Blog Management", test_admin_blog_management()))
+    
     # Blog System Public Endpoints
     print("\n📝 BLOG SYSTEM - PUBLIC ENDPOINTS")
     print("-" * 40)
