@@ -24,16 +24,16 @@ const BlogPost = () => {
     try {
       setIsLoading(true);
       
-      // Fetch the specific blog
-      const apiUrl = process.env.REACT_APP_API_BLOG || `${process.env.REACT_APP_BACKEND_URL}/api-blog.php`;
-      const response = await fetch(`${apiUrl}?id=${id}`);
+      // Fetch the specific blog - using working MySQL backend endpoint
+      const response = await fetch(`/api/blogs/${id}`);
+      console.log('BlogPost: Fetching blog from /api/blogs/' + id);
       if (response.ok) {
         const blogData = await response.json();
         setBlog(blogData);
         
         // Fetch related blogs (same category, excluding current)
-        const allBlogsApiUrl = process.env.REACT_APP_API_BLOGS || `${process.env.REACT_APP_BACKEND_URL}/api-blogs.php`;
-        const allBlogsResponse = await fetch(allBlogsApiUrl);
+        const allBlogsResponse = await fetch('/api/blogs');
+        console.log('BlogPost: Fetching related blogs from /api/blogs');
         if (allBlogsResponse.ok) {
           const allBlogs = await allBlogsResponse.json();
           const related = allBlogs

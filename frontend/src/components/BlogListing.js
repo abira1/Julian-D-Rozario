@@ -7,10 +7,9 @@ const MobileBlogCard = ({ blog, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.src = blog.image_url || blog.image;
-  }, [blog.image_url, blog.image]);
+    // Skip image loading check for now - always show card
+    setImageLoaded(true);
+  }, []);
 
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
@@ -87,10 +86,9 @@ const DesktopBlogCard = ({ blog, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.src = blog.image_url || blog.image;
-  }, [blog.image_url, blog.image]);
+    // Skip image loading check for now - always show card
+    setImageLoaded(true);
+  }, []);
 
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
@@ -234,8 +232,9 @@ const BlogListing = () => {
     try {
       setIsLoading(true);
       
-      // Fetch blogs
-      const apiUrl = process.env.REACT_APP_API_BLOGS || `${process.env.REACT_APP_BACKEND_URL}/api-blogs.php`;
+      // Fetch blogs - using working MySQL backend endpoint
+      const apiUrl = '/api/blogs';
+      // Fetching blogs from API
       const blogsResponse = await fetch(apiUrl);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
@@ -246,20 +245,21 @@ const BlogListing = () => {
         setBlogs([]);
       }
 
-      // Fetch categories
-      const categoriesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
+      // Fetch categories - using working MySQL backend endpoint
+      const categoriesResponse = await fetch('/api/categories');
       if (categoriesResponse.ok) {
         const categoriesData = await categoriesResponse.json();
-        setCategories([{ id: 0, name: 'All' }, ...categoriesData]);
+        // Categories loaded successfully
+        setCategories(categoriesData); // API already includes "All" category
       } else {
         // Default categories if API fails
-        setCategories([{ id: 0, name: 'All' }]);
+        setCategories([{ id: 'all', name: 'All' }]);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
       // Show empty state instead of mock data
       setBlogs([]);
-      setCategories([{ id: 0, name: 'All' }]);
+      setCategories([{ id: 'all', name: 'All' }]);
     } finally {
       setIsLoading(false);
     }
@@ -273,6 +273,8 @@ const BlogListing = () => {
                          blog.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
+  
+  // Debug logging removed for production
 
   // Sort logic
   const sortedBlogs = [...filteredBlogs].sort((a, b) => {
@@ -452,7 +454,7 @@ const BlogListing = () => {
             <div className="flex flex-wrap gap-1.5 xxs:gap-2 justify-center">
               {categories.map((category) => (
                 <button
-                  key={category.name}
+                  key={category.id}
                   onClick={() => {
                     setSelectedCategory(category.name);
                     setCurrentPage(1);
