@@ -395,21 +395,21 @@ const BlogListing = () => {
         </div>
       </nav>
 
-      {/* Hero Section - Mobile First */}
+      {/* Hero Section - Left Aligned */}
       <section className="relative pt-16 xxs:pt-18 xs:pt-20 sm-mobile:pt-24 pb-8 xxs:pb-12 xs:pb-16 px-3 xxs:px-4 xs:px-6">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-1/4 w-48 h-48 xxs:w-64 xxs:h-64 xs:w-80 xs:h-80 sm-mobile:w-96 sm-mobile:h-96 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-full filter blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 left-1/4 w-36 h-36 xxs:w-48 xxs:h-48 xs:w-60 xs:h-60 sm-mobile:w-72 sm-mobile:h-72 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
+        <div className="relative z-10 max-w-7xl mx-auto text-left">
           <h1 className="hero-title-mobile font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
             All Articles
           </h1>
-          <p className="mobile-text-sm xxs:mobile-text-base text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-3xl mx-auto mb-4 xxs:mb-6 xs:mb-8 px-3 leading-relaxed">
+          <p className="mobile-text-sm xxs:mobile-text-base text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-3xl mb-4 xxs:mb-6 xs:mb-8 leading-relaxed">
             Comprehensive insights on business consulting, licensing strategies, and industry trends
           </p>
-          <div className="w-12 xxs:w-16 xs:w-20 h-0.5 xxs:h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
+          <div className="w-12 xxs:w-16 xs:w-20 h-0.5 xxs:h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
         </div>
       </section>
 
