@@ -153,60 +153,43 @@ const PremiumBlogPost = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Slim Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Brand */}
-            <Link to="/" className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <Link 
+              to="/" 
+              className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-200"
+              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
+            >
               Julian D'Rozario
             </Link>
             
-            {/* Utility Icons */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => navigate('/blog')}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+            {/* Navigation & Utility Icons */}
+            <div className="flex items-center space-x-2">
+              <Link 
+                to="/blog"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-300 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setShareMenuOpen(!shareMenuOpen)}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors relative"
-              >
-                <Share2 className="w-5 h-5" />
-                {shareMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-48 bg-charcoal-800 border border-white/20 rounded-lg shadow-xl py-2 z-50">
-                    <button
-                      onClick={() => handleShare('copy')}
-                      className="w-full px-4 py-2 text-left hover:bg-white/10 transition-colors"
-                    >
-                      Copy Link
-                    </button>
-                    <button
-                      onClick={() => handleShare('twitter')}
-                      className="w-full px-4 py-2 text-left hover:bg-white/10 transition-colors flex items-center gap-2"
-                    >
-                      <Twitter className="w-4 h-4" /> Twitter
-                    </button>
-                    <button
-                      onClick={() => handleShare('linkedin')}
-                      className="w-full px-4 py-2 text-left hover:bg-white/10 transition-colors flex items-center gap-2"
-                    >
-                      <Linkedin className="w-4 h-4" /> LinkedIn
-                    </button>
-                    <button
-                      onClick={() => handleShare('facebook')}
-                      className="w-full px-4 py-2 text-left hover:bg-white/10 transition-colors flex items-center gap-2"
-                    >
-                      <Facebook className="w-4 h-4" /> Facebook
-                    </button>
-                  </div>
-                )}
-              </button>
-              <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
-                <Bookmark className="w-5 h-5" />
-              </button>
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Back to Blog</span>
+              </Link>
+              
+              <div className="flex items-center space-x-1 ml-4">
+                <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                  <Menu className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={handleLike}
+                  className={`p-2 hover:bg-white/10 rounded-full transition-colors ${liked ? 'text-red-500' : 'text-gray-300'}`}
+                >
+                  <Heart className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
+                </button>
+                <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                  <Bookmark className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
