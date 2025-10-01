@@ -196,7 +196,7 @@ const PremiumBlogPost = () => {
       </header>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative h-[70vh] flex items-center justify-center overflow-hidden pt-16">
+      <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-16">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -210,53 +210,80 @@ const PremiumBlogPost = () => {
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Badges */}
-          <div className="animate-in mb-6 flex items-center space-x-3">
-            <span className="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-full">
+          <div className="animate-in mb-4 sm:mb-6 flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-purple-600 text-white text-xs sm:text-sm font-medium rounded-full">
               Company Formation
             </span>
-            <span className="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-full">
+            <span className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-orange-500 text-white text-xs sm:text-sm font-medium rounded-full">
               ⭐ Featured
             </span>
           </div>
 
           {/* Title */}
           <h1 
-            className="animate-in text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight max-w-4xl"
+            className="animate-in text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight max-w-4xl"
             style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
           >
             {blog.title}
           </h1>
 
           {/* Subtitle */}
-          <p className="animate-in text-xl text-gray-200 mb-8 max-w-3xl leading-relaxed">
+          <p className="animate-in text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8 max-w-3xl leading-relaxed">
             Understanding the key differences between Free Zone and Mainland company formation in Dubai and which option suits your business needs.
           </p>
 
-          {/* Author Info */}
-          <div className="animate-in flex items-center space-x-4 mb-8">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-              JR
-            </div>
-            <div>
-              <div className="flex items-center space-x-4 text-sm text-gray-300">
-                <span className="font-semibold text-white">Julian D'Rozario</span>
-                <span>Updated on 18, 2024</span>
-                <span>1 min read</span>
-                <span>2947 views</span>
+          {/* Author Info - Mobile Responsive */}
+          <div className="animate-in space-y-4 sm:space-y-0 mb-6 sm:mb-8">
+            {/* Mobile Layout */}
+            <div className="sm:hidden">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  JR
+                </div>
+                <div>
+                  <div className="text-white font-semibold text-sm">Julian D'Rozario</div>
+                  <div className="text-gray-400 text-xs">Updated on 18, 2024</div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-xs text-gray-400">
+                <div className="flex items-center space-x-3">
+                  <span>1 min read</span>
+                  <span>2947 views</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Twitter className="w-4 h-4 hover:text-white cursor-pointer transition-colors" />
+                  <Linkedin className="w-4 h-4 hover:text-white cursor-pointer transition-colors" />
+                  <Share2 className="w-4 h-4 hover:text-white cursor-pointer transition-colors" />
+                </div>
               </div>
             </div>
-            <div className="flex items-center space-x-4 ml-auto">
-              <Twitter className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Linkedin className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Facebook className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Share2 className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <div className="flex items-center space-x-1 text-gray-400">
-                <Heart className="w-4 h-4" />
-                <span className="text-sm">89 likes</span>
+
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center space-x-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                JR
               </div>
-              <div className="flex items-center space-x-1 text-gray-400">
-                <MessageCircle className="w-4 h-4" />
-                <span className="text-sm">3 comments</span>
+              <div>
+                <div className="flex items-center space-x-4 text-sm text-gray-300">
+                  <span className="font-semibold text-white">Julian D'Rozario</span>
+                  <span>Updated on 18, 2024</span>
+                  <span>1 min read</span>
+                  <span>2947 views</span>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4 ml-auto">
+                <Twitter className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                <Linkedin className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                <Facebook className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                <Share2 className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                <div className="flex items-center space-x-1 text-gray-400">
+                  <Heart className="w-4 h-4" />
+                  <span className="text-sm">89 likes</span>
+                </div>
+                <div className="flex items-center space-x-1 text-gray-400">
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="text-sm">3 comments</span>
+                </div>
               </div>
             </div>
           </div>
