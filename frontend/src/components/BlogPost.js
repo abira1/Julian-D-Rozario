@@ -113,17 +113,17 @@ const BlogPost = () => {
       <Navigation />
 
       <main className="relative z-10">
-        {/* Hero Section - Enhanced Mobile First */}
+        {/* Hero Section - Left Aligned */}
         <section className="pt-12 xxs:pt-16 xs:pt-20 sm-mobile:pt-24 pb-6 xxs:pb-8 xs:pb-12 px-2 xxs:px-3 xs:px-4">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-left">
             <div className="mb-3 xxs:mb-4 xs:mb-6">
               <span className="inline-block px-2.5 xxs:px-3 xs:px-4 py-1 xxs:py-1.5 xs:py-2 bg-purple-600/20 text-purple-400 rounded-full text-xs xxs:text-sm font-medium mb-2 xxs:mb-3 xs:mb-4">
                 {blog.category}
               </span>
-              <h1 className="hero-title-mobile font-bold leading-tight" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              <h1 className="hero-title-mobile font-bold leading-tight text-left" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                 {blog.title}
               </h1>
-              <div className="flex items-center justify-center flex-wrap gap-1 xxs:gap-2 text-gray-400 text-xs xxs:text-sm mt-2 xxs:mt-3">
+              <div className="flex items-start flex-wrap gap-1 xxs:gap-2 text-gray-400 text-xs xxs:text-sm mt-2 xxs:mt-3">
                 <div className="flex items-center space-x-1 xxs:space-x-1.5">
                   <div className="w-5 h-5 xxs:w-6 xxs:h-6 xs:w-8 xs:h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold text-xs">
                     JD
@@ -137,14 +137,15 @@ const BlogPost = () => {
               </div>
             </div>
             
-            {/* Featured Image - Responsive */}
+            {/* Featured Image - Less Overlay */}
             <div className="relative mobile-card overflow-hidden shadow-2xl">
               <img
                 src={blog.image}
                 alt={blog.title}
                 className="w-full h-40 xxs:h-48 xs:h-56 sm-mobile:h-72 md-tablet:h-80 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              {/* Reduced overlay for better image visibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
           </div>
         </section>
