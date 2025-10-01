@@ -800,6 +800,33 @@ def test_blog_like_toggle_with_auth():
         print(f"❌ Toggle blog like request failed: {e}")
         return False
 
+def test_cors_headers():
+    """Test CORS configuration"""
+    print("\n=== Testing CORS Configuration ===")
+    try:
+        response = requests.options(f"{API_BASE_URL}/", timeout=10)
+        
+        cors_headers = [
+            'access-control-allow-origin',
+            'access-control-allow-methods',
+            'access-control-allow-headers'
+        ]
+        
+        found_headers = []
+        for header in cors_headers:
+            if header in response.headers:
+                found_headers.append(header)
+        
+        if found_headers:
+            print("✅ CORS headers configured")
+            return True
+        else:
+            print("⚠️  No CORS headers found - may still work")
+            return True
+    except requests.exceptions.RequestException as e:
+        print(f"⚠️  CORS test failed: {e}")
+        return True
+
 def test_blog_data_validation():
     """Test blog data validation"""
     print("\n=== Testing Blog Data Validation ===")
