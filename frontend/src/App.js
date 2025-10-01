@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import BlogSection from './components/BlogSectionDebug';
+import PremiumBlogSection from './components/PremiumBlogSection';
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
