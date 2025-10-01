@@ -13,10 +13,20 @@ from datetime import datetime
 import time
 import subprocess
 
-# Use local backend for testing instead of production URL
-BACKEND_URL = "http://localhost:8001"
+# Read backend URL from frontend .env file
+def get_backend_url():
+    try:
+        with open('/app/frontend/.env', 'r') as f:
+            for line in f:
+                if line.startswith('REACT_APP_BACKEND_URL='):
+                    return line.split('=', 1)[1].strip()
+    except:
+        pass
+    return "http://localhost:8001"  # fallback
+
+BACKEND_URL = get_backend_url()
 API_BASE_URL = f"{BACKEND_URL}/api"
-print(f"🔍 Testing local FastAPI backend at: {API_BASE_URL}")
+print(f"🔍 Testing backend at: {API_BASE_URL}")
 
 # Global variables for testing
 test_blog_id = None
