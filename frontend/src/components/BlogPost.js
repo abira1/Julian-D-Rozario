@@ -239,7 +239,7 @@ const BlogPost = () => {
                   <p className="text-gray-300 text-xs mt-1">Featured image for this article</p>
                 </div>
               </div>
-            </div></div>
+            </div>
           </div>
         </section>
 
