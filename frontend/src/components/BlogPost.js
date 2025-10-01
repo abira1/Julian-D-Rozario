@@ -225,7 +225,7 @@ const BlogPost = () => {
             {/* Enhanced Featured Image */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-12">
               <img
-                src={blog.image}
+                src={blog.image_url || blog.image}
                 alt={blog.title}
                 className="w-full h-64 xxs:h-80 xs:h-96 sm-mobile:h-[28rem] md-tablet:h-[32rem] lg:h-[36rem] object-cover"
               />
@@ -239,7 +239,7 @@ const BlogPost = () => {
                   <p className="text-gray-300 text-xs mt-1">Featured image for this article</p>
                 </div>
               </div>
-            </div>
+            </div></div>
           </div>
         </section>
 
