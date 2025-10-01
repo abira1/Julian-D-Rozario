@@ -113,39 +113,103 @@ const BlogPost = () => {
       <Navigation />
 
       <main className="relative z-10">
-        {/* Hero Section - Left Aligned */}
-        <section className="pt-12 xxs:pt-16 xs:pt-20 sm-mobile:pt-24 pb-6 xxs:pb-8 xs:pb-12 px-2 xxs:px-3 xs:px-4">
-          <div className="max-w-4xl mx-auto text-left">
-            <div className="mb-3 xxs:mb-4 xs:mb-6">
-              <span className="inline-block px-2.5 xxs:px-3 xs:px-4 py-1 xxs:py-1.5 xs:py-2 bg-purple-600/20 text-purple-400 rounded-full text-xs xxs:text-sm font-medium mb-2 xxs:mb-3 xs:mb-4">
-                {blog.category}
-              </span>
-              <h1 className="hero-title-mobile font-bold leading-tight text-left" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+        {/* Enhanced Hero Section - Better Reading Experience */}
+        <section className="pt-12 xxs:pt-16 xs:pt-20 sm-mobile:pt-24 pb-8 xxs:pb-12 xs:pb-16 px-3 xxs:px-4 xs:px-6">
+          <div className="max-w-5xl mx-auto">
+            {/* Breadcrumb Navigation */}
+            <nav className="flex items-center text-sm text-gray-400 mb-6">
+              <a href="/" className="hover:text-purple-400 transition-colors">Home</a>
+              <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              <a href="/blog" className="hover:text-purple-400 transition-colors">Blog</a>
+              <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              <span className="text-purple-400 truncate max-w-32">{blog.title}</span>
+            </nav>
+
+            <div className="text-left">
+              {/* Category Badge */}
+              <div className="mb-6">
+                <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 text-purple-300 rounded-full text-sm font-medium backdrop-blur-sm">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
+                  {blog.category}
+                </span>
+              </div>
+
+              {/* Enhanced Title */}
+              <h1 className="text-3xl xxs:text-4xl xs:text-5xl sm-mobile:text-6xl font-bold leading-tight mb-6 bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                 {blog.title}
               </h1>
-              <div className="flex items-start flex-wrap gap-1 xxs:gap-2 text-gray-400 text-xs xxs:text-sm mt-2 xxs:mt-3">
-                <div className="flex items-center space-x-1 xxs:space-x-1.5">
-                  <div className="w-5 h-5 xxs:w-6 xxs:h-6 xs:w-8 xs:h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold text-xs">
-                    JD
+
+              {/* Enhanced Excerpt */}
+              <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-3xl">
+                {blog.excerpt}
+              </p>
+
+              {/* Enhanced Author & Meta Info */}
+              <div className="flex items-center justify-between flex-wrap gap-4 mb-8 p-6 bg-gradient-to-r from-white/8 to-white/[0.03] backdrop-blur-xl border border-white/15 rounded-2xl">
+                <div className="flex items-center space-x-4">
+                  <div className="relative">
+                    <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      JD
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-gray-900"></div>
                   </div>
-                  <span className="truncate max-w-16 xxs:max-w-20 xs:max-w-none">{blog.author}</span>
+                  <div>
+                    <h3 className="text-white font-semibold text-lg">{blog.author}</h3>
+                    <p className="text-gray-400 text-sm">Business Relations Manager & Company Formation Specialist</p>
+                    <p className="text-gray-500 text-xs">10+ years experience • 3200+ licenses incorporated</p>
+                  </div>
                 </div>
-                <span className="text-gray-600">•</span>
-                <span className="truncate">{blog.date}</span>
-                <span className="hidden xs:inline text-gray-600">•</span>
-                <span className="hidden xs:inline">{blog.readTime}</span>
+                
+                <div className="flex items-center space-x-6 text-sm">
+                  <div className="flex items-center space-x-2 text-gray-400">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>{new Date(blog.created_at || blog.date).toLocaleDateString('en-US', { 
+                      month: 'long', 
+                      day: 'numeric', 
+                      year: 'numeric' 
+                    })}</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-gray-400">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                    <span>{blog.readTime || '5 min read'}</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-gray-400">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <span>{blog.views || 0} views</span>
+                  </div>
+                </div>
               </div>
             </div>
             
-            {/* Featured Image - Less Overlay */}
-            <div className="relative mobile-card overflow-hidden shadow-2xl">
+            {/* Enhanced Featured Image */}
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-12">
               <img
                 src={blog.image}
                 alt={blog.title}
-                className="w-full h-40 xxs:h-48 xs:h-56 sm-mobile:h-72 md-tablet:h-80 object-cover"
+                className="w-full h-64 xxs:h-80 xs:h-96 sm-mobile:h-[28rem] md-tablet:h-[32rem] lg:h-[36rem] object-cover"
               />
-              {/* Reduced overlay for better image visibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              {/* Minimal overlay for better image visibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+              
+              {/* Image Caption */}
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-black/70 backdrop-blur-md rounded-lg p-3">
+                  <p className="text-white text-sm font-medium">{blog.title}</p>
+                  <p className="text-gray-300 text-xs mt-1">Featured image for this article</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
