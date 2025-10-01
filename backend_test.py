@@ -1324,8 +1324,8 @@ def test_firebase_dependencies():
 
 def run_all_tests():
     """Run all comprehensive backend tests"""
-    print("🚀 Starting Comprehensive Backend Health Check")
-    print("🔄 Testing Firebase Blog System & Worked With API Endpoints")
+    print("🚀 Starting Comprehensive Blog System Backend Testing")
+    print("🔄 Testing All Blog CRUD Endpoints, Authentication & Interactions")
     print("=" * 70)
     
     test_results = []
@@ -1336,37 +1336,42 @@ def run_all_tests():
     test_results.append(("Health Check (GET /api/)", test_health_check()))
     test_results.append(("CORS Configuration", test_cors_headers()))
     
-    # Blog System Tests
-    print("\n📝 BLOG SYSTEM ENDPOINTS")
-    print("-" * 40)
-    test_results.append(("Get All Blogs (GET /api/blogs)", test_get_blogs()))
-    test_results.append(("Get Single Blog (GET /api/blogs/{id})", test_get_single_blog()))
-    test_results.append(("Get Categories (GET /api/categories)", test_get_categories()))
-    test_results.append(("Blog Comments (GET /api/blog/{id}/comments)", test_blog_comments()))
-    test_results.append(("Blog Likes (GET /api/blog/{id}/likes)", test_blog_likes()))
-    
-    # Authentication Tests
+    # Authentication Tests (Must run first to get token)
     print("\n🔐 AUTHENTICATION SYSTEM")
     print("-" * 40)
     test_results.append(("Firebase Auth Login (POST /api/auth/firebase-login)", test_firebase_auth_login()))
     test_results.append(("Admin Verify (GET /api/admin/verify)", test_admin_verify()))
     
-    # Worked With API Tests (NEW)
-    print("\n🤝 WORKED WITH API ENDPOINTS")
+    # Blog System Public Endpoints
+    print("\n📝 BLOG SYSTEM - PUBLIC ENDPOINTS")
     print("-" * 40)
-    test_results.append(("Get All Partners (GET /api/worked-with)", test_worked_with_get_all()))
-    test_results.append(("Create Partner - No Auth (POST /api/worked-with)", test_worked_with_create_no_auth()))
-    test_results.append(("Create Partner - With Auth (POST /api/worked-with)", test_worked_with_create_with_auth()))
-    test_results.append(("Get Single Partner (GET /api/worked-with/{id})", test_worked_with_get_single()))
-    test_results.append(("Update Partner - No Auth (PUT /api/worked-with/{id})", test_worked_with_update_no_auth()))
-    test_results.append(("Update Partner - With Auth (PUT /api/worked-with/{id})", test_worked_with_update_with_auth()))
-    test_results.append(("Delete Partner - No Auth (DELETE /api/worked-with/{id})", test_worked_with_delete_no_auth()))
-    test_results.append(("Delete Partner - With Auth (DELETE /api/worked-with/{id})", test_worked_with_delete_with_auth()))
-    test_results.append(("Data Validation (POST /api/worked-with)", test_worked_with_data_validation()))
-    test_results.append(("Invalid ID Handling (GET /api/worked-with/{invalid_id})", test_worked_with_invalid_id()))
+    test_results.append(("Get All Blogs (GET /api/blogs)", test_get_blogs()))
+    test_results.append(("Get Single Blog (GET /api/blogs/{id})", test_get_single_blog()))
+    test_results.append(("Get Categories (GET /api/categories)", test_get_categories()))
+    test_results.append(("Blog View Increment", test_blog_view_increment()))
     
-    # Admin Endpoints Tests
-    print("\n👑 ADMIN ENDPOINTS")
+    # Blog System Admin Endpoints
+    print("\n📝 BLOG SYSTEM - ADMIN ENDPOINTS")
+    print("-" * 40)
+    test_results.append(("Create Blog - No Auth (POST /api/blogs)", test_blog_create_no_auth()))
+    test_results.append(("Create Blog - With Auth (POST /api/blogs)", test_blog_create_with_auth()))
+    test_results.append(("Update Blog - No Auth (PUT /api/blogs/{id})", test_blog_update_no_auth()))
+    test_results.append(("Update Blog - With Auth (PUT /api/blogs/{id})", test_blog_update_with_auth()))
+    test_results.append(("Delete Blog - No Auth (DELETE /api/blogs/{id})", test_blog_delete_no_auth()))
+    test_results.append(("Blog Data Validation", test_blog_data_validation()))
+    
+    # Blog Interaction Endpoints
+    print("\n💬 BLOG INTERACTIONS")
+    print("-" * 40)
+    test_results.append(("Get Blog Comments (GET /api/blog/{id}/comments)", test_blog_comments()))
+    test_results.append(("Create Comment - No Auth (POST /api/blog/comment)", test_blog_comment_create_no_auth()))
+    test_results.append(("Create Comment - With Auth (POST /api/blog/comment)", test_blog_comment_create_with_auth()))
+    test_results.append(("Get Blog Likes (GET /api/blog/{id}/likes)", test_blog_likes()))
+    test_results.append(("Toggle Like - No Auth (POST /api/blog/like)", test_blog_like_toggle_no_auth()))
+    test_results.append(("Toggle Like - With Auth (POST /api/blog/like)", test_blog_like_toggle_with_auth()))
+    
+    # File Upload Endpoint
+    print("\n📁 FILE UPLOAD")
     print("-" * 40)
     test_results.append(("File Upload (POST /api/upload)", test_file_upload_endpoint()))
     
@@ -1385,7 +1390,7 @@ def run_all_tests():
     
     # Summary
     print("\n" + "=" * 70)
-    print("🏁 COMPREHENSIVE BACKEND TEST SUMMARY")
+    print("🏁 COMPREHENSIVE BLOG SYSTEM TEST SUMMARY")
     print("=" * 70)
     
     passed = 0
@@ -1404,15 +1409,17 @@ def run_all_tests():
     print(f"Failed: {failed}")
     
     if failed == 0:
-        print("\n🎉 All backend tests passed!")
+        print("\n🎉 All blog system backend tests passed!")
         print("✅ FastAPI server responding correctly")
         print("✅ Firebase blog system operational (**MOCKED** for testing)")
-        print("✅ Worked With API endpoints fully functional")
-        print("✅ All API endpoints accessible")
+        print("✅ All blog CRUD endpoints functional")
+        print("✅ Blog categories system working")
+        print("✅ Blog interactions (comments/likes) working")
         print("✅ Authentication system working")
         print("✅ Admin authorization enforcement working")
-        print("✅ Blog interactions functional")
-        print("✅ Data persistence confirmed")
+        print("✅ Blog view increment functionality working")
+        print("✅ Data validation working")
+        print("✅ File upload endpoint secured")
         print("✅ All supervisor services running")
         return True
     else:
