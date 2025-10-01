@@ -384,50 +384,101 @@ const PremiumBlogPost = () => {
             </div>
           </div>
 
-            {/* Author Bio Card */}
-            <div className="content-section px-8 py-12 border-t border-white/10">
-              <div className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 border border-purple-500/20 rounded-2xl p-8">
-                <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                  <img 
-                    src="/api/placeholder/80/80"
-                    alt={blog.author}
-                    className="w-20 h-20 rounded-full border-2 border-purple-500/50"
-                  />
-                  <div className="flex-1">
-                    <h4 className="text-xl font-bold text-white mb-2">{blog.author}</h4>
-                    <p className="text-purple-400 font-medium mb-3">Business Relations Manager & Company Formation Specialist</p>
-                    <p className="text-gray-300 mb-4">
-                      Julian brings over 10 years of expertise in Dubai business formation, having facilitated 3200+ license incorporations 
-                      and built relationships with 100+ active channel partners across the UAE.
-                    </p>
-                    <Link 
-                      to="/contact"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full transition-all transform hover:scale-105"
-                    >
-                      Get In Touch
-                    </Link>
-                  </div>
+          {/* Author Bio */}
+          <div className="content-section mb-12 bg-gray-900/50 border border-gray-700 rounded-xl p-8">
+            <div className="flex items-start space-x-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                JR
+              </div>
+              <div className="flex-1">
+                <h4 className="text-xl font-bold text-white mb-2">Julian D Rozario</h4>
+                <p className="text-gray-300 mb-4">
+                  Business Consultant & Licensing Advisor with over 8 years of experience helping companies 
+                  achieve sustainable growth through strategic planning and innovative licensing solutions.
+                </p>
+                <Link 
+                  to="#"
+                  className="text-purple-400 hover:text-purple-300 transition-colors font-medium"
+                >
+                  Follow on LinkedIn →
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Comments Section */}
+          <div className="content-section">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-2xl font-bold text-white">Comments (3)</h3>
+              <button
+                onClick={() => setShowComments(!showComments)}
+                className="text-purple-400 hover:text-purple-300 transition-colors"
+              >
+                {showComments ? 'Hide Comments' : 'Show Comments'}
+              </button>
+            </div>
+
+            {/* Comment Form */}
+            <div className="mb-8">
+              <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-white mb-4">Join the Discussion</h4>
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Share your thoughts on this article..."
+                  className="w-full h-32 px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 resize-none"
+                />
+                <div className="flex justify-between items-center mt-4">
+                  <span className="text-gray-400 text-sm">
+                    {comment.length}/500 characters
+                  </span>
+                  <button className="flex items-center space-x-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors">
+                    <Send className="w-4 h-4" />
+                    <span>Post Comment</span>
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* Comments Preview */}
-            <div className="content-section px-8 py-12 border-t border-white/10">
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-2xl font-bold text-white">Discussion</h3>
-                <span className="text-gray-400">{blog.comments || 0} comments</span>
+            {showComments && (
+              <div className="space-y-6">
+                {/* Sample Comments */}
+                {[
+                  {
+                    author: "Sarah Mitchell",
+                    time: "2 hours ago",
+                    content: "Great insights on Dubai business formation! The comparison between Free Zone and Mainland is very helpful."
+                  },
+                  {
+                    author: "Ahmed Al-Rashid", 
+                    time: "4 hours ago",
+                    content: "As someone who's been through this process, I can confirm Julian's advice is spot-on. The strategic approach makes all the difference."
+                  },
+                  {
+                    author: "Lisa Chen",
+                    time: "6 hours ago", 
+                    content: "The implementation framework section is particularly valuable. Looking forward to applying these insights to our business expansion."
+                  }
+                ].map((commentItem, index) => (
+                  <div key={index} className="bg-gray-900/30 border border-gray-700 rounded-lg p-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        {commentItem.author.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3 mb-2">
+                          <span className="font-semibold text-white">{commentItem.author}</span>
+                          <span className="text-gray-400 text-sm">{commentItem.time}</span>
+                        </div>
+                        <p className="text-gray-300">{commentItem.content}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              
-              <div className="text-center py-12">
-                <MessageCircle className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-400 mb-6">Be the first to share your thoughts on this article</p>
-                <button className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full transition-colors">
-                  Join the Discussion
-                </button>
-              </div>
-            </div>
-
+            )}
           </div>
+
         </div>
       </section>
 
