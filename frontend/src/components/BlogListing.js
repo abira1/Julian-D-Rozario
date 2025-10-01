@@ -118,7 +118,8 @@ const DesktopBlogCard = ({ blog, index }) => {
             <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        {/* Reduced overlay for better image visibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
         
         {/* Badges */}
         <div className="absolute top-3 left-3">
