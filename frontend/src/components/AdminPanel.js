@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import AdminLogin from './admin/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
 import BlogManager from './admin/BlogManager';
+import EnhancedBlogManagerV2 from './admin/EnhancedBlogManagerV2';
 import ContactManager from './admin/ContactManager';
 import WorkedWithManager from './admin/WorkedWithManager';
 import AdminNavigation from './admin/AdminNavigation';
