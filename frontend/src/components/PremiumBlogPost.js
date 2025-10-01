@@ -13,7 +13,15 @@ import {
   Bookmark,
   Twitter,
   Linkedin,
-  Facebook
+  Facebook,
+  Menu,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  BarChart3,
+  MessageSquare,
+  Send,
+  Quote
 } from 'lucide-react';
 
 const PremiumBlogPost = () => {
