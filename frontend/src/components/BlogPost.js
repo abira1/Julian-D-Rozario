@@ -337,11 +337,11 @@ const BlogPost = () => {
           </div>
         </section>
 
-        {/* Related Posts - Mobile Optimized */}
+        {/* Related Posts - Left Aligned */}
         {relatedBlogs.length > 0 && (
           <section className="pb-12 xxs:pb-16 px-3 xxs:px-4 xs:px-6">
             <div className="max-w-7xl mx-auto">
-              <h2 className="text-xl xxs:text-2xl xs:text-3xl font-bold text-center mb-8 xxs:mb-12" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              <h2 className="text-xl xxs:text-2xl xs:text-3xl font-bold text-left mb-8 xxs:mb-12" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
                 Related Articles
               </h2>
               
