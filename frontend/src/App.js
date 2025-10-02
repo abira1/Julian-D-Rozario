@@ -98,9 +98,7 @@ const Home = () => {
   return (
     <>
       <ProfileLoadingScreen 
-        isLoading={isLoading} 
-        progress={progress}
-        showProgress={true}
+        isLoading={isLoading}
       />
       
       <PageTransition className="relative">
