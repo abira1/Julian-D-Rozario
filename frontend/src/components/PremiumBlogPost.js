@@ -106,6 +106,20 @@ const PremiumBlogPost = () => {
     }
   }, [isLoading]);
 
+  // Close share menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (shareMenuOpen && !event.target.closest('.share-dropdown')) {
+        setShareMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [shareMenuOpen]);
+
   const handleLike = () => {
     setLiked(!liked);
     setLikes(prev => liked ? prev - 1 : prev + 1);
