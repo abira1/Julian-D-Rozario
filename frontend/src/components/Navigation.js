@@ -28,18 +28,23 @@ const Navigation = () => {
     };
   }, [isMobileMenuOpen]);
 
-  // Simple scroll to section
-  const scrollToSection = (sectionId) => {
+  // Handle navigation - either scroll to section or navigate to route
+  const handleNavigation = (itemId) => {
     // Close mobile menu first
     setIsMobileMenuOpen(false);
     
-    // Simple delay then scroll
-    setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 300);
+    if (itemId === 'blog') {
+      // Navigate to blog page
+      navigate('/blog');
+    } else {
+      // Simple delay then scroll to section
+      setTimeout(() => {
+        const element = document.getElementById(itemId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    }
   };
 
   // Simple menu toggle
