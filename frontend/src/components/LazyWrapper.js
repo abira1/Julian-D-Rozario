@@ -28,21 +28,24 @@ export const LazyContactSection = createLazyComponent(
   () => import('./ContactSection'),
   <div className="py-20">
     <SkeletonLoader type="text" count={3} />
-  </div>
+  </div>,
+  'LazyContactSection'
 );
 
 export const LazyFooter = createLazyComponent(
   () => import('./Footer'),
   <div className="py-12">
     <SkeletonLoader type="text" count={2} />
-  </div>
+  </div>,
+  'LazyFooter'
 );
 
 export const LazyBlogSection = createLazyComponent(
   () => import('./PremiumBlogSection'),
   <div className="py-20">
     <SkeletonLoader type="blog-card" count={6} />
-  </div>
+  </div>,
+  'LazyBlogSection'
 );
 
 // Admin panel components - lazy loaded since they're not needed on initial page load
@@ -53,14 +56,16 @@ export const LazyAdminPanel = createLazyComponent(
       <LoadingSpinner size="large" color="purple" />
       <p className="text-gray-300">Loading Admin Panel...</p>
     </div>
-  </div>
+  </div>,
+  'LazyAdminPanel'
 );
 
 export const LazyBlogListing = createLazyComponent(
   () => import('./BlogListing'),
   <div className="py-20">
     <SkeletonLoader type="blog-card" count={8} />
-  </div>
+  </div>,
+  'LazyBlogListing'
 );
 
 export const LazyBlogPost = createLazyComponent(
@@ -72,14 +77,16 @@ export const LazyBlogPost = createLazyComponent(
         <SkeletonLoader type="text" count={10} />
       </div>
     </div>
-  </div>
+  </div>,
+  'LazyBlogPost'
 );
 
 export const LazyPremiumBlogListing = createLazyComponent(
   () => import('./PremiumBlogListing'),
   <div className="py-20">
     <SkeletonLoader type="blog-card" count={8} />
-  </div>
+  </div>,
+  'LazyPremiumBlogListing'
 );
 
 export const LazyPremiumBlogPost = createLazyComponent(
@@ -91,7 +98,8 @@ export const LazyPremiumBlogPost = createLazyComponent(
         <SkeletonLoader type="text" count={10} />
       </div>
     </div>
-  </div>
+  </div>,
+  'LazyPremiumBlogPost'
 );
 
 export default {
