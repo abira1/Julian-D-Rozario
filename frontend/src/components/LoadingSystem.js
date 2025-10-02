@@ -431,7 +431,7 @@ export const ProfileLoadingScreen = ({
       gsap.to(overlayRef.current, {
         opacity: 0,
         scale: 1.05,
-        duration: 1,
+        duration: 1.5,
         ease: "power2.inOut",
         onComplete: () => {
           gsap.set(overlayRef.current, { pointerEvents: 'none' });
