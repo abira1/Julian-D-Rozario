@@ -201,6 +201,34 @@ class WorkedWithUpdate(BaseModel):
     display_order: Optional[int] = None
     is_active: Optional[bool] = None
 
+# Contact Info models for managing contact information
+class ContactInfo(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    label: str  # e.g., "Email", "Phone", "LinkedIn"
+    value: str  # e.g., "julian@drozario.blog", "+971 55 386 8045"
+    contact_type: str  # e.g., "email", "phone", "linkedin", "whatsapp", "location", "website"
+    icon: str  # SVG icon name/identifier
+    display_order: int = Field(default=0)
+    is_visible: bool = Field(default=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class ContactInfoCreate(BaseModel):
+    label: str
+    value: str
+    contact_type: str
+    icon: str
+    display_order: Optional[int] = 0
+    is_visible: bool = Field(default=True)
+
+class ContactInfoUpdate(BaseModel):
+    label: Optional[str] = None
+    value: Optional[str] = None
+    contact_type: Optional[str] = None
+    icon: Optional[str] = None
+    display_order: Optional[int] = None
+    is_visible: Optional[bool] = None
+
 # Authentication helper functions
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
