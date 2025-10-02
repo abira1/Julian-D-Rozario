@@ -321,7 +321,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Worked With API Endpoints Implementation"
+    - "Contact Info API Endpoints Implementation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
