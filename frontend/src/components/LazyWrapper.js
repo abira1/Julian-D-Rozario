@@ -2,10 +2,10 @@ import React, { Suspense, lazy } from 'react';
 import { LoadingSpinner, SkeletonLoader } from './LoadingSystem';
 
 // Lazy load components with enhanced error boundaries and loading states
-export const createLazyComponent = (importFunc, fallback = null) => {
+export const createLazyComponent = (importFunc, fallback = null, displayName = 'LazyComponent') => {
   const LazyComponent = lazy(importFunc);
   
-  return (props) => (
+  const WrappedComponent = (props) => (
     <Suspense 
       fallback={
         fallback || (
@@ -18,6 +18,9 @@ export const createLazyComponent = (importFunc, fallback = null) => {
       <LazyComponent {...props} />
     </Suspense>
   );
+  
+  WrappedComponent.displayName = displayName;
+  return WrappedComponent;
 };
 
 // Lazy components for better initial page load performance
