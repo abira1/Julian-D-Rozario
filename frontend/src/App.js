@@ -34,7 +34,7 @@ const Home = () => {
   const { progress, isComplete } = ResourcePreloader({ 
     resources: criticalResources,
     onComplete: () => {
-      setTimeout(() => setIsLoading(false), 1800); // Optimal duration for smooth user experience
+      setTimeout(() => setIsLoading(false), 3500); // Slower loading for better profile showcase
     }
   });
 
