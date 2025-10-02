@@ -548,10 +548,9 @@ const BlogListing = () => {
         </div>
       </section>
 
-      {/* Enhanced Search and Filter Section */}
+      {/* Clean Search and Filter Section */}
       <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border border-white/15 rounded-2xl p-6 xxs:p-8 shadow-2xl">
             {/* Section Header */}
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white flex items-center">
