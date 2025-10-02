@@ -144,27 +144,29 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Information - Enhanced */}
+          {/* Connect Section - LinkedIn Only */}
           <div className="space-y-8">
             <h4 className="text-xl font-bold text-white relative">
-              Get In Touch
+              Connect & Follow
               <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></span>
             </h4>
             <div className="space-y-6">
-              <div className="group flex items-start gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/5 hover:border-purple-500/20">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-medium">Email</p>
-                  <p className="text-gray-300 text-sm">{contactData.email}</p>
-                </div>
-              </div>
+              <p className="text-gray-300 leading-relaxed">
+                Follow my professional journey and connect with me on LinkedIn for insights on Dubai business formation and corporate services.
+              </p>
               
-              {/* Availability section removed per user request */}
+              {/* LinkedIn CTA Button */}
+              <a
+                href={contactData.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl text-white font-semibold text-sm hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z"/>
+                </svg>
+                Follow on LinkedIn
+              </a>
             </div>
           </div>
         </div>
