@@ -130,11 +130,11 @@ function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<PremiumBlogListing />} />
-            <Route path="/blog/:id" element={<PremiumBlogPost />} />
-            <Route path="/blog-old" element={<BlogListing />} />
-            <Route path="/blog-old/:id" element={<BlogPost />} />
-            <Route path="/julian_portfolio/*" element={<AdminPanel />} />
+            <Route path="/blog" element={<LazyPremiumBlogListing />} />
+            <Route path="/blog/:id" element={<LazyPremiumBlogPost />} />
+            <Route path="/blog-old" element={<LazyBlogListing />} />
+            <Route path="/blog-old/:id" element={<LazyBlogPost />} />
+            <Route path="/julian_portfolio/*" element={<LazyAdminPanel />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
