@@ -1703,6 +1703,21 @@ def run_all_tests():
     test_results.append(("Create Status Check (POST /api/status)", success))
     test_results.append(("Get Status Checks (GET /api/status)", test_get_status_checks()))
     
+    # Contact Info API Tests - NEW TESTS FOR REVIEW REQUEST
+    print("\n📞 CONTACT INFO API ENDPOINTS - NEW FEATURE TESTING")
+    print("-" * 40)
+    test_results.append(("Get All Contact Info (GET /api/contact-info)", test_contact_info_get_all()))
+    test_results.append(("Get Single Contact Info (GET /api/contact-info/{id})", test_contact_info_get_single()))
+    test_results.append(("Create Contact Info - No Auth (POST /api/contact-info)", test_contact_info_create_no_auth()))
+    test_results.append(("Create Contact Info - With Auth (POST /api/contact-info)", test_contact_info_create_with_auth()))
+    test_results.append(("Update Contact Info - No Auth (PUT /api/contact-info/{id})", test_contact_info_update_no_auth()))
+    test_results.append(("Update Contact Info - With Auth (PUT /api/contact-info/{id})", test_contact_info_update_with_auth()))
+    test_results.append(("Delete Contact Info - No Auth (DELETE /api/contact-info/{id})", test_contact_info_delete_no_auth()))
+    test_results.append(("Delete Contact Info - With Auth (DELETE /api/contact-info/{id})", test_contact_info_delete_with_auth()))
+    test_results.append(("Contact Info Data Validation", test_contact_info_data_validation()))
+    test_results.append(("Contact Info Invalid ID Handling", test_contact_info_invalid_id()))
+    test_results.append(("Contact Info Display Ordering", test_contact_info_ordering()))
+
     # System Tests
     print("\n⚙️  SYSTEM CONFIGURATION")
     print("-" * 40)
