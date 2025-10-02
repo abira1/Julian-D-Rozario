@@ -138,18 +138,20 @@ const PremiumBlogListing = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Slim Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+      {/* Blog Search & Filter Bar */}
+      <div className="fixed top-16 lg:top-18 left-0 right-0 z-40 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <button
-              onClick={() => navigate('/')}
-              className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
-            >
-              Julian D'Rozario
-            </button>
-            
+          <div className="flex items-center justify-between h-14 lg:h-16">
             <div className="flex items-center space-x-4">
+              <h1 className="text-lg lg:text-xl font-semibold text-white">
+                Articles & Insights
+              </h1>
+              <span className="text-sm text-gray-400 hidden sm:block">
+                {filteredBlogs.length} articles
+              </span>
+            </div>
+            
+            <div className="flex items-center space-x-2 lg:space-x-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
@@ -157,20 +159,21 @@ const PremiumBlogListing = () => {
                   value={searchQuery}
                   onChange={handleSearch}
                   placeholder="Search articles..."
-                  className="pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-full text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/15 transition-all w-64"
+                  className="pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-full text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/15 transition-all w-48 lg:w-64"
                 />
               </div>
               
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                title="Filter articles"
               >
-                <Filter className="w-5 h-5" />
+                <Filter className="w-4 h-4 lg:w-5 lg:h-5" />
               </button>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Filter Panel */}
       {showFilters && (
