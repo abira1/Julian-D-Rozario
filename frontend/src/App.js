@@ -23,11 +23,35 @@ import {
 } from "./components/LazyWrapper";
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  // Critical resources to preload for faster initial page load
+  const criticalResources = [
+    { type: 'font', src: 'https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@300;400;600;700&display=swap' },
+    // Add more critical resources as needed
+  ];
+
+  const { progress, isComplete } = ResourcePreloader({ 
+    resources: criticalResources,
+    onComplete: () => {
+      setTimeout(() => setIsLoading(false), 300); // Small delay for smooth transition
+    }
+  });
+
   useEffect(() => {
-    // Smooth scroll behavior
+    setLoadingProgress(progress);
+  }, [progress]);
+
+  useEffect(() => {
+    // Enhanced smooth scroll behavior with better easing
     document.documentElement.style.scrollBehavior = 'smooth';
+    document.documentElement.style.scrollPaddingTop = '80px'; // Account for navigation
     
-    // Custom cursor effect
+    // Optimize page performance
+    document.documentElement.style.setProperty('--scroll-behavior', 'smooth');
+    
+    // Custom cursor effect with performance optimizations
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     cursor.style.cssText = `
@@ -40,12 +64,17 @@ const Home = () => {
       z-index: 9999;
       mix-blend-mode: difference;
       transition: transform 0.1s ease;
+      will-change: transform;
     `;
     document.body.appendChild(cursor);
 
+    let rafId;
     const handleMouseMove = (e) => {
-      cursor.style.left = e.clientX - 10 + 'px';
-      cursor.style.top = e.clientY - 10 + 'px';
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX - 10 + 'px';
+        cursor.style.top = e.clientY - 10 + 'px';
+      });
     };
 
     const handleMouseDown = () => {
@@ -56,7 +85,7 @@ const Home = () => {
       cursor.style.transform = 'scale(1)';
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
 
@@ -64,6 +93,7 @@ const Home = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
+      if (rafId) cancelAnimationFrame(rafId);
       if (cursor.parentNode) {
         cursor.parentNode.removeChild(cursor);
       }
@@ -71,15 +101,24 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative">
-      <main>
-        <HeroSection />
-        <PremiumBlogSection />
-        <AboutSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <LoadingScreen 
+        isLoading={isLoading} 
+        progress={loadingProgress}
+        message="Loading Julian D'Rozario Portfolio"
+        showProgress={true}
+      />
+      
+      <PageTransition className="relative">
+        <main>
+          <HeroSection />
+          <LazyBlogSection />
+          <AboutSection />
+          <LazyContactSection />
+        </main>
+        <LazyFooter />
+      </PageTransition>
+    </>
   );
 };
 
