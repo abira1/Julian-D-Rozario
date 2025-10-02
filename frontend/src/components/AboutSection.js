@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { aboutData } from '../data/mockData';
+import { SectionTransition } from './LoadingSystem';
 
 gsap.registerPlugin(ScrollTrigger);
 
