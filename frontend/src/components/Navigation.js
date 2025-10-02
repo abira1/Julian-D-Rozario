@@ -91,7 +91,7 @@ const Navigation = () => {
               </button>
             ))}
             <button
-              onClick={() => scrollToSection('contact')}
+              onClick={() => handleNavigation('contact')}
               className="px-4 py-2 xl:px-6 xl:py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white font-medium text-sm xl:text-base hover:scale-105 transition-transform duration-200"
             >
               Let's Talk
@@ -133,7 +133,7 @@ const Navigation = () => {
               
               <div className="px-6 pt-4">
                 <button
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => handleNavigation('contact')}
                   className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-white font-semibold text-lg hover:from-purple-700 hover:to-blue-700 transition-colors duration-200"
                   style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
                 >
