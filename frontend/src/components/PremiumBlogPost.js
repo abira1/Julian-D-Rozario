@@ -197,17 +197,17 @@ const PremiumBlogPost = () => {
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back Navigation - Integrated */}
-          <div className="animate-in mb-6 sm:mb-8">
+          {/* Back Navigation - Mobile Optimized */}
+          <div className="animate-in mb-4 sm:mb-6 md:mb-8">
             <Link 
               to="/blog"
-              className="inline-flex items-center space-x-3 text-gray-300 hover:text-white transition-all duration-200 hover:translate-x-1 mb-6"
+              className="inline-flex items-center space-x-2 sm:space-x-3 text-gray-300 hover:text-white transition-all duration-200 hover:translate-x-1"
               title="Back to Articles"
             >
-              <div className="w-10 h-10 border border-white/20 hover:border-white/40 rounded-xl flex items-center justify-center transition-all duration-200 backdrop-blur-sm bg-white/5">
-                <ArrowLeft className="w-5 h-5" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 border border-white/20 hover:border-white/40 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 backdrop-blur-sm bg-white/5">
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <span className="text-base font-medium">Back to Articles</span>
+              <span className="hidden sm:inline text-sm sm:text-base font-medium">Back to Articles</span>
             </Link>
           </div>
 
