@@ -82,7 +82,7 @@ const AdminPanel = () => {
           <Route path="/blogs/:action/:id?" element={<EnhancedBlogManagerV2 />} />
           <Route path="/blogs-old" element={<BlogManager />} />
           <Route path="/contact" element={<ContactManager />} />
-          <Route path="/worked-with" element={<WorkedWithManager />} />
+          {/* WorkedWith route removed as requested */}
           <Route path="*" element={<Navigate to="/julian_portfolio/dashboard" replace />} />
         </Routes>
       </div>
