@@ -24,7 +24,7 @@ const ModernAdminDashboard = () => {
     totalViews: 0,
     totalLikes: 0,
     totalComments: 0,
-    totalWorkedWith: 0
+    // totalWorkedWith removed as requested
   });
   
   const [recentPosts, setRecentPosts] = useState([]);
