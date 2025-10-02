@@ -622,37 +622,29 @@ const BlogListing = () => {
               ))}
             </div>
 
-            {/* Search Results Summary */}
+            {/* Clean Results Summary */}
             {(searchQuery || selectedCategory !== 'All') && (
-              <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-xl">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center text-sm">
-                    <svg className="w-4 h-4 text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="text-gray-300">
-                      Showing <span className="font-semibold text-white">{currentBlogs.length}</span> results
-                      {searchQuery && <span> for "<span className="text-purple-300 font-medium">{searchQuery}</span>"</span>}
-                      {selectedCategory !== 'All' && <span> in <span className="text-blue-300 font-medium">{selectedCategory}</span></span>}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setSearchQuery('');
-                      setSelectedCategory('All');
-                      setCurrentPage(1);
-                    }}
-                    className="text-xs text-purple-400 hover:text-purple-300 font-medium flex items-center transition-colors"
-                  >
-                    Clear filters
-                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+              <div className="mt-6 text-center">
+                <div className="text-sm text-gray-400">
+                  Showing <span className="font-semibold text-white">{currentBlogs.length}</span> results
+                  {searchQuery && <span> for "<span className="text-purple-300 font-medium">{searchQuery}</span>"</span>}
+                  {selectedCategory !== 'All' && <span> in <span className="text-blue-300 font-medium">{selectedCategory}</span></span>}
                 </div>
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('All');
+                    setCurrentPage(1);
+                  }}
+                  className="mt-2 text-xs text-purple-400 hover:text-purple-300 font-medium flex items-center mx-auto transition-colors"
+                >
+                  Clear filters
+                  <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
             )}
-          </div>
         </div>
       </section>
 
