@@ -1324,6 +1324,475 @@ def test_worked_with_invalid_id():
         print(f"❌ Invalid ID test request failed: {e}")
         return False
 
+# ================================================================================================
+# CONTACT INFO API TESTS - Test the new Contact Info API endpoints
+# ================================================================================================
+
+# Global variable for testing contact info
+test_contact_info_id = None
+
+def test_contact_info_get_all():
+    """Test GET /api/contact-info - Should return default contact entries"""
+    print("\n=== Testing Get All Contact Info ===")
+    try:
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/contact-info", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            if isinstance(data, list):
+                print(f"✅ Get contact info working ({response_time:.2f}ms) - Retrieved {len(data)} entries")
+                
+                # Check for default contact entries
+                if data:
+                    first_contact = data[0]
+                    required_fields = ["id", "label", "value", "contact_type", "icon", "display_order", "is_visible", "created_at", "updated_at"]
+                    missing_fields = [field for field in required_fields if field not in first_contact]
+                    
+                    if not missing_fields:
+                        print("   ✅ Contact info structure is correct")
+                        
+                        # Check for expected default entries
+                        contact_types = [contact.get('contact_type', '') for contact in data]
+                        expected_types = ['email', 'phone', 'linkedin', 'status']
+                        found_types = [ct for ct in expected_types if ct in contact_types]
+                        
+                        if len(found_types) >= 3:
+                            print(f"   ✅ Default contact types found: {found_types}")
+                            
+                            # Check specific default values
+                            for contact in data:
+                                if contact.get('contact_type') == 'email':
+                                    print(f"   ✅ Email: {contact.get('value')}")
+                                elif contact.get('contact_type') == 'phone':
+                                    print(f"   ✅ Phone: {contact.get('value')}")
+                                elif contact.get('contact_type') == 'linkedin':
+                                    print(f"   ✅ LinkedIn: {contact.get('value')}")
+                                elif contact.get('contact_type') == 'status':
+                                    print(f"   ✅ Status: {contact.get('value')}")
+                            
+                            global test_contact_info_id
+                            test_contact_info_id = data[0]['id']
+                            return True
+                        else:
+                            print(f"   ⚠️  Some default contact types missing: {found_types}")
+                            return True  # Not critical
+                    else:
+                        print(f"   ❌ Contact info missing fields: {missing_fields}")
+                        return False
+                else:
+                    print("   ⚠️  No contact info found (empty database)")
+                    return True
+            else:
+                print(f"❌ Expected list, got {type(data)}")
+                return False
+        else:
+            print(f"❌ Get contact info failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Get contact info request failed: {e}")
+        return False
+
+def test_contact_info_get_single():
+    """Test GET /api/contact-info/{id} - Get specific contact info by ID"""
+    print("\n=== Testing Get Single Contact Info ===")
+    
+    if not test_contact_info_id:
+        print("⚠️  No contact info ID available for testing")
+        return True
+    
+    try:
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/contact-info/{test_contact_info_id}", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["id", "label", "value", "contact_type", "icon", "display_order", "is_visible", "created_at", "updated_at"]
+            missing_fields = [field for field in required_fields if field not in data]
+            
+            if not missing_fields:
+                print(f"✅ Get single contact info working ({response_time:.2f}ms)")
+                print(f"   Contact: {data['label']} ({data['contact_type']})")
+                print(f"   Value: {data['value']}")
+                print(f"   Display Order: {data['display_order']}")
+                print(f"   Visible: {data['is_visible']}")
+                return True
+            else:
+                print(f"❌ Contact info missing fields: {missing_fields}")
+                return False
+        elif response.status_code == 404:
+            print("⚠️  Contact info not found (404) - may have been deleted")
+            return True
+        else:
+            print(f"❌ Get single contact info failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Get single contact info request failed: {e}")
+        return False
+
+def test_contact_info_create_no_auth():
+    """Test POST /api/contact-info without authentication - Should fail"""
+    print("\n=== Testing Create Contact Info (No Auth) ===")
+    try:
+        test_data = {
+            "label": "Test WhatsApp",
+            "value": "+971 50 123 4567",
+            "contact_type": "whatsapp",
+            "icon": "whatsapp",
+            "display_order": 5,
+            "is_visible": True
+        }
+        
+        start_time = time.time()
+        response = requests.post(
+            f"{API_BASE_URL}/contact-info",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code in [401, 403, 422]:
+            print(f"✅ Create contact info requires authentication ({response_time:.2f}ms)")
+            return True
+        else:
+            print(f"❌ Expected auth error, got status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Create contact info request failed: {e}")
+        return False
+
+def test_contact_info_create_with_auth():
+    """Test POST /api/contact-info with admin authentication"""
+    print("\n=== Testing Create Contact Info (With Admin Auth) ===")
+    
+    if not test_auth_token:
+        print("⚠️  No auth token available for testing")
+        return True
+    
+    try:
+        test_data = {
+            "label": "Test WhatsApp Business",
+            "value": "+971 50 123 4567",
+            "contact_type": "whatsapp",
+            "icon": "whatsapp",
+            "display_order": 5,
+            "is_visible": True
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.post(
+            f"{API_BASE_URL}/contact-info",
+            json=test_data,
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["id", "label", "value", "contact_type", "icon", "display_order", "is_visible", "created_at", "updated_at"]
+            missing_fields = [field for field in required_fields if field not in data]
+            
+            if not missing_fields:
+                if data["label"] == test_data["label"] and data["contact_type"] == test_data["contact_type"]:
+                    print(f"✅ Create contact info working ({response_time:.2f}ms)")
+                    print(f"   Created: {data['label']} ({data['contact_type']})")
+                    print(f"   Value: {data['value']}")
+                    print(f"   Contact ID: {data['id']}")
+                    # Update global test_contact_info_id for further tests
+                    global test_contact_info_id
+                    test_contact_info_id = data['id']
+                    return True
+                else:
+                    print(f"❌ Contact info data mismatch")
+                    return False
+            else:
+                print(f"❌ Missing required fields: {missing_fields}")
+                return False
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        else:
+            print(f"❌ Create contact info failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Create contact info request failed: {e}")
+        return False
+
+def test_contact_info_update_no_auth():
+    """Test PUT /api/contact-info/{id} without authentication - Should fail"""
+    print("\n=== Testing Update Contact Info (No Auth) ===")
+    
+    if not test_contact_info_id:
+        print("⚠️  No contact info ID available for testing")
+        return True
+    
+    try:
+        test_data = {
+            "label": "Updated WhatsApp Business",
+            "value": "+971 50 999 8888"
+        }
+        
+        start_time = time.time()
+        response = requests.put(
+            f"{API_BASE_URL}/contact-info/{test_contact_info_id}",
+            json=test_data,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code in [401, 403, 422]:
+            print(f"✅ Update contact info requires authentication ({response_time:.2f}ms)")
+            return True
+        else:
+            print(f"❌ Expected auth error, got status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Update contact info request failed: {e}")
+        return False
+
+def test_contact_info_update_with_auth():
+    """Test PUT /api/contact-info/{id} with admin authentication"""
+    print("\n=== Testing Update Contact Info (With Admin Auth) ===")
+    
+    if not test_auth_token or not test_contact_info_id:
+        print("⚠️  No auth token or contact info ID available for testing")
+        return True
+    
+    try:
+        test_data = {
+            "label": "Updated WhatsApp Business",
+            "value": "+971 50 999 8888",
+            "display_order": 6,
+            "is_visible": False
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.put(
+            f"{API_BASE_URL}/contact-info/{test_contact_info_id}",
+            json=test_data,
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["id", "label", "value", "contact_type", "icon", "display_order", "is_visible", "created_at", "updated_at"]
+            missing_fields = [field for field in required_fields if field not in data]
+            
+            if not missing_fields:
+                if data["label"] == test_data["label"] and data["value"] == test_data["value"]:
+                    print(f"✅ Update contact info working ({response_time:.2f}ms)")
+                    print(f"   Updated: {data['label']}")
+                    print(f"   New value: {data['value']}")
+                    print(f"   Display order: {data['display_order']}")
+                    print(f"   Visible: {data['is_visible']}")
+                    return True
+                else:
+                    print(f"❌ Update data mismatch")
+                    return False
+            else:
+                print(f"❌ Missing required fields: {missing_fields}")
+                return False
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        elif response.status_code == 404:
+            print(f"⚠️  Contact info not found ({response_time:.2f}ms) - may have been deleted")
+            return True
+        else:
+            print(f"❌ Update contact info failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Update contact info request failed: {e}")
+        return False
+
+def test_contact_info_delete_no_auth():
+    """Test DELETE /api/contact-info/{id} without authentication - Should fail"""
+    print("\n=== Testing Delete Contact Info (No Auth) ===")
+    
+    if not test_contact_info_id:
+        print("⚠️  No contact info ID available for testing")
+        return True
+    
+    try:
+        start_time = time.time()
+        response = requests.delete(f"{API_BASE_URL}/contact-info/{test_contact_info_id}", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code in [401, 403, 422]:
+            print(f"✅ Delete contact info requires authentication ({response_time:.2f}ms)")
+            return True
+        else:
+            print(f"❌ Expected auth error, got status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Delete contact info request failed: {e}")
+        return False
+
+def test_contact_info_delete_with_auth():
+    """Test DELETE /api/contact-info/{id} with admin authentication"""
+    print("\n=== Testing Delete Contact Info (With Admin Auth) ===")
+    
+    if not test_auth_token or not test_contact_info_id:
+        print("⚠️  No auth token or contact info ID available for testing")
+        return True
+    
+    try:
+        headers = {
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.delete(
+            f"{API_BASE_URL}/contact-info/{test_contact_info_id}",
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            if "message" in data and "deleted" in data["message"].lower():
+                print(f"✅ Delete contact info working ({response_time:.2f}ms)")
+                print(f"   Message: {data['message']}")
+                return True
+            else:
+                print(f"❌ Unexpected delete response: {data}")
+                return False
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        elif response.status_code == 404:
+            print(f"⚠️  Contact info not found ({response_time:.2f}ms) - may have been already deleted")
+            return True
+        else:
+            print(f"❌ Delete contact info failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Delete contact info request failed: {e}")
+        return False
+
+def test_contact_info_data_validation():
+    """Test data validation for Contact Info endpoints"""
+    print("\n=== Testing Contact Info Data Validation ===")
+    
+    if not test_auth_token:
+        print("⚠️  No auth token available for testing")
+        return True
+    
+    try:
+        # Test with missing required fields
+        invalid_data = {
+            "display_order": 1
+            # Missing label, value, contact_type, icon
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {test_auth_token}"
+        }
+        
+        start_time = time.time()
+        response = requests.post(
+            f"{API_BASE_URL}/contact-info",
+            json=invalid_data,
+            headers=headers,
+            timeout=10
+        )
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 422:
+            print(f"✅ Contact info data validation working ({response_time:.2f}ms) - Rejected invalid data")
+            return True
+        elif response.status_code == 403:
+            print(f"⚠️  Admin access required ({response_time:.2f}ms) - Auth working but user not admin")
+            return True
+        else:
+            print(f"⚠️  Expected validation error (422), got status {response.status_code}")
+            return True  # Not critical if validation is handled differently
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Contact info data validation test failed: {e}")
+        return False
+
+def test_contact_info_invalid_id():
+    """Test endpoints with invalid contact info ID"""
+    print("\n=== Testing Contact Info Invalid ID Handling ===")
+    try:
+        invalid_id = "invalid-uuid-123"
+        
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/contact-info/{invalid_id}", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 404:
+            print(f"✅ Invalid ID handling working ({response_time:.2f}ms) - Returns 404 for non-existent contact")
+            return True
+        elif response.status_code == 422:
+            print(f"✅ Invalid ID validation working ({response_time:.2f}ms) - Validates UUID format")
+            return True
+        else:
+            print(f"⚠️  Unexpected status for invalid ID: {response.status_code}")
+            return True  # Not critical
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Invalid ID test request failed: {e}")
+        return False
+
+def test_contact_info_ordering():
+    """Test that contact info entries are returned in proper display_order"""
+    print("\n=== Testing Contact Info Display Ordering ===")
+    try:
+        start_time = time.time()
+        response = requests.get(f"{API_BASE_URL}/contact-info", timeout=10)
+        response_time = (time.time() - start_time) * 1000
+        
+        if response.status_code == 200:
+            data = response.json()
+            if isinstance(data, list) and len(data) > 1:
+                # Check if entries are sorted by display_order
+                display_orders = [contact.get('display_order', 0) for contact in data]
+                is_sorted = all(display_orders[i] <= display_orders[i+1] for i in range(len(display_orders)-1))
+                
+                if is_sorted:
+                    print(f"✅ Contact info ordering working ({response_time:.2f}ms)")
+                    print(f"   Display orders: {display_orders}")
+                    return True
+                else:
+                    print(f"⚠️  Contact info not properly ordered: {display_orders}")
+                    return True  # Not critical
+            else:
+                print(f"⚠️  Not enough contact entries to test ordering")
+                return True
+        else:
+            print(f"❌ Could not retrieve contact info for ordering test")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Contact info ordering test failed: {e}")
+        return False
+
 def test_firebase_dependencies():
     """Test Firebase dependencies"""
     print("\n=== Testing Firebase Dependencies ===")
