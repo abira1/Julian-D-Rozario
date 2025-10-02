@@ -8,7 +8,7 @@ import AboutSection from "./components/AboutSection";
 // WorkedWithSection removed as requested
 
 // Import loading system components
-import { LoadingScreen, ResourcePreloader, PageTransition } from "./components/LoadingSystem";
+import { ProfileLoadingScreen, ResourcePreloader, PageTransition } from "./components/LoadingSystem";
 
 // Lazy load non-critical components for better performance
 import { 
