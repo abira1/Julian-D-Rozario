@@ -91,11 +91,12 @@ const AboutSection = () => {
   };
 
   return (
-    <section 
-      ref={sectionRef}
-      id="about" 
-      className="relative py-24 px-4 bg-gradient-to-br from-black via-slate-950/50 to-black overflow-hidden"
-    >
+    <SectionTransition>
+      <section 
+        ref={sectionRef}
+        id="about" 
+        className="relative py-24 px-4 bg-gradient-to-br from-black via-slate-950/50 to-black overflow-hidden"
+      >
       {/* Background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-full filter blur-3xl"></div>
