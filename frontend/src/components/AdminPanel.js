@@ -6,7 +6,7 @@ import AdminDashboard from './admin/AdminDashboard';
 import BlogManager from './admin/BlogManager';
 import EnhancedBlogManagerV2 from './admin/EnhancedBlogManagerV2';
 import ContactManager from './admin/ContactManager';
-import WorkedWithManager from './admin/WorkedWithManager';
+// WorkedWithManager removed as requested
 import AdminNavigation from './admin/AdminNavigation';
 
 const AdminPanel = () => {
