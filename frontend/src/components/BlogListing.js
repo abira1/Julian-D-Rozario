@@ -593,41 +593,33 @@ const BlogListing = () => {
               </div>
             </div>
 
-            {/* Enhanced Category Pills */}
-            <div className="mt-8">
-              <label className="block text-sm font-medium text-gray-300 mb-4">Categories</label>
-              <div className="flex flex-wrap gap-3">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => {
-                      setSelectedCategory(category.name);
-                      setCurrentPage(1);
-                    }}
-                    className={`group relative inline-flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm backdrop-blur-sm border ${
+            {/* Clean Category Pills */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => {
+                    setSelectedCategory(category.name);
+                    setCurrentPage(1);
+                  }}
+                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 text-sm ${
+                    selectedCategory === category.name
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
+                  }`}
+                >
+                  {category.name === 'All' ? 'All Articles' : category.name}
+                  {category.name !== 'All' && category.count && (
+                    <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                       selectedCategory === category.name
-                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white border-transparent shadow-lg shadow-purple-500/25 scale-105'
-                        : 'bg-gradient-to-r from-white/5 to-white/[0.02] text-gray-300 border-white/15 hover:border-purple-500/30 hover:from-white/10 hover:to-white/[0.05] hover:text-purple-300 hover:scale-105'
-                    }`}
-                  >
-                    <span className="relative z-10">
-                      {category.name === 'All' ? 'All Articles' : category.name}
-                      {category.name !== 'All' && category.count && (
-                        <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                          selectedCategory === category.name
-                            ? 'bg-white/20 text-white'
-                            : 'bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20'
-                        }`}>
-                          {category.count}
-                        </span>
-                      )}
+                        ? 'bg-white/20 text-white'
+                        : 'bg-purple-500/20 text-purple-300'
+                    }`}>
+                      {category.count}
                     </span>
-                    {selectedCategory !== category.name && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-blue-600/0 group-hover:from-purple-600/5 group-hover:to-blue-600/5 rounded-xl transition-all duration-300"></div>
-                    )}
-                  </button>
-                ))}
-              </div>
+                  )}
+                </button>
+              ))}
             </div>
 
             {/* Search Results Summary */}
