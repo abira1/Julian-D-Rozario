@@ -22,7 +22,9 @@ import {
   BarChart3,
   MessageSquare,
   Send,
-  Quote
+  Quote,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 
 const PremiumBlogPost = () => {
