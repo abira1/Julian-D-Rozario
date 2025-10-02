@@ -16,19 +16,32 @@ const ContactManager = () => {
     is_visible: true
   });
 
+  // Available contact types with corresponding icons
+  const contactTypes = [
+    { value: 'email', label: 'Email', icon: 'email' },
+    { value: 'phone', label: 'Phone', icon: 'phone' },
+    { value: 'linkedin', label: 'LinkedIn', icon: 'linkedin' },
+    { value: 'whatsapp', label: 'WhatsApp', icon: 'whatsapp' },
+    { value: 'website', label: 'Website', icon: 'website' },
+    { value: 'location', label: 'Location', icon: 'location' },
+    { value: 'status', label: 'Status', icon: 'status' },
+    { value: 'twitter', label: 'Twitter', icon: 'twitter' },
+    { value: 'instagram', label: 'Instagram', icon: 'instagram' }
+  ];
+
   useEffect(() => {
-    fetchContactInfo();
+    fetchContactEntries();
   }, []);
 
-  const fetchContactInfo = async () => {
+  const fetchContactEntries = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact-info`);
       if (response.ok) {
         const data = await response.json();
-        setContactInfo(data);
+        setContactEntries(data);
       }
     } catch (error) {
-      console.error('Error fetching contact info:', error);
+      console.error('Error fetching contact entries:', error);
       setMessage({ type: 'error', text: 'Failed to load contact information' });
     } finally {
       setIsLoading(false);
