@@ -84,7 +84,7 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => handleNavigation(item.id)}
                 className="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm xl:text-base px-2 py-1 rounded hover:bg-white/5"
               >
                 {item.name}
@@ -123,7 +123,7 @@ const Navigation = () => {
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleNavigation(item.id)}
                   className="block w-full text-left px-6 py-3 text-white text-lg font-medium hover:bg-white/10 transition-colors duration-200"
                   style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
                 >
