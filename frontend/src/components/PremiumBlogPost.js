@@ -167,47 +167,38 @@ const PremiumBlogPost = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/5">
+      {/* Blog Post Utility Bar */}
+      <div className="fixed top-16 lg:top-18 left-0 right-0 z-40 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Brand */}
-            <Link 
-              to="/" 
-              className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-200"
-              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
-            >
-              Julian D'Rozario
-            </Link>
-            
-            {/* Navigation & Utility Icons */}
-            <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-between h-14 lg:h-16">
+            {/* Navigation */}
+            <div className="flex items-center space-x-4">
               <Link 
                 to="/blog"
-                className="flex items-center space-x-2 px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                className="flex items-center space-x-2 px-3 py-2 text-gray-300 hover:text-white transition-colors hover:bg-white/10 rounded-lg"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Back to Blog</span>
+                <span className="hidden sm:inline font-medium">Back to Articles</span>
+                <span className="sm:hidden font-medium">Back</span>
               </Link>
-              
-              <div className="flex items-center space-x-1 ml-4">
-                <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
-                  <Menu className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={handleLike}
-                  className={`p-2 hover:bg-white/10 rounded-full transition-colors ${liked ? 'text-red-500' : 'text-gray-300'}`}
-                >
-                  <Heart className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
-                </button>
-                <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
-                  <Bookmark className="w-5 h-5" />
-                </button>
-              </div>
+            </div>
+            
+            {/* Utility Actions */}
+            <div className="flex items-center space-x-2">
+              <button 
+                onClick={shareArticle}
+                className="p-2 hover:bg-white/10 rounded-full transition-colors" 
+                title="Share article"
+              >
+                <Share2 className="w-4 h-4 lg:w-5 lg:h-5" />
+              </button>
+              <button className="p-2 hover:bg-white/10 rounded-full transition-colors" title="Reading mode">
+                <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
+              </button>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-16">
