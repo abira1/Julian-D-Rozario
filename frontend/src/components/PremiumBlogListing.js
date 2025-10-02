@@ -213,7 +213,7 @@ const PremiumBlogListing = () => {
       )}
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-black via-zinc-900 to-black">
+      <section className="pt-32 lg:pt-36 pb-16 bg-gradient-to-br from-black via-zinc-900 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={heroRef} className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
