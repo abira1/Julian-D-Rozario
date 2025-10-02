@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
 const ContactManager = () => {
-  const [contactInfo, setContactInfo] = useState({
-    email: '',
-    phone: '',
-    linkedin: '',
-    availability: ''
-  });
+  const [contactEntries, setContactEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [isAddingNew, setIsAddingNew] = useState(false);
+  const [editingEntry, setEditingEntry] = useState(null);
+  const [newEntry, setNewEntry] = useState({
+    label: '',
+    value: '',
+    contact_type: 'email',
+    icon: 'email',
+    display_order: 0,
+    is_visible: true
+  });
 
   useEffect(() => {
     fetchContactInfo();
