@@ -29,7 +29,7 @@ const Navigation = () => {
     };
   }, [isMobileMenuOpen]);
 
-  // Handle navigation - either scroll to section or navigate to route
+  // Handle navigation - smart routing and scrolling
   const handleNavigation = (itemId) => {
     // Close mobile menu first
     setIsMobileMenuOpen(false);
@@ -37,14 +37,29 @@ const Navigation = () => {
     if (itemId === 'blog') {
       // Navigate to blog page
       navigate('/blog');
+    } else if (itemId === 'hero') {
+      // Navigate to home page
+      navigate('/');
     } else {
-      // Simple delay then scroll to section
-      setTimeout(() => {
-        const element = document.getElementById(itemId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 300);
+      // For other sections (about, contact), check if we're on home page
+      if (location.pathname === '/') {
+        // We're on home page, just scroll to section
+        setTimeout(() => {
+          const element = document.getElementById(itemId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        // We're on a different page, navigate to home first then scroll
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(itemId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 300);
+      }
     }
   };
 
