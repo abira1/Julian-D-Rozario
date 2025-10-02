@@ -242,14 +242,14 @@ const PremiumBlogListing = () => {
                 >
                   <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
                     {/* Image */}
-                    <div className="aspect-w-16 aspect-h-9 bg-gray-800 overflow-hidden">
-                      <img 
+                    <div className="aspect-w-16 aspect-h-9 bg-gray-800 overflow-hidden relative">
+                      <BlurImage 
                         src={blog.image_url || blog.featured_image || '/api/placeholder/400/225'}
                         alt={blog.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-48 group-hover:scale-110 transition-transform duration-300"
                       />
                       {blog.featured && (
-                        <div className="absolute top-4 left-4 bg-purple-600/90 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
+                        <div className="absolute top-4 left-4 bg-purple-600/90 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm z-10">
                           Featured
                         </div>
                       )}
