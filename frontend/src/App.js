@@ -97,10 +97,9 @@ const Home = () => {
 
   return (
     <>
-      <LoadingScreen 
+      <ProfileLoadingScreen 
         isLoading={isLoading} 
-        progress={loadingProgress}
-        message="Loading Julian D'Rozario Portfolio"
+        progress={progress}
         showProgress={true}
       />
       
