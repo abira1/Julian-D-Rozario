@@ -65,7 +65,6 @@ const Home = () => {
 
   return (
     <div className="relative">
-      <Navigation />
       <main>
         <HeroSection />
         <PremiumBlogSection />
