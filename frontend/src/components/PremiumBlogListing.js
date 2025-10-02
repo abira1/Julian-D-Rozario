@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { gsap } from 'gsap';
+import BlurImage from './ui/BlurImage';
 import { 
   Search, 
   Filter, 
