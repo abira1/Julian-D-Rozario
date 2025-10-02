@@ -237,6 +237,7 @@ const PremiumBlogSection = () => {
                 <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
+            </SectionTransition>
           </>
         )}
       </div>
