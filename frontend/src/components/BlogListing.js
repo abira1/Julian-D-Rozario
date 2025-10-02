@@ -552,16 +552,13 @@ const BlogListing = () => {
       <section className="relative px-3 xxs:px-4 xs:px-6 mb-8 xxs:mb-12">
         <div className="max-w-7xl mx-auto">
             {/* Section Header */}
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-white flex items-center">
-                <svg className="w-5 h-5 text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-4">
                 Discover Articles
               </h2>
-              <div className="text-sm text-gray-400">
+              <p className="text-gray-400">
                 Found {currentBlogs.length} of {sortedBlogs.length} articles
-              </div>
+              </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
