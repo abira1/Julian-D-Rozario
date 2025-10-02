@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import PremiumBlogSection from './components/PremiumBlogSection';
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -7,13 +6,21 @@ import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 // WorkedWithSection removed as requested
-import ContactSection from "./components/ContactSection";
-import Footer from "./components/Footer";
-import BlogListing from "./components/BlogListing";
-import BlogPost from "./components/BlogPost";
-import PremiumBlogListing from "./components/PremiumBlogListing";
-import PremiumBlogPost from "./components/PremiumBlogPost";
-import AdminPanel from "./components/AdminPanel";
+
+// Import loading system components
+import { LoadingScreen, ResourcePreloader, PageTransition } from "./components/LoadingSystem";
+
+// Lazy load non-critical components for better performance
+import { 
+  LazyContactSection,
+  LazyFooter,
+  LazyBlogSection,
+  LazyAdminPanel,
+  LazyBlogListing,
+  LazyBlogPost,
+  LazyPremiumBlogListing,
+  LazyPremiumBlogPost
+} from "./components/LazyWrapper";
 
 const Home = () => {
   useEffect(() => {
