@@ -197,12 +197,7 @@ const ModernAdminDashboard = () => {
             value={stats.totalLikes}
             color="red"
           />
-          <StatCard
-            icon={Users}
-            title="Companies"
-            value={stats.totalWorkedWith}
-            color="purple"
-          />
+          {/* WorkedWith Companies stat card removed as requested */}
         </div>
 
         {/* Secondary Stats */}
