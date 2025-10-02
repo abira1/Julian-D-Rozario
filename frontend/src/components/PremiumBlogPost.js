@@ -11,6 +11,7 @@ import {
   Tag, 
   ArrowLeft,
   Bookmark,
+  BookOpen,
   Twitter,
   Linkedin,
   Facebook,
