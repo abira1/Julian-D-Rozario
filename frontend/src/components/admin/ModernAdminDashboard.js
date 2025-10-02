@@ -58,7 +58,7 @@ const ModernAdminDashboard = () => {
         totalViews,
         totalLikes,
         totalComments: 0, // Will be implemented later
-        totalWorkedWith: workedWith.length
+        // totalWorkedWith removed
       });
       
       // Set recent and popular posts
