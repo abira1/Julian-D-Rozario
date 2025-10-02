@@ -331,28 +331,107 @@ export const ProfileLoadingScreen = ({
   showProgress = false 
 }) => {
   const overlayRef = useRef(null);
-  const contentRef = useRef(null);
   const profileRef = useRef(null);
+  const imageRef = useRef(null);
+  const nameRef = useRef(null);
+  const titleRef = useRef(null);
+  const glowRef = useRef(null);
+  const particlesRef = useRef([]);
 
   useEffect(() => {
     if (overlayRef.current && isLoading) {
       gsap.set(overlayRef.current, { opacity: 1, pointerEvents: 'all' });
       
-      // Profile image animation
+      // Enhanced profile container animation with smooth easing
       gsap.fromTo(profileRef.current,
-        { opacity: 0, scale: 0.8, y: 30 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power2.out" }
+        { opacity: 0, scale: 0.6, y: 50, rotation: -5 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0, 
+          rotation: 0,
+          duration: 1.2, 
+          ease: "back.out(1.7)" 
+        }
       );
       
-      // Content animation
-      gsap.fromTo(contentRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: "power2.out" }
+      // Smooth profile image reveal with blur effect
+      gsap.fromTo(imageRef.current,
+        { opacity: 0, scale: 1.2, filter: "blur(10px)" },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          filter: "blur(0px)",
+          duration: 1.5, 
+          delay: 0.3,
+          ease: "power3.out" 
+        }
       );
+      
+      // Elegant name animation
+      gsap.fromTo(nameRef.current,
+        { opacity: 0, y: 30, letterSpacing: "0.5em" },
+        { 
+          opacity: 1, 
+          y: 0, 
+          letterSpacing: "0.1em",
+          duration: 1, 
+          delay: 0.6,
+          ease: "power2.out" 
+        }
+      );
+      
+      // Title animation with stagger effect
+      gsap.fromTo(titleRef.current.children,
+        { opacity: 0, y: 20, scale: 0.9 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          duration: 0.8, 
+          delay: 0.9,
+          stagger: 0.1,
+          ease: "power2.out" 
+        }
+      );
+      
+      // Smooth glow animation
+      gsap.to(glowRef.current, {
+        scale: 1.1,
+        opacity: 0.6,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      
+      // Floating particles animation
+      particlesRef.current.forEach((particle, i) => {
+        if (particle) {
+          gsap.set(particle, {
+            x: Math.random() * 400 - 200,
+            y: Math.random() * 400 - 200,
+            scale: Math.random() * 0.5 + 0.5,
+            opacity: Math.random() * 0.3 + 0.1
+          });
+          
+          gsap.to(particle, {
+            y: "-=50",
+            rotation: 360,
+            duration: 8 + Math.random() * 4,
+            repeat: -1,
+            ease: "none",
+            delay: Math.random() * 2
+          });
+        }
+      });
+      
     } else if (overlayRef.current && !isLoading) {
+      // Smooth exit animation
       gsap.to(overlayRef.current, {
         opacity: 0,
-        duration: 0.8,
+        scale: 1.05,
+        duration: 1,
         ease: "power2.inOut",
         onComplete: () => {
           gsap.set(overlayRef.current, { pointerEvents: 'none' });
@@ -366,55 +445,71 @@ export const ProfileLoadingScreen = ({
   return (
     <div 
       ref={overlayRef}
-      className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/10 to-black z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/5 to-black z-50 flex items-center justify-center overflow-hidden"
     >
-      <div className="text-center space-y-8 max-w-md">
-        {/* Profile Section */}
+      {/* Floating particles background */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 12 }, (_, i) => (
+          <div
+            key={i}
+            ref={el => particlesRef.current[i] = el}
+            className="absolute w-2 h-2 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full"
+          />
+        ))}
+      </div>
+      
+      <div className="text-center relative">
+        {/* Profile Section with modern design */}
         <div ref={profileRef} className="relative">
-          <div className="w-32 h-32 mx-auto mb-6 relative">
-            {/* Profile placeholder with initials */}
-            <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/25">
-              <span className="text-4xl font-bold text-white" 
-                    style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                JD'R
-              </span>
+          
+          {/* Animated glow effects */}
+          <div 
+            ref={glowRef}
+            className="absolute inset-0 w-48 h-48 mx-auto mb-8 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-2xl"
+          ></div>
+          
+          {/* Main profile image container */}
+          <div className="relative w-48 h-48 mx-auto mb-8">
+            {/* Outer glow ring */}
+            <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 animate-spin" style={{ animationDuration: '8s' }}></div>
+            
+            {/* Inner border ring */}
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 p-0.5">
+              <div className="w-full h-full rounded-full bg-black"></div>
             </div>
             
-            {/* Animated glow ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 animate-pulse"></div>
-            <div className="absolute -inset-2 rounded-full border-2 border-purple-400/30 animate-spin" style={{ animationDuration: '3s' }}></div>
+            {/* Profile image */}
+            <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl">
+              <img 
+                ref={imageRef}
+                src="https://customer-assets.emergentagent.com/job_cd459998-3640-40ec-a059-7a5253a00dd1/artifacts/nm7o42x4_IMG-20210906-WA0002.png"
+                alt="Julian D'Rozario"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            {/* Subtle rotating border effect */}
+            <div className="absolute -inset-2 rounded-full border border-purple-400/20 animate-pulse"></div>
           </div>
           
-          <h2 className="text-3xl font-bold text-white mb-2" 
-              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+          {/* Name with elegant typography */}
+          <h2 
+            ref={nameRef}
+            className="text-4xl font-bold text-white mb-4" 
+            style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}
+          >
             Julian D'Rozario
           </h2>
           
-          <p className="text-purple-300 text-lg font-medium">
-            Business Relations Manager
-          </p>
-          <p className="text-gray-400">
-            Company Formation Specialist
-          </p>
-        </div>
-
-        {/* Loading Content */}
-        <div ref={contentRef} className="space-y-4">
-          <div className="flex items-center justify-center space-x-2">
-            <LoadingSpinner size="medium" color="purple" />
-            <span className="text-gray-300 animate-pulse">
-              Preparing your experience...
-            </span>
+          {/* Professional titles with modern styling */}
+          <div ref={titleRef} className="space-y-2">
+            <p className="text-purple-300 text-xl font-medium">
+              Business Relations Manager
+            </p>
+            <p className="text-gray-400 text-lg">
+              Company Formation Specialist
+            </p>
           </div>
-          
-          {showProgress && progress !== null && (
-            <div className="w-80 bg-white/10 rounded-full h-1 overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300 ease-out"
-                style={{ width: `${Math.min(progress, 100)}%` }}
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>
