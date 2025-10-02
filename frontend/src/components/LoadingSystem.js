@@ -324,7 +324,104 @@ export const ResourcePreloader = ({ resources = [], onComplete = () => {} }) => 
   };
 };
 
-// Main loading screen component
+// Profile-based loading screen component for Julian D'Rozario
+export const ProfileLoadingScreen = ({ 
+  isLoading, 
+  progress = null, 
+  showProgress = false 
+}) => {
+  const overlayRef = useRef(null);
+  const contentRef = useRef(null);
+  const profileRef = useRef(null);
+
+  useEffect(() => {
+    if (overlayRef.current && isLoading) {
+      gsap.set(overlayRef.current, { opacity: 1, pointerEvents: 'all' });
+      
+      // Profile image animation
+      gsap.fromTo(profileRef.current,
+        { opacity: 0, scale: 0.8, y: 30 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power2.out" }
+      );
+      
+      // Content animation
+      gsap.fromTo(contentRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: "power2.out" }
+      );
+    } else if (overlayRef.current && !isLoading) {
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: () => {
+          gsap.set(overlayRef.current, { pointerEvents: 'none' });
+        }
+      });
+    }
+  }, [isLoading]);
+
+  if (!isLoading) return null;
+
+  return (
+    <div 
+      ref={overlayRef}
+      className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/10 to-black z-50 flex items-center justify-center"
+    >
+      <div className="text-center space-y-8 max-w-md">
+        {/* Profile Section */}
+        <div ref={profileRef} className="relative">
+          <div className="w-32 h-32 mx-auto mb-6 relative">
+            {/* Profile placeholder with initials */}
+            <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/25">
+              <span className="text-4xl font-bold text-white" 
+                    style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                JD'R
+              </span>
+            </div>
+            
+            {/* Animated glow ring */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 animate-pulse"></div>
+            <div className="absolute -inset-2 rounded-full border-2 border-purple-400/30 animate-spin" style={{ animationDuration: '3s' }}></div>
+          </div>
+          
+          <h2 className="text-3xl font-bold text-white mb-2" 
+              style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+            Julian D'Rozario
+          </h2>
+          
+          <p className="text-purple-300 text-lg font-medium">
+            Business Relations Manager
+          </p>
+          <p className="text-gray-400">
+            Company Formation Specialist
+          </p>
+        </div>
+
+        {/* Loading Content */}
+        <div ref={contentRef} className="space-y-4">
+          <div className="flex items-center justify-center space-x-2">
+            <LoadingSpinner size="medium" color="purple" />
+            <span className="text-gray-300 animate-pulse">
+              Preparing your experience...
+            </span>
+          </div>
+          
+          {showProgress && progress !== null && (
+            <div className="w-80 bg-white/10 rounded-full h-1 overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300 ease-out"
+                style={{ width: `${Math.min(progress, 100)}%` }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main loading screen component (kept for backward compatibility)
 export const LoadingScreen = ({ 
   isLoading, 
   progress = null, 
