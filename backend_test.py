@@ -20,9 +20,6 @@ def get_backend_url():
             for line in f:
                 if line.startswith('REACT_APP_BACKEND_URL='):
                     url = line.split('=', 1)[1].strip()
-                    # For testing, use local backend instead of production
-                    if 'drozario.blog' in url:
-                        return "http://localhost:8001"
                     return url
     except:
         pass
