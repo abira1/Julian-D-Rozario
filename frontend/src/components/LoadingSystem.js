@@ -487,4 +487,4 @@ export const LoadingScreen = ({
   );
 };
 
-export default LoadingScreen;
+export default ProfileLoadingScreen;
