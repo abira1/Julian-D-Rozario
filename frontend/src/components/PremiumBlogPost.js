@@ -188,10 +188,10 @@ const PremiumBlogPost = () => {
       <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-20 lg:pt-24">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <BlurImage 
             src={blog.image_url || blog.featured_image || '/api/placeholder/1920/1080'}
             alt={blog.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full"
           />
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
