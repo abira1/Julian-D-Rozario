@@ -350,7 +350,7 @@ export const ProfileLoadingScreen = ({
           scale: 1, 
           y: 0, 
           rotation: 0,
-          duration: 1.2, 
+          duration: 1.8, 
           ease: "back.out(1.7)" 
         }
       );
@@ -362,8 +362,8 @@ export const ProfileLoadingScreen = ({
           opacity: 1, 
           scale: 1, 
           filter: "blur(0px)",
-          duration: 1.5, 
-          delay: 0.3,
+          duration: 2.2, 
+          delay: 0.5,
           ease: "power3.out" 
         }
       );
@@ -375,8 +375,8 @@ export const ProfileLoadingScreen = ({
           opacity: 1, 
           y: 0, 
           letterSpacing: "0.1em",
-          duration: 1, 
-          delay: 0.6,
+          duration: 1.5, 
+          delay: 1.2,
           ease: "power2.out" 
         }
       );
@@ -388,9 +388,9 @@ export const ProfileLoadingScreen = ({
           opacity: 1, 
           y: 0, 
           scale: 1,
-          duration: 0.8, 
-          delay: 0.9,
-          stagger: 0.1,
+          duration: 1.2, 
+          delay: 1.8,
+          stagger: 0.2,
           ease: "power2.out" 
         }
       );
