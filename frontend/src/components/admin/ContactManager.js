@@ -252,6 +252,138 @@ const ContactManager = () => {
     }
   };
 
+  // Component to render add/edit contact form
+  const ContactForm = ({ entry, isNew, onSave, onCancel, onChange }) => (
+    <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-white" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+          {isNew ? 'Add New Contact Entry' : 'Edit Contact Entry'}
+        </h3>
+        <button
+          onClick={onCancel}
+          className="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Label */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Label</label>
+          <input
+            type="text"
+            value={entry.label}
+            onChange={(e) => onChange('label', e.target.value)}
+            placeholder="e.g., Email Address, Phone Number"
+            className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+        </div>
+
+        {/* Contact Type & Icon */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Contact Type</label>
+          <select
+            value={entry.contact_type}
+            onChange={(e) => {
+              const selectedType = contactTypes.find(type => type.value === e.target.value);
+              onChange('contact_type', e.target.value);
+              onChange('icon', selectedType?.icon || 'email');
+            }}
+            className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          >
+            {contactTypes.map(type => (
+              <option key={type.value} value={type.value} className="bg-gray-800">
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Value */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">Value</label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {getContactIcon(entry.icon)}
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={entry.value}
+              onChange={(e) => onChange('value', e.target.value)}
+              placeholder="Contact information..."
+              className="w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        {/* Display Order */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Display Order</label>
+          <input
+            type="number"
+            value={entry.display_order}
+            onChange={(e) => onChange('display_order', parseInt(e.target.value) || 0)}
+            min="0"
+            className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          />
+        </div>
+
+        {/* Visibility Toggle */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">Visibility</label>
+          <button
+            type="button"
+            onClick={() => onChange('is_visible', !entry.is_visible)}
+            className={`flex items-center space-x-2 px-3 py-2 rounded-lg border transition-all ${
+              entry.is_visible 
+                ? 'bg-green-500/20 border-green-500/30 text-green-400' 
+                : 'bg-red-500/20 border-red-500/30 text-red-400'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {entry.is_visible ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+              )}
+            </svg>
+            <span>{entry.is_visible ? 'Visible' : 'Hidden'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center justify-end space-x-4 pt-4 border-t border-white/10">
+        <button
+          onClick={onCancel}
+          disabled={isSaving}
+          className="px-4 py-2 bg-white/10 text-gray-300 font-medium rounded-lg hover:bg-white/20 hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={onSave}
+          disabled={isSaving || !entry.label || !entry.value}
+          className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isSaving ? (
+            <div className="flex items-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              Saving...
+            </div>
+          ) : (
+            isNew ? 'Add Entry' : 'Update Entry'
+          )}
+        </button>
+      </div>
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="p-6">
@@ -270,14 +402,26 @@ const ContactManager = () => {
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-          Contact Information
-        </h1>
-        <p className="text-gray-400">Update your contact details displayed on the website</p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+            Contact Information Manager
+          </h1>
+          <p className="text-gray-400">Manage contact entries displayed on your website</p>
+        </div>
+        <button
+          onClick={startAddingNew}
+          disabled={isSaving || isAddingNew}
+          className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+          <span>Add Contact</span>
+        </button>
       </div>
 
-      <div className="max-w-2xl">
+      <div className="max-w-4xl">
         {/* Status Message */}
         {message.text && (
           <div className={`mb-6 p-4 rounded-lg ${
@@ -298,158 +442,166 @@ const ContactManager = () => {
           </div>
         )}
 
-        {/* Contact Form */}
+        {/* Add New Entry Form */}
+        {isAddingNew && (
+          <div className="mb-6">
+            <ContactForm 
+              entry={newEntry}
+              isNew={true}
+              onSave={saveNewEntry}
+              onCancel={cancelEditing}
+              onChange={handleNewEntryChange}
+            />
+          </div>
+        )}
+
+        {/* Edit Entry Form */}
+        {editingEntry && (
+          <div className="mb-6">
+            <ContactForm 
+              entry={editingEntry}
+              isNew={false}
+              onSave={saveEditEntry}
+              onCancel={cancelEditing}
+              onChange={handleEditEntryChange}
+            />
+          </div>
+        )}
+
+        {/* Contact Entries List */}
         <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                Email Address
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12C16 13.1046 15.1046 14 14 14H10C8.89543 14 8 13.1046 8 12V8C8 6.89543 8.89543 6 10 6H14C15.1046 6 16 6.89543 16 8V12Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M22 8L16 14L10 8" />
-                  </svg>
-                </div>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={contactInfo.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                  placeholder="julian@drozario.blog"
-                />
-              </div>
-            </div>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-white" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              Contact Entries ({contactEntries.length})
+            </h3>
+          </div>
 
-            {/* Phone */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                Phone Number
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" />
-                  </svg>
-                </div>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={contactInfo.phone}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                  placeholder="+971 55 386 8045"
-                />
-              </div>
-            </div>
-
-            {/* LinkedIn */}
-            <div>
-              <label htmlFor="linkedin" className="block text-sm font-medium text-gray-300 mb-2">
-                LinkedIn Profile URL
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z"/>
-                  </svg>
-                </div>
-                <input
-                  type="url"
-                  id="linkedin"
-                  name="linkedin"
-                  value={contactInfo.linkedin}
-                  onChange={handleInputChange}
-                  className="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                  placeholder="https://www.linkedin.com/in/julian-d-rozario"
-                />
-              </div>
-            </div>
-
-            {/* Availability */}
-            <div>
-              <label htmlFor="availability" className="block text-sm font-medium text-gray-300 mb-2">
-                Availability Status
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8V12L16 16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  id="availability"
-                  name="availability"
-                  value={contactInfo.availability}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                  placeholder="Available for consultation"
-                />
-              </div>
-            </div>
-
-            {/* Form Actions */}
-            <div className="flex items-center space-x-4 pt-4">
+          {contactEntries.length === 0 ? (
+            <div className="text-center py-8">
+              <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+              <h3 className="text-lg font-medium text-white mb-2">No contact entries</h3>
+              <p className="text-gray-400 mb-4">Get started by adding your first contact entry.</p>
               <button
-                type="submit"
-                disabled={isSaving}
-                className="flex-1 sm:flex-none sm:px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={startAddingNew}
+                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200"
               >
-                {isSaving ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Saving...
+                Add First Contact Entry
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {contactEntries.map((entry) => (
+                <div
+                  key={entry.id}
+                  className={`p-4 rounded-lg border ${
+                    entry.is_visible 
+                      ? 'bg-white/5 border-white/10' 
+                      : 'bg-white/[0.02] border-white/5 opacity-60'
+                  } hover:bg-white/10 transition-all duration-200`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className={`p-2 rounded-lg ${
+                        entry.is_visible ? 'bg-purple-500/20' : 'bg-gray-500/20'
+                      }`}>
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          {getContactIcon(entry.icon)}
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-2">
+                          <h4 className="text-white font-medium">{entry.label}</h4>
+                          <span className="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full">
+                            {contactTypes.find(t => t.value === entry.contact_type)?.label || entry.contact_type}
+                          </span>
+                          {!entry.is_visible && (
+                            <span className="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full">
+                              Hidden
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-gray-400 text-sm truncate max-w-md">{entry.value}</p>
+                        <p className="text-gray-500 text-xs">Order: {entry.display_order}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      {/* Visibility Toggle */}
+                      <button
+                        onClick={() => toggleVisibility(entry)}
+                        disabled={isSaving}
+                        className={`p-2 rounded-lg transition-all duration-200 ${
+                          entry.is_visible 
+                            ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30' 
+                            : 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
+                        } disabled:opacity-50 disabled:cursor-not-allowed`}
+                        title={entry.is_visible ? 'Hide entry' : 'Show entry'}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          {entry.is_visible ? (
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          ) : (
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                          )}
+                        </svg>
+                      </button>
+
+                      {/* Edit Button */}
+                      <button
+                        onClick={() => startEditing(entry)}
+                        disabled={isSaving || editingEntry !== null || isAddingNew}
+                        className="p-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Edit entry"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+
+                      {/* Delete Button */}
+                      <button
+                        onClick={() => deleteEntry(entry.id, entry.label)}
+                        disabled={isSaving}
+                        className="p-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Delete entry"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7L5 7m5-4v4m4-4v4m1 0l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7h14" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                ) : (
-                  'Update Contact Info'
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleReset}
-                disabled={isSaving}
-                className="px-6 py-3 bg-white/10 text-gray-300 font-medium rounded-lg hover:bg-white/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Reset
-              </button>
+                </div>
+              ))}
             </div>
-          </form>
+          )}
         </div>
 
         {/* Preview Section */}
-        <div className="mt-8 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-            Preview
-          </h3>
-          <div className="space-y-3">
-            <div className="flex items-center text-sm">
-              <span className="text-gray-400 w-20">Email:</span>
-              <span className="text-white">{contactInfo.email || 'Not set'}</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <span className="text-gray-400 w-20">Phone:</span>
-              <span className="text-white">{contactInfo.phone || 'Not set'}</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <span className="text-gray-400 w-20">LinkedIn:</span>
-              <span className="text-white truncate">{contactInfo.linkedin || 'Not set'}</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <span className="text-gray-400 w-20">Status:</span>
-              <span className="text-green-400">{contactInfo.availability || 'Not set'}</span>
+        {contactEntries.filter(entry => entry.is_visible).length > 0 && (
+          <div className="mt-8 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-6">
+            <h3 className="text-lg font-semibold text-white mb-4" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              Public Website Preview
+            </h3>
+            <div className="space-y-3">
+              {contactEntries
+                .filter(entry => entry.is_visible)
+                .map((entry) => (
+                  <div key={entry.id} className="flex items-center text-sm">
+                    <div className="flex items-center space-x-2 w-32">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {getContactIcon(entry.icon)}
+                      </svg>
+                      <span className="text-gray-400">{entry.label}:</span>
+                    </div>
+                    <span className="text-white truncate">{entry.value}</span>
+                  </div>
+                ))}
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
