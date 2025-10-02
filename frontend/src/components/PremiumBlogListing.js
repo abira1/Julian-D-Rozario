@@ -214,17 +214,6 @@ const PremiumBlogListing = () => {
       {/* Blog Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredBlogs.length > 0 && (
-              <div className="mt-4 sm:mt-0">
-                <select className="bg-zinc-800 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500/50">
-                  <option>Latest First</option>
-                  <option>Oldest First</option>
-                  <option>Most Popular</option>
-                </select>
-              </div>
-            )}
-          </div>
-
           {/* Blog Cards Grid */}
           {filteredBlogs.length === 0 ? (
             <div className="text-center py-16">
