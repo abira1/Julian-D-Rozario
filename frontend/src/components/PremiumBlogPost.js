@@ -201,7 +201,7 @@ const PremiumBlogPost = () => {
       </div>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-16">
+      <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-28 lg:pt-32">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
