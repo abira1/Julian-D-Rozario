@@ -6,7 +6,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
-import WorkedWithSection from "./components/WorkedWithSection";
+// WorkedWithSection removed as requested
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import BlogListing from "./components/BlogListing";
