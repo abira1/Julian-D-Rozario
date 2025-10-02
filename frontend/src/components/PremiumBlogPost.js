@@ -128,6 +128,19 @@ const PremiumBlogPost = () => {
     setShareMenuOpen(false);
   };
 
+  const shareArticle = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: blog?.title || '',
+        text: blog?.excerpt || '',
+        url: window.location.href,
+      });
+    } else {
+      // Fallback to copy URL
+      navigator.clipboard.writeText(window.location.href);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black">
