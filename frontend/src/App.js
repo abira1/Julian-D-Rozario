@@ -69,7 +69,6 @@ const Home = () => {
         <HeroSection />
         <PremiumBlogSection />
         <AboutSection />
-        <WorkedWithSection />
         <ContactSection />
       </main>
       <Footer />
