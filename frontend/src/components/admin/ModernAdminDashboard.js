@@ -43,9 +43,7 @@ const ModernAdminDashboard = () => {
       const blogsResponse = await fetch('/api/blogs');
       const blogs = blogsResponse.ok ? await blogsResponse.json() : [];
       
-      // Fetch worked with companies
-      const workedWithResponse = await fetch('/api/worked-with');
-      const workedWith = workedWithResponse.ok ? await workedWithResponse.json() : [];
+      // WorkedWith fetch removed as requested
       
       // Calculate stats
       const publishedBlogs = blogs.filter(blog => blog.status === 'published' || !blog.status);
