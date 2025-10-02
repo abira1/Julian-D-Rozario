@@ -183,34 +183,8 @@ const PremiumBlogPost = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Modern Mobile-Style Navigation Bar */}
-      <div className="fixed top-16 lg:top-18 left-0 right-0 z-40 bg-black/95 border-b border-white/[0.08] shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-12 lg:h-14">
-            {/* Back Navigation */}
-            <Link 
-              to="/blog"
-              className="group flex items-center space-x-3 text-gray-300 hover:text-white transition-all duration-200 hover:translate-x-1"
-              title="Back to Articles"
-            >
-              <div className="w-8 h-8 lg:w-9 lg:h-9 border border-white/20 hover:border-white/40 rounded-lg flex items-center justify-center transition-all duration-200">
-                <ArrowLeft className="w-4 h-4 lg:w-5 lg:h-5" />
-              </div>
-              <span className="hidden sm:inline text-sm lg:text-base font-medium">Back to Articles</span>
-            </Link>
-            
-            {/* Reading Mode Toggle (Mobile-friendly) */}
-            <div className="ml-auto">
-              <button className="p-2 lg:p-2.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200" title="Reading mode">
-                <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-28 lg:pt-32">
+      {/* Hero Section with Integrated Navigation */}
+      <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-20 lg:pt-24">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
