@@ -119,10 +119,10 @@ const PremiumBlogSection = () => {
           </div>
         </div>
 
-        {/* Loading State */}
+        {/* Enhanced Loading State */}
         {isLoading ? (
-          <div className="flex items-center justify-center py-16">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-500"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <SkeletonLoader type="blog-card" count={6} />
           </div>
         ) : blogs.length === 0 ? (
           /* Empty State */
