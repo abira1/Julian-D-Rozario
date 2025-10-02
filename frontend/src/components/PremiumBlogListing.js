@@ -177,7 +177,7 @@ const PremiumBlogListing = () => {
 
       {/* Filter Panel */}
       {showFilters && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-zinc-900 border-b border-white/10 backdrop-blur-md">
+        <div className="fixed top-30 lg:top-34 left-0 right-0 z-30 bg-zinc-900 border-b border-white/10 backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-wrap items-center gap-4">
               <span className="text-gray-400 font-medium">Filter by:</span>
