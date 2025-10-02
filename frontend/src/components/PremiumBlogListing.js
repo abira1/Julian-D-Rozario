@@ -149,10 +149,25 @@ const PremiumBlogListing = () => {
               Deep insights into Dubai business formation, corporate services, and the evolving landscape 
               of UAE entrepreneurship from industry expert Julian D'Rozario.
             </p>
-            <div className="flex items-center justify-center space-x-8 text-gray-500">
+
+            {/* Integrated Search - Clean Mobile Style */}
+            <div className="mb-8 max-w-lg mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  placeholder="Search articles..."
+                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 hover:border-white/20 focus:border-purple-500/50 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:bg-white/10 transition-all backdrop-blur-sm"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center space-x-8 text-gray-500 mb-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-400">{blogs.length}</div>
-                <div className="text-sm">Articles</div>
+                <div className="text-2xl font-bold text-purple-400">{filteredBlogs.length}</div>
+                <div className="text-sm">Articles Found</div>
               </div>
               <div className="w-px h-8 bg-gray-600"></div>
               <div className="text-center">
@@ -164,6 +179,33 @@ const PremiumBlogListing = () => {
                 <div className="text-2xl font-bold text-amber-400">10+</div>
                 <div className="text-sm">Years Experience</div>
               </div>
+            </div>
+
+            {/* Category Pills - Mobile-Friendly */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((category) => (
+                <button
+                  key={category.name}
+                  onClick={() => handleCategoryChange(category.name)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    selectedCategory === category.name
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
+                  }`}
+                >
+                  {category.name}
+                </button>
+              ))}
+              
+              {(searchQuery || selectedCategory !== 'All') && (
+                <button
+                  onClick={clearFilters}
+                  className="flex items-center space-x-2 px-4 py-2 text-red-400 hover:text-red-300 transition-colors rounded-full bg-red-500/10 hover:bg-red-500/20"
+                >
+                  <X className="w-4 h-4" />
+                  <span className="text-sm">Clear</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
