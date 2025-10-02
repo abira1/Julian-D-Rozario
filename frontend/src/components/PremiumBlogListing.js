@@ -138,82 +138,8 @@ const PremiumBlogListing = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Modern Search & Filter Navigation Bar */}
-      <div className="fixed top-16 lg:top-18 left-0 right-0 z-40 bg-black/95 border-b border-white/[0.08] shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-12 lg:h-14">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-lg lg:text-xl font-semibold text-white" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                Articles & Insights
-              </h1>
-              <span className="text-sm text-gray-400 hidden sm:block px-2 py-1 bg-white/5 rounded-full">
-                {filteredBlogs.length} articles
-              </span>
-            </div>
-            
-            <div className="flex items-center space-x-2 lg:space-x-3">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearch}
-                  placeholder="Search articles..."
-                  className="pl-10 pr-4 py-2 bg-white/5 border border-white/10 hover:border-white/20 focus:border-purple-500/50 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:bg-white/10 transition-all w-40 sm:w-48 lg:w-64"
-                />
-              </div>
-              
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="p-2 lg:p-2.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
-                title="Filter articles"
-              >
-                <Filter className="w-4 h-4 lg:w-5 lg:h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Filter Panel */}
-      {showFilters && (
-        <div className="fixed top-30 lg:top-34 left-0 right-0 z-30 bg-zinc-900 border-b border-white/10 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex flex-wrap items-center gap-4">
-              <span className="text-gray-400 font-medium">Filter by:</span>
-              
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category.name}
-                    onClick={() => handleCategoryChange(category.name)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      selectedCategory === category.name
-                        ? 'bg-purple-600 text-white border border-purple-500'
-                        : 'bg-white/10 text-gray-300 border border-white/20 hover:bg-purple-600/20 hover:border-purple-500/30'
-                    }`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-
-              {(searchQuery || selectedCategory !== 'All') && (
-                <button
-                  onClick={clearFilters}
-                  className="flex items-center space-x-1 px-3 py-2 text-red-400 hover:text-red-300 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                  <span className="text-sm">Clear</span>
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Hero Section */}
-      <section className="pt-32 lg:pt-36 pb-16 bg-gradient-to-br from-black via-zinc-900 to-black">
+      {/* Hero Section with Integrated Navigation */}
+      <section className="pt-24 lg:pt-28 pb-16 bg-gradient-to-br from-black via-zinc-900 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={heroRef} className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
