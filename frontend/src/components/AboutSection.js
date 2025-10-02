@@ -200,47 +200,7 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Worked With Partners Section */}
-        {!partnersLoading && workedWithPartners.length > 0 && (
-          <div className="mt-24">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
-                Worked With
-              </h3>
-              <p className="text-gray-400 max-w-2xl mx-auto">
-                Trusted by leading businesses and organizations across Dubai and the UAE
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-              {workedWithPartners.map((partner) => (
-                <div 
-                  key={partner.id}
-                  className="group relative p-6 rounded-xl backdrop-blur-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] hover:from-white/10 hover:to-white/[0.05] transition-all duration-300"
-                >
-                  <div className="aspect-square flex items-center justify-center">
-                    <img 
-                      src={partner.logo_url} 
-                      alt={partner.company_name}
-                      className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                      title={partner.company_name}
-                    />
-                  </div>
-                  
-                  {/* Hover overlay with company name */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center">
-                    <p className="text-white text-sm font-medium p-3 text-center">
-                      {partner.company_name}
-                    </p>
-                  </div>
-
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Worked With Partners Section removed as requested */}
       </div>
     </section>
   );
