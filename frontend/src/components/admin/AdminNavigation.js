@@ -12,7 +12,7 @@ const AdminNavigation = ({ user, onLogout }) => {
   const navItems = [
     { path: '/julian_portfolio/dashboard', label: 'Dashboard', icon: 'M3 7V17C3 18.1 3.9 19 5 19H19C20.1 19 21 18.1 21 17V7C21 5.9 20.1 5 19 5H5C3.9 5 3 5.9 3 7Z' },
     { path: '/julian_portfolio/blogs', label: 'Blogs', icon: 'M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z' },
-    { path: '/julian_portfolio/worked-with', label: 'Worked With', icon: 'M16 7C16 9.209 14.209 11 12 11S8 9.209 8 7 9.791 3 12 3 16 4.791 16 7ZM12 14C16.42 14 20 15.79 20 18V20H4V18C4 15.79 7.58 14 12 14Z' },
+    // Worked With navigation removed as requested
     { path: '/julian_portfolio/contact', label: 'Contact', icon: 'M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z' }
   ];
 
