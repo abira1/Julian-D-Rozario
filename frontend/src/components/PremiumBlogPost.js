@@ -509,6 +509,90 @@ const PremiumBlogPost = () => {
         </div>
       </section>
 
+      {/* Share & Save Section */}
+      <section className="py-12 bg-black border-t border-gray-800/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 py-8">
+            {/* Left side - Action prompt */}
+            <div className="text-center sm:text-left">
+              <h3 className="text-xl lg:text-2xl font-semibold text-white mb-2" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+                Found this helpful?
+              </h3>
+              <p className="text-gray-400 text-sm lg:text-base">
+                Share this article with your network or save it for later
+              </p>
+            </div>
+            
+            {/* Right side - Action buttons */}
+            <div className="flex items-center gap-4">
+              {/* Save/Bookmark Button */}
+              <button
+                onClick={() => setLiked(!liked)}
+                className={`group flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all duration-200 ${
+                  liked 
+                    ? 'bg-purple-600 border-purple-600 text-white' 
+                    : 'bg-transparent border-white/20 text-gray-300 hover:border-purple-500/50 hover:text-white hover:bg-purple-600/10'
+                }`}
+                title="Save article"
+              >
+                <Bookmark className={`w-4 h-4 transition-transform duration-200 ${liked ? 'fill-current' : 'group-hover:scale-110'}`} />
+                <span className="text-sm font-medium">
+                  {liked ? 'Saved' : 'Save'}
+                </span>
+              </button>
+              
+              {/* Share Button with Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShareMenuOpen(!shareMenuOpen)}
+                  className="flex items-center gap-2 px-4 py-2.5 bg-transparent border border-white/20 text-gray-300 hover:border-purple-500/50 hover:text-white hover:bg-purple-600/10 rounded-xl transition-all duration-200"
+                  title="Share article"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span className="text-sm font-medium">Share</span>
+                </button>
+                
+                {/* Share Menu Dropdown */}
+                {shareMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-gray-900 border border-gray-700 rounded-xl shadow-xl z-50">
+                    <div className="p-2">
+                      <button
+                        onClick={() => handleShare('copy')}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="text-sm">Copy Link</span>
+                      </button>
+                      <button
+                        onClick={() => handleShare('twitter')}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                      >
+                        <Twitter className="w-4 h-4" />
+                        <span className="text-sm">Share on Twitter</span>
+                      </button>
+                      <button
+                        onClick={() => handleShare('linkedin')}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        <span className="text-sm">Share on LinkedIn</span>
+                      </button>
+                      <button
+                        onClick={() => handleShare('facebook')}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                      >
+                        <Facebook className="w-4 h-4" />
+                        <span className="text-sm">Share on Facebook</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Related Articles */}
       <section className="py-16 bg-black border-t border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
