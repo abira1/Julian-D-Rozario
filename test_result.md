@@ -324,7 +324,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Contact Info API Endpoints Implementation"
+    - "Blog API Endpoints Verification"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
