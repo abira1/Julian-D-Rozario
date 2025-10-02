@@ -214,20 +214,7 @@ const PremiumBlogListing = () => {
       {/* Blog Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Results Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12">
-            <div>
-              <h2 className="text-2xl font-bold text-white mb-2">
-                {searchQuery || selectedCategory !== 'All' ? 'Filtered Results' : 'Latest Articles'}
-              </h2>
-              <p className="text-gray-400">
-                {filteredBlogs.length} {filteredBlogs.length === 1 ? 'article' : 'articles'}
-                {searchQuery && ` matching "${searchQuery}"`}
-                {selectedCategory !== 'All' && ` in ${selectedCategory}`}
-              </p>
-            </div>
-            
-            {filteredBlogs.length > 0 && (
+          {filteredBlogs.length > 0 && (
               <div className="mt-4 sm:mt-0">
                 <select className="bg-zinc-800 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500/50">
                   <option>Latest First</option>
