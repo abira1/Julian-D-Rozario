@@ -445,7 +445,7 @@ export const ProfileLoadingScreen = ({
   return (
     <div 
       ref={overlayRef}
-      className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/5 to-black z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 bg-gradient-to-br from-black via-purple-900/10 to-black z-50 flex items-center justify-center overflow-hidden backdrop-blur-sm"
     >
       {/* Floating particles background */}
       <div className="absolute inset-0">
