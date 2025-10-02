@@ -570,6 +570,66 @@ def initialize_default_data():
                 })
             
             logger.info(f"Initialized {len(sample_blogs)} professional blog posts with high-quality content and images")
+        
+        # Initialize default contact info if none exists
+        contact_ref = get_firebase_ref('contact_info')
+        existing_contact = contact_ref.get() or {}
+        
+        if not existing_contact:
+            default_contacts = [
+                {
+                    'label': 'Email Address',
+                    'value': 'julian@drozario.blog',
+                    'contact_type': 'email',
+                    'icon': 'email',
+                    'display_order': 1,
+                    'is_visible': True
+                },
+                {
+                    'label': 'Phone Number',
+                    'value': '+971 55 386 8045',
+                    'contact_type': 'phone',
+                    'icon': 'phone',
+                    'display_order': 2,
+                    'is_visible': True
+                },
+                {
+                    'label': 'LinkedIn Profile',
+                    'value': 'https://www.linkedin.com/in/julian-d-rozario',
+                    'contact_type': 'linkedin',
+                    'icon': 'linkedin',
+                    'display_order': 3,
+                    'is_visible': True
+                },
+                {
+                    'label': 'Professional Status',
+                    'value': 'Available for consultation',
+                    'contact_type': 'status',
+                    'icon': 'status',
+                    'display_order': 4,
+                    'is_visible': True
+                }
+            ]
+            
+            for contact_data in default_contacts:
+                contact_id = str(uuid.uuid4())
+                now = datetime.utcnow()
+                
+                contact_entry = {
+                    'label': contact_data['label'],
+                    'value': contact_data['value'],
+                    'contact_type': contact_data['contact_type'],
+                    'icon': contact_data['icon'],
+                    'display_order': contact_data['display_order'],
+                    'is_visible': contact_data['is_visible'],
+                    'created_at': now.isoformat(),
+                    'updated_at': now.isoformat()
+                }
+                
+                contact_entry_ref = get_firebase_ref(f'contact_info/{contact_id}')
+                contact_entry_ref.set(contact_entry)
+            
+            logger.info(f"Initialized {len(default_contacts)} default contact information entries")
             
     except Exception as e:
         logger.error(f"Error initializing default data: {str(e)}")
