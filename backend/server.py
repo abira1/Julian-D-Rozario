@@ -1335,6 +1335,201 @@ async def delete_worked_with(partner_id: str, current_user_email: str = Depends(
         logger.error(f"Delete worked with error: {str(e)}")
         raise HTTPException(status_code=400, detail="Failed to delete partner")
 
+# ================================================================================================
+# CONTACT INFO ENDPOINTS - Manage contact information entries
+# ================================================================================================
+
+@api_router.get("/contact-info", response_model=List[ContactInfo])
+async def get_contact_info():
+    """Get all contact info entries"""
+    try:
+        contact_ref = get_firebase_ref('contact_info')
+        contact_data = contact_ref.get() or {}
+        
+        contact_list = []
+        for contact_id, data in contact_data.items():
+            contact_list.append(ContactInfo(
+                id=contact_id,
+                label=data.get('label', ''),
+                value=data.get('value', ''),
+                contact_type=data.get('contact_type', ''),
+                icon=data.get('icon', ''),
+                display_order=data.get('display_order', 0),
+                is_visible=data.get('is_visible', True),
+                created_at=datetime.fromisoformat(data.get('created_at', datetime.utcnow().isoformat())),
+                updated_at=datetime.fromisoformat(data.get('updated_at', datetime.utcnow().isoformat()))
+            ))
+        
+        # Sort by display_order
+        contact_list.sort(key=lambda x: x.display_order)
+        
+        logger.info(f"Retrieved {len(contact_list)} contact info entries")
+        return contact_list
+        
+    except Exception as e:
+        logger.error(f"Get contact info error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch contact information")
+
+@api_router.get("/contact-info/{contact_id}", response_model=ContactInfo)
+async def get_contact_info_by_id(contact_id: str):
+    """Get specific contact info entry by ID"""
+    try:
+        contact_ref = get_firebase_ref(f'contact_info/{contact_id}')
+        data = contact_ref.get()
+        
+        if not data:
+            raise HTTPException(status_code=404, detail="Contact info not found")
+        
+        return ContactInfo(
+            id=contact_id,
+            label=data.get('label', ''),
+            value=data.get('value', ''),
+            contact_type=data.get('contact_type', ''),
+            icon=data.get('icon', ''),
+            display_order=data.get('display_order', 0),
+            is_visible=data.get('is_visible', True),
+            created_at=datetime.fromisoformat(data.get('created_at', datetime.utcnow().isoformat())),
+            updated_at=datetime.fromisoformat(data.get('updated_at', datetime.utcnow().isoformat()))
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Get contact info by ID error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch contact information")
+
+@api_router.post("/contact-info", response_model=ContactInfo)
+async def create_contact_info(contact_data: ContactInfoCreate, current_user_email: str = Depends(verify_token)):
+    """Create new contact info entry (Admin only)"""
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        contact_id = str(uuid.uuid4())
+        now = datetime.utcnow()
+        
+        contact_entry = {
+            'label': contact_data.label,
+            'value': contact_data.value,
+            'contact_type': contact_data.contact_type,
+            'icon': contact_data.icon,
+            'display_order': contact_data.display_order,
+            'is_visible': contact_data.is_visible,
+            'created_at': now.isoformat(),
+            'updated_at': now.isoformat()
+        }
+        
+        # Save to Firebase
+        contact_ref = get_firebase_ref(f'contact_info/{contact_id}')
+        contact_ref.set(contact_entry)
+        
+        logger.info(f"Created contact info: {contact_data.label} ({contact_data.contact_type})")
+        
+        return ContactInfo(
+            id=contact_id,
+            label=contact_data.label,
+            value=contact_data.value,
+            contact_type=contact_data.contact_type,
+            icon=contact_data.icon,
+            display_order=contact_data.display_order,
+            is_visible=contact_data.is_visible,
+            created_at=now,
+            updated_at=now
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Create contact info error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to create contact information")
+
+@api_router.put("/contact-info/{contact_id}", response_model=ContactInfo)
+async def update_contact_info(contact_id: str, contact_update: ContactInfoUpdate, current_user_email: str = Depends(verify_token)):
+    """Update contact info entry (Admin only)"""
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # Check if contact exists
+        contact_ref = get_firebase_ref(f'contact_info/{contact_id}')
+        existing_data = contact_ref.get()
+        
+        if not existing_data:
+            raise HTTPException(status_code=404, detail="Contact info not found")
+        
+        # Prepare update data (only include non-None values)
+        update_data = {}
+        if contact_update.label is not None:
+            update_data['label'] = contact_update.label
+        if contact_update.value is not None:
+            update_data['value'] = contact_update.value
+        if contact_update.contact_type is not None:
+            update_data['contact_type'] = contact_update.contact_type
+        if contact_update.icon is not None:
+            update_data['icon'] = contact_update.icon
+        if contact_update.display_order is not None:
+            update_data['display_order'] = contact_update.display_order
+        if contact_update.is_visible is not None:
+            update_data['is_visible'] = contact_update.is_visible
+            
+        # Always update the timestamp
+        update_data['updated_at'] = datetime.utcnow().isoformat()
+        
+        # Update Firebase
+        contact_ref.update(update_data)
+        
+        # Get updated data
+        updated_data = contact_ref.get()
+        
+        logger.info(f"Updated contact info: {updated_data.get('label', contact_id)}")
+        
+        return ContactInfo(
+            id=contact_id,
+            label=updated_data.get('label', ''),
+            value=updated_data.get('value', ''),
+            contact_type=updated_data.get('contact_type', ''),
+            icon=updated_data.get('icon', ''),
+            display_order=updated_data.get('display_order', 0),
+            is_visible=updated_data.get('is_visible', True),
+            created_at=datetime.fromisoformat(updated_data.get('created_at', datetime.utcnow().isoformat())),
+            updated_at=datetime.fromisoformat(updated_data.get('updated_at', datetime.utcnow().isoformat()))
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Update contact info error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to update contact information")
+
+@api_router.delete("/contact-info/{contact_id}")
+async def delete_contact_info(contact_id: str, current_user_email: str = Depends(verify_token)):
+    """Delete contact info entry (Admin only)"""
+    # Check if user is admin
+    if current_user_email not in AUTHORIZED_ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # Check if contact exists
+        contact_ref = get_firebase_ref(f'contact_info/{contact_id}')
+        contact_data = contact_ref.get()
+        
+        if not contact_data:
+            raise HTTPException(status_code=404, detail="Contact info not found")
+        
+        # Delete from Firebase
+        contact_ref.delete()
+        
+        logger.info(f"Deleted contact info: {contact_data.get('label', contact_id)}")
+        return {"message": "Contact info deleted successfully"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Delete contact info error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to delete contact information")
+
 # Include the router in the main app
 app.include_router(api_router)
 
