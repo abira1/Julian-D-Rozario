@@ -258,11 +258,10 @@ const BlogSection = () => {
                     {/* Image */}
                     <div className="relative h-40 overflow-hidden bg-slate-800">
                        
-                        <img 
+                        <BlurImage 
                           src={article.image_url || article.image} 
                           alt={article.title}
-                          className="responsive-blog-image transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
+                          className="responsive-blog-image group-hover:scale-110 transition-transform duration-500"
                         />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                       
@@ -325,11 +324,10 @@ const BlogSection = () => {
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden bg-slate-800">
                        
-                        <img 
+                        <BlurImage 
                           src={article.image_url || article.image} 
                           alt={article.title}
-                          className="responsive-blog-image transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
+                          className="responsive-blog-image group-hover:scale-110 transition-transform duration-500"
                         />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                       
