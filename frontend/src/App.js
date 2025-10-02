@@ -83,6 +83,7 @@ function App() {
     <div className="App bg-black text-white overflow-x-hidden">
       <AuthProvider>
         <BrowserRouter>
+          <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<PremiumBlogListing />} />
