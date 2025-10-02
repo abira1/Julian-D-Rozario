@@ -179,27 +179,7 @@ class TokenResponse(BaseModel):
     username: str
     is_admin: bool = False
 
-# WorkedWith models for business partners/collaborations
-class WorkedWith(BaseModel):
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    company_name: str
-    logo_url: str
-    display_order: int = Field(default=0)
-    is_active: bool = Field(default=True)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-
-class WorkedWithCreate(BaseModel):
-    company_name: str
-    logo_url: str
-    display_order: Optional[int] = 0
-    is_active: bool = Field(default=True)
-
-class WorkedWithUpdate(BaseModel):
-    company_name: Optional[str] = None
-    logo_url: Optional[str] = None
-    display_order: Optional[int] = None
-    is_active: Optional[bool] = None
+# WorkedWith models removed as requested
 
 # Contact Info models for managing contact information
 class ContactInfo(BaseModel):
