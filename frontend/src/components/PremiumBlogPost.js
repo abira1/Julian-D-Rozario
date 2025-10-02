@@ -556,7 +556,7 @@ const PremiumBlogPost = () => {
               </button>
               
               {/* Share Button with Dropdown */}
-              <div className="relative">
+              <div className="relative share-dropdown">
                 <button
                   onClick={() => setShareMenuOpen(!shareMenuOpen)}
                   className="flex items-center gap-2 px-4 py-2.5 bg-transparent border border-white/20 text-gray-300 hover:border-purple-500/50 hover:text-white hover:bg-purple-600/10 rounded-xl transition-all duration-200"
