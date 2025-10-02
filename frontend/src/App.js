@@ -24,7 +24,6 @@ import {
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
 
   // Critical resources to preload for faster initial page load
   const criticalResources = [
@@ -35,13 +34,9 @@ const Home = () => {
   const { progress, isComplete } = ResourcePreloader({ 
     resources: criticalResources,
     onComplete: () => {
-      setTimeout(() => setIsLoading(false), 300); // Small delay for smooth transition
+      setTimeout(() => setIsLoading(false), 1200); // Slightly longer to show Julian's profile
     }
   });
-
-  useEffect(() => {
-    setLoadingProgress(progress);
-  }, [progress]);
 
   useEffect(() => {
     // Enhanced smooth scroll behavior with better easing
