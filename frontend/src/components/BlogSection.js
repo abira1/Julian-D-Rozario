@@ -137,11 +137,10 @@ const BlogSection = () => {
                   >
                     {/* Featured Image */}
                     <div className="relative h-48 overflow-hidden">
-                      <img 
+                      <BlurImage 
                         src={blogs[0].image_url || blogs[0].image} 
                         alt={blogs[0].title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
+                        className="w-full h-48 group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                       
