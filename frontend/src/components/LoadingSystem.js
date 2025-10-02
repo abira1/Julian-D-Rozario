@@ -399,7 +399,7 @@ export const ProfileLoadingScreen = ({
       gsap.to(glowRef.current, {
         scale: 1.1,
         opacity: 0.6,
-        duration: 2,
+        duration: 3,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
