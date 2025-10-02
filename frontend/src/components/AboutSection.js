@@ -205,6 +205,7 @@ const AboutSection = () => {
         {/* Worked With Partners Section removed as requested */}
       </div>
     </section>
+    </SectionTransition>
   );
 };
 
