@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { BookOpen, ArrowRight, Calendar, Clock, Tag, TrendingUp } from 'lucide-react';
+import BlurImage from './ui/BlurImage';
 
 const PremiumBlogSection = () => {
   const sectionRef = useRef(null);
