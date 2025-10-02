@@ -167,36 +167,25 @@ const PremiumBlogPost = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Blog Post Utility Bar */}
-      <div className="fixed top-16 lg:top-18 left-0 right-0 z-40 bg-black/80 backdrop-blur-md border-b border-white/10">
+      {/* Modern Mobile-Style Navigation Bar */}
+      <div className="fixed top-16 lg:top-18 left-0 right-0 z-40 bg-black/95 border-b border-white/[0.08] shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 lg:h-16">
-            {/* Navigation */}
-            <div className="flex items-center space-x-4">
-              <Link 
-                to="/blog"
-                className="group relative w-10 h-10 bg-gradient-to-r from-purple-600/20 to-blue-600/20 hover:from-purple-600/30 hover:to-blue-600/30 border border-white/10 hover:border-purple-500/30 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 hover:scale-105"
-                title="Back to Articles"
-              >
-                <ArrowLeft className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                
-                {/* Tooltip */}
-                <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
-                  Back to Articles
-                </div>
-              </Link>
-            </div>
+          <div className="flex items-center h-12 lg:h-14">
+            {/* Back Navigation */}
+            <Link 
+              to="/blog"
+              className="group flex items-center space-x-3 text-gray-300 hover:text-white transition-all duration-200 hover:translate-x-1"
+              title="Back to Articles"
+            >
+              <div className="w-8 h-8 lg:w-9 lg:h-9 border border-white/20 hover:border-white/40 rounded-lg flex items-center justify-center transition-all duration-200">
+                <ArrowLeft className="w-4 h-4 lg:w-5 lg:h-5" />
+              </div>
+              <span className="hidden sm:inline text-sm lg:text-base font-medium">Back to Articles</span>
+            </Link>
             
-            {/* Utility Actions */}
-            <div className="flex items-center space-x-2">
-              <button 
-                onClick={shareArticle}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors" 
-                title="Share article"
-              >
-                <Share2 className="w-4 h-4 lg:w-5 lg:h-5" />
-              </button>
-              <button className="p-2 hover:bg-white/10 rounded-full transition-colors" title="Reading mode">
+            {/* Reading Mode Toggle (Mobile-friendly) */}
+            <div className="ml-auto">
+              <button className="p-2 lg:p-2.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200" title="Reading mode">
                 <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
               </button>
             </div>
