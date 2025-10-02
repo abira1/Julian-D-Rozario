@@ -155,14 +155,10 @@ const PremiumBlogSection = () => {
                     {/* Image - Fixed Height */}
                     <div className="relative h-48 bg-gradient-to-br from-zinc-800 to-zinc-700 overflow-hidden flex-shrink-0">
                       {blog.featured_image || blog.image_url ? (
-                        <img 
+                        <BlurImage 
                           src={blog.featured_image || blog.image_url}
                           alt={blog.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'flex';
-                          }}
+                          className="w-full h-48 group-hover:scale-110 transition-transform duration-300"
                         />
                       ) : null}
                       
