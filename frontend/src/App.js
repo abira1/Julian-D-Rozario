@@ -3,7 +3,8 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Navigation from "./components/Navigation";
-import HeroSection from "./components/HeroSection";
+// import HeroSection from "./components/HeroSection"; // Original version - temporarily disabled
+import HeroSection from "./components/HeroSectionDragEditor"; // TEMPORARY: Drag-and-drop editor version
 import AboutSection from "./components/AboutSection";
 // WorkedWithSection removed as requested
 
