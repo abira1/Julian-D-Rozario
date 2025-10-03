@@ -34,18 +34,19 @@ const HeroSection = () => {
       .to(imageRef.current, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.8")
       .to(servicesRef.current, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4");
 
-    // Animate floating tags with original animations
+    // Tags entrance animation only - NO floating animations (fixed positions)
     tagsRef.current.forEach((tag, index) => {
       if (tag) {
-        gsap.to(tag, {
-          y: Math.sin(index * 2) * 10,
-          rotation: tagPositions[index].rotate + Math.sin(index) * 5,
-          duration: 3 + index,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: index * 0.5
-        });
+        gsap.fromTo(tag, 
+          { opacity: 0, scale: 0.8 },
+          { 
+            opacity: 1, 
+            scale: 1,
+            duration: 0.6,
+            ease: "back.out(1.7)",
+            delay: 1 + index * 0.1
+          }
+        );
       }
     });
   }, []);
