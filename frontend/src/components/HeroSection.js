@@ -192,7 +192,7 @@ const HeroSection = () => {
                   <div 
                     key={index}
                     ref={el => tagsRef.current[index] = el}
-                    className="hidden lg:block absolute bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 z-30"
+                    className="hidden lg:block absolute bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 z-30 whitespace-nowrap"
                     style={getTagStyle(position)}
                   >
                     <div className="flex items-center space-x-2">
