@@ -38,21 +38,109 @@ const HeroSection = () => {
       .to(imageRef.current, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.8")
       .to(servicesRef.current, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4");
 
-    // Animate floating tags
-    tagsRef.current.forEach((tag, index) => {
-      if (tag) {
-        gsap.to(tag, {
-          y: Math.sin(index * 2) * 10,
-          rotation: Math.sin(index) * 5,
-          duration: 3 + index,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: index * 0.5
-        });
-      }
+    // Only animate floating tags if not in drag mode
+    if (!isDragMode) {
+      tagsRef.current.forEach((tag, index) => {
+        if (tag) {
+          gsap.to(tag, {
+            y: Math.sin(index * 2) * 10,
+            rotation: Math.sin(index) * 5,
+            duration: 3 + index,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: index * 0.5
+          });
+        }
+      });
+    }
+  }, [isDragMode]);
+
+  // Drag handlers
+  const handleMouseDown = (index, e) => {
+    if (!isDragMode) return;
+    e.preventDefault();
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const imageContainer = e.currentTarget.parentElement;
+    const containerRect = imageContainer.getBoundingClientRect();
+    
+    setDraggedIndex(index);
+    setDragOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
     });
-  }, []);
+
+    // Kill any GSAP animations on this tag
+    gsap.killTweensOf(e.currentTarget);
+  };
+
+  const handleMouseMove = (e) => {
+    if (draggedIndex === null || !isDragMode) return;
+    
+    const imageContainer = tagsRef.current[draggedIndex].parentElement;
+    const containerRect = imageContainer.getBoundingClientRect();
+    
+    const newX = e.clientX - containerRect.left - dragOffset.x;
+    const newY = e.clientY - containerRect.top - dragOffset.y;
+    
+    // Update position in real-time
+    const newPositions = [...tagPositions];
+    newPositions[draggedIndex] = {
+      ...newPositions[draggedIndex],
+      left: Math.round(newX),
+      top: Math.round(newY),
+      right: undefined,
+      bottom: undefined
+    };
+    setTagPositions(newPositions);
+  };
+
+  const handleMouseUp = () => {
+    setDraggedIndex(null);
+    setDragOffset({ x: 0, y: 0 });
+  };
+
+  // Add global mouse events
+  useEffect(() => {
+    if (draggedIndex !== null) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [draggedIndex, dragOffset]);
+
+  // Function to get tag style based on current position
+  const getTagStyle = (position, index) => {
+    const style = {
+      transform: `rotate(${position.rotate}deg)`,
+      cursor: isDragMode ? 'grab' : 'default'
+    };
+
+    if (position.left !== undefined) {
+      style.left = `${position.left}px`;
+    }
+    if (position.right !== undefined) {
+      style.right = `${position.right}px`;
+    }
+    if (position.top !== undefined) {
+      style.top = `${position.top}px`;
+    }
+    if (position.bottom !== undefined) {
+      style.bottom = `${position.bottom}px`;
+    }
+
+    if (draggedIndex === index) {
+      style.cursor = 'grabbing';
+      style.zIndex = 50;
+    }
+
+    return style;
+  };
 
   const handleCTAClick = () => {
     const contactSection = document.getElementById('contact');
