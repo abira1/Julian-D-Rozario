@@ -12,17 +12,14 @@ const HeroSection = () => {
   const tagsRef = useRef([]);
   const servicesRef = useRef(null);
 
-  // Drag functionality state
-  const [isDragMode] = useState(true); // Remove setIsDragMode to fix warning
-  const [draggedIndex, setDraggedIndex] = useState(null);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [tagPositions, setTagPositions] = useState([
-    { top: -48, left: -96, rotate: -12, name: 'Business Relations' }, // -top-12 -left-24
-    { top: 80, right: -96, rotate: 8, name: '10+ Years' }, // top-20 -right-24  
-    { top: 128, left: -128, rotate: -3, name: 'Company Formation' }, // top-32 -left-32
-    { bottom: -32, left: -80, rotate: -6, name: 'Dubai Expert' }, // -bottom-8 -left-20
-    { bottom: -32, right: -96, rotate: 8, name: 'UAE Specialist' } // -bottom-8 -right-24
-  ]);
+  // Final tag positions (drag functionality removed)
+  const tagPositions = [
+    { top: 9, left: -147, rotate: -12, name: 'Business Relations' },
+    { top: 57, left: 419, rotate: 8, name: '10+ Years' },
+    { top: 176, left: -237, rotate: -3, name: 'Company Formation' },
+    { top: 307, left: -146, rotate: -6, name: 'Dubai Expert' },
+    { top: 251, left: 408, rotate: 8, name: 'UAE Specialist' }
+  ];
 
   useEffect(() => {
     // Entrance animations
