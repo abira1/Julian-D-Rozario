@@ -74,26 +74,27 @@ const HeroSection = () => {
     gsap.killTweensOf(e.currentTarget);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (draggedIndex === null || !isDragMode) return;
     
     const imageContainer = tagsRef.current[draggedIndex].parentElement;
-    const containerRect = imageContainer.getBoundingClientRect();
     
-    const newX = e.clientX - containerRect.left - dragOffset.x;
-    const newY = e.clientY - containerRect.top - dragOffset.y;
+    const newX = e.clientX - imageContainer.getBoundingClientRect().left - dragOffset.x;
+    const newY = e.clientY - imageContainer.getBoundingClientRect().top - dragOffset.y;
     
     // Update position in real-time
-    const newPositions = [...tagPositions];
-    newPositions[draggedIndex] = {
-      ...newPositions[draggedIndex],
-      left: Math.round(newX),
-      top: Math.round(newY),
-      right: undefined,
-      bottom: undefined
-    };
-    setTagPositions(newPositions);
-  };
+    setTagPositions(prev => {
+      const newPositions = [...prev];
+      newPositions[draggedIndex] = {
+        ...newPositions[draggedIndex],
+        left: Math.round(newX),
+        top: Math.round(newY),
+        right: undefined,
+        bottom: undefined
+      };
+      return newPositions;
+    });
+  }, [draggedIndex, isDragMode, dragOffset.x, dragOffset.y]);
 
   const handleMouseUp = () => {
     setDraggedIndex(null);
