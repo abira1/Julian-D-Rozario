@@ -31,20 +31,26 @@ import {
 } from "./components/LazyWrapper";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Critical resources to preload for faster initial page load
-  const criticalResources = [
-    { type: 'font', src: 'https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@300;400;600;700&display=swap' },
-    // Add more critical resources as needed
-  ];
-
-  const { progress, isComplete } = ResourcePreloader({ 
-    resources: criticalResources,
-    onComplete: () => {
-      setTimeout(() => setIsLoading(false), 3500); // Restored original loading time
-    }
+  // Track loading state for each section
+  const [sectionsLoaded, setSectionsLoaded] = useState({
+    hero: false,
+    blog: false,
+    about: false,
+    contact: false
   });
+
+  // Mark sections as loaded after component mount
+  useEffect(() => {
+    // Simulate progressive loading with natural delays
+    const timers = [
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, hero: true })), 300),
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, about: true })), 600),
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, blog: true })), 900),
+      setTimeout(() => setSectionsLoaded(prev => ({ ...prev, contact: true })), 1200)
+    ];
+
+    return () => timers.forEach(timer => clearTimeout(timer));
+  }, []);
 
   useEffect(() => {
     // Enhanced smooth scroll behavior with better easing
