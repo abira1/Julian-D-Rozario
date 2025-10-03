@@ -112,7 +112,7 @@ const HeroSection = () => {
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [draggedIndex, dragOffset]);
+  }, [draggedIndex, handleMouseMove]);
 
   // Function to get tag style based on current position
   const getTagStyle = (position, index) => {
