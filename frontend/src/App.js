@@ -8,7 +8,15 @@ import AboutSection from "./components/AboutSection";
 // WorkedWithSection removed as requested
 
 // Import loading system components
-import { ProfileLoadingScreen, ResourcePreloader, PageTransition } from "./components/LoadingSystem";
+import { PageTransition } from "./components/LoadingSystem";
+
+// Import skeleton loaders
+import {
+  HeroSectionSkeleton,
+  BlogSectionSkeleton,
+  AboutSectionSkeleton,
+  ContactSectionSkeleton
+} from "./components/SkeletonLoaders";
 
 // Lazy load non-critical components for better performance
 import { 
