@@ -110,21 +110,38 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      <ProfileLoadingScreen 
-        isLoading={isLoading}
-      />
-      
-      <PageTransition className="relative">
-        <main>
+    <PageTransition className="relative">
+      <main>
+        {/* Hero Section with skeleton loader */}
+        {!sectionsLoaded.hero ? (
+          <HeroSectionSkeleton />
+        ) : (
           <HeroSection />
+        )}
+
+        {/* Blog Section with skeleton loader */}
+        {!sectionsLoaded.blog ? (
+          <BlogSectionSkeleton />
+        ) : (
           <LazyBlogSection />
+        )}
+
+        {/* About Section with skeleton loader */}
+        {!sectionsLoaded.about ? (
+          <AboutSectionSkeleton />
+        ) : (
           <AboutSection />
+        )}
+
+        {/* Contact Section with skeleton loader */}
+        {!sectionsLoaded.contact ? (
+          <ContactSectionSkeleton />
+        ) : (
           <LazyContactSection />
-        </main>
-        <LazyFooter />
-      </PageTransition>
-    </>
+        )}
+      </main>
+      <LazyFooter />
+    </PageTransition>
   );
 };
 
