@@ -24,9 +24,11 @@ const PremiumBlogSection = () => {
         
         if (response.ok) {
           const blogsData = await response.json();
+          // Handle new API response format {blogs: [...], total: count}
+          const blogsArray = blogsData.blogs || (Array.isArray(blogsData) ? blogsData : []);
           // Filter for published blogs and take the most recent 6
-          const publishedBlogs = Array.isArray(blogsData) 
-            ? blogsData.filter(blog => blog.status !== 'draft').slice(0, 6)
+          const publishedBlogs = Array.isArray(blogsArray) 
+            ? blogsArray.filter(blog => blog.status !== 'draft' && blog.is_published !== 0).slice(0, 6)
             : [];
           setBlogs(publishedBlogs);
         } else {
