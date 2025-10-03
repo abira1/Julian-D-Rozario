@@ -269,60 +269,25 @@ const HeroSection = () => {
               </div>
 
               {/* Floating tags - surrounding the blob (Desktop only) */}
-              {/* Business Relations tag - positioned further outside top-left */}
-              <div 
-                ref={el => tagsRef.current[0] = el}
-                className="hidden lg:block absolute -top-12 -left-24 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-12 z-30"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                  <span className="text-sm font-medium text-white">Business Relations</span>
-                </div>
-              </div>
-
-              {/* 10+ Years tag - positioned mid-right, aligned closer to subject's shoulder */}
-              <div 
-                ref={el => tagsRef.current[1] = el}
-                className="hidden lg:block absolute top-20 -right-24 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform rotate-8 z-30"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-sm font-medium text-white">10+ Years</span>
-                </div>
-              </div>
-
-              {/* Company Formation tag - positioned lower in mid-left area, outside image border */}
-              <div 
-                ref={el => tagsRef.current[2] = el}
-                className="hidden lg:block absolute top-32 -left-32 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-3 z-30"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  <span className="text-sm font-medium text-white">Company Formation</span>
-                </div>
-              </div>
-
-              {/* Dubai Expert tag - positioned further outside bottom-left */}
-              <div 
-                ref={el => tagsRef.current[3] = el}
-                className="hidden lg:block absolute -bottom-8 -left-20 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform -rotate-6 z-30"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-sm font-medium text-white">Dubai Expert</span>
-                </div>
-              </div>
-
-              {/* UAE Specialist tag - positioned further outside bottom-right */}
-              <div 
-                ref={el => tagsRef.current[4] = el}
-                className="hidden lg:block absolute -bottom-8 -right-24 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 transform rotate-8 z-30"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                  <span className="text-sm font-medium text-white">UAE Specialist</span>
-                </div>
-              </div>
+              {tagPositions.map((position, index) => {
+                const colors = ['bg-purple-400', 'bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400'];
+                return (
+                  <div 
+                    key={index}
+                    ref={el => tagsRef.current[index] = el}
+                    className={`hidden lg:block absolute bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/20 z-30 select-none ${
+                      isDragMode ? 'border-purple-400/50 shadow-purple-500/25' : 'border-white/20'
+                    }`}
+                    style={getTagStyle(position, index)}
+                    onMouseDown={(e) => handleMouseDown(index, e)}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <div className={`w-2 h-2 ${colors[index]} rounded-full`}></div>
+                      <span className="text-sm font-medium text-white">{position.name}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
