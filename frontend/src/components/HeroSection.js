@@ -171,13 +171,10 @@ const HeroSection = () => {
                 }}
               ></div>
               
-              {/* Main image container with blob shape - User-finalized position */}
+              {/* Main image container with blob shape - Responsive positioning */}
               <div 
-                className="relative z-20 p-8" 
+                className="relative z-20 p-8 lg-image-position" 
                 ref={imageRef}
-                style={{
-                  transform: 'translate(-89px, -24px)'
-                }}
               >
                 <div className="relative w-80 h-80 lg:w-96 lg:h-96 overflow-hidden shadow-2xl border-4 border-white/20"
                   style={{
