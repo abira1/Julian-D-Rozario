@@ -13,7 +13,7 @@ const HeroSection = () => {
   const servicesRef = useRef(null);
 
   // Drag functionality state
-  const [isDragMode, setIsDragMode] = useState(true);
+  const [isDragMode] = useState(true); // Remove setIsDragMode to fix warning
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [tagPositions, setTagPositions] = useState([
