@@ -531,7 +531,11 @@ async def get_blogs(category: Optional[str] = None):
     """Get all published blogs, optionally filtered by category"""
     try:
         blogs = await get_blogs_from_db(category)
-        return blogs
+        return {
+            "blogs": blogs,
+            "total": len(blogs),
+            "category": category or "all"
+        }
     except Exception as e:
         logger.error(f"Error fetching blogs: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch blogs")
