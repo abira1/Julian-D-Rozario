@@ -50,91 +50,13 @@ const HeroSection = () => {
     });
   }, []);
 
-  // Drag handlers
-  const handleMouseDown = (index, e) => {
-    if (!isDragMode) return;
-    e.preventDefault();
-    
-    const rect = e.currentTarget.getBoundingClientRect();
-    const imageContainer = e.currentTarget.parentElement;
-    const containerRect = imageContainer.getBoundingClientRect();
-    
-    setDraggedIndex(index);
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-
-    // Kill any GSAP animations on this tag
-    gsap.killTweensOf(e.currentTarget);
-  };
-
-  const handleMouseMove = useCallback((e) => {
-    if (draggedIndex === null || !isDragMode) return;
-    
-    const imageContainer = tagsRef.current[draggedIndex].parentElement;
-    
-    const newX = e.clientX - imageContainer.getBoundingClientRect().left - dragOffset.x;
-    const newY = e.clientY - imageContainer.getBoundingClientRect().top - dragOffset.y;
-    
-    // Update position in real-time
-    setTagPositions(prev => {
-      const newPositions = [...prev];
-      newPositions[draggedIndex] = {
-        ...newPositions[draggedIndex],
-        left: Math.round(newX),
-        top: Math.round(newY),
-        right: undefined,
-        bottom: undefined
-      };
-      return newPositions;
-    });
-  }, [draggedIndex, isDragMode, dragOffset.x, dragOffset.y]);
-
-  const handleMouseUp = () => {
-    setDraggedIndex(null);
-    setDragOffset({ x: 0, y: 0 });
-  };
-
-  // Add global mouse events
-  useEffect(() => {
-    if (draggedIndex !== null) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      
-      return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-    }
-  }, [draggedIndex, handleMouseMove]);
-
-  // Function to get tag style based on current position
-  const getTagStyle = (position, index) => {
-    const style = {
+  // Function to get tag style based on final position
+  const getTagStyle = (position) => {
+    return {
       transform: `rotate(${position.rotate}deg)`,
-      cursor: isDragMode ? 'grab' : 'default'
+      left: `${position.left}px`,
+      top: `${position.top}px`
     };
-
-    if (position.left !== undefined) {
-      style.left = `${position.left}px`;
-    }
-    if (position.right !== undefined) {
-      style.right = `${position.right}px`;
-    }
-    if (position.top !== undefined) {
-      style.top = `${position.top}px`;
-    }
-    if (position.bottom !== undefined) {
-      style.bottom = `${position.bottom}px`;
-    }
-
-    if (draggedIndex === index) {
-      style.cursor = 'grabbing';
-      style.zIndex = 50;
-    }
-
-    return style;
   };
 
   const handleCTAClick = () => {
