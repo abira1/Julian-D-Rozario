@@ -34,7 +34,7 @@ const Home = () => {
   const { progress, isComplete } = ResourcePreloader({ 
     resources: criticalResources,
     onComplete: () => {
-      setTimeout(() => setIsLoading(false), 500); // Quick loading for testing
+      setTimeout(() => setIsLoading(false), 3500); // Restored original loading time
     }
   });
 
