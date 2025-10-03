@@ -50,12 +50,12 @@ const HeroSection = () => {
     });
   }, []);
 
-  // Function to get tag style based on final position
+  // Function to get tag style based on final position - center-based positioning
   const getTagStyle = (position) => {
     return {
-      transform: `rotate(${position.rotate}deg)`,
-      left: `${position.left}px`,
-      top: `${position.top}px`
+      transform: `translate(${position.left}px, ${position.top}px) rotate(${position.rotate}deg)`,
+      left: '50%',
+      top: '50%'
     };
   };
 
