@@ -34,23 +34,21 @@ const HeroSection = () => {
       .to(imageRef.current, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.8")
       .to(servicesRef.current, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4");
 
-    // Only animate floating tags if not in drag mode
-    if (!isDragMode) {
-      tagsRef.current.forEach((tag, index) => {
-        if (tag) {
-          gsap.to(tag, {
-            y: Math.sin(index * 2) * 10,
-            rotation: Math.sin(index) * 5,
-            duration: 3 + index,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            delay: index * 0.5
-          });
-        }
-      });
-    }
-  }, [isDragMode]);
+    // Animate floating tags with original animations
+    tagsRef.current.forEach((tag, index) => {
+      if (tag) {
+        gsap.to(tag, {
+          y: Math.sin(index * 2) * 10,
+          rotation: tagPositions[index].rotate + Math.sin(index) * 5,
+          duration: 3 + index,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.5
+        });
+      }
+    });
+  }, []);
 
   // Drag handlers
   const handleMouseDown = (index, e) => {
