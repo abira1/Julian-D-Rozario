@@ -161,8 +161,8 @@ const HeroSection = () => {
           </div>
 
           {/* Right Column - Image with decorative elements */}
-          <div className="flex justify-center lg:justify-end relative">
-            <div className="relative">
+          <div className="flex justify-center lg:justify-start relative">
+            <div className="relative lg:-ml-16">
               {/* Abstract background shape - blob */}
               <div className="absolute -inset-8 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-50 blur-3xl"
                 style={{
