@@ -1112,3 +1112,18 @@ img {
     color: #333;
   }
 }
+
+
+/* Hero Section Responsive Image Positioning */
+/* Mobile: Centered (no transform) */
+.lg-image-position {
+  transform: translate(0, 0);
+}
+
+/* Desktop: Apply custom position */
+@media (min-width: 1024px) {
+  .lg-image-position {
+    transform: translate(-89px, -24px);
+  }
+}
+
