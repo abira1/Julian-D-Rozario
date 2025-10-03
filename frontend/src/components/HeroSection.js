@@ -12,13 +12,13 @@ const HeroSection = () => {
   const tagsRef = useRef([]);
   const servicesRef = useRef(null);
 
-  // Final tag positions (drag functionality removed)
+  // Final tag positions (drag functionality removed) - Fixed line breaking
   const tagPositions = [
     { top: 9, left: -147, rotate: -12, name: 'Business Relations' },
-    { top: 57, left: 419, rotate: 8, name: '10+ Years' },
+    { top: 57, left: 320, rotate: 8, name: '10+ Years' },
     { top: 176, left: -237, rotate: -3, name: 'Company Formation' },
     { top: 307, left: -146, rotate: -6, name: 'Dubai Expert' },
-    { top: 251, left: 408, rotate: 8, name: 'UAE Specialist' }
+    { top: 251, left: 310, rotate: 8, name: 'UAE Specialist' }
   ];
 
   useEffect(() => {
