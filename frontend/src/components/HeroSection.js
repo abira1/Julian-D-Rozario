@@ -333,6 +333,47 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Live Position Preview Panel */}
+      {isDragMode && (
+        <div className="fixed top-4 right-4 bg-black/90 backdrop-blur-md border border-purple-400/30 rounded-lg p-4 z-50 max-w-sm">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-white font-semibold text-sm" style={{ fontFamily: 'Encode Sans Semi Expanded, sans-serif' }}>
+              Live Tag Positions
+            </h3>
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          </div>
+          
+          <div className="space-y-2 text-xs font-mono">
+            {tagPositions.map((position, index) => (
+              <div key={index} className="bg-white/5 rounded p-2 border border-white/10">
+                <div className="text-purple-300 font-medium mb-1">{position.name}</div>
+                <div className="text-gray-300 space-y-1">
+                  {position.left !== undefined && (
+                    <div>left: <span className="text-blue-300">{position.left}px</span></div>
+                  )}
+                  {position.right !== undefined && (
+                    <div>right: <span className="text-blue-300">{position.right}px</span></div>
+                  )}
+                  {position.top !== undefined && (
+                    <div>top: <span className="text-blue-300">{position.top}px</span></div>
+                  )}
+                  {position.bottom !== undefined && (
+                    <div>bottom: <span className="text-blue-300">{position.bottom}px</span></div>
+                  )}
+                  <div>rotate: <span className="text-green-300">{position.rotate}deg</span></div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-3 pt-3 border-t border-white/10">
+            <div className="text-xs text-gray-400">
+              Copy final positions and send to dev
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
