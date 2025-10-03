@@ -23,7 +23,7 @@ import {
 } from "./components/LazyWrapper";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(false); // Temporarily disable loading for testing
+  const [isLoading, setIsLoading] = useState(true);
 
   // Critical resources to preload for faster initial page load
   const criticalResources = [
