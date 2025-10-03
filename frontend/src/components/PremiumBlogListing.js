@@ -68,8 +68,9 @@ const PremiumBlogListing = () => {
       
       // Fetch blogs
       const blogsResponse = await fetch('/api/blogs');
-      const blogsData = blogsResponse.ok ? await blogsResponse.json() : [];
-      setBlogs(Array.isArray(blogsData) ? blogsData : []);
+      const blogsData = blogsResponse.ok ? await blogsResponse.json() : {};
+      const blogsArray = blogsData.blogs || (Array.isArray(blogsData) ? blogsData : []);
+      setBlogs(Array.isArray(blogsArray) ? blogsArray : []);
       
       // Fetch categories
       const categoriesResponse = await fetch('/api/categories');
