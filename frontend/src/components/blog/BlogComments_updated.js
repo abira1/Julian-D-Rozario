@@ -12,7 +12,7 @@ const BlogComments = ({ blogId }) => {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [loading, setLoading] = useState(true);
   
-  const { user, backendToken } = useAuth();
+  const { user, backendToken } = useFirebaseAuth();
 
   // Real-time comments listener
   useEffect(() => {
