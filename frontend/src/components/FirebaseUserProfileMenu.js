@@ -78,7 +78,7 @@ const FirebaseUserProfileMenu = () => {
           <div className="firebase-profile-menu-items">
             <button 
               className="firebase-menu-item"
-              onClick={() => { setIsOpen(false); window.location.href = '/user/profile'; }}
+              onClick={() => { setIsOpen(false); navigate('/user/profile'); }}
               data-testid="my-profile-menu-item"
             >
               <svg className="firebase-menu-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -89,7 +89,7 @@ const FirebaseUserProfileMenu = () => {
 
             <button 
               className="firebase-menu-item"
-              onClick={() => { setIsOpen(false); window.location.href = '/user/liked-blogs'; }}
+              onClick={() => { setIsOpen(false); navigate('/user/liked-blogs'); }}
               data-testid="liked-blogs-menu-item"
             >
               <svg className="firebase-menu-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -100,7 +100,7 @@ const FirebaseUserProfileMenu = () => {
 
             <button 
               className="firebase-menu-item"
-              onClick={() => { setIsOpen(false); window.location.href = '/user/saved-blogs'; }}
+              onClick={() => { setIsOpen(false); navigate('/user/saved-blogs'); }}
               data-testid="saved-blogs-menu-item"
             >
               <svg className="firebase-menu-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -111,7 +111,7 @@ const FirebaseUserProfileMenu = () => {
 
             <button 
               className="firebase-menu-item"
-              onClick={() => { setIsOpen(false); window.location.href = '/user/comments'; }}
+              onClick={() => { setIsOpen(false); navigate('/user/comments'); }}
               data-testid="comments-menu-item"
             >
               <svg className="firebase-menu-icon" viewBox="0 0 24 24" fill="currentColor">
