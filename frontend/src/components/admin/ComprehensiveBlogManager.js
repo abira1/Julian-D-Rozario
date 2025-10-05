@@ -37,7 +37,12 @@ const ComprehensiveBlogManager = () => {
     featured_image: '',
     meta_title: '',
     meta_description: '',
-    read_time: '5 min read'
+    read_time: '5 min read',
+    // SEO Fields
+    slug: '',
+    keywords: '',
+    og_image: '',
+    canonical_url: ''
   });
 
   const textareaRef = useRef(null);
