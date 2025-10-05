@@ -155,10 +155,11 @@ const Home = () => {
 
 function App() {
   return (
-    <div className="App bg-black text-white overflow-x-hidden">
-      <FirebaseAuthProvider>
-        <BrowserRouter>
-          <Routes>
+    <HelmetProvider>
+      <div className="App bg-black text-white overflow-x-hidden">
+        <FirebaseAuthProvider>
+          <BrowserRouter>
+            <Routes>
             {/* Main portfolio website at root */}
             <Route path="/" element={
               <>
