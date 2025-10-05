@@ -46,12 +46,16 @@ const SavedBlogs = () => {
     navigate(`/blog/${blogId}`);
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="blog-collections-container">
         <div className="loading-spinner">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    return null;
   }
 
   return (
