@@ -75,13 +75,13 @@ const AdminPanel = () => {
       
       <div className="pt-16">
         <Routes>
-          <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="/" element={<AdminDashboard />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/blogs" element={<ComprehensiveBlogManager />} />
           <Route path="/blogs/:action/:id?" element={<ComprehensiveBlogManager />} />
           <Route path="/contact" element={<ContactManager />} />
           {/* WorkedWith route removed as requested */}
-          <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="*" element={<AdminDashboard />} />
         </Routes>
       </div>
     </div>
