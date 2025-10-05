@@ -1,0 +1,139 @@
+═══════════════════════════════════════════════════════════════
+🤖 DEPLOYMENT AGENT PROMPT - COPY & PASTE THIS
+═══════════════════════════════════════════════════════════════
+
+TASK: Deploy Julian D'Rozario portfolio to https://drozario.blog/ on Hostinger
+
+CONTEXT: All files are ready in /app/. Codebase is production-ready. Just execute deployment.
+
+YOUR MISSION: Guide me through deployment WITHOUT asking for confirmations unless critical. Be specific, clear, and complete. Work through each phase methodically.
+
+═══════════════════════════════════════════════════════════════
+PHASE 1: LOCAL BUILD
+═══════════════════════════════════════════════════════════════
+
+Execute these commands:
+```bash
+cd /app/frontend
+yarn install
+yarn build
+# Verify /app/frontend/build/ folder created
+```
+
+═══════════════════════════════════════════════════════════════
+PHASE 2: MYSQL DATABASE (Guide me through)
+═══════════════════════════════════════════════════════════════
+
+Walk me through:
+1. Creating MySQL database in Hostinger hPanel
+2. Creating database user
+3. Importing /app/database_migration.sql via phpMyAdmin
+4. Ask me to provide: database name, username, password (with prefixes)
+
+═══════════════════════════════════════════════════════════════
+PHASE 3: FILE UPLOADS (Guide me through)
+═══════════════════════════════════════════════════════════════
+
+Tell me exactly what to upload where:
+- Backend files to: /domains/drozario.blog/backend/
+- Frontend build to: /domains/drozario.blog/public_html/
+- .htaccess from: /app/HTACCESS_DROZARIO.txt
+
+═══════════════════════════════════════════════════════════════
+PHASE 4: ENVIRONMENT CONFIG
+═══════════════════════════════════════════════════════════════
+
+Generate JWT secret for me (openssl rand -hex 32)
+Create backend/.env with my MySQL credentials
+Specify exact file paths and contents
+
+═══════════════════════════════════════════════════════════════
+PHASE 5: BACKEND SETUP (Guide me through)
+═══════════════════════════════════════════════════════════════
+
+Walk me through:
+- Setting up Python App Manager in hPanel
+- OR installing dependencies via SSH if available
+
+═══════════════════════════════════════════════════════════════
+PHASE 6: SSL & SECURITY (Guide me through)
+═══════════════════════════════════════════════════════════════
+
+Walk me through:
+- Enabling Let's Encrypt SSL in hPanel
+- Setting file permissions
+- Verifying HTTPS works
+
+═══════════════════════════════════════════════════════════════
+PHASE 7: TESTING
+═══════════════════════════════════════════════════════════════
+
+Test these URLs (you do it via curl):
+- https://drozario.blog/
+- https://drozario.blog/api/health
+- https://drozario.blog/api/blogs
+- https://drozario.blog/sitemap.xml
+
+Then guide me to test in browser:
+- Homepage, blog listing, admin panel
+
+═══════════════════════════════════════════════════════════════
+CRITICAL RULES FOR YOU
+═══════════════════════════════════════════════════════════════
+
+DO:
+✅ Follow phases in exact order
+✅ Be specific with every command and path
+✅ Generate real values (JWT secret, etc.)
+✅ Test after each phase
+✅ Use files in /app/ for reference
+✅ Verify each step completed
+
+DON'T:
+❌ Skip phases or steps
+❌ Leave placeholders in configs
+❌ Assume I know what to do without clear instructions
+❌ Proceed if previous step failed
+❌ Use "YOUR_PASSWORD_HERE" type placeholders
+
+═══════════════════════════════════════════════════════════════
+REFERENCE FILES AVAILABLE
+═══════════════════════════════════════════════════════════════
+
+/app/PRODUCTION_DEPLOYMENT_PLAN_DROZARIO.md
+/app/QUICK_START_DROZARIO.md
+/app/DEPLOYMENT_CHECKLIST.md
+/app/HTACCESS_DROZARIO.txt
+/app/backend/.env.production
+/app/frontend/.env.production
+/app/database_migration.sql
+
+═══════════════════════════════════════════════════════════════
+SUCCESS CRITERIA
+═══════════════════════════════════════════════════════════════
+
+Deployment successful when:
+✅ https://drozario.blog/ loads
+✅ API responds at /api/health
+✅ SSL active (padlock visible)
+✅ Admin login works
+✅ Blog posts visible
+✅ No errors in browser console
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+If 500 error: Check backend/.env credentials, error logs
+If DB fails: Verify MySQL credentials match exactly
+If API 404: Check backend running, .htaccess correct
+If login fails: Check Firebase config, admin emails
+If blank page: Check index.html location, console errors
+
+═══════════════════════════════════════════════════════════════
+🚀 START NOW - BEGIN WITH PHASE 1
+═══════════════════════════════════════════════════════════════
+
+Work through each phase step by step. Be clear and specific. Let's get drozario.blog LIVE! 💪
+
+Ready? Start with Phase 1: LOCAL BUILD
