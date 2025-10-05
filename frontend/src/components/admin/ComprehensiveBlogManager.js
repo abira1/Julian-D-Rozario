@@ -138,9 +138,22 @@ const ComprehensiveBlogManager = () => {
       featured_image: '',
       meta_title: '',
       meta_description: '',
-      read_time: '5 min read'
+      read_time: '5 min read',
+      // SEO Fields
+      slug: '',
+      keywords: '',
+      og_image: '',
+      canonical_url: ''
     });
     setCurrentBlog(null);
+  };
+
+  // Handle SEO data updates from SEOEditor
+  const handleSEOUpdate = (seoData) => {
+    setFormData(prev => ({
+      ...prev,
+      ...seoData
+    }));
   };
 
   // Handle form input changes
