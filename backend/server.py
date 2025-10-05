@@ -547,10 +547,9 @@ async def get_blogs(
     category: Optional[str] = None,
     featured: Optional[bool] = None,
     limit: int = Query(default=10, le=100),
-    offset: int = Query(default=0, ge=0),
-    user_data: Optional[dict] = Depends(verify_token) if security else None
+    offset: int = Query(default=0, ge=0)
 ):
-    """Get all blogs with optional user interaction data"""
+    """Get all blogs - public endpoint"""
     if USE_MYSQL:
         async with db_pool.acquire() as conn:
             async with conn.cursor() as cursor:
