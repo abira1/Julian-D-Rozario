@@ -453,6 +453,86 @@ async def health_check():
     }
 
 # =====================================================
+# SEO ROUTES
+# =====================================================
+
+@app.get("/sitemap.xml")
+async def generate_sitemap():
+    """Generate XML sitemap for SEO"""
+    from fastapi.responses import Response
+    
+    if USE_MYSQL:
+        async with db_pool.acquire() as conn:
+            async with conn.cursor() as cursor:
+                await cursor.execute(
+                    "SELECT id, slug, title, updated_at FROM blogs WHERE status = 'published' ORDER BY updated_at DESC"
+                )
+                blogs = await cursor.fetchall()
+    else:
+        with get_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT id, slug, title, updated_at FROM blogs WHERE status = 'published' ORDER BY updated_at DESC"
+            )
+            blogs = [dict(row) for row in cursor.fetchall()]
+    
+    # Build sitemap XML
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    # Homepage
+    xml += '  <url>\n'
+    xml += '    <loc>https://yourdomain.com/</loc>\n'
+    xml += f'    <lastmod>{datetime.now().date().isoformat()}</lastmod>\n'
+    xml += '    <changefreq>weekly</changefreq>\n'
+    xml += '    <priority>1.0</priority>\n'
+    xml += '  </url>\n'
+    
+    # Blog listing page
+    xml += '  <url>\n'
+    xml += '    <loc>https://yourdomain.com/blog</loc>\n'
+    xml += f'    <lastmod>{datetime.now().date().isoformat()}</lastmod>\n'
+    xml += '    <changefreq>daily</changefreq>\n'
+    xml += '    <priority>0.9</priority>\n'
+    xml += '  </url>\n'
+    
+    # Individual blog posts
+    for blog in blogs:
+        blog_url = f"https://yourdomain.com/blog/{blog.get('slug') or blog.get('id')}"
+        updated = blog.get('updated_at', datetime.now().isoformat())
+        if isinstance(updated, str):
+            try:
+                updated = datetime.fromisoformat(updated.replace('Z', '+00:00')).date().isoformat()
+            except:
+                updated = datetime.now().date().isoformat()
+        
+        xml += '  <url>\n'
+        xml += f'    <loc>{blog_url}</loc>\n'
+        xml += f'    <lastmod>{updated}</lastmod>\n'
+        xml += '    <changefreq>monthly</changefreq>\n'
+        xml += '    <priority>0.8</priority>\n'
+        xml += '  </url>\n'
+    
+    xml += '</urlset>'
+    
+    return Response(content=xml, media_type="application/xml")
+
+@app.get("/robots.txt")
+async def robots_txt():
+    """Generate robots.txt for SEO"""
+    from fastapi.responses Response
+    
+    robots = """User-agent: *
+Allow: /
+Disallow: /julian_portfolio/
+Disallow: /api/
+
+Sitemap: https://yourdomain.com/sitemap.xml
+"""
+    
+    return Response(content=robots, media_type="text/plain")
+
+# =====================================================
 # AUTHENTICATION ROUTES
 # =====================================================
 
