@@ -190,6 +190,32 @@ function App() {
               </>
             } />
             
+            {/* User profile routes */}
+            <Route path="/user/profile" element={
+              <>
+                <Navigation />
+                <UserProfile />
+              </>
+            } />
+            <Route path="/user/liked-blogs" element={
+              <>
+                <Navigation />
+                <LikedBlogs />
+              </>
+            } />
+            <Route path="/user/saved-blogs" element={
+              <>
+                <Navigation />
+                <SavedBlogs />
+              </>
+            } />
+            <Route path="/user/comments" element={
+              <>
+                <Navigation />
+                <UserComments />
+              </>
+            } />
+            
             {/* Admin panel at /julian_portfolio */}
             <Route path="/julian_portfolio/*" element={<LazyAdminPanel />} />
             <Route path="/julian_portfolio" element={<LazyAdminPanel />} />
