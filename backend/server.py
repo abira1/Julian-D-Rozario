@@ -768,16 +768,34 @@ async def get_blog(blog_id: int):
 @app.post("/api/blogs")
 async def create_blog(blog: BlogCreate, user_data: dict = Depends(verify_admin)):
     """Create new blog (Admin only)"""
+    # Generate slug if not provided
+    slug = blog.slug if blog.slug else generate_slug(blog.title)
+    
+    # Ensure slug is unique
+    if not validate_slug(slug):
+        slug = generate_slug(blog.title, int(datetime.now().timestamp()))
+    
+    # Auto-generate meta fields if not provided
+    meta_title = blog.meta_title or blog.title[:60]
+    meta_description = blog.meta_description or blog.excerpt[:160]
+    keywords = blog.keywords or blog.category
+    og_image = blog.og_image or ""
+    canonical_url = blog.canonical_url or f"/blog/{slug}"
+    
     if USE_MYSQL:
         async with db_pool.acquire() as conn:
             async with conn.cursor() as cursor:
                 await cursor.execute("""
-                    INSERT INTO blogs (title, excerpt, content, date, read_time, category, author, tags, is_featured, status)
-                    VALUES (%s, %s, %s, CURDATE(), %s, %s, %s, %s, %s, %s)
+                    INSERT INTO blogs (
+                        title, excerpt, content, date, read_time, category, author, tags, is_featured, status,
+                        slug, meta_title, meta_description, keywords, og_image, canonical_url
+                    )
+                    VALUES (%s, %s, %s, CURDATE(), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (
                     blog.title, blog.excerpt, blog.content, blog.read_time,
                     blog.category, blog.author, json.dumps(blog.tags),
-                    blog.is_featured, blog.status
+                    blog.is_featured, blog.status,
+                    slug, meta_title, meta_description, keywords, og_image, canonical_url
                 ))
                 await conn.commit()
                 blog_id = cursor.lastrowid
@@ -785,18 +803,22 @@ async def create_blog(blog: BlogCreate, user_data: dict = Depends(verify_admin))
         with get_db() as conn:
             cursor = conn.cursor()
             cursor.execute("""
-                INSERT INTO blogs (title, excerpt, content, date, read_time, category, author, tags, is_featured, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO blogs (
+                    title, excerpt, content, date, read_time, category, author, tags, is_featured, status,
+                    slug, meta_title, meta_description, keywords, og_image, canonical_url
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 blog.title, blog.excerpt, blog.content,
                 datetime.now().date().isoformat(),
                 blog.read_time, blog.category, blog.author,
-                json.dumps(blog.tags), blog.is_featured, blog.status
+                json.dumps(blog.tags), blog.is_featured, blog.status,
+                slug, meta_title, meta_description, keywords, og_image, canonical_url
             ))
             conn.commit()
             blog_id = cursor.lastrowid
     
-    return {"id": blog_id, "message": "Blog created successfully"}
+    return {"id": blog_id, "slug": slug, "message": "Blog created successfully"}
 
 @app.put("/api/blogs/{blog_id}")
 async def update_blog(blog_id: int, blog: BlogUpdate, user_data: dict = Depends(verify_admin)):
