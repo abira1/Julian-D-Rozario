@@ -5,19 +5,23 @@ import { API_CONFIG } from '../config/api';
 import './BlogCollections.css';
 
 const LikedBlogs = () => {
-  const { user } = useFirebaseAuth();
+  const { user, loading: authLoading } = useFirebaseAuth();
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Wait for auth to load
+    if (authLoading) return;
+    
+    // If not authenticated, redirect
     if (!user) {
       navigate('/');
       return;
     }
     
     fetchLikedBlogs();
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   const fetchLikedBlogs = async () => {
     try {
