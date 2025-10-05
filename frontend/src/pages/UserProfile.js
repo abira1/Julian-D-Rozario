@@ -5,7 +5,7 @@ import { API_CONFIG } from '../config/api';
 import './UserProfile.css';
 
 const UserProfile = () => {
-  const { user, userEmail, userName, userPhoto } = useFirebaseAuth();
+  const { user, userEmail, userName, userPhoto, loading: authLoading } = useFirebaseAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [profileData, setProfileData] = useState(null);
@@ -14,13 +14,17 @@ const UserProfile = () => {
   const [commentsCount, setCommentsCount] = useState(0);
 
   useEffect(() => {
+    // Wait for auth to load
+    if (authLoading) return;
+    
+    // If not authenticated, redirect
     if (!user) {
       navigate('/');
       return;
     }
     
     fetchProfileData();
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   const fetchProfileData = async () => {
     try {
