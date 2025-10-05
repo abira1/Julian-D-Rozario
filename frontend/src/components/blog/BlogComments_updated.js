@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useFirebaseAuth } from '../../contexts/FirebaseAuthContext';
 import LoginPopup from '../auth/LoginPopup';
 import { MessageCircle, Send } from 'lucide-react';
 import { database } from '../../firebase/config';
