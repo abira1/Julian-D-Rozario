@@ -482,7 +482,7 @@ async def generate_sitemap():
     
     # Homepage
     xml += '  <url>\n'
-    xml += '    <loc>https://yourdomain.com/</loc>\n'
+    xml += '    <loc>https://drozario.blog/</loc>\n'
     xml += f'    <lastmod>{datetime.now().date().isoformat()}</lastmod>\n'
     xml += '    <changefreq>weekly</changefreq>\n'
     xml += '    <priority>1.0</priority>\n'
@@ -490,7 +490,7 @@ async def generate_sitemap():
     
     # Blog listing page
     xml += '  <url>\n'
-    xml += '    <loc>https://yourdomain.com/blog</loc>\n'
+    xml += '    <loc>https://drozario.blog/blog</loc>\n'
     xml += f'    <lastmod>{datetime.now().date().isoformat()}</lastmod>\n'
     xml += '    <changefreq>daily</changefreq>\n'
     xml += '    <priority>0.9</priority>\n'
@@ -498,7 +498,7 @@ async def generate_sitemap():
     
     # Individual blog posts
     for blog in blogs:
-        blog_url = f"https://yourdomain.com/blog/{blog.get('slug') or blog.get('id')}"
+        blog_url = f"https://drozario.blog/blog/{blog.get('slug') or blog.get('id')}"
         updated = blog.get('updated_at', datetime.now().isoformat())
         if isinstance(updated, str):
             try:
