@@ -520,7 +520,7 @@ async def generate_sitemap():
 @app.get("/robots.txt")
 async def robots_txt():
     """Generate robots.txt for SEO"""
-    from fastapi.responses Response
+    from fastapi.responses import Response
     
     robots = """User-agent: *
 Allow: /
