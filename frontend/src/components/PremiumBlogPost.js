@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import BlurImage from './ui/BlurImage';
+import SEOHead from './SEOHead';
 import { useFirebaseAuth } from '../contexts/FirebaseAuthContext';
 import FirebaseProtectedAction from './FirebaseProtectedAction';
 import { API_CONFIG } from '../config/api';
