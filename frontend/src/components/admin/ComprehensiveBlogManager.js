@@ -115,7 +115,12 @@ const ComprehensiveBlogManager = () => {
           featured_image: blog.featured_image || blog.image_url || '',
           meta_title: blog.meta_title || '',
           meta_description: blog.meta_description || '',
-          read_time: blog.read_time || '5 min read'
+          read_time: blog.read_time || '5 min read',
+          // SEO Fields
+          slug: blog.slug || '',
+          keywords: blog.keywords || '',
+          og_image: blog.og_image || blog.image_url || blog.featured_image || '',
+          canonical_url: blog.canonical_url || ''
         });
       }
     } catch (error) {
