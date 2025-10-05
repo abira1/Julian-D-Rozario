@@ -26,12 +26,21 @@ CREATE TABLE IF NOT EXISTS blogs (
     likes INT DEFAULT 0,
     is_featured BOOLEAN DEFAULT FALSE,
     status VARCHAR(20) DEFAULT 'published',
+    -- SEO Fields
+    slug VARCHAR(500) NULL UNIQUE,
+    meta_title VARCHAR(60) NULL,
+    meta_description VARCHAR(160) NULL,
+    keywords VARCHAR(500) NULL,
+    og_image VARCHAR(500) NULL,
+    canonical_url VARCHAR(500) NULL,
+    -- Timestamps
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_category (category),
     INDEX idx_date (date),
     INDEX idx_status (status),
-    INDEX idx_featured (is_featured)
+    INDEX idx_featured (is_featured),
+    INDEX idx_slug (slug)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================
