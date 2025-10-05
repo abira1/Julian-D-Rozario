@@ -150,15 +150,43 @@ function App() {
   return (
     <div className="App bg-black text-white overflow-x-hidden">
       <FirebaseAuthProvider>
-        <BrowserRouter basename="/julian_portfolio">
-          <Navigation />
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<LazyPremiumBlogListing />} />
-            <Route path="/blog/:id" element={<LazyPremiumBlogPost />} />
-            <Route path="/blog-old" element={<LazyBlogListing />} />
-            <Route path="/blog-old/:id" element={<LazyBlogPost />} />
-            <Route path="/admin/*" element={<LazyAdminPanel />} />
+            {/* Main portfolio website at root */}
+            <Route path="/" element={
+              <>
+                <Navigation />
+                <Home />
+              </>
+            } />
+            <Route path="/blog" element={
+              <>
+                <Navigation />
+                <LazyPremiumBlogListing />
+              </>
+            } />
+            <Route path="/blog/:id" element={
+              <>
+                <Navigation />
+                <LazyPremiumBlogPost />
+              </>
+            } />
+            <Route path="/blog-old" element={
+              <>
+                <Navigation />
+                <LazyBlogListing />
+              </>
+            } />
+            <Route path="/blog-old/:id" element={
+              <>
+                <Navigation />
+                <LazyBlogPost />
+              </>
+            } />
+            
+            {/* Admin panel at /julian_portfolio */}
+            <Route path="/julian_portfolio/*" element={<LazyAdminPanel />} />
+            <Route path="/julian_portfolio" element={<LazyAdminPanel />} />
           </Routes>
         </BrowserRouter>
       </FirebaseAuthProvider>
