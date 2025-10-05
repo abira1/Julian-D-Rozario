@@ -5,6 +5,7 @@ import {
   Image as ImageIcon, Search, Filter, Plus, Edit3, Trash2, MoreVertical, 
   Clock, Check, X, AlertCircle, Zap, BookOpen, TrendingUp, Users
 } from 'lucide-react';
+import SEOEditor from './SEOEditor';
 
 const ComprehensiveBlogManager = () => {
   const navigate = useNavigate();
