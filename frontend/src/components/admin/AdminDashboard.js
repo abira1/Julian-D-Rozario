@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                 Recent Blogs
               </h3>
               <Link
-                to="/julian_portfolio/blogs"
+                to="/admin/blogs"
                 className="text-purple-400 hover:text-purple-300 transition-colors duration-200 text-sm font-medium"
               >
                 View All →
