@@ -348,6 +348,34 @@ def init_sqlite_database():
 # HELPER FUNCTIONS
 # =====================================================
 
+def generate_slug(title: str, blog_id: int = None) -> str:
+    """Generate SEO-friendly slug from title"""
+    import re
+    slug = title.lower()
+    slug = re.sub(r'[^a-z0-9\s-]', '', slug)
+    slug = re.sub(r'[\s]+', '-', slug)
+    slug = slug.strip('-')
+    
+    # Add ID suffix if provided to ensure uniqueness
+    if blog_id:
+        slug = f"{slug}-{blog_id}"
+    
+    return slug[:100]  # Limit length
+
+def validate_slug(slug: str, current_blog_id: int = None) -> bool:
+    """Check if slug is unique"""
+    if USE_MYSQL:
+        # MySQL validation would go here
+        return True
+    else:
+        with get_db() as conn:
+            cursor = conn.cursor()
+            if current_blog_id:
+                cursor.execute("SELECT id FROM blogs WHERE slug = ? AND id != ?", (slug, current_blog_id))
+            else:
+                cursor.execute("SELECT id FROM blogs WHERE slug = ?", (slug,))
+            return cursor.fetchone() is None
+
 async def get_or_create_user(firebase_uid: str, email: str, display_name: str = None, photo_url: str = None):
     """Get or create user profile"""
     if USE_MYSQL:
