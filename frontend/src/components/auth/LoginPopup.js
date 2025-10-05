@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 const LoginPopup = ({ isOpen, onClose, purpose = "comment" }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { loginWithGoogle } = useAuth();
+  const { loginWithGoogle } = useFirebaseAuth();
 
   const handleGoogleLogin = async () => {
     try {
