@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useFirebaseAuth } from '../../contexts/FirebaseAuthContext';
 import { X } from 'lucide-react';
 
 const LoginPopup = ({ isOpen, onClose, purpose = "comment" }) => {
