@@ -111,6 +111,13 @@ class BlogCreate(BaseModel):
     tags: List[str] = Field(default=[])
     is_featured: bool = Field(default=False)
     status: str = Field(default="published")
+    # SEO Fields
+    slug: Optional[str] = Field(None, max_length=500)
+    meta_title: Optional[str] = Field(None, max_length=60)
+    meta_description: Optional[str] = Field(None, max_length=160)
+    keywords: Optional[str] = Field(None, max_length=500)
+    og_image: Optional[str] = Field(None, max_length=500)
+    canonical_url: Optional[str] = Field(None, max_length=500)
 
 class BlogUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=1, max_length=500)
@@ -122,6 +129,13 @@ class BlogUpdate(BaseModel):
     tags: Optional[List[str]] = None
     is_featured: Optional[bool] = None
     status: Optional[str] = None
+    # SEO Fields
+    slug: Optional[str] = Field(None, max_length=500)
+    meta_title: Optional[str] = Field(None, max_length=60)
+    meta_description: Optional[str] = Field(None, max_length=160)
+    keywords: Optional[str] = Field(None, max_length=500)
+    og_image: Optional[str] = Field(None, max_length=500)
+    canonical_url: Optional[str] = Field(None, max_length=500)
 
 class ContactInfoCreate(BaseModel):
     label: str = Field(..., min_length=1, max_length=100)
