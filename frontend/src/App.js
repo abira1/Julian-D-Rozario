@@ -222,9 +222,10 @@ function App() {
             <Route path="/julian_portfolio/*" element={<LazyAdminPanel />} />
             <Route path="/julian_portfolio" element={<LazyAdminPanel />} />
           </Routes>
-        </BrowserRouter>
-      </FirebaseAuthProvider>
-    </div>
+          </BrowserRouter>
+        </FirebaseAuthProvider>
+      </div>
+    </HelmetProvider>
   );
 }
 
