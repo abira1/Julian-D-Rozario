@@ -267,6 +267,19 @@ const PremiumBlogPost = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* SEO Meta Tags */}
+      <SEOHead
+        title={blog.meta_title || blog.title}
+        description={blog.meta_description || blog.excerpt}
+        keywords={blog.keywords}
+        ogImage={blog.og_image || blog.image_url}
+        canonicalUrl={blog.canonical_url || `/blog/${blog.slug || blog.id}`}
+        author={blog.author}
+        type="article"
+        publishedTime={blog.created_at}
+        modifiedTime={blog.updated_at}
+      />
+      
       {/* Hero Section with Integrated Navigation */}
       <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden pt-20 lg:pt-24">
         {/* Background Image with Overlay */}
