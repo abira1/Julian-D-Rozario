@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, Search, Share2, Tag, AlertCircle, CheckCircle2, Link as LinkIcon } from 'lucide-react';
+import { Globe, Search, Share2, Tag, AlertCircle, CheckCircle2, Link as LinkIcon, FileText } from 'lucide-react';
 
 const SEOEditor = ({ formData, onUpdate }) => {
   const [seoData, setSeoData] = useState({
