@@ -31,6 +31,12 @@ import {
   LazyPremiumBlogPost
 } from "./components/LazyWrapper";
 
+// Import user profile pages
+import UserProfile from "./pages/UserProfile";
+import LikedBlogs from "./pages/LikedBlogs";
+import SavedBlogs from "./pages/SavedBlogs";
+import UserComments from "./pages/UserComments";
+
 const Home = () => {
   // Track loading state for each section
   const [sectionsLoaded, setSectionsLoaded] = useState({
