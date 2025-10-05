@@ -68,12 +68,16 @@ const UserProfile = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="user-profile-container">
         <div className="loading-spinner">Loading...</div>
       </div>
     );
+  }
+
+  if (!user) {
+    return null;
   }
 
   return (
