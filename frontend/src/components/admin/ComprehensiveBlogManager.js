@@ -808,43 +808,11 @@ const ComprehensiveBlogManager = () => {
             </label>
           </div>
 
-          {/* SEO Section */}
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-white/10 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
-              <Zap className="w-5 h-5 text-yellow-400" />
-              <span>SEO Settings (Optional)</span>
-            </h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Meta Title
-                </label>
-                <input
-                  type="text"
-                  name="meta_title"
-                  value={formData.meta_title}
-                  onChange={handleInputChange}
-                  placeholder="SEO-optimized title (defaults to blog title)"
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Meta Description
-                </label>
-                <textarea
-                  name="meta_description"
-                  value={formData.meta_description}
-                  onChange={handleInputChange}
-                  placeholder="SEO description for search engines (defaults to excerpt)"
-                  rows="3"
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-                />
-              </div>
-            </div>
-          </div>
+          {/* SEO Section - Comprehensive SEO Editor */}
+          <SEOEditor 
+            formData={formData}
+            onUpdate={handleSEOUpdate}
+          />
         </div>
       </div>
     </div>
