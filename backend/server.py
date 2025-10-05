@@ -527,7 +527,7 @@ Allow: /
 Disallow: /julian_portfolio/
 Disallow: /api/
 
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://drozario.blog/sitemap.xml
 """
     
     return Response(content=robots, media_type="text/plain")
