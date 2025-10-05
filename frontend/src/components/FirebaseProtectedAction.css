@@ -1,0 +1,244 @@
+.firebase-protected-action {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.firebase-auth-prompt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.firebase-auth-prompt-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  max-width: 420px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.firebase-auth-prompt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.firebase-auth-prompt-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #202124;
+}
+
+.firebase-auth-prompt-close {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #5f6368;
+  transition: all 0.2s ease;
+}
+
+.firebase-auth-prompt-close:hover {
+  background-color: #f8f9fa;
+  color: #202124;
+}
+
+.firebase-auth-prompt-close:focus {
+  outline: 2px solid #4285f4;
+  outline-offset: 2px;
+}
+
+.firebase-auth-prompt-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.firebase-auth-prompt-content {
+  padding: 24px;
+  text-align: center;
+}
+
+.firebase-auth-prompt-icon {
+  margin: 0 auto 16px;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(45deg, #4285f4, #34a853);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.firebase-auth-prompt-icon svg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.firebase-auth-prompt-content p {
+  margin: 0 0 24px 0;
+  color: #5f6368;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.firebase-auth-prompt-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.firebase-auth-prompt-cancel {
+  background: none;
+  border: none;
+  color: #5f6368;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.firebase-auth-prompt-cancel:hover {
+  background-color: #f8f9fa;
+  color: #202124;
+}
+
+.firebase-auth-prompt-cancel:focus {
+  outline: 2px solid #4285f4;
+  outline-offset: 2px;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .firebase-auth-prompt-modal {
+    background: #2d2d2d;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .firebase-auth-prompt-header {
+    border-bottom-color: #5f6368;
+  }
+
+  .firebase-auth-prompt-header h3 {
+    color: #e8eaed;
+  }
+
+  .firebase-auth-prompt-close {
+    color: #9aa0a6;
+  }
+
+  .firebase-auth-prompt-close:hover {
+    background-color: #3c4043;
+    color: #e8eaed;
+  }
+
+  .firebase-auth-prompt-content p {
+    color: #9aa0a6;
+  }
+
+  .firebase-auth-prompt-cancel {
+    color: #9aa0a6;
+  }
+
+  .firebase-auth-prompt-cancel:hover {
+    background-color: #3c4043;
+    color: #e8eaed;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .firebase-auth-prompt-modal {
+    width: 95%;
+    margin: 20px;
+  }
+
+  .firebase-auth-prompt-header {
+    padding: 20px 20px 16px;
+  }
+
+  .firebase-auth-prompt-header h3 {
+    font-size: 16px;
+  }
+
+  .firebase-auth-prompt-content {
+    padding: 20px;
+  }
+
+  .firebase-auth-prompt-actions {
+    gap: 16px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .firebase-auth-prompt-overlay {
+    animation: none;
+  }
+
+  .firebase-auth-prompt-modal {
+    animation: none;
+  }
+
+  .firebase-protected-action,
+  .firebase-auth-prompt-close,
+  .firebase-auth-prompt-cancel {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .firebase-auth-prompt-modal {
+    border: 2px solid #000;
+  }
+
+  .firebase-auth-prompt-header {
+    border-bottom-width: 2px;
+  }
+
+  .firebase-auth-prompt-close:focus {
+    outline-width: 3px;
+  }
+
+  .firebase-auth-prompt-cancel:focus {
+    outline-width: 3px;
+  }
+}
