@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const AdminLogin = ({ onLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { loginWithGoogle, user, isAdmin, backendToken } = useAuth();
+  const { loginWithGoogle, user, isAdmin, backendToken } = useFirebaseAuth();
   const navigate = useNavigate();
 
   // Check if user is already logged in and is admin
