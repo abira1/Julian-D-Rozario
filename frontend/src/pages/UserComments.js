@@ -5,19 +5,23 @@ import { API_CONFIG } from '../config/api';
 import './UserComments.css';
 
 const UserComments = () => {
-  const { user } = useFirebaseAuth();
+  const { user, loading: authLoading } = useFirebaseAuth();
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Wait for auth to load
+    if (authLoading) return;
+    
+    // If not authenticated, redirect
     if (!user) {
       navigate('/');
       return;
     }
     
     fetchUserComments();
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   const fetchUserComments = async () => {
     try {
