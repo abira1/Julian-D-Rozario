@@ -37,7 +37,7 @@ const AdminPanel = () => {
   const handleLogin = (token, username) => {
     setIsAuthenticated(true);
     setUser(username);
-    navigate('/admin/dashboard');
+    navigate('/julian_portfolio/dashboard');
   };
 
   const handleLogout = async () => {
