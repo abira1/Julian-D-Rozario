@@ -12,7 +12,7 @@ const BlogInteractions = ({ blogId, blogTitle, blogUrl }) => {
   const [isLoading, setIsLoading] = useState({ like: false });
   const [copySuccess, setCopySuccess] = useState(false);
   
-  const { user, backendToken } = useAuth();
+  const { user, backendToken } = useFirebaseAuth();
 
   // Fetch initial interaction data
   useEffect(() => {
