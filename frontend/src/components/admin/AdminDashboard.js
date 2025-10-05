@@ -18,30 +18,37 @@ const AdminDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const token = localStorage.getItem('admin_token');
-      
-      // Fetch stats
-      const statsApiUrl = process.env.REACT_APP_API_STATS || `${process.env.REACT_APP_BACKEND_URL}/api-stats.php`;
-      const statsResponse = await fetch(statsApiUrl, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (statsResponse.ok) {
-        const statsData = await statsResponse.json();
-        setStats(statsData);
-      }
-
-      // Fetch recent blogs
+      // Fetch blogs and calculate stats from the data
       const blogsResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
         // API returns {blogs: [...], total: n}, we need just the blogs array
         const blogs = blogsData.blogs || blogsData;
+        
+        // Calculate stats from blogs data
+        const calculatedStats = {
+          total_blogs: blogs.length,
+          featured_blogs: blogs.filter(blog => blog.is_featured || blog.featured).length,
+          total_views: blogs.reduce((sum, blog) => sum + (blog.views || 0), 0),
+          total_likes: blogs.reduce((sum, blog) => sum + (blog.likes || 0), 0),
+          categories: [...new Set(blogs.map(blog => blog.category))].length
+        };
+        
+        setStats(calculatedStats);
         setRecentBlogs(blogs.slice(0, 5)); // Get latest 5 blogs
       }
+      
+      // Fetch categories for stats
+      try {
+        const categoriesResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
+        if (categoriesResponse.ok) {
+          const categories = await categoriesResponse.json();
+          setStats(prev => ({ ...prev, categories: categories.length }));
+        }
+      } catch (catError) {
+        console.log('Categories endpoint not available, using calculated count');
+      }
+      
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
