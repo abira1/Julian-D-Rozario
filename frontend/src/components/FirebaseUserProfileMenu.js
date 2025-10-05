@@ -5,6 +5,7 @@ import './FirebaseUserProfileMenu.css';
 
 const FirebaseUserProfileMenu = () => {
   const { user, logout, isAdmin } = useFirebaseAuth();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
