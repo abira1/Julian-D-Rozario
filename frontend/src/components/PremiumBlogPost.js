@@ -767,7 +767,7 @@ const PremiumBlogPost = () => {
                       <span className="px-3 py-1 bg-purple-600/20 text-purple-300 text-xs rounded-full">
                         {article.category}
                       </span>
-                      <span className="text-gray-400 text-sm">{article.readTime}</span>
+                      <span className="text-gray-400 text-sm">{article.read_time || article.readTime || '5 min read'}</span>
                     </div>
                     <h4 className="text-lg font-semibold text-white mb-2 group-hover:text-purple-300 transition-colors">
                       {article.title}
