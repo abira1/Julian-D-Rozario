@@ -61,7 +61,9 @@ const BlogPost = () => {
         const allBlogsResponse = await fetch('/api/blogs');
         console.log('BlogPost: Fetching related blogs from /api/blogs');
         if (allBlogsResponse.ok) {
-          const allBlogs = await allBlogsResponse.json();
+          const allBlogsData = await allBlogsResponse.json();
+          // API returns {blogs: [...], total: n}, extract the blogs array
+          const allBlogs = allBlogsData.blogs || allBlogsData;
           const related = allBlogs
             .filter(b => b.id !== blogData.id)
             .slice(0, 3);
