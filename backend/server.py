@@ -322,17 +322,98 @@ def init_sqlite_database():
     # Insert sample data if none exists
     cursor.execute("SELECT COUNT(*) FROM blogs")
     if cursor.fetchone()[0] == 0:
-        cursor.execute("""
-            INSERT INTO blogs (title, excerpt, content, date, category, author)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            "Welcome to Julian D'Rozario's Portfolio",
-            "This is a sample blog post to get you started.",
-            "<h2>Welcome!</h2><p>This is your portfolio website. Access the admin panel at <strong>/julian_portfolio</strong></p>",
-            datetime.now().date().isoformat(),
-            "General",
-            "Julian D'Rozario"
-        ))
+        sample_blogs = [
+            (
+                "Complete Guide to Company Formation in Dubai Free Zones 2025",
+                "Everything you need to know about setting up your business in Dubai Free Zones, including license types, costs, and step-by-step procedures.",
+                "<h2>Introduction</h2><p>Dubai has emerged as one of the world's leading business hubs. In this comprehensive guide, we'll walk you through everything you need to know about company formation in Dubai Free Zones.</p>",
+                "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=400&fit=crop",
+                "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=400&fit=crop",
+                datetime.now().date().isoformat(),
+                "5 min read",
+                "Company Formation",
+                "Julian D'Rozario",
+                True,
+                "published",
+                "complete-guide-company-formation-dubai-free-zones-2025"
+            ),
+            (
+                "UAE Golden Visa: Complete Guide for Investors and Entrepreneurs",
+                "Comprehensive guide to obtaining UAE Golden Visa, including eligibility criteria, benefits, application process, and investment requirements.",
+                "<h2>What is the UAE Golden Visa?</h2><p>The UAE Golden Visa is a long-term residence visa that allows foreign nationals to live, work, and study in the UAE without the need for a national sponsor.</p>",
+                "https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?w=800&h=400&fit=crop",
+                "https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?w=800&h=400&fit=crop",
+                (datetime.now() - timedelta(days=2)).date().isoformat(),
+                "7 min read",
+                "Immigration",
+                "Julian D'Rozario",
+                False,
+                "published",
+                "uae-golden-visa-complete-guide-investors-entrepreneurs"
+            ),
+            (
+                "Meydan Free Zone vs Other Dubai Free Zones: Detailed Comparison",
+                "In-depth comparison of Meydan Free Zone with other popular Dubai free zones including DMCC, JAFZA, and Dubai Silicon Oasis.",
+                "<h2>Introduction</h2><p>Choosing the right free zone is crucial for your business success in Dubai. This article provides a comprehensive comparison.</p>",
+                "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=400&fit=crop",
+                "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=400&fit=crop",
+                (datetime.now() - timedelta(days=5)).date().isoformat(),
+                "6 min read",
+                "Company Formation",
+                "Julian D'Rozario",
+                False,
+                "published",
+                "meydan-free-zone-vs-other-dubai-free-zones-comparison"
+            ),
+            (
+                "Top 10 Business Activities for Dubai Free Zone License in 2025",
+                "Explore the most profitable and in-demand business activities for Dubai free zone licenses, with detailed requirements and market insights.",
+                "<h2>Most Popular Business Activities</h2><p>Based on market trends and our experience with over 3,200 license formations, here are the top business activities for 2025.</p>",
+                "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop",
+                "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop",
+                (datetime.now() - timedelta(days=7)).date().isoformat(),
+                "8 min read",
+                "Business Development",
+                "Julian D'Rozario",
+                False,
+                "published",
+                "top-10-business-activities-dubai-free-zone-license-2025"
+            ),
+            (
+                "Complete Document Checklist for UAE Company Formation",
+                "Comprehensive checklist of all documents required for company formation in UAE free zones, mainland, and offshore jurisdictions.",
+                "<h2>Essential Documents Overview</h2><p>Proper documentation is crucial for smooth company formation. This guide covers all required documents for different jurisdiction types.</p>",
+                "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=400&fit=crop",
+                "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=400&fit=crop",
+                (datetime.now() - timedelta(days=10)).date().isoformat(),
+                "5 min read",
+                "Compliance",
+                "Julian D'Rozario",
+                False,
+                "published",
+                "complete-document-checklist-uae-company-formation"
+            ),
+            (
+                "Understanding UAE Corporate Tax: What Businesses Need to Know",
+                "Comprehensive guide to UAE corporate tax implementation, exemptions, compliance requirements, and planning strategies for businesses.",
+                "<h2>UAE Corporate Tax Overview</h2><p>From June 1, 2023, the UAE implemented a federal corporate tax at a rate of 9% on taxable income exceeding AED 375,000.</p>",
+                "https://images.unsplash.com/photo-1554224311-beee04f8f935?w=800&h=400&fit=crop",
+                "https://images.unsplash.com/photo-1554224311-beee04f8f935?w=800&h=400&fit=crop",
+                (datetime.now() - timedelta(days=14)).date().isoformat(),
+                "10 min read",
+                "Compliance",
+                "Julian D'Rozario",
+                False,
+                "published",
+                "understanding-uae-corporate-tax-what-businesses-need-know"
+            )
+        ]
+        
+        for blog in sample_blogs:
+            cursor.execute("""
+                INSERT INTO blogs (title, excerpt, content, image_url, featured_image, date, read_time, category, author, is_featured, status, slug)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, blog)
     
     cursor.execute("SELECT COUNT(*) FROM contact_info")
     if cursor.fetchone()[0] == 0:
