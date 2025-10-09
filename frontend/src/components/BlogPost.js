@@ -211,7 +211,7 @@ const BlogPost = () => {
                       <circle cx="12" cy="12" r="10"/>
                       <polyline points="12,6 12,12 16,14"/>
                     </svg>
-                    <span>{blog.readTime || '5 min read'}</span>
+                    <span>{blog.read_time || blog.readTime || '5 min read'}</span>
                   </div>
                   <div className="flex items-center space-x-2 text-gray-400">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
