@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS blogs (
     title VARCHAR(500) NOT NULL,
     excerpt VARCHAR(1000) NOT NULL,
     content LONGTEXT NOT NULL,
+    image_url VARCHAR(500) NULL,
+    featured_image VARCHAR(500) NULL,
     date DATE NOT NULL,
     read_time VARCHAR(20) DEFAULT '5 min read',
     category VARCHAR(100) NOT NULL,
@@ -44,7 +46,8 @@ CREATE TABLE IF NOT EXISTS blogs (
     INDEX idx_date (date),
     INDEX idx_status (status),
     INDEX idx_featured (is_featured),
-    INDEX idx_slug (slug)
+    INDEX idx_slug (slug),
+    INDEX idx_image_url (image_url)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================
