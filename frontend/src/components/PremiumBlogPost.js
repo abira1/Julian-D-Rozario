@@ -80,7 +80,9 @@ const PremiumBlogPost = () => {
         // Fetch related blogs
         const allBlogsResponse = await fetch(API_CONFIG.getApiPath('/blogs'));
         if (allBlogsResponse.ok) {
-          const allBlogs = await allBlogsResponse.json();
+          const allBlogsData = await allBlogsResponse.json();
+          // API returns {blogs: [...], total: n}, extract the blogs array
+          const allBlogs = allBlogsData.blogs || allBlogsData;
           const related = allBlogs
             .filter(b => b.id !== blogData.id && b.category === blogData.category)
             .slice(0, 3);
