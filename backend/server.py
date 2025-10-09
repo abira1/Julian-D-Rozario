@@ -218,6 +218,8 @@ def init_sqlite_database():
             title TEXT NOT NULL,
             excerpt TEXT NOT NULL,
             content TEXT NOT NULL,
+            image_url TEXT,
+            featured_image TEXT,
             date DATE NOT NULL,
             read_time TEXT NOT NULL DEFAULT '5 min read',
             category TEXT NOT NULL,
@@ -227,6 +229,12 @@ def init_sqlite_database():
             likes INTEGER DEFAULT 0,
             is_featured BOOLEAN DEFAULT FALSE,
             status TEXT DEFAULT 'published',
+            slug TEXT UNIQUE,
+            meta_title TEXT,
+            meta_description TEXT,
+            keywords TEXT,
+            og_image TEXT,
+            canonical_url TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
