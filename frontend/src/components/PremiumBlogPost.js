@@ -287,7 +287,7 @@ const PremiumBlogPost = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <BlurImage 
-                              src={user.photoURL}
+            src={blog.image_url || blog.featured_image || blog.image || 'https://via.placeholder.com/1200x600/1e293b/94a3b8?text=No+Image'}
             alt={blog.title}
             className="w-full h-full"
           />
