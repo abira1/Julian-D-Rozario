@@ -282,7 +282,7 @@ const BlogPost = () => {
                           <div className="px-3 py-1.5 bg-purple-600/20 text-purple-300 rounded-full text-sm font-medium">
                             {blog.category}
                           </div>
-                          {blog.featured && (
+                          {(blog.is_featured || blog.featured) && (
                             <div className="px-3 py-1.5 bg-yellow-600/20 text-yellow-300 rounded-full text-sm font-medium">
                               ⭐ Featured
                             </div>
