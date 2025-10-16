@@ -25,11 +25,19 @@ const PremiumBlogSection = () => {
         });
         
         if (response.ok) {
-          const blogsData = await response.json();
+          const apiResponse = await response.json();
+          console.log('PremiumBlogSection: API Response:', apiResponse);
+          
+          // API returns {blogs: [...], total: n}, extract the blogs array
+          const blogsData = apiResponse.blogs || apiResponse;
+          console.log('PremiumBlogSection: Extracted blogs:', blogsData);
+          
           // Filter for published blogs and take the most recent 6
           const publishedBlogs = Array.isArray(blogsData) 
-            ? blogsData.filter(blog => blog.is_published === 1).slice(0, 6)
+            ? blogsData.filter(blog => blog.status === 'published' || blog.is_published === 1).slice(0, 6)
             : [];
+          
+          console.log('PremiumBlogSection: Setting blogs:', publishedBlogs);
           setBlogs(publishedBlogs);
         } else {
           console.error('Failed to fetch blogs:', response.status);
