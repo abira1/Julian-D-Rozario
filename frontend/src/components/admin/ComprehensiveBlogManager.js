@@ -179,6 +179,16 @@ const ComprehensiveBlogManager = () => {
     try {
       setIsSaving(true);
       
+      // Get token from localStorage (matches FirebaseAuthContext key)
+      const token = localStorage.getItem('firebase_backend_token') || localStorage.getItem('backend_token');
+      
+      // Validate token exists
+      if (!token) {
+        throw new Error('Invalid token - Please sign out and sign in again');
+      }
+      
+      console.log('Saving blog with token:', token ? 'Token exists' : 'No token');
+      
       const dataToSave = {
         ...formData,
         status: status,
@@ -189,8 +199,8 @@ const ComprehensiveBlogManager = () => {
       // Use backend URL from environment variable
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
       
-      // Get token from localStorage (matches FirebaseAuthContext key)
-      const token = localStorage.getItem('firebase_backend_token') || localStorage.getItem('backend_token');
+      console.log('Backend URL:', backendUrl);
+      console.log('Save mode:', currentBlog ? 'Update' : 'Create');
 
       let response;
       if (currentBlog) {
@@ -213,8 +223,11 @@ const ComprehensiveBlogManager = () => {
         });
       }
 
+      console.log('Response status:', response.status);
+
       if (response.ok) {
         const savedBlog = await response.json();
+        console.log('Blog saved successfully:', savedBlog);
         showNotification(
           currentBlog ? 'Blog updated successfully!' : 'Blog created successfully!',
           'success'
@@ -228,7 +241,15 @@ const ComprehensiveBlogManager = () => {
       } else {
         const errorData = await response.json().catch(() => ({}));
         console.error('Server response:', response.status, errorData);
-        throw new Error(errorData.detail || 'Failed to save blog');
+        
+        // Provide more specific error messages
+        if (response.status === 401) {
+          throw new Error('Invalid token - Please sign out and sign in again');
+        } else if (response.status === 403) {
+          throw new Error('Access denied - Admin privileges required');
+        } else {
+          throw new Error(errorData.detail || `Failed to save blog (Status: ${response.status})`);
+        }
       }
     } catch (error) {
       console.error('Error saving blog:', error);
