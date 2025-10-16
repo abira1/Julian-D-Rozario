@@ -270,14 +270,22 @@ const EnhancedBlogManagerV2 = () => {
     formData.append('image', file);
 
     try {
-      const response = await fetch('/upload_image.php', {
+      // Use backend URL from environment variable
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const uploadUrl = `${backendUrl}/upload_image.php`;
+      
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         body: formData
       });
 
       if (response.ok) {
         const result = await response.json();
-        return result.url;
+        // Construct full image URL
+        const imageUrl = result.url.startsWith('http') 
+          ? result.url 
+          : `${backendUrl}${result.url}`;
+        return imageUrl;
       } else {
         throw new Error('Upload failed');
       }
