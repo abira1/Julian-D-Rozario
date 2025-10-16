@@ -713,7 +713,13 @@ async def firebase_admin_login(request: FirebaseLoginRequest):
     user_data = request.user_data
     email = user_data.get('email')
     
+    # Debug logging
+    logger.info(f"Admin login attempt - Email: {email}")
+    logger.info(f"Authorized emails: {AUTHORIZED_ADMIN_EMAILS}")
+    logger.info(f"Email in list: {email in AUTHORIZED_ADMIN_EMAILS}")
+    
     if email not in AUTHORIZED_ADMIN_EMAILS:
+        logger.warning(f"Access denied for email: {email}")
         raise HTTPException(status_code=403, detail="Access denied - Not an admin")
     
     return await firebase_user_login(request)
