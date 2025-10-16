@@ -242,10 +242,12 @@ const ComprehensiveBlogManager = () => {
   const handleDelete = async (blogId) => {
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const token = localStorage.getItem('firebase_backend_token') || localStorage.getItem('backend_token');
+      
       const response = await fetch(`${backendUrl}/api/blogs/${blogId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('backend_token')}`
+          'Authorization': `Bearer ${token}`
         }
       });
 
