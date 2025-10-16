@@ -116,6 +116,9 @@ class BlogCreate(BaseModel):
     tags: List[str] = Field(default=[])
     is_featured: bool = Field(default=False)
     status: str = Field(default="published")
+    # Image Fields
+    image_url: Optional[str] = Field(None, max_length=500)
+    featured_image: Optional[str] = Field(None, max_length=500)
     # SEO Fields
     slug: Optional[str] = Field(None, max_length=500)
     meta_title: Optional[str] = Field(None, max_length=60)
@@ -134,6 +137,9 @@ class BlogUpdate(BaseModel):
     tags: Optional[List[str]] = None
     is_featured: Optional[bool] = None
     status: Optional[str] = None
+    # Image Fields
+    image_url: Optional[str] = Field(None, max_length=500)
+    featured_image: Optional[str] = Field(None, max_length=500)
     # SEO Fields
     slug: Optional[str] = Field(None, max_length=500)
     meta_title: Optional[str] = Field(None, max_length=60)
