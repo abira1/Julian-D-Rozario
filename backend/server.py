@@ -553,6 +553,41 @@ async def health_check():
     }
 
 # =====================================================
+# IMAGE UPLOAD ROUTES
+# =====================================================
+
+@app.post("/api/upload-image")
+async def upload_image(image: UploadFile = File(...), user_data: dict = Depends(verify_admin)):
+    """
+    Upload blog image (Admin only)
+    
+    - Accepts: JPEG, PNG, GIF, WebP
+    - Max size: 5MB
+    - Returns: URL to uploaded image
+    """
+    try:
+        result = await save_upload_file(image)
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Upload error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# Legacy endpoint for compatibility with frontend
+@app.post("/upload_image.php")
+async def upload_image_legacy(image: UploadFile = File(...)):
+    """Legacy upload endpoint (for backward compatibility)"""
+    try:
+        result = await save_upload_file(image)
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Upload error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# =====================================================
 # SEO ROUTES
 # =====================================================
 
