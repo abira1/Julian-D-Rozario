@@ -41,8 +41,9 @@ export const FirebaseAuthProvider = ({ children }) => {
           const idToken = await firebaseUser.getIdToken();
           
           // Send to backend for JWT token (both admin and regular users)
-          const endpointPath = isUserAdmin ? '/auth/firebase-admin-login' : '/auth/firebase-user-login';
-          const endpoint = API_CONFIG.getApiPath(endpointPath);
+          const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+          const endpointPath = isUserAdmin ? '/api/auth/firebase-admin-login' : '/api/auth/firebase-user-login';
+          const endpoint = `${backendUrl}${endpointPath}`;
           
           const response = await fetch(endpoint, {
             method: 'POST',
@@ -64,12 +65,15 @@ export const FirebaseAuthProvider = ({ children }) => {
             const data = await response.json();
             setBackendToken(data.access_token);
             localStorage.setItem('firebase_backend_token', data.access_token);
+            // Also set as backend_token for compatibility
+            localStorage.setItem('backend_token', data.access_token);
           } else {
             console.error('Failed to get backend token:', await response.text());
             // Fallback: set a simple token
             const fallbackToken = (isUserAdmin ? 'admin-token-' : 'user-token-') + Date.now();
             setBackendToken(fallbackToken);
             localStorage.setItem('firebase_backend_token', fallbackToken);
+            localStorage.setItem('backend_token', fallbackToken);
           }
         } catch (error) {
           console.error('Error getting backend token:', error);
@@ -77,6 +81,7 @@ export const FirebaseAuthProvider = ({ children }) => {
           const fallbackToken = (isUserAdmin ? 'admin-token-' : 'user-token-') + Date.now();
           setBackendToken(fallbackToken);
           localStorage.setItem('firebase_backend_token', fallbackToken);
+          localStorage.setItem('backend_token', fallbackToken);
         }
       } else {
         setUser(null);
