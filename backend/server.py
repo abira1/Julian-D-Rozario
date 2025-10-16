@@ -58,6 +58,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static files for serving uploaded images
+app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR.parent)), name="uploads")
+
 # Database Connection Management
 if USE_MYSQL:
     import aiomysql
