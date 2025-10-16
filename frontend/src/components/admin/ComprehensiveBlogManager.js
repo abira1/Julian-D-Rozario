@@ -188,6 +188,9 @@ const ComprehensiveBlogManager = () => {
 
       // Use backend URL from environment variable
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      
+      // Get token from localStorage (matches FirebaseAuthContext key)
+      const token = localStorage.getItem('firebase_backend_token') || localStorage.getItem('backend_token');
 
       let response;
       if (currentBlog) {
@@ -195,7 +198,7 @@ const ComprehensiveBlogManager = () => {
           method: 'PUT',
           headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('backend_token')}`
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(dataToSave)
         });
@@ -204,7 +207,7 @@ const ComprehensiveBlogManager = () => {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('backend_token')}`
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(dataToSave)
         });
