@@ -209,7 +209,7 @@ AUTHORIZED_ADMIN_EMAILS=juliandrozario@gmail.com,abirsabirhossain@gmail.com
 
 ### Frontend Environment (.env)
 ```env
-REACT_APP_BACKEND_URL=https://blog-image-system.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://token-auth-repair.preview.emergentagent.com
 REACT_APP_GOOGLE_CLIENT_ID=your_google_client_id_here
 ```
 
