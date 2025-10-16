@@ -114,6 +114,7 @@ export const FirebaseAuthProvider = ({ children }) => {
       await signOut(auth);
       setBackendToken(null);
       localStorage.removeItem('firebase_backend_token');
+      localStorage.removeItem('backend_token');
     } catch (error) {
       console.error('Logout error:', error);
       throw error;
