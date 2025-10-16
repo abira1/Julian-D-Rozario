@@ -91,7 +91,7 @@ export const FirebaseAuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async () => {
+  const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       return result.user;
@@ -100,6 +100,9 @@ export const FirebaseAuthProvider = ({ children }) => {
       throw error;
     }
   };
+
+  // Alias for backward compatibility
+  const login = loginWithGoogle;
 
   const logout = async () => {
     try {
