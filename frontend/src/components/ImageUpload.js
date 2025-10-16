@@ -35,7 +35,11 @@ const ImageUpload = ({ onImageUpload, currentImage = null, className = '' }) => 
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await fetch('/upload_image.php', {
+      // Use the correct backend API URL
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const uploadUrl = `${backendUrl}/upload_image.php`;
+
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         body: formData
       });
@@ -43,8 +47,12 @@ const ImageUpload = ({ onImageUpload, currentImage = null, className = '' }) => 
       const result = await response.json();
 
       if (result.success) {
-        setPreview(result.url);
-        onImageUpload(result.url);
+        // Convert relative URL to absolute URL if needed
+        const imageUrl = result.url.startsWith('http') 
+          ? result.url 
+          : `${backendUrl}${result.url}`;
+        setPreview(imageUrl);
+        onImageUpload(imageUrl);
       } else {
         throw new Error(result.error || 'Upload failed');
       }
