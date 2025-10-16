@@ -3,6 +3,9 @@
 # IDE and editors
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
 
 # Dependencies
 node_modules/
@@ -18,20 +21,26 @@ node_modules/
 
 # Testing
 /coverage
+.pytest_cache/
+*.test.js
 
-# Next.js
+# React/Next.js
 /.next/
 /out/
+/build
 next-env.d.ts
 *.tsbuildinfo
 
 # Production builds
-/build
 dist/
-dist
+build/
 
-# Environment files (comprehensive coverage)
-
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *token.json*
 *credentials.json*
 
@@ -40,17 +49,32 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 dump.rdb
 
 # System files
 .DS_Store
 *.pem
+Thumbs.db
 
 # Python
 __pycache__/
-*pyc*
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
 venv/
 .venv/
+env/
+ENV/
+*.egg-info/
+.Python
+pip-log.txt
+
+# Database
+*.db.backup
+*.sqlite-journal
+*.sqlite3-journal
 
 # Development tools
 chainlit.md
@@ -60,9 +84,17 @@ chainlit.md
 
 # Deployment
 .vercel
+hostinger-deployment*/
+deploy-*.bat
 
-# Data and databases
-agenthub/agents/youtube/db
+# Documentation (keep only README.md)
+*_GUIDE.md
+*_SUMMARY.md
+*_PROMPT.md
+*_CHECKLIST.md
+*_PLAN.md
+START_HERE.md
+PASTE_THIS*.txt
 
 # Archive files and large assets
 **/*.zip
@@ -75,15 +107,9 @@ agenthub/agents/youtube/db
 
 # Build caches
 .cache/
+*.cache
 
-# Mobile development
-android-sdk/ frontend/node_modules/.cache/default-development/3.pack
-frontend/node_modules/.cache/default-development/3.pack
-frontend/node_modules/.cache/default-development/4.pack
-frontend/node_modules/.cache/default-development/5.pack
-frontend/node_modules/.cache/default-development/6.pack
-frontend/node_modules/.cache/default-development/7.pack
-
-.vercel
-*.zip
-node_modules/
+# Temporary files
+tmp/
+temp/
+*.tmp
