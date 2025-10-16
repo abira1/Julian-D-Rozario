@@ -39,16 +39,19 @@ const SEOEditor = ({ formData, onUpdate }) => {
   }, [formData.title, formData.excerpt, formData.category, autoGenerate]);
 
   // Update parent component only when seoData actually changes
-  // Remove onUpdate from dependencies to prevent infinite loop
+  // Note: We intentionally omit onUpdate from dependencies to prevent infinite loop
+  // since onUpdate is memoized with useCallback in parent component
+  const prevSeoDataRef = useRef();
   useEffect(() => {
-    // Skip first render to avoid initial trigger
-    if (isInitialized.current) {
-      onUpdate(seoData);
-    } else {
-      isInitialized.current = true;
+    // Only call onUpdate if data actually changed
+    if (prevSeoDataRef.current !== undefined) {
+      const hasChanged = JSON.stringify(prevSeoDataRef.current) !== JSON.stringify(seoData);
+      if (hasChanged) {
+        onUpdate(seoData);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seoData]);
+    prevSeoDataRef.current = seoData;
+  }, [seoData, onUpdate]);
 
   const handleChange = (field, value) => {
     setSeoData(prev => ({ ...prev, [field]: value }));
