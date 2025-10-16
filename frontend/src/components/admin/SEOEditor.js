@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Globe, Search, Share2, Tag, AlertCircle, CheckCircle2, Link as LinkIcon, FileText } from 'lucide-react';
 
 const SEOEditor = ({ formData, onUpdate }) => {
@@ -12,6 +12,9 @@ const SEOEditor = ({ formData, onUpdate }) => {
   });
 
   const [autoGenerate, setAutoGenerate] = useState(true);
+  
+  // Use ref to track if we've initialized
+  const isInitialized = useRef(false);
 
   // Auto-generate SEO fields from blog content
   useEffect(() => {
@@ -35,10 +38,17 @@ const SEOEditor = ({ formData, onUpdate }) => {
     }
   }, [formData.title, formData.excerpt, formData.category, autoGenerate]);
 
-  // Update parent component
+  // Update parent component only when seoData actually changes
+  // Remove onUpdate from dependencies to prevent infinite loop
   useEffect(() => {
-    onUpdate(seoData);
-  }, [seoData, onUpdate]);
+    // Skip first render to avoid initial trigger
+    if (isInitialized.current) {
+      onUpdate(seoData);
+    } else {
+      isInitialized.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seoData]);
 
   const handleChange = (field, value) => {
     setSeoData(prev => ({ ...prev, [field]: value }));
