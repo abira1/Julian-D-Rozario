@@ -914,7 +914,7 @@ async def create_blog(blog: BlogCreate, user_data: dict = Depends(verify_admin))
     meta_title = blog.meta_title or blog.title[:60]
     meta_description = blog.meta_description or blog.excerpt[:160]
     keywords = blog.keywords or blog.category
-    og_image = blog.og_image or ""
+    og_image = blog.og_image or blog.featured_image or blog.image_url or ""
     canonical_url = blog.canonical_url or f"/blog/{slug}"
     
     if USE_MYSQL:
@@ -922,12 +922,12 @@ async def create_blog(blog: BlogCreate, user_data: dict = Depends(verify_admin))
             async with conn.cursor() as cursor:
                 await cursor.execute("""
                     INSERT INTO blogs (
-                        title, excerpt, content, date, read_time, category, author, tags, is_featured, status,
+                        title, excerpt, content, image_url, featured_image, date, read_time, category, author, tags, is_featured, status,
                         slug, meta_title, meta_description, keywords, og_image, canonical_url
                     )
-                    VALUES (%s, %s, %s, CURDATE(), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, CURDATE(), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (
-                    blog.title, blog.excerpt, blog.content, blog.read_time,
+                    blog.title, blog.excerpt, blog.content, blog.image_url, blog.featured_image, blog.read_time,
                     blog.category, blog.author, json.dumps(blog.tags),
                     blog.is_featured, blog.status,
                     slug, meta_title, meta_description, keywords, og_image, canonical_url
@@ -939,12 +939,12 @@ async def create_blog(blog: BlogCreate, user_data: dict = Depends(verify_admin))
             cursor = conn.cursor()
             cursor.execute("""
                 INSERT INTO blogs (
-                    title, excerpt, content, date, read_time, category, author, tags, is_featured, status,
+                    title, excerpt, content, image_url, featured_image, date, read_time, category, author, tags, is_featured, status,
                     slug, meta_title, meta_description, keywords, og_image, canonical_url
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                blog.title, blog.excerpt, blog.content,
+                blog.title, blog.excerpt, blog.content, blog.image_url, blog.featured_image,
                 datetime.now().date().isoformat(),
                 blog.read_time, blog.category, blog.author,
                 json.dumps(blog.tags), blog.is_featured, blog.status,
