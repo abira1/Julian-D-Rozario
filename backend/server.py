@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 import jwt
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 import json
 from contextlib import contextmanager
 from upload_handler import save_upload_file, delete_image, UPLOAD_DIR
