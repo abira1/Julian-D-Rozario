@@ -175,6 +175,7 @@ export const FirebaseAuthProvider = ({ children }) => {
     
     // Authentication methods
     login,
+    loginWithGoogle, // Primary method
     logout,
     getAuthHeaders,
     requireAuth,
