@@ -157,13 +157,13 @@ const ComprehensiveBlogManager = () => {
     setCurrentBlog(null);
   };
 
-  // Handle SEO data updates from SEOEditor
-  const handleSEOUpdate = (seoData) => {
+  // Handle SEO data updates from SEOEditor (memoized to prevent infinite loop)
+  const handleSEOUpdate = useCallback((seoData) => {
     setFormData(prev => ({
       ...prev,
       ...seoData
     }));
-  };
+  }, []);
 
   // Handle form input changes
   const handleInputChange = (e) => {
