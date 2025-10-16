@@ -725,7 +725,11 @@ const ComprehensiveBlogManager = () => {
                       const formData = new FormData();
                       formData.append('image', file);
                       
-                      const response = await fetch('/upload_image.php', {
+                      // Use backend URL from environment variable
+                      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+                      const uploadUrl = `${backendUrl}/upload_image.php`;
+                      
+                      const response = await fetch(uploadUrl, {
                         method: 'POST',
                         body: formData
                       });
