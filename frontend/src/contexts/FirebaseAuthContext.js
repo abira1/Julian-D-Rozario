@@ -88,6 +88,7 @@ export const FirebaseAuthProvider = ({ children }) => {
         setIsAdmin(false);
         setBackendToken(null);
         localStorage.removeItem('firebase_backend_token');
+        localStorage.removeItem('backend_token');
       }
       
       setLoading(false);
