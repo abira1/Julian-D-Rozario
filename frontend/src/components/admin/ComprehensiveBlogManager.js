@@ -182,9 +182,12 @@ const ComprehensiveBlogManager = () => {
         featured: formData.is_featured
       };
 
+      // Use backend URL from environment variable
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+
       let response;
       if (currentBlog) {
-        response = await fetch(`/api/blogs/${currentBlog.id}`, {
+        response = await fetch(`${backendUrl}/api/blogs/${currentBlog.id}`, {
           method: 'PUT',
           headers: { 
             'Content-Type': 'application/json',
@@ -193,7 +196,7 @@ const ComprehensiveBlogManager = () => {
           body: JSON.stringify(dataToSave)
         });
       } else {
-        response = await fetch('/api/blogs', {
+        response = await fetch(`${backendUrl}/api/blogs`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -216,11 +219,13 @@ const ComprehensiveBlogManager = () => {
           navigate('/julian_portfolio/blogs');
         }, 1500);
       } else {
-        throw new Error('Failed to save blog');
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Server response:', response.status, errorData);
+        throw new Error(errorData.detail || 'Failed to save blog');
       }
     } catch (error) {
       console.error('Error saving blog:', error);
-      showNotification('Error saving blog. Please try again.', 'error');
+      showNotification(`Error saving blog: ${error.message}`, 'error');
     } finally {
       setIsSaving(false);
     }
