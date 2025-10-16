@@ -238,7 +238,8 @@ const ComprehensiveBlogManager = () => {
   // Delete blog
   const handleDelete = async (blogId) => {
     try {
-      const response = await fetch(`/api/blogs/${blogId}`, {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const response = await fetch(`${backendUrl}/api/blogs/${blogId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('backend_token')}`
