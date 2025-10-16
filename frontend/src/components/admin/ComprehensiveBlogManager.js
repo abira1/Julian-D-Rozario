@@ -737,7 +737,11 @@ const ComprehensiveBlogManager = () => {
                       const result = await response.json();
                       
                       if (result.success) {
-                        setFormData(prev => ({ ...prev, image_url: result.url }));
+                        // Construct full image URL
+                        const imageUrl = result.url.startsWith('http') 
+                          ? result.url 
+                          : `${backendUrl}${result.url}`;
+                        setFormData(prev => ({ ...prev, image_url: imageUrl }));
                         showNotification('Image uploaded successfully!', 'success');
                       } else {
                         throw new Error(result.error || 'Upload failed');
