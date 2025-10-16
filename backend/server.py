@@ -3,10 +3,11 @@ Julian D'Rozario Portfolio Backend
 Supports both SQLite (local dev) and MySQL (production/Hostinger)
 """
 
-from fastapi import FastAPI, HTTPException, Depends, status, Request, Query
+from fastapi import FastAPI, HTTPException, Depends, status, Request, Query, UploadFile, File
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 import os
 import logging
