@@ -23,14 +23,14 @@
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [L,R=301]
     
-    # API Proxy Rules (if backend is on same server)
-    # Uncomment if your Python backend runs on port 8001
-    # RewriteCond %{REQUEST_URI} ^/api
-    # RewriteRule ^api/(.*)$ http://127.0.0.1:8001/api/$1 [P,L]
+    # API Routes - Route to PHP API
+    RewriteCond %{REQUEST_URI} ^/api
+    RewriteRule ^api/(.*)$ /api/index.php [L,QSA]
     
-    # React Router - Send all requests to index.html (except real files)
+    # React Router - Send all requests to index.html (except real files and API)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/api
     RewriteCond %{REQUEST_URI} !^/uploads
     RewriteRule . /index.html [L]
 </IfModule>
