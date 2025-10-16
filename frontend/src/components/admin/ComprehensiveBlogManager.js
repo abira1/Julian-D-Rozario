@@ -102,7 +102,8 @@ const ComprehensiveBlogManager = () => {
   // Load specific blog for editing
   const loadBlog = async (blogId) => {
     try {
-      const response = await fetch(`/api/blogs/${blogId}`);
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const response = await fetch(`${backendUrl}/api/blogs/${blogId}`);
       if (response.ok) {
         const blog = await response.json();
         setCurrentBlog(blog);
