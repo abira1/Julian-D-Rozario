@@ -38,6 +38,9 @@ import LikedBlogs from "./pages/LikedBlogs";
 import SavedBlogs from "./pages/SavedBlogs";
 import UserComments from "./pages/UserComments";
 
+// Import Firebase Migration Helper (temporary - remove after migration)
+import FirebaseMigrationHelper from "./components/FirebaseMigrationHelper";
+
 const Home = () => {
   // Track loading state for each section
   const [sectionsLoaded, setSectionsLoaded] = useState({
