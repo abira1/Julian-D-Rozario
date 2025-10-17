@@ -18,7 +18,7 @@ const AdminPanel = () => {
 
   useEffect(() => {
     if (!authLoading) {
-      if (authUser && backendToken) {
+      if (authUser) {
         if (isAdmin) {
           setIsAuthenticated(true);
           setUser(authUser.displayName || authUser.email);
@@ -32,7 +32,7 @@ const AdminPanel = () => {
       }
       setIsLoading(false);
     }
-  }, [authUser, isAdmin, backendToken, authLoading, navigate]);
+  }, [authUser, isAdmin, authLoading, navigate]);
 
   const handleLogin = (token, username) => {
     setIsAuthenticated(true);
