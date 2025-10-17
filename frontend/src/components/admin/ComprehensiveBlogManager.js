@@ -6,6 +6,8 @@ import {
   Clock, Check, X, AlertCircle, Zap, BookOpen, TrendingUp, Users
 } from 'lucide-react';
 import SEOEditor from './SEOEditor';
+import blogService from '../../services/blogService';
+import categoryService from '../../services/categoryService';
 
 const ComprehensiveBlogManager = () => {
   const navigate = useNavigate();
