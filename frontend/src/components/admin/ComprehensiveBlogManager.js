@@ -83,12 +83,9 @@ const ComprehensiveBlogManager = () => {
     try {
       setIsLoading(true);
       
-      // Use backend URL from environment variable
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-      
-      const blogsResponse = await fetch(`${backendUrl}/api/blogs?admin=true`);
-      const blogsData = blogsResponse.ok ? await blogsResponse.json() : [];
-      setBlogs(Array.isArray(blogsData) ? blogsData : blogsData.blogs || []);
+      // Fetch blogs from Firebase
+      const blogsData = await blogService.getAllBlogs();
+      setBlogs(Array.isArray(blogsData) ? blogsData : []);
       
       // Use predefined categories
       setCategories(defaultCategories);
