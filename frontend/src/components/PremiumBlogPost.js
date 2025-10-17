@@ -143,67 +143,56 @@ const PremiumBlogPost = () => {
   }, [shareMenuOpen]);
 
   const handleLike = async () => {
+    if (!userId) {
+      // User needs to login
+      alert('Please login to like this post');
+      return;
+    }
+    
     try {
-      const response = await fetch(`/api/blogs/${id}/like`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAuthHeaders()
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setLiked(data.liked);
-        setLikes(data.likes);
-      }
+      const result = await likeService.toggleLike(id, userId, userEmail);
+      setLiked(result.liked);
+      
+      // Update likes count
+      const updatedBlog = await blogService.getBlogById(id);
+      setLikes(updatedBlog.likes || 0);
     } catch (error) {
       console.error('Error liking blog:', error);
     }
   };
 
   const handleSave = async () => {
-    try {
-      const response = await fetch(`/api/blogs/${id}/save`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAuthHeaders()
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSaved(data.saved);
-      }
-    } catch (error) {
-      console.error('Error saving blog:', error);
-    }
+    // This functionality can be added later if needed
+    alert('Save functionality will be added soon!');
   };
 
   const handleCommentSubmit = async () => {
     if (!comment.trim()) return;
+    if (!userId) {
+      alert('Please login to comment');
+      return;
+    }
 
     try {
       setSubmittingComment(true);
-      const response = await fetch(`/api/blogs/${id}/comments`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAuthHeaders()
-        },
-        body: JSON.stringify({
-          comment: comment.trim()
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setComments(prev => [data.comment, ...prev]);
-        setComment('');
-      }
+      const newComment = await commentService.addComment(
+        id,
+        { text: comment.trim() },
+        userId,
+        userName || 'Anonymous',
+        userEmail,
+        userPhoto || ''
+      );
+      
+      setComments(prev => [newComment, ...prev]);
+      setComment('');
+      
+      // Update blog comments count
+      const updatedBlog = await blogService.getBlogById(id);
+      setBlog(updatedBlog);
     } catch (error) {
       console.error('Error submitting comment:', error);
+      alert('Failed to post comment. Please try again.');
     } finally {
       setSubmittingComment(false);
     }
