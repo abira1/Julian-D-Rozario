@@ -60,36 +60,32 @@ const PremiumBlogPost = () => {
     try {
       setIsLoading(true);
       
-      const response = await fetch(`/api/blogs/${id}`, {
-        headers: getAuthHeaders()
-      });
-      if (response.ok) {
-        const blogData = await response.json();
+      // Fetch blog from Firebase
+      const blogData = await blogService.getBlogById(id);
+      
+      if (blogData) {
         setBlog(blogData);
         setLikes(blogData.likes || 0);
-        setLiked(blogData.user_liked || false);
-        setSaved(blogData.user_saved || false);
+        
+        // Increment view count
+        await blogService.incrementViews(id);
+        
+        // Check if user liked this blog
+        if (userId) {
+          const hasLiked = await likeService.hasUserLiked(id, userId);
+          setLiked(hasLiked);
+        }
         
         // Fetch comments
-        const commentsResponse = await fetch(`/api/blogs/${id}/comments`, {
-          headers: getAuthHeaders()
-        });
-        if (commentsResponse.ok) {
-          const commentsData = await commentsResponse.json();
-          setComments(commentsData.comments || []);
-        }
+        const commentsData = await commentService.getCommentsByBlogId(id);
+        setComments(commentsData || []);
         
-        // Fetch related blogs
-        const allBlogsResponse = await fetch(API_CONFIG.getApiPath('/blogs'));
-        if (allBlogsResponse.ok) {
-          const allBlogsData = await allBlogsResponse.json();
-          // API returns {blogs: [...], total: n}, extract the blogs array
-          const allBlogs = allBlogsData.blogs || allBlogsData;
-          const related = allBlogs
-            .filter(b => b.id !== blogData.id && b.category === blogData.category)
-            .slice(0, 3);
-          setRelatedBlogs(related);
-        }
+        // Fetch related blogs (same category)
+        const allBlogs = await blogService.getAllBlogs();
+        const related = allBlogs
+          .filter(b => b.id !== id && b.category === blogData.category)
+          .slice(0, 3);
+        setRelatedBlogs(related);
       } else {
         navigate('/blog');
         return;
