@@ -39,7 +39,7 @@ const PremiumBlogPost = () => {
   const navigate = useNavigate();
   const heroRef = useRef(null);
   const contentRef = useRef(null);
-  const { user, getAuthHeaders } = useFirebaseAuth();
+  const { user, userId, userEmail, userName, userPhoto } = useFirebaseAuth();
   const [blog, setBlog] = useState(null);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
