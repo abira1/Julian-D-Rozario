@@ -14,7 +14,7 @@ const AdminPanel = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user: authUser, isAdmin, backendToken, loading: authLoading } = useFirebaseAuth();
+  const { user: authUser, isAdmin, loading: authLoading } = useFirebaseAuth();
 
   useEffect(() => {
     if (!authLoading) {
