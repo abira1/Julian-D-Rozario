@@ -17,7 +17,9 @@ define('DB_NAME', 'u691568332_toiraldbhub');
 define('DB_CHARSET', 'utf8mb4');
 
 // JWT Configuration
-define('JWT_SECRET', 'your-super-secret-key-change-in-production');
+// IMPORTANT: Generate a secure secret key using: openssl rand -hex 32
+// Default key provided below - CHANGE THIS for production security!
+define('JWT_SECRET', '13c12eada01f9ebdff03d5735d8eac725835a064b21015a521d719941cfa56f5');
 define('JWT_ALGORITHM', 'HS256');
 define('JWT_EXPIRY', 86400); // 24 hours
 
