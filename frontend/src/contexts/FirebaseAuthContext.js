@@ -76,18 +76,10 @@ export const FirebaseAuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
-      setBackendToken(null);
-      localStorage.removeItem('firebase_backend_token');
-      localStorage.removeItem('backend_token');
     } catch (error) {
       console.error('Logout error:', error);
       throw error;
     }
-  };
-
-  const getAuthHeaders = () => {
-    const token = backendToken || localStorage.getItem('firebase_backend_token');
-    return token ? { 'Authorization': `Bearer ${token}` } : {};
   };
 
   const requireAuth = (callback) => {
@@ -98,42 +90,18 @@ export const FirebaseAuthProvider = ({ children }) => {
     }
   };
 
-  // Check if user has liked a specific blog
+  // Check if user has liked a specific blog (Firebase version)
   const checkUserLike = async (blogId) => {
     if (!user) return false;
     
     try {
-      const response = await fetch(API_CONFIG.getApiPath(`/blogs/${blogId}/user-like-status`), {
-        headers: getAuthHeaders()
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        return data.liked;
-      }
+      const likeRef = ref(database, `likes/${blogId}/${user.uid}`);
+      const snapshot = await get(likeRef);
+      return snapshot.exists();
     } catch (error) {
       console.error('Error checking like status:', error);
+      return false;
     }
-    return false;
-  };
-
-  // Check if user has saved a specific blog
-  const checkUserSaved = async (blogId) => {
-    if (!user) return false;
-    
-    try {
-      const response = await fetch(API_CONFIG.getApiPath(`/blogs/${blogId}/user-save-status`), {
-        headers: getAuthHeaders()
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        return data.saved;
-      }
-    } catch (error) {
-      console.error('Error checking save status:', error);
-    }
-    return false;
   };
 
   const value = {
@@ -141,18 +109,15 @@ export const FirebaseAuthProvider = ({ children }) => {
     user,
     loading,
     isAdmin,
-    backendToken,
     
     // Authentication methods
     login,
     loginWithGoogle, // Primary method
     logout,
-    getAuthHeaders,
     requireAuth,
     
     // Blog interaction helpers
     checkUserLike,
-    checkUserSaved,
     
     // Firebase user properties for easy access
     userId: user?.uid,
