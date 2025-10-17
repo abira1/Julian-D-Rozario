@@ -68,22 +68,18 @@ const PremiumBlogListing = () => {
     try {
       setIsLoading(true);
       
-      // Fetch blogs
-      const blogsResponse = await fetch(API_CONFIG.getApiPath('/blogs'));
-      const blogsData = blogsResponse.ok ? await blogsResponse.json() : {blogs: []};
-      // Backend returns {blogs: [...], total: n}, extract the blogs array
-      const blogsList = blogsData.blogs || blogsData || [];
+      // Fetch blogs from Firebase
+      const blogsList = await blogService.getAllBlogs();
       setBlogs(Array.isArray(blogsList) ? blogsList : []);
       
-      // Fetch categories
-      const categoriesResponse = await fetch(API_CONFIG.getApiPath('/categories'));
-      const categoriesData = categoriesResponse.ok ? await categoriesResponse.json() : [];
-      const filteredCategories = Array.isArray(categoriesData) ? 
-        categoriesData.filter(cat => cat.name !== 'All') : [];
-      setCategories([{ name: 'All' }, ...filteredCategories]);
+      // Fetch categories from Firebase
+      const categoriesData = await categoryService.getCategoriesFromBlogs();
+      setCategories([{ name: 'All' }, ...categoriesData]);
       
     } catch (error) {
       console.error('Error fetching data:', error);
+      setBlogs([]);
+      setCategories([{ name: 'All' }]);
     } finally {
       setIsLoading(false);
     }
