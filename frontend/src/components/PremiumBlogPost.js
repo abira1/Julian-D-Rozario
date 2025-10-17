@@ -5,7 +5,9 @@ import BlurImage from './ui/BlurImage';
 import SEOHead from './SEOHead';
 import { useFirebaseAuth } from '../contexts/FirebaseAuthContext';
 import FirebaseProtectedAction from './FirebaseProtectedAction';
-import { API_CONFIG } from '../config/api';
+import blogService from '../services/blogService';
+import commentService from '../services/commentService';
+import likeService from '../services/likeService';
 import { 
   Heart, 
   MessageCircle, 
