@@ -172,6 +172,7 @@ const ComprehensiveBlogManager = () => {
   };
 
   // Save blog (create or update)
+  // Save blog (create or update)
   const handleSave = async (status = 'draft') => {
     try {
       setIsSaving(true);
@@ -201,15 +202,6 @@ const ComprehensiveBlogManager = () => {
     } catch (error) {
       console.error('Error saving blog:', error);
       showNotification(`Error: ${error.message}`, 'error');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-        }
-      }
-    } catch (error) {
-      console.error('Error saving blog:', error);
-      showNotification(`Error saving blog: ${error.message}`, 'error');
     } finally {
       setIsSaving(false);
     }
