@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth, googleProvider } from '../firebase/config';
+import { auth, googleProvider, database } from '../firebase/config';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
-import { API_CONFIG } from '../config/api';
+import { ref, get, set, serverTimestamp } from 'firebase/database';
 
 const FirebaseAuthContext = createContext();
 
@@ -17,7 +17,6 @@ export const FirebaseAuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [backendToken, setBackendToken] = useState(null);
 
   // Authorized admin emails
   const ADMIN_EMAILS = [
@@ -36,59 +35,23 @@ export const FirebaseAuthProvider = ({ children }) => {
         const isUserAdmin = ADMIN_EMAILS.includes(firebaseUser.email);
         setIsAdmin(isUserAdmin);
         
+        // Store/update user profile in Firebase Realtime Database
         try {
-          // Get Firebase ID token
-          const idToken = await firebaseUser.getIdToken();
-          
-          // Send to backend for JWT token (both admin and regular users)
-          const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-          const endpointPath = isUserAdmin ? '/api/auth/firebase-admin-login' : '/api/auth/firebase-user-login';
-          const endpoint = `${backendUrl}${endpointPath}`;
-          
-          const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              firebase_token: idToken,
-              user_data: {
-                uid: firebaseUser.uid,
-                email: firebaseUser.email,
-                name: firebaseUser.displayName,
-                picture: firebaseUser.photoURL
-              }
-            }),
+          const userRef = ref(database, `users/${firebaseUser.uid}`);
+          await set(userRef, {
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+            isAdmin: isUserAdmin,
+            lastLogin: serverTimestamp()
           });
-
-          if (response.ok) {
-            const data = await response.json();
-            setBackendToken(data.access_token);
-            localStorage.setItem('firebase_backend_token', data.access_token);
-            // Also set as backend_token for compatibility
-            localStorage.setItem('backend_token', data.access_token);
-          } else {
-            console.error('Failed to get backend token:', await response.text());
-            // Fallback: set a simple token
-            const fallbackToken = (isUserAdmin ? 'admin-token-' : 'user-token-') + Date.now();
-            setBackendToken(fallbackToken);
-            localStorage.setItem('firebase_backend_token', fallbackToken);
-            localStorage.setItem('backend_token', fallbackToken);
-          }
         } catch (error) {
-          console.error('Error getting backend token:', error);
-          // Fallback: set a simple token
-          const fallbackToken = (isUserAdmin ? 'admin-token-' : 'user-token-') + Date.now();
-          setBackendToken(fallbackToken);
-          localStorage.setItem('firebase_backend_token', fallbackToken);
-          localStorage.setItem('backend_token', fallbackToken);
+          console.error('Error saving user profile:', error);
         }
       } else {
         setUser(null);
         setIsAdmin(false);
-        setBackendToken(null);
-        localStorage.removeItem('firebase_backend_token');
-        localStorage.removeItem('backend_token');
       }
       
       setLoading(false);
