@@ -101,16 +101,14 @@ const ComprehensiveBlogManager = () => {
   // Load specific blog for editing
   const loadBlog = async (blogId) => {
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-      const response = await fetch(`${backendUrl}/api/blogs/${blogId}`);
-      if (response.ok) {
-        const blog = await response.json();
+      const blog = await blogService.getBlogById(blogId);
+      if (blog) {
         setCurrentBlog(blog);
         setFormData({
           title: blog.title || '',
           excerpt: blog.excerpt || '',
           content: blog.content || '',
-          category: blog.category || blog.category_name || 'Business Formation',
+          category: blog.category || 'Business Formation',
           image_url: blog.image_url || blog.featured_image || '',
           author: blog.author || 'Julian D\'Rozario',
           status: blog.status || 'draft',
