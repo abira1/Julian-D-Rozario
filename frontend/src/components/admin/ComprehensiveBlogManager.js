@@ -176,76 +176,35 @@ const ComprehensiveBlogManager = () => {
     try {
       setIsSaving(true);
       
-      // Get token from localStorage (matches FirebaseAuthContext key)
-      const token = localStorage.getItem('firebase_backend_token') || localStorage.getItem('backend_token');
-      
-      // Validate token exists
-      if (!token) {
-        throw new Error('Invalid token - Please sign out and sign in again');
-      }
-      
-      console.log('Saving blog with token:', token ? 'Token exists' : 'No token');
-      
       const dataToSave = {
         ...formData,
         status: status,
         featured_image: formData.image_url,
-        featured: formData.is_featured
+        date: new Date().toISOString().split('T')[0] // YYYY-MM-DD format
       };
 
-      // Use backend URL from environment variable
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-      
-      console.log('Backend URL:', backendUrl);
-      console.log('Save mode:', currentBlog ? 'Update' : 'Create');
-
-      let response;
       if (currentBlog) {
-        response = await fetch(`${backendUrl}/api/blogs/${currentBlog.id}`, {
-          method: 'PUT',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(dataToSave)
-        });
+        // Update existing blog
+        await blogService.updateBlog(currentBlog.id, dataToSave);
+        showNotification('Blog updated successfully!', 'success');
       } else {
-        response = await fetch(`${backendUrl}/api/blogs`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(dataToSave)
-        });
+        // Create new blog
+        await blogService.createBlog(dataToSave);
+        showNotification('Blog created successfully!', 'success');
       }
-
-      console.log('Response status:', response.status);
-
-      if (response.ok) {
-        const savedBlog = await response.json();
-        console.log('Blog saved successfully:', savedBlog);
-        showNotification(
-          currentBlog ? 'Blog updated successfully!' : 'Blog created successfully!',
-          'success'
-        );
-        
-        await fetchData();
-        
-        setTimeout(() => {
-          navigate('/julian_portfolio/blogs');
-        }, 1500);
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('Server response:', response.status, errorData);
-        
-        // Provide more specific error messages
-        if (response.status === 401) {
-          throw new Error('Invalid token - Please sign out and sign in again');
-        } else if (response.status === 403) {
-          throw new Error('Access denied - Admin privileges required');
-        } else {
-          throw new Error(errorData.detail || `Failed to save blog (Status: ${response.status})`);
+      
+      await fetchData();
+      
+      setTimeout(() => {
+        navigate('/julian_portfolio/blogs');
+      }, 1500);
+    } catch (error) {
+      console.error('Error saving blog:', error);
+      showNotification(`Error: ${error.message}`, 'error');
+    } finally {
+      setIsSaving(false);
+    }
+  };
         }
       }
     } catch (error) {
