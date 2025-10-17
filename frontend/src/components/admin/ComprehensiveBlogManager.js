@@ -218,23 +218,10 @@ const ComprehensiveBlogManager = () => {
   // Delete blog
   const handleDelete = async (blogId) => {
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-      const token = localStorage.getItem('firebase_backend_token') || localStorage.getItem('backend_token');
-      
-      const response = await fetch(`${backendUrl}/api/blogs/${blogId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        showNotification('Blog deleted successfully!', 'success');
-        await fetchData();
-        setShowDeleteConfirm(null);
-      } else {
-        throw new Error('Failed to delete blog');
-      }
+      await blogService.deleteBlog(blogId);
+      showNotification('Blog deleted successfully!', 'success');
+      await fetchData();
+      setShowDeleteConfirm(null);
     } catch (error) {
       console.error('Error deleting blog:', error);
       showNotification('Error deleting blog', 'error');
