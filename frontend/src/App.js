@@ -162,6 +162,9 @@ function App() {
       <div className="App bg-black text-white overflow-x-hidden">
         <FirebaseAuthProvider>
           <BrowserRouter>
+            {/* Firebase Migration Helper - Remove after running migration once */}
+            <FirebaseMigrationHelper />
+            
             <Routes>
             {/* Main portfolio website at root */}
             <Route path="/" element={
