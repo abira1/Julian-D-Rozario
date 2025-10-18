@@ -102,6 +102,7 @@ const PremiumBlogSection = () => {
   };
 
   const handleBlogClick = (blogId) => {
+    console.log('PremiumBlogSection: Navigating to blog post with ID:', blogId);
     navigate(`/blog/${blogId}`);
   };
 
