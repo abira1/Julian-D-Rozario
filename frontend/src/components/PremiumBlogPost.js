@@ -167,8 +167,19 @@ const PremiumBlogPost = () => {
   };
 
   const handleSave = async () => {
-    // This functionality can be added later if needed
-    alert('Save functionality will be added soon!');
+    if (!userId) {
+      // User needs to login
+      alert('Please login to save this post');
+      return;
+    }
+    
+    try {
+      const result = await saveService.toggleSave(id, userId, userEmail);
+      setSaved(result.saved);
+    } catch (error) {
+      console.error('Error saving blog:', error);
+      alert('Failed to save blog. Please try again.');
+    }
   };
 
   const handleCommentSubmit = async () => {
