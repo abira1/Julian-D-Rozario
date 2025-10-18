@@ -270,12 +270,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Backend Server Health Check"
-    - "Database Connectivity"
-    - "Blog API Endpoints"
-  stuck_tasks: []
+    - "Blog Detail Page Navigation"
+  stuck_tasks: 
+    - "Blog Detail Page Navigation"
   test_all: false
-  test_priority: "high_first"
+  test_priority: "stuck_first"
 
 agent_communication:
   - agent: "testing"
