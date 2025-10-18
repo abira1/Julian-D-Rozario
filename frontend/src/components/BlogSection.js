@@ -168,8 +168,14 @@ const BlogSection = () => {
               <div className="mb-6">
                 {blogs.length > 0 && (
                   <div
-                    onClick={() => handleArticleClick(blogs[0].id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log('BlogSection: Card clicked!', blogs[0].id);
+                      handleArticleClick(blogs[0].id);
+                    }}
                     className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/50 to-slate-800/50 border border-white/10 hover:border-purple-400/30 transition-all duration-300 cursor-pointer"
+                    style={{ pointerEvents: 'auto' }}
                   >
                     {/* Featured Image */}
                     <div className="relative h-48 overflow-hidden">
