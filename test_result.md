@@ -261,18 +261,16 @@ frontend:
 
 metadata:
   created_by: "testing_agent"
-  version: "1.0"
-  test_sequence: 1
+  version: "1.1"
+  test_sequence: 2
+  run_ui: false
 
 test_plan:
   current_focus:
-    - "Blog Detail Page Navigation"
-    - "Comments Section - Not Logged In"
-    - "Comments Section - Logged In"
-  stuck_tasks:
-    - "Blog Detail Page Navigation"
-    - "Comments Section - Not Logged In"
-    - "Comments Section - Logged In"
+    - "Backend Server Health Check"
+    - "Database Connectivity"
+    - "Blog API Endpoints"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
