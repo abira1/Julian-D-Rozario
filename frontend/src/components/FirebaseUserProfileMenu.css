@@ -1,0 +1,273 @@
+.firebase-user-profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.firebase-profile-trigger {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.firebase-profile-trigger:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.firebase-profile-trigger:focus {
+  outline: 2px solid #4285f4;
+  outline-offset: 2px;
+}
+
+.firebase-profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.firebase-profile-trigger:hover .firebase-profile-avatar {
+  border-color: #dadce0;
+}
+
+.admin-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  color: white;
+  font-size: 8px;
+  padding: 1px 4px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.firebase-profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  z-index: 1000;
+  animation: dropdownSlide 0.2s ease;
+  transform-origin: top right;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.firebase-profile-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.firebase-profile-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.firebase-profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.firebase-profile-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #202124;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.firebase-profile-email {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #5f6368;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.firebase-admin-badge {
+  display: inline-block;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.firebase-profile-divider {
+  height: 1px;
+  background-color: #e8eaed;
+  margin: 0 8px;
+}
+
+.firebase-profile-menu-items {
+  padding: 8px 0;
+}
+
+.firebase-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: #3c4043;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.firebase-menu-item:hover {
+  background-color: #f8f9fa;
+}
+
+.firebase-menu-item:focus {
+  outline: none;
+  background-color: #f8f9fa;
+}
+
+.firebase-menu-item.admin-item {
+  color: #667eea;
+  font-weight: 500;
+}
+
+.firebase-menu-item.admin-item:hover {
+  background-color: #f0f4ff;
+}
+
+.firebase-menu-item.logout {
+  color: #d93025;
+}
+
+.firebase-menu-item.logout:hover {
+  background-color: #fce8e6;
+}
+
+.firebase-menu-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.firebase-menu-item.logout .firebase-menu-icon,
+.firebase-menu-item.admin-item .firebase-menu-icon {
+  opacity: 1;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .firebase-profile-dropdown {
+    background: #2d2d2d;
+    border-color: #5f6368;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .firebase-profile-name {
+    color: #e8eaed;
+  }
+
+  .firebase-profile-email {
+    color: #9aa0a6;
+  }
+
+  .firebase-profile-divider {
+    background-color: #5f6368;
+  }
+
+  .firebase-menu-item {
+    color: #e8eaed;
+  }
+
+  .firebase-menu-item:hover {
+    background-color: #3c4043;
+  }
+
+  .firebase-menu-item:focus {
+    background-color: #3c4043;
+  }
+
+  .firebase-menu-item.admin-item:hover {
+    background-color: #2d3b4f;
+  }
+
+  .firebase-menu-item.logout:hover {
+    background-color: #5f2120;
+  }
+
+  .firebase-profile-trigger:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .firebase-profile-dropdown {
+    right: -8px;
+    min-width: 240px;
+  }
+
+  .firebase-profile-header {
+    padding: 12px;
+  }
+
+  .firebase-menu-item {
+    padding: 16px 12px;
+    font-size: 16px;
+  }
+
+  .firebase-menu-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .firebase-profile-dropdown {
+    border-width: 2px;
+  }
+
+  .firebase-menu-item:focus {
+    outline: 2px solid #4285f4;
+    outline-offset: -2px;
+  }
+}
