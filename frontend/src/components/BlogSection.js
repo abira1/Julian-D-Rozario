@@ -55,6 +55,7 @@ const BlogSection = () => {
             .slice(0, 6);
           
           console.log('BlogSection: Final blogs to display:', publishedBlogs);
+          console.log('BlogSection: Blog IDs:', publishedBlogs.map(b => ({ id: b.id, title: b.title })));
           setBlogs(publishedBlogs);
           setDataSource('Firebase');
         } else {
