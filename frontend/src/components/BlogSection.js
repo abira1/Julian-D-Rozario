@@ -75,6 +75,7 @@ const BlogSection = () => {
   }, []);
 
   const handleArticleClick = (articleId) => {
+    console.log('BlogSection: Navigating to blog post with ID:', articleId);
     navigate(`/blog/${articleId}`);
   };
 
