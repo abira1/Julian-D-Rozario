@@ -200,7 +200,7 @@ frontend:
     implemented: true
     working: false
     file: "/app/frontend/src/components/BlogSection.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
     needs_retesting: false
     status_history:
@@ -213,6 +213,9 @@ frontend:
       - working: false
         agent: "testing"
         comment: "❌ CRITICAL ISSUE CONFIRMED - Blog cards on homepage navigate to /blog listing page instead of individual blog posts. The handleArticleClick function in BlogSection.js calls navigate(`/blog/${articleId}`) but this redirects to blog listing. However, direct URL access works perfectly (tested /-Obodc1f-Gja2Q11egPO). Issue is in the click handler routing logic, not the blog post component itself."
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL ISSUE RE-CONFIRMED - Comprehensive testing shows blog navigation is completely broken. Homepage displays 'Latest Insights' section with 6 blog cards correctly. However, clicking any blog card redirects to /blog listing page instead of individual blog post (/blog/{id}). No console logs for 'BlogSection: Navigating to blog post with ID:' or 'PremiumBlogPost: Fetching blog with ID:' were captured, indicating the navigation logic is not executing properly. The handleArticleClick function appears to be calling navigate(`/blog/${articleId}`) but the routing is not working as expected."
 
   - task: "Comments Section - Not Logged In"
     implemented: true
