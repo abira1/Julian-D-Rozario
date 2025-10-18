@@ -75,6 +75,10 @@ const PremiumBlogPost = () => {
         if (userId) {
           const hasLiked = await likeService.hasUserLiked(id, userId);
           setLiked(hasLiked);
+          
+          // Check if user saved this blog
+          const hasSaved = await saveService.hasUserSaved(id, userId);
+          setSaved(hasSaved);
         }
         
         // Fetch comments
