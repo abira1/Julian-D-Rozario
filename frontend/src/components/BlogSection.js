@@ -103,9 +103,33 @@ const BlogSection = () => {
           >
             Latest Insights
           </h2>
-          <p className="text-sm xxs:text-base xs:text-lg sm-mobile:text-lg md-tablet:text-xl text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-2xl mx-auto px-2">
-            Expert perspectives on Dubai business formation, UAE licensing, and corporate advisory services
+          <p className="text-sm xxs:text-base xs:text-lg sm-mobile:text-lg md-tablet:text-xl text-gray-300 max-w-xs xxs:max-w-sm xs:max-w-md sm-mobile:max-w-lg md-tablet:max-w-2xl mx-auto px-2 mb-4">
+            Expert perspectives on Dubai business formation, UAE licensing, and corporate advisory services from Julian D'Rozario
           </p>
+          
+          {/* Stats Row */}
+          <div className="flex items-center justify-center gap-4 xxs:gap-6 text-xs xxs:text-sm text-gray-400">
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>{blogs.length} Articles</span>
+            </div>
+            <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m8 0h4a2 2 0 012 2v12a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2h4" />
+              </svg>
+              <span>10+ Years Experience</span>
+            </div>
+            <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>3200+ Licenses</span>
+            </div>
+          </div>
           
           {/* Debug info - Only show on development */}
           {process.env.NODE_ENV === 'development' && (
