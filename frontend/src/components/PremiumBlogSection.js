@@ -16,33 +16,46 @@ const PremiumBlogSection = () => {
   useEffect(() => {
     const loadBlogs = async () => {
       try {
-        const response = await fetch(API_CONFIG.getApiPath('/blogs'), {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
+        console.log('PremiumBlogSection: Loading blogs from Firebase...');
         
-        if (response.ok) {
-          const apiResponse = await response.json();
+        // Fetch from Firebase Realtime Database
+        const firebaseBlogs = await blogService.getAllBlogs();
+        console.log('PremiumBlogSection: Firebase blogs loaded:', firebaseBlogs?.length || 0);
+        
+        if (firebaseBlogs && Array.isArray(firebaseBlogs) && firebaseBlogs.length > 0) {
+          // Filter for published blogs
+          let publishedBlogs = firebaseBlogs.filter(blog => {
+            return blog.status === 'published' || 
+                   blog.published === true || 
+                   blog.status === 'active' ||
+                   !blog.hasOwnProperty('status');
+          });
           
-          // API returns {blogs: [...], total: n}, extract the blogs array
-          const blogsData = apiResponse.blogs || apiResponse;
+          // If no published blogs found but we have blogs, show all blogs
+          if (publishedBlogs.length === 0 && firebaseBlogs.length > 0) {
+            console.log('PremiumBlogSection: No published blogs found, showing all blogs');
+            publishedBlogs = firebaseBlogs;
+          }
           
-          // Filter for published blogs and take the most recent 6
-          const publishedBlogs = Array.isArray(blogsData) 
-            ? blogsData.filter(blog => blog.status === 'published' || blog.is_published === 1).slice(0, 6)
-            : [];
+          // Sort by date (newest first) and take the latest 6
+          publishedBlogs = publishedBlogs
+            .sort((a, b) => {
+              const dateA = new Date(b.date || b.createdAt || b.created_at || 0);
+              const dateB = new Date(a.date || a.createdAt || a.created_at || 0);
+              return dateA - dateB;
+            })
+            .slice(0, 6);
           
+          console.log('PremiumBlogSection: Final blogs to display:', publishedBlogs.length);
+          console.log('PremiumBlogSection: Blog IDs:', publishedBlogs.map(b => ({ id: b.id, title: b.title })));
           setBlogs(publishedBlogs);
         } else {
-          console.error('Failed to fetch blogs:', response.status);
-          setBlogs([]); // Set empty array on error
+          console.log('PremiumBlogSection: No blogs found in Firebase');
+          setBlogs([]);
         }
       } catch (error) {
-        console.error('Error loading blogs:', error);
-        setBlogs([]); // Set empty array on error
+        console.error('PremiumBlogSection: Error loading blogs from Firebase:', error);
+        setBlogs([]);
       } finally {
         setIsLoading(false);
       }
