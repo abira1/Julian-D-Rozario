@@ -187,12 +187,13 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Homepage Blog Section Display"
     - "Blog Detail Page Navigation"
     - "Comments Section - Not Logged In"
     - "Comments Section - Logged In"
-    - "Firebase Authentication Integration"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Blog Detail Page Navigation"
+    - "Comments Section - Not Logged In"
+    - "Comments Section - Logged In"
   test_all: false
   test_priority: "high_first"
 
