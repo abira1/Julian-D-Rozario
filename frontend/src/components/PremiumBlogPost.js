@@ -62,7 +62,9 @@ const PremiumBlogPost = () => {
       setIsLoading(true);
       
       // Fetch blog from Firebase
+      console.log('PremiumBlogPost: Fetching blog with ID:', id);
       const blogData = await blogService.getBlogById(id);
+      console.log('PremiumBlogPost: Blog data received:', blogData ? 'Found' : 'Not found');
       
       if (blogData) {
         setBlog(blogData);
