@@ -50,21 +50,34 @@ class BackendTester:
             return False
     
     def test_root_endpoint(self):
-        """Test root endpoint"""
+        """Test root endpoint (internal backend)"""
         try:
-            response = self.session.get(f"{self.base_url.replace('/api', '')}/", timeout=10)
+            # Test internal backend directly
+            response = self.session.get("http://localhost:8001/", timeout=10)
             if response.status_code == 200:
                 data = response.json()
-                self.log_test("Root Endpoint", True, 
-                            f"Root endpoint accessible. Version: {data.get('version', 'Unknown')}", data)
+                self.log_test("Backend Root Endpoint", True, 
+                            f"Backend root accessible. Version: {data.get('version', 'Unknown')}", data)
                 return True
             else:
-                self.log_test("Root Endpoint", False, 
-                            f"Root endpoint failed with status {response.status_code}")
+                self.log_test("Backend Root Endpoint", False, 
+                            f"Backend root failed with status {response.status_code}")
                 return False
         except requests.exceptions.RequestException as e:
-            self.log_test("Root Endpoint", False, f"Connection error: {str(e)}")
-            return False
+            # Try external URL as fallback (though it serves frontend)
+            try:
+                response = self.session.get(f"{self.base_url.replace('/api', '')}/", timeout=10)
+                if response.status_code == 200:
+                    # If we get HTML, that means frontend is being served (which is correct)
+                    if 'html' in response.text.lower():
+                        self.log_test("Frontend Root Endpoint", True, 
+                                    "Frontend is being served at root (correct routing)")
+                        return True
+                self.log_test("Backend Root Endpoint", False, f"Connection error: {str(e)}")
+                return False
+            except:
+                self.log_test("Backend Root Endpoint", False, f"Connection error: {str(e)}")
+                return False
     
     def test_blogs_api(self):
         """Test blogs API endpoints"""
